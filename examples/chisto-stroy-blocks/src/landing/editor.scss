@@ -1,0 +1,8 @@
+// Editor-only tweaks. The block preview is rendered via ServerSideRender,
+// so the front-end style.scss does the heavy lifting here too.
+.wp-block-chisto-stroy-landing {
+	// Keep the sticky header from sticking to the editor viewport.
+	.cs-header { position: static; }
+	// Disable the spinning seal in the editor to avoid distraction.
+	.seal .ring { animation: none; }
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "chisto-stroy/landing",
+  "version": "1.0.0",
+  "title": "ЧИСТО.СТРОЙ — Лендинг",
+  "category": "theme",
+  "icon": "buildings",
+  "description": "Полноценный лендинг клининговой компании: hero, услуги, цены, портфолио «до/после», отзывы, FAQ и форма заявки. Тексты телефона, заголовка и цены редактируются.",
+  "keywords": ["лендинг", "клининг", "уборка", "landing"],
+  "textdomain": "chisto-stroy",
+  "supports": {
+    "html": false,
+    "anchor": false,
+    "align": ["full"],
+    "multiple": false,
+    "customClassName": false
+  },
+  "attributes": {
+    "phoneDisplay": { "type": "string", "default": "+7 (495) 000-00-00" },
+    "phoneHref":    { "type": "string", "default": "+74950000000" },
+    "email":        { "type": "string", "default": "info@chisto-stroy.ru" },
+    "hours":        { "type": "string", "default": "Ежедневно 8:00–22:00" },
+    "heroTitle":    { "type": "string", "default": "Уберём после ремонта за 1 день. Цена — из договора, ни рубля сверху" },
+    "heroLead":     { "type": "string", "default": "Послестроительная и генеральная уборка квартир, домов и офисов. Считаем стоимость до начала работ и фиксируем в договоре — финальная сумма совпадёт с первой до копейки." },
+    "pricePerM2":   { "type": "string", "default": "90" },
+    "region":       { "type": "string", "default": "Москва и Московская область" }
+  },
+  "render": "file:./render.php",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js"
+}

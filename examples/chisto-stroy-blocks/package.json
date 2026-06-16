@@ -1,0 +1,16 @@
+{
+  "name": "chisto-stroy-blocks",
+  "version": "1.0.0",
+  "description": "Gutenberg landing block for the ЧИСТО.СТРОЙ cleaning company.",
+  "private": true,
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
+    "lint:js": "wp-scripts lint-js src",
+    "format": "wp-scripts format"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^27.0.0"
+  }
+}
