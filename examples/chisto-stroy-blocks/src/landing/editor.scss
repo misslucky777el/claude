@@ -1,8 +1,27 @@
-// Editor-only tweaks. The block preview is rendered via ServerSideRender,
-// so the front-end style.scss does the heavy lifting here too.
-.wp-block-chisto-stroy-landing {
-	// Keep the sticky header from sticking to the editor viewport.
-	.cs-header { position: static; }
-	// Disable the spinning seal in the editor to avoid distraction.
-	.seal .ring { animation: none; }
+// Editor-only styles. The full landing renders on the front end via render.php;
+// in the editor we show a compact, REST-free placeholder (no ServerSideRender),
+// which avoids the "ответ не является допустимым ответом JSON" error.
+.cs-landing-editor-preview {
+	.components-placeholder {
+		border: 1px solid #e7eaf0;
+		border-radius: 14px;
+	}
+}
+
+.cs-landing-summary {
+	margin: 8px 0 0;
+	padding: 0;
+	list-style: none;
+	display: grid;
+	gap: 6px;
+	font-size: 14px;
+	color: #2b3240;
+
+	li {
+		margin: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		max-width: 560px;
+	}
 }

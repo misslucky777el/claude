@@ -1,15 +1,16 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import {
+	Placeholder,
 	PanelBody,
 	TextControl,
 	TextareaControl,
 } from '@wordpress/components';
-import ServerSideRender from '@wordpress/server-side-render';
-import metadata from './block.json';
 
 export default function Edit( { attributes, setAttributes } ) {
-	const blockProps = useBlockProps();
+	const blockProps = useBlockProps( {
+		className: 'cs-landing-editor-preview',
+	} );
 
 	const field = ( key, label, help ) => (
 		<TextControl
@@ -53,10 +54,22 @@ export default function Edit( { attributes, setAttributes } ) {
 			</InspectorControls>
 
 			<div { ...blockProps }>
-				<ServerSideRender
-					block={ metadata.name }
-					attributes={ attributes }
-				/>
+				<Placeholder
+					icon="buildings"
+					label={ __( 'ЧИСТО.СТРОЙ — Лендинг', 'chisto-stroy' ) }
+					instructions={ __(
+						'Готовая секция-лендинг. Полный вид виден на опубликованной странице (предпросмотр). Тексты редактируются на панели справа.',
+						'chisto-stroy'
+					) }
+				>
+					<ul className="cs-landing-summary">
+						<li>📞 { attributes.phoneDisplay } · { attributes.hours }</li>
+						<li>✉️ { attributes.email }</li>
+						<li>📍 { attributes.region }</li>
+						<li>🏷️ { __( 'Цена от', 'chisto-stroy' ) } { attributes.pricePerM2 } ₽/м²</li>
+						<li>🧱 { attributes.heroTitle }</li>
+					</ul>
+				</Placeholder>
 			</div>
 		</>
 	);
