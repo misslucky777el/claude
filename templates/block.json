@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "__NAMESPACE__/__SLUG__",
+  "version": "1.0.0",
+  "title": "__TITLE__",
+  "category": "widgets",
+  "icon": "smiley",
+  "description": "__TITLE__ block.",
+  "keywords": ["__SLUG__"],
+  "textdomain": "__NAMESPACE__",
+  "attributes": {
+    "content": { "type": "string", "source": "html", "selector": "p", "default": "" }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "color": { "background": true, "text": true },
+    "spacing": { "padding": true, "margin": true }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}
