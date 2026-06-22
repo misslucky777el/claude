@@ -1,0 +1,127 @@
+/* КлинГрупп — общий стиль лендингов */
+:root{
+  --green:#1f9d55; --green-dark:#16794199; --green-700:#157347;
+  --ink:#1a2b33; --muted:#5b6b73; --line:#e3eaed; --bg:#f6f9fa; --white:#fff;
+  --b2b:#1f6f9d; --radius:14px; --shadow:0 6px 24px rgba(20,60,40,.08);
+  --max:1080px; font-synthesis:none;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  color:var(--ink);background:var(--white);line-height:1.55;font-size:17px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+h1,h2,h3{line-height:1.2;margin:0 0 .4em}
+h1{font-size:clamp(28px,4.5vw,44px)}
+h2{font-size:clamp(23px,3.2vw,32px);margin-top:0}
+p{margin:0 0 1em}
+a{color:inherit}
+.muted{color:var(--muted)}
+
+/* Header */
+.hdr{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.95);
+  backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.hdr .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-weight:800;font-size:21px;letter-spacing:-.5px}
+.logo span{color:var(--green)}
+.hdr-right{display:flex;align-items:center;gap:18px}
+.phone{font-weight:700;font-size:19px;white-space:nowrap;text-decoration:none}
+.geo{font-size:14px;color:var(--muted)}
+
+/* Buttons */
+.btn{display:inline-block;background:var(--green);color:#fff;font-weight:700;
+  padding:15px 28px;border-radius:12px;text-decoration:none;border:0;cursor:pointer;
+  font-size:17px;transition:.15s;box-shadow:var(--shadow)}
+.btn:hover{background:var(--green-700);transform:translateY(-1px)}
+.btn-sm{padding:11px 20px;font-size:16px;box-shadow:none}
+.btn-ghost{background:#fff;color:var(--green-700);border:1.5px solid var(--green)}
+.b2b .btn{background:var(--b2b)} .b2b .btn:hover{background:#155a82}
+.b2b .logo span{color:var(--b2b)} .b2b a.phone{color:var(--b2b)}
+
+/* Hero */
+.hero{background:linear-gradient(180deg,var(--bg),#fff);padding:56px 0 48px}
+.hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.eyebrow{display:inline-block;background:#e6f5ec;color:var(--green-700);
+  font-weight:700;font-size:14px;padding:6px 12px;border-radius:999px;margin-bottom:16px}
+.b2b .eyebrow{background:#e7f0f7;color:#155a82}
+.lead{font-size:19px;color:var(--muted);margin-bottom:22px}
+.price-badge{font-size:20px;font-weight:800;color:var(--green-700);margin:0 0 18px}
+.b2b .price-badge{color:#155a82}
+.price-badge small{font-weight:600;color:var(--muted);font-size:15px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.hero-note{font-size:14px;color:var(--muted);margin-top:14px}
+
+/* Lead form card */
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:26px}
+.card h3{font-size:21px;margin-bottom:6px}
+.field{display:block;margin:14px 0}
+.field input{width:100%;padding:14px 15px;border:1.5px solid var(--line);
+  border-radius:10px;font-size:16px;font-family:inherit}
+.field input:focus{outline:none;border-color:var(--green)}
+.form-note{font-size:13px;color:var(--muted);margin-top:10px}
+.card .btn{width:100%;text-align:center}
+
+/* Strips & sections */
+section{padding:52px 0}
+.strip{background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;text-align:center}
+.trust .t{font-weight:700} .trust .t span{display:block;font-size:14px;font-weight:500;color:var(--muted);margin-top:4px}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.cols.two{grid-template-columns:repeat(2,1fr)}
+.feat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.feat h3{font-size:19px}
+.checklist{list-style:none;padding:0;margin:0;columns:2;column-gap:32px}
+.checklist li{padding:9px 0 9px 30px;position:relative;break-inside:avoid}
+.checklist li::before{content:"✓";position:absolute;left:0;top:8px;color:var(--green);
+  font-weight:800}
+.b2b .checklist li::before{color:var(--b2b)}
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.steps .s{position:relative;padding-top:14px}
+.steps .s::before{counter-increment:s;content:counter(s);display:flex;align-items:center;
+  justify-content:center;width:38px;height:38px;border-radius:50%;background:var(--green);
+  color:#fff;font-weight:800;margin-bottom:10px}
+.b2b .steps .s::before{background:var(--b2b)}
+.steps h3{font-size:17px}
+
+/* Price table */
+.ptable{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);
+  border-radius:var(--radius);overflow:hidden}
+.ptable th,.ptable td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line)}
+.ptable th{background:var(--bg);font-size:15px}
+.ptable td:last-child{font-weight:700;white-space:nowrap}
+.pnote{font-size:14px;color:var(--muted);margin-top:12px}
+
+/* FAQ */
+.faq details{background:#fff;border:1px solid var(--line);border-radius:12px;
+  padding:4px 18px;margin-bottom:12px}
+.faq summary{cursor:pointer;font-weight:700;padding:14px 0;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";float:right;color:var(--green);font-weight:800}
+.faq details[open] summary::after{content:"–"}
+.faq details[open] summary{border-bottom:1px solid var(--line)}
+.faq p{padding:14px 0 6px}
+
+/* Final CTA */
+.cta-final{background:var(--green);color:#fff;text-align:center}
+.b2b .cta-final{background:var(--b2b)}
+.cta-final h2{color:#fff}
+.cta-final .btn{background:#fff;color:var(--green-700)}
+.b2b .cta-final .btn{color:#155a82}
+.cta-final .lead{color:rgba(255,255,255,.9)}
+
+/* Placeholder note for missing assets */
+.ph{background:#fff7e6;border:1px dashed #e0b34d;color:#8a6400;
+  border-radius:10px;padding:14px 16px;font-size:14px}
+
+footer{padding:30px 0;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media(max-width:860px){
+  .hero .grid{grid-template-columns:1fr;gap:28px}
+  .cols,.cols.two,.trust,.steps{grid-template-columns:1fr 1fr}
+  .checklist{columns:1}
+}
+@media(max-width:520px){
+  .cols,.cols.two,.trust,.steps{grid-template-columns:1fr}
+  .hdr .geo{display:none}
+}
