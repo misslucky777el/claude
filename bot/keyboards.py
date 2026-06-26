@@ -19,9 +19,9 @@ def main_menu() -> InlineKeyboardMarkup:
 
 def service_menu() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="🧹 Регулярная — от 90 ₽/м²", callback_data="svc:reg")],
-        [InlineKeyboardButton(text="✨ Генеральная — от 180 ₽/м²", callback_data="svc:gen")],
-        [InlineKeyboardButton(text="🛠 После ремонта — от 200 ₽/м²", callback_data="svc:remont")],
+        [InlineKeyboardButton(text="🧹 Регулярная — от 4 500 ₽", callback_data="svc:reg")],
+        [InlineKeyboardButton(text="✨ Генеральная — от 10 000 ₽", callback_data="svc:gen")],
+        [InlineKeyboardButton(text="🛠 После ремонта — от 14 000 ₽", callback_data="svc:remont")],
         [InlineKeyboardButton(text="🏢 Для бизнеса (объекты)", callback_data="menu:b2b")],
         [InlineKeyboardButton(text="⬅️ Назад", callback_data="menu:home")],
     ])
