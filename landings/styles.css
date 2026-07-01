@@ -182,6 +182,49 @@ section{padding:62px 0}
 .cta-final .btn:hover{background:#ffd06f}
 .b2b .cta-final .btn{background:var(--sun);color:var(--water)}
 
+/* Калькулятор стоимости */
+.calc{background:var(--white);border:1px solid var(--glass);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:26px;display:grid;grid-template-columns:1.12fr .88fr;gap:26px;align-items:center;margin-top:8px}
+.calc-field{margin-bottom:18px}
+.calc-field:last-child{margin-bottom:0}
+.calc-field>label{display:block;font-weight:600;font-size:15px;margin-bottom:9px}
+.calc-seg{display:inline-flex;flex-wrap:wrap;gap:8px}
+.calc-seg button{font-family:var(--body);font-weight:600;font-size:15px;padding:10px 15px;
+  border:1.5px solid var(--glass);background:#fbfdfd;color:var(--ink);border-radius:11px;cursor:pointer;transition:.15s}
+.calc-seg button:hover{border-color:var(--fresh)}
+.calc-seg button.on{background:var(--water);color:#fff;border-color:var(--water)}
+.calc-range{width:100%;-webkit-appearance:none;appearance:none;height:8px;border-radius:6px;
+  background:linear-gradient(90deg,var(--fresh),var(--fresh-700));outline:none;margin-top:4px}
+.calc-range::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;
+  background:#fff;border:3px solid var(--fresh-700);box-shadow:var(--shadow);cursor:pointer}
+.calc-range::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#fff;border:3px solid var(--fresh-700);cursor:pointer}
+.calc-result{background:linear-gradient(160deg,#0E363D,#0b4a52);color:#fff;border-radius:14px;
+  padding:26px 24px;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center}
+.calc-price{font-family:var(--display);font-weight:800;font-size:clamp(30px,4.5vw,42px);line-height:1}
+.calc-note{font-size:14px;color:rgba(255,255,255,.8)}
+.calc-result .btn{background:var(--sun);color:var(--water);width:100%}
+.calc-result .btn:hover{background:#ffd06f}
+.calc-hint{font-size:13px;color:var(--muted);margin-top:13px}
+.b2b .calc-seg button.on{background:var(--water-2);border-color:var(--water-2)}
+
+/* Отзывы */
+.rev-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+.rev-score{font-family:var(--display);font-weight:800;font-size:34px;color:var(--ink);line-height:1}
+.rev-stars{color:var(--sun);font-size:20px;letter-spacing:2px}
+.rev-count{color:var(--muted);font-size:15px}
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px}
+.review{background:var(--white);border:1px solid var(--glass);border-radius:16px;padding:22px;
+  display:flex;flex-direction:column;gap:12px}
+.review .r-top{display:flex;align-items:center;gap:12px}
+.review .r-ava{width:44px;height:44px;border-radius:50%;background:var(--foam);color:var(--fresh-700);
+  font-family:var(--display);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:18px;flex:none}
+.review .r-name{font-weight:700}
+.review .r-meta{font-size:13px;color:var(--muted)}
+.review .r-stars{color:var(--sun);letter-spacing:2px}
+.review p{margin:0;font-size:15px}
+.review .r-src{margin-top:auto;font-size:13px;color:var(--muted)}
+.review .r-src b{color:var(--fresh-700);font-weight:600}
+
 /* Placeholder note */
 .ph{background:#fff7e6;border:1px dashed #e0b34d;color:#8a6400;
   border-radius:12px;padding:15px 17px;font-size:14px}
@@ -194,9 +237,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   .hero .grid{grid-template-columns:1fr;gap:32px}
   .cols,.cols.two,.trust,.steps,.svc-grid{grid-template-columns:1fr 1fr}
   .checklist{columns:1}
+  .calc{grid-template-columns:1fr}
+  .reviews{grid-template-columns:1fr 1fr}
 }
 @media(max-width:540px){
-  .cols,.cols.two,.trust,.steps,.svc-grid{grid-template-columns:1fr}
+  .cols,.cols.two,.trust,.steps,.svc-grid,.reviews{grid-template-columns:1fr}
   .hdr .geo{display:none}
   .steps .s::after{display:none}
 }

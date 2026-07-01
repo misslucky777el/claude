@@ -73,6 +73,40 @@
 </div></div>
 
 <section><div class="wrap">
+  <h2>Калькулятор стоимости</h2>
+  <p class="muted">Прикидка по площади. Точную цену назовём по телефону.</p>
+  <div class="calc" data-service="gen" data-area="55">
+    <div>
+      <div class="calc-field">
+        <label>Тип уборки</label>
+        <div class="calc-seg" data-calc="service">
+          <button data-val="reg">Поддерживающая</button>
+          <button data-val="gen">Генеральная</button>
+          <button data-val="remont">После ремонта</button>
+        </div>
+      </div>
+      <div class="calc-field">
+        <label>Площадь: <b><span data-calc="area-val">55</span> м²</b></label>
+        <input type="range" class="calc-range" min="10" max="150" step="5" value="55" data-calc="area" aria-label="Площадь в м²">
+      </div>
+      <div class="calc-field">
+        <label>Сколько клинеров</label>
+        <div class="calc-seg" data-calc="team">
+          <button data-val="1">1 клинер</button>
+          <button data-val="2">2 клинера — быстрее</button>
+        </div>
+      </div>
+    </div>
+    <div class="calc-result">
+      <span class="calc-price" data-calc="price">—</span>
+      <span class="calc-note" data-calc="note"></span>
+      <a class="btn" href="#zayavka">Оставить заявку</a>
+    </div>
+  </div>
+  <p class="calc-hint">Цены ориентировочные и зависят от состояния квартиры. Выезд за МКАД — от 2 000 ₽ (в пределах МКАД и до 5 км бесплатно).</p>
+</div></section>
+
+<section><div class="wrap">
   <h2>Цены</h2>
   <table class="ptable">
     <tr><th>Площадь</th><th>1 клинер</th><th>2 клинера</th></tr>
@@ -88,7 +122,33 @@
 </div></section>
 
 <div class="strip"><div class="wrap">
-  <div class="ph">Блок отзывов: добавьте реальные отзывы клиентов с фото и оценками. Не используйте выдуманные — это подрывает доверие.</div>
+  <h2>Отзывы клиентов</h2>
+  <div class="rev-head">
+    <span class="rev-score">4,9</span>
+    <span class="rev-stars">★★★★★</span>
+    <span class="rev-count">— поставьте вашу оценку и число отзывов</span>
+  </div>
+  <p class="ph">Замените карточки ниже реальными отзывами (имя, район, дата, текст, источник — скриншоты Яндекс.Карт / Авито / 2ГИС). Выдуманные отзывы использовать нельзя.</p>
+  <div class="reviews">
+    <article class="review">
+      <div class="r-top"><span class="r-ava">К</span><div><div class="r-name">Имя клиента</div><div class="r-meta">Район · месяц 2026</div></div></div>
+      <div class="r-stars">★★★★★</div>
+      <p>Текст реального отзыва: что заказывали, как приехали, результат.</p>
+      <div class="r-src">Источник: <b>Яндекс.Карты</b></div>
+    </article>
+    <article class="review">
+      <div class="r-top"><span class="r-ava">М</span><div><div class="r-name">Имя клиента</div><div class="r-meta">Район · месяц 2026</div></div></div>
+      <div class="r-stars">★★★★★</div>
+      <p>Текст реального отзыва: что заказывали, как приехали, результат.</p>
+      <div class="r-src">Источник: <b>Авито</b></div>
+    </article>
+    <article class="review">
+      <div class="r-top"><span class="r-ava">А</span><div><div class="r-name">Имя клиента</div><div class="r-meta">Район · месяц 2026</div></div></div>
+      <div class="r-stars">★★★★★</div>
+      <p>Текст реального отзыва: что заказывали, как приехали, результат.</p>
+      <div class="r-src">Источник: <b>2ГИС</b></div>
+    </article>
+  </div>
 </div></div>
 
 <section class="faq"><div class="wrap">
@@ -109,5 +169,6 @@
   <span>ГенералКлининг · Уборка в Москве и ближней МО</span>
   <span><a class="phone" href="tel:+74950000000">8 (495) 000-00-00</a></span>
 </div></footer>
+<script src="calc.js"></script>
 </body>
 </html>
