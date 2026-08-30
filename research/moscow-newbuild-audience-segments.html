@@ -1,0 +1,550 @@
+<title>Кто покупает новостройку в Москве</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600&family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --paper:#F1F0EC;
+    --surface:#FBFAF7;
+    --surface-2:#E8E7E1;
+    --ink:#16181A;
+    --ink-2:#565A56;
+    --ink-3:#7E827D;
+    --rule:#D6D5CC;
+    --rule-soft:#E2E1D9;
+    --accent:#0F4C45;
+    --accent-soft:#DCE7E3;
+    --signal:#9C3B2A;
+    --signal-soft:#F0E0DA;
+    --shadow:0 1px 2px rgba(22,24,26,.05);
+    --fs-step:1.22;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#101312;
+      --surface:#171B1A;
+      --surface-2:#1F2423;
+      --ink:#E9EBE7;
+      --ink-2:#A3A9A4;
+      --ink-3:#7C837E;
+      --rule:#2C3231;
+      --rule-soft:#242A29;
+      --accent:#4FB3A2;
+      --accent-soft:#17302C;
+      --signal:#D9705A;
+      --signal-soft:#33201C;
+      --shadow:0 1px 2px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#101312;
+    --surface:#171B1A;
+    --surface-2:#1F2423;
+    --ink:#E9EBE7;
+    --ink-2:#A3A9A4;
+    --ink-3:#7C837E;
+    --rule:#2C3231;
+    --rule-soft:#242A29;
+    --accent:#4FB3A2;
+    --accent-soft:#17302C;
+    --signal:#D9705A;
+    --signal-soft:#33201C;
+    --shadow:0 1px 2px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Golos Text","Helvetica Neue",Arial,sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1280px;margin:0 auto;padding:0 24px 96px}
+  .col{max-width:66ch}
+
+  .eyebrow{
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-3);
+  }
+
+  /* --- masthead --- */
+  .masthead{padding:64px 0 40px;border-bottom:2px solid var(--ink);display:flex;flex-direction:column;gap:22px}
+  h1{
+    font-family:"Unbounded","Golos Text",sans-serif;
+    font-weight:600;
+    font-size:clamp(34px,5.2vw,62px);
+    line-height:1.02;letter-spacing:-.02em;margin:0;
+    text-wrap:balance;
+  }
+  h1 em{font-style:normal;color:var(--accent)}
+  .lede{font-size:clamp(17px,1.5vw,19px);color:var(--ink-2);max-width:62ch;margin:0}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 28px;padding-top:4px}
+  .meta div{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;color:var(--ink-3)}
+  .meta b{color:var(--ink-2);font-weight:600}
+
+  /* --- section --- */
+  section{padding-top:56px}
+  h2{
+    font-family:"Golos Text",sans-serif;font-weight:700;
+    font-size:clamp(21px,2.4vw,27px);letter-spacing:-.015em;
+    margin:0 0 6px;text-wrap:balance;
+  }
+  .sec-head{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+  .sec-head p{margin:0;color:var(--ink-2);max-width:70ch}
+
+  /* --- product grid --- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+  .cell{background:var(--surface);padding:22px 22px 24px;display:flex;flex-direction:column;gap:10px}
+  .cell h3{margin:0;font-size:15px;font-weight:600;letter-spacing:-.01em}
+  .cell p{margin:0;font-size:14.5px;color:var(--ink-2)}
+  .cell ul{margin:0;padding-left:17px;font-size:14.5px;color:var(--ink-2);display:flex;flex-direction:column;gap:5px}
+  .cell li::marker{color:var(--accent)}
+  .num{
+    font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:26px;color:var(--accent);line-height:1;letter-spacing:-.02em;
+    font-variant-numeric:tabular-nums;
+  }
+  .num small{font-size:12px;font-family:"JetBrains Mono",monospace;color:var(--ink-3);letter-spacing:0;display:block;margin-top:6px;font-weight:400}
+
+  /* --- principle note --- */
+  .note{
+    border-left:3px solid var(--accent);
+    background:var(--accent-soft);
+    padding:18px 22px;border-radius:0 3px 3px 0;
+    display:flex;flex-direction:column;gap:8px;
+  }
+  .note p{margin:0;font-size:15px;color:var(--ink-2);max-width:78ch}
+  .note strong{color:var(--ink)}
+
+  /* --- table --- */
+  .scroller{overflow-x:auto;border:1px solid var(--rule);border-radius:3px;background:var(--surface)}
+  table{border-collapse:collapse;width:100%;min-width:1180px;font-size:14px}
+  thead th{
+    position:sticky;top:0;z-index:2;
+    background:var(--surface-2);
+    text-align:left;vertical-align:bottom;
+    padding:13px 16px;
+    font-family:"JetBrains Mono",ui-monospace,monospace;
+    font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);
+    border-bottom:1px solid var(--rule);font-weight:600;
+  }
+  tbody td{padding:20px 16px;vertical-align:top;border-bottom:1px solid var(--rule-soft);color:var(--ink-2)}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover td{background:var(--surface-2)}
+  col.c-seg{width:15%} col.c-char{width:24%} col.c-trig{width:20%} col.c-msg{width:23%} col.c-obj{width:18%}
+
+  .seg-rank{
+    font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-3);
+    font-variant-numeric:tabular-nums;
+  }
+  .seg-name{display:block;color:var(--ink);font-weight:600;font-size:15px;letter-spacing:-.01em;margin:4px 0 10px}
+  .bar{height:5px;background:var(--surface-2);border-radius:1px;overflow:hidden;margin-bottom:6px}
+  .bar i{display:block;height:100%;background:var(--accent)}
+  .share{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+  td.trigger{color:var(--ink-2)}
+  td.trigger::before{
+    content:"→";color:var(--signal);font-weight:700;margin-right:7px;
+  }
+  .msg{
+    display:block;color:var(--ink);border-left:2px solid var(--signal);
+    padding-left:12px;font-size:14px;
+  }
+  .obj{display:flex;flex-direction:column;gap:7px;font-size:13.5px}
+  .obj .q{color:var(--ink);font-weight:500}
+  .obj .a{color:var(--ink-2)}
+  .obj .a::before{content:"снимаем: ";font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+  .tag{
+    display:inline-block;font-family:"JetBrains Mono",monospace;font-size:10px;
+    letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:2px;
+    background:var(--signal-soft);color:var(--signal);margin-bottom:8px;
+  }
+  .tag.mass{background:var(--accent-soft);color:var(--accent)}
+
+  /* --- takeaways --- */
+  ol.steps{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+  ol.steps li{background:var(--surface);padding:20px 22px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}
+  ol.steps .k{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--accent);padding-top:2px;font-variant-numeric:tabular-nums}
+  ol.steps h3{margin:0 0 5px;font-size:15.5px;font-weight:600}
+  ol.steps p{margin:0;font-size:14.5px;color:var(--ink-2);max-width:80ch}
+
+  footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--rule);color:var(--ink-3);font-size:13px;max-width:78ch}
+  footer p{margin:0 0 8px}
+
+  a{color:var(--accent)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  @media (max-width:640px){
+    .wrap{padding:0 16px 64px}
+    .masthead{padding:40px 0 28px}
+    ol.steps li{grid-template-columns:1fr;gap:6px}
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Аудиторное исследование · первичный рынок жилья · Москва и ТиНАО</div>
+    <h1>Кто покупает <em>новостройку</em> в Москве</h1>
+    <p class="lede">Разбор продукта и 15 сегментов спроса — от массовых, на которых держится план продаж, до нишевых, где дешёвый лид и почти нет конкуренции за внимание. Для каждого: кто это, что запускает решение, чем цеплять и какое возражение придётся снять.</p>
+    <div class="meta">
+      <div><b>Принцип сегментации:</b> мотивационно-сценарный (JTBD)</div>
+      <div><b>Сегментов:</b> 15</div>
+      <div><b>Порядок:</b> от массовых к нишевым</div>
+      <div><b>Дата:</b> август 2026</div>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">01 · Продукт</div>
+      <h2>Что на самом деле продаёт застройщик</h2>
+      <p>Квадратные метры — это единица прайса, а не предмет покупки. Клиент выбирает связку из четырёх переменных, и каждый сегмент взвешивает их по-своему.</p>
+    </div>
+    <div class="grid">
+      <div class="cell">
+        <div class="num">1<small>Предмет сделки</small></div>
+        <h3>Сценарий жизни на 5–7 лет</h3>
+        <p>Локация и время в пути, размер ежемесячного платежа, срок ожидания ключей, планировка под конкретный быт. Всё остальное — аргументы к этим четырём.</p>
+      </div>
+      <div class="cell">
+        <div class="num">2<small>Классы</small></div>
+        <h3>Комфорт → бизнес → премиум</h3>
+        <ul>
+          <li>Комфорт и комфорт+ — ТиНАО, реновация промзон, периферия. Массовый спрос, решает платёж</li>
+          <li>Бизнес — внутри ТТК, набережные. Решает среда и качество дома</li>
+          <li>Премиум и делюкс — ЦАО, Хамовники, Пресня. Решает дефицит и вид</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <div class="num">3<small>Форматы</small></div>
+        <h3>От студии 24 м² до пентхауса</h3>
+        <ul>
+          <li>Студия и евро-1 — инвестор, первое жильё, студент</li>
+          <li>Евро-2 и евро-3 — базовый семейный лот, изолированный кабинет как отдельный аргумент</li>
+          <li>3–4 комнаты 75–100 м² — дефицитный формат, семьи 3+</li>
+          <li>Апартаменты — дешевле на 10–20%, но без прописки и с повышенным налогом</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <div class="num">4<small>Деньги</small></div>
+        <h3>Сделку делает не цена, а платёж</h3>
+        <ul>
+          <li>Семейная ипотека — главный драйвер массового спроса, разрыв с рыночной ставкой кратный</li>
+          <li>Рассрочка до ключей, траншевая ипотека, субсидия аренды на срок стройки</li>
+          <li>Трейд-ин со вторички и маткапитал закрывают первый взнос</li>
+          <li>Дисконт стадии котлована — валюта для инвестора</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <div class="num">5<small>Барьеры</small></div>
+        <h3>Что останавливает почти всех</h3>
+        <ul>
+          <li>Двойная нагрузка: аренда плюс ипотека до ключей</li>
+          <li>Недоверие к срокам и к застройщику — эскроу снимает страх денег, но не страх ожидания</li>
+          <li>Пустая инфраструктура на старте проекта: школа «будет во второй очереди»</li>
+          <li>Первый взнос, а не ставка — самый частый реальный стоп</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <div class="num">6<small>Отделка</small></div>
+        <h3>Три версии одного лота</h3>
+        <p>Без отделки — для тех, кто делает под себя. White box — компромисс по деньгам. С отделкой и мебелью — продукт для инвестора и для сегментов, которым нужно въехать сразу: разъезд, релокант, студент.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">02 · Метод</div>
+      <h2>Почему сегментация мотивационная, а не по возрасту и доходу</h2>
+    </div>
+    <div class="note">
+      <p><strong>Социально-демографические срезы на этом рынке не различают покупателей.</strong> Мужчина 34 лет с доходом 300 тыс ₽ может покупать первую квартиру вместо аренды, вторую под сдачу или трёхкомнатную из-за третьего ребёнка — это три разных клиента, три разных лота, три разные воронки и три разных срока сделки. Совпадает только паспорт.</p>
+      <p><strong>Различает мотив и жизненный сценарий</strong> — работа, которую квартира должна выполнить, и событие, которое запускает решение. Демография и доход остаются внутри сегмента как параметры таргетинга и подбора лота, а не как основание деления.</p>
+      <p><strong>Как читать долю.</strong> Полоса рядом с названием — оценочная доля сегмента в сделках массового и бизнес-класса Москвы, экспертная, для приоритизации бюджета, а не отчётная цифра. Первые пять сегментов дают порядка 60% сделок и заслуживают отдельных посадочных страниц и офферов; последние пять — точечных кампаний с узким таргетингом и дешёвым лидом.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">03 · Сегменты</div>
+      <h2>15 сегментов спроса</h2>
+      <p>Таблица прокручивается по горизонтали. Возражение в правой колонке — то, на котором сделка чаще всего останавливается именно у этого сегмента, а не общее для всех.</p>
+    </div>
+    <div class="scroller" tabindex="0">
+      <table>
+        <colgroup>
+          <col class="c-seg"><col class="c-char"><col class="c-trig"><col class="c-msg"><col class="c-obj">
+        </colgroup>
+        <thead>
+          <tr>
+            <th scope="col">Сегмент и доля спроса</th>
+            <th scope="col">Ключевые характеристики</th>
+            <th scope="col">Главный триггер к покупке</th>
+            <th scope="col">Ключевое сообщение</th>
+            <th scope="col">Возражение → снятие</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td>
+              <span class="tag mass">Массовый</span>
+              <span class="seg-rank">01</span>
+              <span class="seg-name">Молодые семьи с ребёнком-дошкольником</span>
+              <div class="bar"><i style="width:100%"></i></div>
+              <span class="share">≈ 18% сделок</span>
+            </td>
+            <td>28–36 лет, оба работают, доход семьи 250–400 тыс ₽/мес. Наёмные специалисты: IT, финансы, медицина, госсектор. Один ребёнок 0–6 лет, часто планируют второго. Сейчас снимают или живут в однушке в спальном районе. Бюджет 12–18 млн, первый взнос 20–30% из накоплений, маткапитала и помощи родителей.</td>
+            <td class="trigger">Ребёнку скоро в сад или школу — и одновременно открыто окно семейной ипотеки, из-за которого платёж вдвое ниже рыночного. Дедлайн задаёт возраст ребёнка, а не желание переехать.</td>
+            <td><span class="msg">«Евродвушка 42 м² в 8 минутах от школы и сада — 61 000 ₽/мес по семейной ипотеке вместо 118 000 ₽ по рыночной ставке. Рассчитаем ваш платёж за 3 минуты».</span></td>
+            <td><div class="obj"><span class="q">«Ключи через два года, а платить придётся и за аренду, и за ипотеку».</span><span class="a">траншевая ипотека с минимальным платежом до ввода, компенсация аренды на срок стройки, готовые корпуса в той же очереди.</span></div></td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="tag mass">Массовый</span>
+              <span class="seg-rank">02</span>
+              <span class="seg-name">Арендаторы, покупающие первое жильё</span>
+              <div class="bar"><i style="width:78%"></i></div>
+              <span class="share">≈ 14% сделок</span>
+            </td>
+            <td>25–33 года, личный доход 150–250 тыс ₽. Линейные и мидл-специалисты: IT, маркетинг, продажи, сфера услуг. Не женаты либо пара без детей. Снимают студию или однушку за 60–90 тыс ₽. Бюджет 8–13 млн, студия или евро-1, первый взнос 15–20% накоплен самостоятельно.</td>
+            <td class="trigger">Арифметика «платёж равен аренде» плюс очередное повышение ставки собственником. Решение принимается в момент, когда аренду поднимают или просят освободить квартиру.</td>
+            <td><span class="msg">«Вы уже платите за квартиру — просто не за свою. Студия 26 м² в 7 минутах от метро: платёж 78 000 ₽ против 85 000 ₽ аренды в этом же районе».</span></td>
+            <td><div class="obj"><span class="q">«Не соберу первый взнос и боюсь остаться без работы с ипотекой».</span><span class="a">рассрочка первого взноса на 12 месяцев, бронь за 1 000 ₽, ипотечные каникулы и страховка занятости в пакете сделки.</span></div></td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="tag mass">Массовый</span>
+              <span class="seg-rank">03</span>
+              <span class="seg-name">Улучшающие условия из старой вторички</span>
+              <div class="bar"><i style="width:67%"></i></div>
+              <span class="share">≈ 12% сделок</span>
+            </td>
+            <td>35–50 лет, доход семьи 300–500 тыс ₽. Средний менеджмент, ИП, врачи, преподаватели. В браке, дети школьного возраста. Собственники панельной двушки или трёшки 1970–90-х годов без ипотеки. Бюджет 18–30 млн, из них доплата живыми деньгами 5–10 млн.</td>
+            <td class="trigger">Накопленная усталость от дома: трубы, лифт, вечная война за парковку, соседи. Спусковой крючок — оценка своей квартиры, после которой становится видно, что доплата подъёмна.</td>
+            <td><span class="msg">«Меняем вашу трёшку в панельном доме на новую с двумя санузлами и лифтом в подземный паркинг. Оценка за день, цена новой квартиры зафиксирована на 90 дней, переезд — только после ключей».</span></td>
+            <td><div class="obj"><span class="q">«Пока продам свою, новостройка подорожает — и я останусь ни с чем».</span><span class="a">трейд-ин с фиксацией цены и гарантированным выкупом вторички застройщиком, проживание в старой квартире до ввода.</span></div></td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="tag mass">Массовый</span>
+              <span class="seg-rank">04</span>
+              <span class="seg-name">Релоканты из регионов</span>
+              <div class="bar"><i style="width:50%"></i></div>
+              <span class="share">≈ 9% сделок</span>
+            </td>
+            <td>27–40 лет, доход 250–450 тыс ₽. Тюмень, Краснодар, Уфа, Екатеринбург, Хабаровск, нефтегазовые регионы. IT, вахтовые руководители, медицина, менеджмент федеральных компаний. Часто продали квартиру дома, и эти 5–9 млн — весь первый взнос. Семья переезжает следом или уже здесь.</td>
+            <td class="trigger">Решение закрепиться в Москве: прописка, школа, «жить, а не снимать». Деньги от проданной квартиры лежат на счёте и обесцениваются — это ощущается как срочность.</td>
+            <td><span class="msg">«Продали квартиру в своём городе? В Москве этой суммы хватает на первый взнос за квартиру у станции БКЛ. Сделка полностью онлайн: подбор, видеотур, ДДУ — без единого приезда».</span></td>
+            <td><div class="obj"><span class="q">«Я не знаю московских районов и боюсь купить не то место».</span><span class="a">подбор от времени до вашего офиса, а не от названия района; видеотур и разбор локации с брокером, дистанционное сопровождение сделки.</span></div></td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="tag mass">Массовый</span>
+              <span class="seg-rank">05</span>
+              <span class="seg-name">Частные инвесторы-рантье</span>
+              <div class="bar"><i style="width:44%"></i></div>
+              <span class="share">≈ 8% сделок</span>
+            </td>
+            <td>35–55 лет, доход от 400 тыс ₽, свободный капитал 10–20 млн. Москвичи и жители области. Предприниматели, топ-менеджеры, самозанятые. Берут студии и евро-1 площадью 20–33 м² у метро, вузов и деловых кластеров, нередко два-три лота подряд. Считают доходность в таблице, а не эмоциями.</td>
+            <td class="trigger">Сравнение с депозитом: «вклад кончится, метры останутся». Отделка и меблировка от застройщика позволяют сдавать с первого месяца после ключей — это превращает лот в готовый арендный актив.</td>
+            <td><span class="msg">«Студия 24 м² в 6 минутах от МЦД, с отделкой и мебелью от застройщика: арендный поток с первого месяца после ключей, окупаемость по расчёту 15–17 лет. Пришлём финмодель по конкретному лоту».</span></td>
+            <td><div class="obj"><span class="q">«Таких студий в районе сотни — некому будет сдавать».</span><span class="a">данные по ставке и заполняемости в радиусе километра, ограничение доли студий в корпусе, управляющая компания с услугой сдачи под ключ.</span></div></td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="tag">Средний</span>
+              <span class="seg-rank">06</span>
+              <span class="seg-name">Родители абитуриентов и студентов</span>
+              <div class="bar"><i style="width:33%"></i></div>
+              <span class="share">≈ 6% сделок</span>
+            </td>
+            <td>45–58 лет, ребёнок 16–19 лет. Доход семьи 350–600 тыс ₽. Преимущественно обеспеченные региональные семьи, реже москвичи из области. Предприниматели, госслужащие, врачи. Покупают однокомнатную рядом с вузом — МГУ, ВШЭ, МГТУ, Сеченовский — на имя ребёнка или своё.</td>
+            <td class="trigger">Поступление ребёнка — жёсткая дата в июле-августе. Плюс расчёт: пять лет аренды у вуза стоят как первый взнос, но не оставляют ничего.</td>
+            <td><span class="msg">«Пять лет аренды у вуза — это около 5 млн ₽, отданных чужому человеку. Однокомнатная в 15 минутах от главного корпуса останется ребёнку после диплома».</span></td>
+            <td><div class="obj"><span class="q">«Отучится и уедет — квартира повиснет».</span><span class="a">ликвидность лота у крупного вуза: постоянный арендный спрос круглый год и быстрая продажа без дисконта.</span></div></td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="tag">Средний</span>
+              <span class="seg-rank">07</span>
+              <span class="seg-name">Инвесторы на цикле стройки</span>
+              <div class="bar"><i style="width:33%"></i></div>
+              <span class="share">≈ 6% сделок</span>
+            </td>
+            <td>30–48 лет, капитал 8–25 млн, почти всегда повторные сделки. Финансисты, риелторы, предприниматели. Выходят по переуступке до ввода, а не сдают. Смотрят на застройщика, темп стройки, стартовую цену корпуса и на то, разрешена ли переуступка по ДДУ.</td>
+            <td class="trigger">Разница цены между котлованом и вводом — ориентир 15–25% за цикл. Триггер к действию — не реклама, а старт продаж нового корпуса по цене входа и ограниченный пул лотов.</td>
+            <td><span class="msg">«Старт продаж корпуса: 120 лотов по цене этапа котлована. Предыдущая очередь прибавила 22% к вводу. Переуступка разрешена, комиссия зафиксирована в договоре».</span></td>
+            <td><div class="obj"><span class="q">«А если рынок встанет и я не выйду из сделки?»</span><span class="a">статистика продаж прошлых очередей, прозрачные условия переуступки, программа обратного выкупа застройщиком.</span></div></td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="tag">Средний</span>
+              <span class="seg-rank">08</span>
+              <span class="seg-name">Состоявшиеся специалисты без детей</span>
+              <div class="bar"><i style="width:33%"></i></div>
+              <span class="share">≈ 6% сделок</span>
+            </td>
+            <td>30–42 года, личный доход 500 тыс — 1,5 млн ₽. Руководители в IT, финансах, юриспруденции, консалтинге, медиа. Пара без детей или одиночки. Живут в арендованном бизнес-классе либо в купленной раньше комфорт-квартире. Бюджет 30–60 млн, первый взнос от 50% или покупка без ипотеки.</td>
+            <td class="trigger">Не жильё, а среда: потолки от трёх метров, окна в пол, лобби, фитнес и коворкинг в доме, предсказуемые соседи и 15 минут до офиса. Триггер — момент, когда доход перерос текущую квартиру.</td>
+            <td><span class="msg">«Потолки 3,2 м, панорамные окна на набережную, коворкинг и спортзал на первом этаже: работать и тренироваться можно не выходя из дома. 14 минут до Сити».</span></td>
+            <td><div class="obj"><span class="q">«Это переплата за бренд проекта».</span><span class="a">сравнение цены м² с соседними проектами того же класса и открытая спецификация инженерии, фасадов и лифтов.</span></div></td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="tag">Средний</span>
+              <span class="seg-rank">09</span>
+              <span class="seg-name">Многодетные семьи и семьи «3+»</span>
+              <div class="bar"><i style="width:28%"></i></div>
+              <span class="share">≈ 5% сделок</span>
+            </td>
+            <td>33–45 лет, доход 400–700 тыс ₽, часто один родитель не работает. Трое и более детей. Новая Москва, Некрасовка, периферия у МКАД. Нужны 3–4 комнаты 75–100 м², два санузла, кладовая, место для колясок. Собирают первый взнос из маткапитала, 450 тыс ₽ господдержки и накоплений.</td>
+            <td class="trigger">Физическая нехватка комнат: детям негде спать и делать уроки. Школа и сад в пешей доступности важнее вида из окна, а меры господдержки складываются в реальный первый взнос.</td>
+            <td><span class="msg">«Четырёхкомнатная 92 м² с двумя санузлами и кладовой, школа и два детских сада — во дворе. Соберём весь пакет господдержки под вашу семью и посчитаем итоговый платёж».</span></td>
+            <td><div class="obj"><span class="q">«Больших планировок почти нет, а те, что есть, неподъёмны».</span><span class="a">корпуса с семейными планировками в продаже сейчас, рассрочка на доплату, кладовая и машиноместо в составе сделки.</span></div></td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="tag">Средний</span>
+              <span class="seg-rank">10</span>
+              <span class="seg-name">Разъезд: развод и раздел наследства</span>
+              <div class="bar"><i style="width:28%"></i></div>
+              <span class="share">≈ 5% сделок</span>
+            </td>
+            <td>30–55 лет, доход 200–400 тыс ₽, москвичи. На руках доля от продажи общей квартиры или наследство — 8–20 млн, деньги уже на счёте. Решение принимается за недели, часто в одиночку и на эмоциональном фоне. Нужен готовый лот в привычной географии.</td>
+            <td class="trigger">Срок сделки по разделу: деньги пришли, жить негде, тянуть нельзя. Важно въехать сразу и не менять ребёнку школу — поэтому ищут готовый корпус в своём же районе.</td>
+            <td><span class="msg">«Готовый корпус, ключи в этом квартале, отделка и кухня уже сделаны — заезжаете с чемоданом. Подберём в вашем районе, чтобы ребёнку не менять школу».</span></td>
+            <td><div class="obj"><span class="q">«После раздела я не потяну платёж в одиночку».</span><span class="a">меньшая площадь в том же районе, ипотека на одного заёмщика с учётом полученной доли, юрист по сделкам с долевой собственностью.</span></div></td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="tag">Нишевый</span>
+              <span class="seg-rank">11</span>
+              <span class="seg-name">Взрослые дети, покупающие жильё родителям</span>
+              <div class="bar"><i style="width:17%"></i></div>
+              <span class="share">≈ 3% сделок</span>
+            </td>
+            <td>Покупатель 35–50 лет с доходом от 500 тыс ₽, родители 60–75 лет. Решение и деньги — у покупателя, право вето — у родителей. Бюджет 10–16 млн, одна-две комнаты в том же ЖК или районе, где живёт сам покупатель. Родители нередко переезжают из другого города.</td>
+            <td class="trigger">Здоровье и возраст родителей: нужно быть рядом, но не в одной квартире. Формула решения — «в десяти минутах, но у себя»; критичны лифт с уровня двора, поликлиника и магазин у дома.</td>
+            <td><span class="msg">«Мама рядом — но у себя. Однокомнатная в соседнем корпусе: лифт с уровня двора, поликлиника и аптека через дорогу, двор без машин».</span></td>
+            <td><div class="obj"><span class="q">«Родители не хотят уезжать из своего района и от своих соседей».</span><span class="a">подбор в привычной для них географии, помощь в продаже их квартиры и организация переезда под ключ.</span></div></td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="tag">Нишевый</span>
+              <span class="seg-rank">12</span>
+              <span class="seg-name">Даунсайзеры 55+</span>
+              <div class="bar"><i style="width:17%"></i></div>
+              <span class="share">≈ 3% сделок</span>
+            </td>
+            <td>55–70 лет, дети выросли и разъехались. Собственники большой квартиры и часто дачи, ипотеки нет. Продают 90 м², покупают 45–55 м², разницу оставляют себе. Ценят консьержа, тишину, безопасный двор, поликлинику и парк рядом. Решают долго, советуются с детьми.</td>
+            <td class="trigger">Содержание лишних метров и дачи стоит денег и сил. Продажа большой квартиры высвобождает 10–15 млн — это воспринимается как «пенсия, которую я себе назначил сам».</td>
+            <td><span class="msg">«Продайте 90 метров, которые вы убираете, и купите 50, в которых вы живёте. Разница — около 12 млн ₽ — остаётся вам. Новый дом, консьерж, поликлиника и парк в пяти минутах».</span></td>
+            <td><div class="obj"><span class="q">«В моём возрасте затевать сделку — авантюра».</span><span class="a">услуга «продажа и покупка в один день» с юридическим сопровождением, переезд и подключение под ключ, участие детей в сделке.</span></div></td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="tag">Нишевый</span>
+              <span class="seg-rank">13</span>
+              <span class="seg-name">Апартаменты как рабочая база в Москве</span>
+              <div class="bar"><i style="width:11%"></i></div>
+              <span class="share">≈ 2% сделок</span>
+            </td>
+            <td>35–55 лет, доход от 700 тыс ₽. Региональные предприниматели, руководители на вахте, консультанты, бывающие в Москве 5–10 дней в месяц. Апартаменты 25–45 м² в деловых локациях: Сити, Белорусская, Павелецкая. Прописка и школы не нужны — нужен адрес и парковка.</td>
+            <td class="trigger">Прямой счёт против отелей: 15–20 ночей в месяц по 12–15 тыс ₽ окупают владение. В свободные дни объект сдаётся посуточно через управляющую компанию и работает сам.</td>
+            <td><span class="msg">«Вместо 200 000 ₽ в месяц отелям — собственный апартамент в Сити. Ваши дни вы живёте, остальные управляющая компания сдаёт и переводит доход на счёт».</span></td>
+            <td><div class="obj"><span class="q">«Нет прописки, налог и коммуналка выше, чем в квартире».</span><span class="a">расчёт полной стоимости владения за год против гостиничных счетов, договор доверительного управления с прогнозом загрузки.</span></div></td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="tag">Нишевый</span>
+              <span class="seg-rank">14</span>
+              <span class="seg-name">Премиум: сохранение капитала</span>
+              <div class="bar"><i style="width:11%"></i></div>
+              <span class="share">≈ 2% сделок</span>
+            </td>
+            <td>40–60 лет, капитал от 100 млн ₽. Собственники бизнеса, топ-менеджмент, семейные офисы. ЦАО, Хамовники, Пресня, набережные. Сделка обычно без ипотеки, через личного юриста или консультанта, часто на юрлицо. Публичность нежелательна, массовая реклама не работает.</td>
+            <td class="trigger">Покупается не жильё, а актив: видовой лот в ограниченной коллекции, который физически нельзя воспроизвести. Мотив — защита капитала и дефицит, а не улучшение условий.</td>
+            <td><span class="msg">«Двенадцать видовых лотов на реке в закрытой продаже. Цена по запросу, показ по предварительной записи, сделку ведёт персональный брокер».</span></td>
+            <td><div class="obj"><span class="q">«Не хочу, чтобы сделка была видна кому-либо».</span><span class="a">закрытые показы вне общего пула, соглашение о конфиденциальности, структурирование покупки через юридическое лицо.</span></div></td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="tag">Нишевый</span>
+              <span class="seg-rank">15</span>
+              <span class="seg-name">Удалённые работники, которым нужен кабинет</span>
+              <div class="bar"><i style="width:6%"></i></div>
+              <span class="share">≈ 1% сделок</span>
+            </td>
+            <td>28–45 лет, доход 250–500 тыс ₽. IT, дизайн, аналитика, онлайн-преподавание, фриланс. Нередко удалённо работают оба партнёра. В офис ездят ноль-два раза в неделю, поэтому близость к центру перестала быть критерием: смотрят Новую Москву и периферию, где за те же деньги дают на 15 м² больше.</td>
+            <td class="trigger">Работать из спальни физически невозможно: созвоны, камера, второй человек в квартире. Нужны изолированная комната или ниша, шумоизоляция и два независимых провайдера — это и есть предмет выбора.</td>
+            <td><span class="msg">«Евротрёшка с изолированным кабинетом 9 м²: дверь закрывается, созвон не слышно, интернет от двух провайдеров. Вы не ездите в офис — значит, можно взять больше метров в 25 минутах от центра».</span></td>
+            <td><div class="obj"><span class="q">«Это слишком далеко от центра».</span><span class="a">расчёт реального числа поездок в месяц против выигранных метров, коворкинг в доме для дней с офисной работой.</span></div></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">04 · Что с этим делать</div>
+      <h2>Как превратить сегменты в кампании</h2>
+    </div>
+    <ol class="steps">
+      <li>
+        <span class="k">01</span>
+        <div>
+          <h3>Один сегмент — одна посадочная и один калькулятор</h3>
+          <p>Для пяти массовых сегментов общий сайт проекта не работает: семье нужен калькулятор семейной ипотеки и карта школ, арендатору — сравнение платежа с его текущей арендой по району, инвестору — финмодель лота. Один и тот же корпус продаётся тремя разными страницами.</p>
+        </div>
+      </li>
+      <li>
+        <span class="k">02</span>
+        <div>
+          <h3>Оффер строится вокруг барьера, а не вокруг скидки</h3>
+          <p>Первый взнос и двойная нагрузка до ключей блокируют больше сделок, чем цена. Рассрочка взноса, траншевая ипотека и компенсация аренды снимают конкретный стоп конкретного сегмента — и стоят застройщику дешевле прямой скидки.</p>
+        </div>
+      </li>
+      <li>
+        <span class="k">03</span>
+        <div>
+          <h3>У нишевых сегментов другой канал, а не меньший бюджет</h3>
+          <p>Родителей студентов ищут в июле вокруг вузовских запросов, разъезд — в связке с юристами по разделу имущества, даунсайзеров — через оценку их собственной квартиры, премиум — через брокеров и личные рекомендации, а не через контекст. Массовые каналы на этих сегментах дают дорогой и пустой лид.</p>
+        </div>
+      </li>
+      <li>
+        <span class="k">04</span>
+        <div>
+          <h3>Сегмент задаёт скорость воронки</h3>
+          <p>Разъезд и релокация закрываются за недели, семья с ребёнком — за один-три месяца вокруг даты сада или школы, даунсайзер думает полгода и советуется с детьми. Единый регламент прозвона и общий срок жизни лида ломают половину этих сделок.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <footer>
+    <p>Ценовые ориентиры, размеры платежей и доли сегментов — экспертные оценки для приоритизации бюджета и построения офферов. Перед запуском кампании сверьте цифры с актуальной аналитикой первичного рынка и с условиями действующих программ господдержки: лимиты, ставки и требования к заёмщику меняются, а часть федеральных программ на Москву не распространяется.</p>
+    <p>Доли рассчитаны от сделок массового и бизнес-класса Москвы и ТиНАО и в сумме дают 100%.</p>
+  </footer>
+
+</div>
