@@ -1,0 +1,268 @@
+<title>Десять имён для канала</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600&family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --paper:#F1F0EC; --surface:#FBFAF7; --surface-2:#E8E7E1;
+    --ink:#16181A; --ink-2:#565A56; --ink-3:#7E827D;
+    --rule:#D6D5CC; --rule-soft:#E2E1D9;
+    --accent:#0F4C45; --accent-soft:#DCE7E3;
+    --signal:#9C3B2A; --signal-soft:#F0E0DA;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#101312; --surface:#171B1A; --surface-2:#1F2423;
+      --ink:#E9EBE7; --ink-2:#A3A9A4; --ink-3:#7C837E;
+      --rule:#2C3231; --rule-soft:#242A29;
+      --accent:#4FB3A2; --accent-soft:#17302C;
+      --signal:#D9705A; --signal-soft:#33201C;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#101312; --surface:#171B1A; --surface-2:#1F2423;
+    --ink:#E9EBE7; --ink-2:#A3A9A4; --ink-3:#7C837E;
+    --rule:#2C3231; --rule-soft:#242A29;
+    --accent:#4FB3A2; --accent-soft:#17302C;
+    --signal:#D9705A; --signal-soft:#33201C;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:"Golos Text","Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px 96px}
+  .eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  .masthead{padding:64px 0 40px;border-bottom:2px solid var(--ink);display:flex;flex-direction:column;gap:22px}
+  h1{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;font-size:clamp(30px,4.6vw,54px);line-height:1.04;letter-spacing:-.02em;margin:0;text-wrap:balance}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lede{font-size:clamp(17px,1.5vw,19px);color:var(--ink-2);max-width:64ch;margin:0}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 28px;padding-top:4px}
+  .meta div{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;color:var(--ink-3)}
+  .meta b{color:var(--ink-2);font-weight:600}
+  section{padding-top:56px}
+  h2{font-weight:700;font-size:clamp(21px,2.4vw,27px);letter-spacing:-.015em;margin:0 0 6px;text-wrap:balance}
+  .sec-head{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+  .sec-head p{margin:0;color:var(--ink-2);max-width:78ch}
+  .warn{border-left:3px solid var(--signal);background:var(--signal-soft);padding:18px 22px;border-radius:0 3px 3px 0;display:flex;flex-direction:column;gap:9px;margin-top:20px}
+  .warn p{margin:0;font-size:14.5px;color:var(--ink-2);max-width:84ch}
+  .warn strong{color:var(--ink)}
+  .note{border-left:3px solid var(--accent);background:var(--accent-soft);padding:18px 22px;border-radius:0 3px 3px 0;display:flex;flex-direction:column;gap:9px;margin-top:20px}
+  .note p{margin:0;font-size:14.5px;color:var(--ink-2);max-width:84ch}
+  .note strong{color:var(--ink)}
+  .scroller{overflow-x:auto;border:1px solid var(--rule);border-radius:3px;background:var(--surface)}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:1020px}
+  thead th{background:var(--surface-2);text-align:left;vertical-align:bottom;padding:12px 14px;font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);border-bottom:1px solid var(--rule);font-weight:600}
+  tbody td{padding:14px;vertical-align:top;border-bottom:1px solid var(--rule-soft);color:var(--ink-2)}
+  tbody th{text-align:left;padding:14px;vertical-align:top;border-bottom:1px solid var(--rule-soft);color:var(--ink);font-weight:700;font-size:15px;letter-spacing:-.01em}
+  tbody tr:last-child td,tbody tr:last-child th{border-bottom:none}
+  tbody tr:hover td{background:var(--surface-2)}
+  .type{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);display:block;margin-top:6px;font-weight:600}
+  .uname{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--ink-2)}
+  .risk{color:var(--signal)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+  .cell{background:var(--surface);padding:22px;display:flex;flex-direction:column;gap:10px}
+  .cell h4{margin:0;font-size:15px;font-weight:600}
+  .cell p{margin:0;font-size:14.5px;color:var(--ink-2)}
+  .cell ul{margin:0;padding-left:17px;font-size:14.5px;color:var(--ink-2);display:flex;flex-direction:column;gap:6px}
+  .cell .lab{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+  .fin{margin-top:20px;border:1px solid var(--accent);border-radius:3px;background:var(--surface);overflow:hidden}
+  .fin-head{background:var(--accent-soft);padding:22px 24px;display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px}
+  .fin-num{font-family:"Unbounded",sans-serif;font-weight:600;font-size:20px;color:var(--accent);line-height:1}
+  .fin-name{font-family:"Unbounded",sans-serif;font-weight:600;font-size:clamp(20px,2.4vw,28px);letter-spacing:-.02em;margin:0;line-height:1.1}
+  .fin-u{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-2);margin-left:auto}
+  .fin-body{padding:22px 24px;display:flex;flex-direction:column;gap:12px}
+  .fin-body p{margin:0;font-size:14.5px;color:var(--ink-2);max-width:84ch}
+  .fin-body strong{color:var(--ink)}
+  .desc{border-left:2px solid var(--signal);padding-left:12px;color:var(--ink);font-size:14.5px}
+  footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--rule);color:var(--ink-3);font-size:13px;max-width:82ch}
+  footer p{margin:0 0 8px}
+  a{color:var(--accent)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  @media (max-width:640px){.wrap{padding:0 16px 64px}.masthead{padding:40px 0 28px}.fin-u{margin-left:0}}
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="eyebrow">Нейминг · Telegram-канал о новостройках · Москва</div>
+    <h1>Десять имён <em>для канала</em></h1>
+    <p class="lede">Варианты собраны под конкретную концепцию: блог, который нельзя вести из кабинета — наблюдения с площадки в будний вечер, публикация отказов, раздел «кому не подойдёт» у каждого ЖК. Имя должно сообщать метод, а не тему: «про новостройки» пишут все, «съездил и посмотрел» — почти никто.</p>
+    <div class="meta">
+      <div><b>Вариантов:</b> 10</div>
+      <div><b>Типов нейминга:</b> 8</div>
+      <div><b>Финалистов:</b> 3</div>
+      <div><b>Дата:</b> август 2026</div>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">Список</div>
+      <h2>Десять вариантов</h2>
+      <p>Колонка «риск» — честная: у каждого имени есть цена. Имена без рисков обычно и без характера.</p>
+    </div>
+    <div class="scroller" tabindex="0">
+      <table>
+        <thead><tr><th>Название</th><th>Что сообщает</th><th>Кому заходит</th><th>Юзернейм</th><th>Риск</th></tr></thead>
+        <tbody>
+          <tr>
+            <th>Двор в 19:10<span class="type">Сценарно-временное</span></th>
+            <td>Метод целиком: автор приезжает в час, когда двор заполняется людьми и машинами. Время в названии — обещание конкретики.</td>
+            <td>Всем трём персонам. Особенно семьям: они мыслят вечерами и дворами.</td>
+            <td class="uname">@dvor1910</td>
+            <td class="risk">Длинновато для устного пересказа; цифры в имени иногда читаются как «время эфира»</td>
+          </tr>
+          <tr>
+            <th>Без рендера<span class="type">Смысловое отрицание</span></th>
+            <td>Противопоставление красивой картинке застройщика. Два слова, мгновенно понятны, легко произносятся.</td>
+            <td>Тем, кто уже посмотрел десяток сайтов ЖК и устал от одинаковых визуализаций.</td>
+            <td class="uname">@bez_rendera</td>
+            <td class="risk">Слово «рендер» знакомо не всем — часть аудитории 45+ поймёт не сразу</td>
+          </tr>
+          <tr>
+            <th>Осталось две квартиры<span class="type">Цитатно-ироничное</span></th>
+            <td>Дословная цитата скрипта продавца. Имя сразу ставит автора по одну сторону с покупателем — против манипуляции.</td>
+            <td>Тем, кого уже дожимали в отделе продаж. Это почти все, кто был на двух показах.</td>
+            <td class="uname">@ostalos_dve</td>
+            <td class="risk">Без описания читается как канал-витрина. Ирония требует пояснения в первой строке</td>
+          </tr>
+          <tr>
+            <th>Сначала съезжу<span class="type">Перформативно-глагольное</span></th>
+            <td>Порядок действий как принцип: сперва поездка, потом мнение. Разговорная интонация, звучит как реплика человека.</td>
+            <td>Тем, кто получил три одинаковые подборки и не понимает, чем агенты отличаются.</td>
+            <td class="uname">@snachala_sezzhu</td>
+            <td class="risk">Труднее в написании латиницей; «съезжу» может прочитаться как «съеду»</td>
+          </tr>
+          <tr>
+            <th>Пешком до школы<span class="type">Сценарное под персону</span></th>
+            <td>Главный критерий семейного сегмента, вынесенный в имя. Обещает проверку маршрута, а не описание ЖК.</td>
+            <td>Семьям с дедлайном по школе — бьёт точно в их работу.</td>
+            <td class="uname">@peshkom_do_shkoly</td>
+            <td class="risk">Сужает канал до одного сегмента: арендатор и даунсайзер не узнают себя</td>
+          </tr>
+          <tr>
+            <th>Метры на местности<span class="type">Аллитерация, полевой тип</span></th>
+            <td>Звучит как рекогносцировка: метры проверяются на местности, а не в прайсе. Аллитерация «м-м» делает имя цепким на слух.</td>
+            <td>Рациональным покупателям, которые любят измеримость.</td>
+            <td class="uname">@metry_na_mestnosti</td>
+            <td class="risk">Слегка «военный» оттенок; длинное в написании</td>
+          </tr>
+          <tr>
+            <th>19:10<span class="type">Числовое, минималистичное</span></th>
+            <td>Максимально короткая форма той же идеи. Ничего не объясняет — и потому интригует; смысл раскрывается в описании канала.</td>
+            <td>Аудитории, которая ценит сдержанность: специалисты 30–40 с доходом выше среднего.</td>
+            <td class="uname">@v1910</td>
+            <td class="risk">Не гуглится и не ищется по теме; требует сильного описания и терпения на старте</td>
+          </tr>
+          <tr>
+            <th>ДДУ и люди<span class="type">Аббревиатурно-каламбурное</span></th>
+            <td>Профессиональный термин рядом с человеческим словом. Обещает разговор про юридическую механику простым языком.</td>
+            <td>Тем, кто дошёл до чтения договора и испугался. Плюс партнёрам-юристам.</td>
+            <td class="uname">@ddu_i_ludi</td>
+            <td class="risk">Аббревиатура отсекает новичков, которые ещё не знают, что такое ДДУ</td>
+          </tr>
+          <tr>
+            <th>Дом на двадцать лет<span class="type">Смысловой сдвиг</span></th>
+            <td>Переводит разговор с квартиры на срок обязательства: покупают не метры, а двадцать лет платежей и жизни.</td>
+            <td>Тем, кто впервые берёт ипотеку и боится длины обязательства.</td>
+            <td class="uname">@dom_na_20let</td>
+            <td class="risk">Может звучать тяжеловесно и слегка пугающе — усиливает тревогу, а не снимает её</td>
+          </tr>
+          <tr>
+            <th>Не берите<span class="type">Провокативно-контринтуитивное</span></th>
+            <td>Имя-парадокс для канала, который ведёт продавец. Сразу заявляет право на отказ — главное отличие автора.</td>
+            <td>Скептикам, уставшим от рекламы. Даёт самый высокий отклик на пересылку.</td>
+            <td class="uname">@ne_berite</td>
+            <td class="risk">Самый рискованный вариант: может собрать аудиторию, которая вообще не собирается покупать</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="warn">
+      <p><strong>Про проверку на занятость — честно.</strong> Я проверил варианты на совпадение с известными брендами и прогнал беглый поиск по подборкам каналов о недвижимости: прямых совпадений не нашлось. Но это не доказательство свободы имени — Telegram-каналы плохо индексируются, и веб-поиск их почти не видит. <strong>Перед решением обязательно проверьте вручную:</strong> поиск по названию внутри Telegram, доступность юзернейма при создании канала, поиск по каталогам каналов и — если планируете вкладываться в бренд — проверку по реестру товарных знаков.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">Анализ</div>
+      <h2>Что получилось в наборе</h2>
+    </div>
+    <div class="grid">
+      <div class="cell">
+        <span class="lab">Преобладающий тип</span>
+        <h4>Полевые и сценарные — половина списка</h4>
+        <p>Пять из десяти имён (Двор в 19:10, Без рендера, Сначала съезжу, Пешком до школы, Метры на местности, 19:10) построены на одном приёме: в названии зашит физический факт присутствия автора на месте. Это прямое следствие концепции — она не про рынок, а про метод.</p>
+        <p>Оставшиеся распределены между иронией (Осталось две квартиры, Не берите), профессиональным каламбуром (ДДУ и люди) и смысловым сдвигом (Дом на двадцать лет).</p>
+      </div>
+      <div class="cell">
+        <span class="lab">Эмоции</span>
+        <h4>Три регистра</h4>
+        <ul>
+          <li><strong>Любопытство и доверие</strong> — «Двор в 19:10», «19:10», «Метры на местности». Реакция: «а что там в 19:10?»</li>
+          <li><strong>Узнавание и облегчение</strong> — «Осталось две квартиры», «Без рендера», «Не берите». Реакция: «наконец кто-то это сказал вслух»</li>
+          <li><strong>Тревога и серьёзность</strong> — «Дом на двадцать лет», «ДДУ и люди». Реакция: «надо разобраться, пока не поздно»</li>
+        </ul>
+        <p>Третий регистр самый опасный: он привлекает, но усиливает страх, а страх останавливает покупку. Для канала, который должен приводить заявки, лучше первые два.</p>
+      </div>
+      <div class="cell">
+        <span class="lab">Размер и форма</span>
+        <h4>От пяти символов до двадцати</h4>
+        <p>В наборе намеренно есть предельно короткое (19:10), среднее в два слова (Без рендера, Не берите) и развёрнутое в три (Осталось две квартиры, Дом на двадцать лет). Короткие лучше запоминаются и произносятся, длинные — точнее объясняют, о чём канал, без описания.</p>
+        <p>Для Telegram практичнее два слова: имя целиком видно в списке чатов и не обрезается на мобильном.</p>
+      </div>
+      <div class="cell">
+        <span class="lab">Что отбраковано</span>
+        <h4>Чего в списке нет намеренно</h4>
+        <ul>
+          <li>Всего с корнями «квартир-», «недвиж-», «риелтор» — в нише таких сотни, имя растворяется</li>
+          <li>Имён с «эксперт», «профи», «топ» — заявка на авторитет вместо доказательства</li>
+          <li>Личных именных вариантов вроде «Риелтор Мария» — они не масштабируются на второго агента</li>
+          <li>Каламбуров с «метром» и «квадратом» — территория занята сервисами банков</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">Финалисты</div>
+      <h2>Три самых сильных — и почему</h2>
+    </div>
+
+    <div class="fin">
+      <div class="fin-head"><span class="fin-num">01</span><h3 class="fin-name">Двор в 19:10</h3><span class="fin-u">@dvor1910</span></div>
+      <div class="fin-body">
+        <p><strong>Почему сильнейший.</strong> Единственное имя в списке, которое одновременно называет метод, обещает конкретику и не поддаётся копированию: конкурент, который возьмёт похожее, обяжет себя ездить по вечерам — а он этого делать не станет. Время в названии работает как подпись под каждым постом: читатель заранее знает, что материал собран на месте, а не в базе.</p>
+        <p><strong>Как звучит в речи.</strong> «Я читаю „Двор в 19:10“» — произносится без запинки, легко пересказывается по телефону, узнаётся с одного упоминания. Цифры делают имя визуально заметным в списке чатов среди текстовых названий.</p>
+        <p class="desc">Описание канала: «Приезжаю в новостройки в будний вечер и рассказываю, что видно во дворе. Без рендеров и прогнозов. Разбираю планировки, считаю платежи, иногда отговариваю покупать».</p>
+      </div>
+    </div>
+
+    <div class="fin">
+      <div class="fin-head"><span class="fin-num">02</span><h3 class="fin-name">Без рендера</h3><span class="fin-u">@bez_rendera</span></div>
+      <div class="fin-body">
+        <p><strong>Почему сильный.</strong> Самая универсальная форма той же идеи: два слова, мгновенное понимание, не привязано ни к времени суток, ни к сегменту. Работает и как имя канала, и как принцип, который можно повторять в текстах: «показываю без рендера». Хорошо ложится на визуальную рубрику, где рядом стоят картинка застройщика и фотография с площадки.</p>
+        <p><strong>Где уступает первому.</strong> Не содержит метода — только его результат. «Без рендера» может позволить себе и тот, кто просто пересказывает отзывы жильцов, не выходя из дома. То есть имя защищает слабее.</p>
+        <p class="desc">Описание канала: «Новостройки Москвы без картинок застройщика: фотографии с площадки, замеры, минусы каждого дома и честный ответ, кому он не подойдёт».</p>
+      </div>
+    </div>
+
+    <div class="fin">
+      <div class="fin-head"><span class="fin-num">03</span><h3 class="fin-name">Осталось две квартиры</h3><span class="fin-u">@ostalos_dve</span></div>
+      <div class="fin-body">
+        <p><strong>Почему сильный.</strong> Самое вирусное имя набора. Каждый, кто был в отделе продаж, слышал эту фразу — узнавание мгновенное, а ирония сразу сообщает позицию автора. Такое имя пересылают с комментарием «о, точно, мне так и говорили», а это и есть бесплатный рост.</p>
+        <p><strong>Чем рискуете.</strong> Без первой строки описания имя читается как канал-витрина с распродажей лотов — то есть ровно наоборот. Ирония требует немедленной расшифровки, иначе часть подписчиков придёт за акциями и уйдёт разочарованной. Брать его стоит, только если вы готовы держать ироничный регистр постоянно.</p>
+        <p class="desc">Описание канала: «Фразу из отдела продаж вынес в название, чтобы вы её больше не боялись. Проверяю новостройки на месте, считаю платежи и показываю, что скрывают за срочностью».</p>
+      </div>
+    </div>
+
+    <div class="note">
+      <p><strong>Рекомендация.</strong> Берите «Двор в 19:10» как основное имя канала, а «Без рендера» оставьте как название рубрики внутри — той самой, где рядом стоят рендер и фотография. Так вы получаете и защищённое методом имя, и универсальную формулировку для повторения в текстах, не тратя два бренда на одну аудиторию.</p>
+      <p><strong>Как проверить выбор за неделю, а не гадать.</strong> Возьмите три финалиста, сделайте по одному посту с одинаковым содержанием и разными заголовками-подписями и покажите пятнадцати знакомым из целевой группы — не риелторам. Спросите одно: «о чём, по-твоему, этот канал?». Имя, которое пересказывают правильно с первого раза, и есть рабочее.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Проверка на совпадения выполнена по известным брендам и по открытым подборкам каналов о недвижимости; прямых совпадений не обнаружено. Это не гарантия: Telegram-каналы почти не индексируются поисковиками, поэтому финальную проверку нужно делать внутри Telegram и при создании канала.</p>
+    <p>Юзернеймы приведены как рабочие варианты написания латиницей — их доступность не проверялась и почти наверняка потребует подбора: короткие имена в Telegram разбирают быстро.</p>
+    <p>Если планируете вкладываться в бренд надолго, перед запуском имеет смысл проверить выбранное название по реестру товарных знаков — особенно это касается коротких и общеупотребительных сочетаний.</p>
+  </footer>
+</div>
