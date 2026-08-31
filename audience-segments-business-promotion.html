@@ -1,0 +1,460 @@
+<title>Аудитория продвижения бизнеса</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Unbounded:wght@600&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F0;
+    --surface:#FFFFFF;
+    --surface-2:#E8EBE7;
+    --ink:#15191C;
+    --ink-2:#454E54;
+    --ink-3:#6E787E;
+    --line:#CDD3CE;
+    --line-soft:#DEE2DC;
+    --route:#1F44C8;
+    --route-soft:#E4E8FB;
+    --signal:#B93A28;
+    --signal-soft:#F7E5E1;
+    --band:#E2E6E0;
+    --shadow:0 1px 0 rgba(21,25,28,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0E1215;
+      --surface:#161B1F;
+      --surface-2:#1D2429;
+      --ink:#E7EBE7;
+      --ink-2:#B0B9BC;
+      --ink-3:#828D92;
+      --line:#2C353A;
+      --line-soft:#232B30;
+      --route:#8AA5FF;
+      --route-soft:#1A2340;
+      --signal:#F0836C;
+      --signal-soft:#331B16;
+      --band:#1D2429;
+      --shadow:0 1px 0 rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E1215;
+    --surface:#161B1F;
+    --surface-2:#1D2429;
+    --ink:#E7EBE7;
+    --ink-2:#B0B9BC;
+    --ink-3:#828D92;
+    --line:#2C353A;
+    --line-soft:#232B30;
+    --route:#8AA5FF;
+    --route-soft:#1A2340;
+    --signal:#F0836C;
+    --signal-soft:#331B16;
+    --band:#1D2429;
+    --shadow:0 1px 0 rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Golos Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+  .narrow{max-width:70ch}
+
+  /* ---------- masthead ---------- */
+  header.mast{
+    padding:clamp(40px,7vw,84px) 0 clamp(28px,4vw,44px);
+    border-bottom:2px solid var(--ink);
+    position:relative;
+  }
+  .eyebrow{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--route);margin:0 0 clamp(16px,3vw,26px);
+    display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+  h1{
+    font-family:"Unbounded","Golos Text",sans-serif;
+    font-weight:600;
+    font-size:clamp(30px,5.4vw,60px);
+    line-height:1.04;letter-spacing:-.02em;
+    margin:0 0 20px;text-wrap:balance;max-width:16ch;
+  }
+  .deck{font-size:clamp(16px,1.9vw,20px);color:var(--ink-2);max-width:62ch;margin:0}
+  .meta{
+    display:flex;flex-wrap:wrap;gap:8px;margin-top:clamp(24px,4vw,36px);
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.04em;
+  }
+  .meta span{
+    border:1px solid var(--line);border-radius:2px;padding:5px 10px;
+    color:var(--ink-2);background:var(--surface);
+  }
+
+  /* ---------- sections ---------- */
+  section{padding:clamp(44px,6vw,76px) 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  .sec-head{display:flex;gap:16px;align-items:baseline;margin-bottom:clamp(20px,3vw,32px)}
+  .sec-num{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;font-weight:500;
+    color:var(--route);padding-top:.35em;
+  }
+  h2{
+    font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(21px,2.8vw,30px);line-height:1.2;letter-spacing:-.015em;
+    margin:0;text-wrap:balance;
+  }
+  h3{
+    font-size:13px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+    margin:0 0 12px;
+  }
+  p{margin:0 0 1em}
+  p:last-child{margin-bottom:0}
+
+  .lede{font-size:clamp(17px,2vw,19px);color:var(--ink-2);max-width:66ch}
+  .lede strong{color:var(--ink);font-weight:600}
+
+  .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(16px,2.4vw,28px);margin-top:clamp(24px,3vw,36px)}
+  .card{
+    background:var(--surface);border:1px solid var(--line);border-radius:3px;
+    padding:clamp(18px,2.2vw,26px);box-shadow:var(--shadow);
+  }
+  .card ul{margin:0;padding-left:1.1em;color:var(--ink-2)}
+  .card li{margin-bottom:.45em}
+  .card li:last-child{margin-bottom:0}
+  .card li strong{color:var(--ink);font-weight:600}
+
+  .callout{
+    margin-top:clamp(24px,3vw,34px);
+    background:var(--route-soft);border-left:3px solid var(--route);
+    padding:clamp(18px,2.4vw,26px);border-radius:0 3px 3px 0;
+  }
+  .callout h3{color:var(--route)}
+  .callout p{color:var(--ink);max-width:74ch}
+
+  .why{margin-top:clamp(20px,2.6vw,30px);max-width:72ch;color:var(--ink-2)}
+  .why strong{color:var(--ink)}
+
+  /* ---------- table ---------- */
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+  table{border-collapse:collapse;width:100%;min-width:1020px;font-size:14.5px;line-height:1.52}
+  thead th{
+    position:sticky;top:0;z-index:2;
+    background:var(--ink);color:var(--paper);
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;
+    font-size:11px;letter-spacing:.11em;text-transform:uppercase;
+    text-align:left;padding:12px 16px;white-space:nowrap;
+  }
+  tbody td{padding:16px;border-bottom:1px solid var(--line-soft);vertical-align:top;color:var(--ink-2)}
+  tbody tr:hover td{background:var(--surface-2)}
+  .c-num{
+    width:52px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+    color:var(--route);font-variant-numeric:tabular-nums;
+  }
+  .c-name{width:18%}
+  .c-name b{display:block;color:var(--ink);font-weight:600;font-size:15.5px;line-height:1.35;margin-bottom:6px}
+  .c-name em{
+    font-style:normal;font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);
+  }
+  .c-char{width:29%}
+  .c-trig{width:21%;color:var(--ink)}
+  .c-trig::before{
+    content:"";display:block;width:22px;height:3px;background:var(--signal);
+    border-radius:2px;margin-bottom:9px;
+  }
+  .c-msg{width:24%}
+  .c-msg q{
+    quotes:"«" "»";display:block;color:var(--ink);
+    border-left:2px solid var(--route);padding-left:12px;
+  }
+  tr.band td{
+    background:var(--band);border-bottom:1px solid var(--line);
+    padding:10px 16px;
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);
+  }
+  tr.band td b{color:var(--ink);font-weight:500}
+  tr.band td span{color:var(--ink-3);letter-spacing:.06em}
+
+  /* ---------- closing ---------- */
+  .rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:clamp(16px,2.2vw,26px);margin-top:clamp(24px,3vw,34px)}
+  .rule{border-top:2px solid var(--ink);padding-top:16px}
+  .rule h4{margin:0 0 10px;font-size:16px;font-weight:600;line-height:1.3}
+  .rule p{color:var(--ink-2);font-size:15px}
+  .rule .tag{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);display:block;margin-bottom:8px;
+  }
+  .final{
+    margin-top:clamp(28px,4vw,44px);padding:clamp(20px,3vw,32px);
+    background:var(--signal-soft);border-left:3px solid var(--signal);border-radius:0 3px 3px 0;
+  }
+  .final p{font-size:clamp(16px,2vw,19px);color:var(--ink);max-width:70ch}
+  footer{padding:36px 0 56px;color:var(--ink-3);font-size:13px;font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+  a{color:var(--route)}
+  :focus-visible{outline:2px solid var(--route);outline-offset:2px}
+  @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+
+  /* ---------- narrow: table becomes records ---------- */
+  @media (max-width:880px){
+    .tablewrap{border:0;background:transparent;overflow-x:visible}
+    table{min-width:0;display:block}
+    thead{display:none}
+    tbody{display:block}
+    tbody tr{
+      display:block;background:var(--surface);border:1px solid var(--line);
+      border-radius:3px;margin-bottom:14px;padding:4px 0;
+    }
+    tbody tr:hover td{background:transparent}
+    tbody td{display:block;border-bottom:0;padding:10px 16px}
+    tbody td[data-label]::after{
+      content:attr(data-label);display:block;order:-1;
+      font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+      letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);
+    }
+    tbody td[data-label]{display:flex;flex-direction:column;gap:7px}
+    .c-num{padding-bottom:0;color:var(--route)}
+    .c-name,.c-char,.c-trig,.c-msg{width:auto}
+    .c-trig::before{margin-bottom:0}
+    tr.band{display:block;background:transparent;border:0;padding:0;margin:22px 0 12px}
+    tr.band td{display:block;background:transparent;border:0;border-top:2px solid var(--ink);padding:10px 0 0}
+  }
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow">Исследование аудитории</p>
+    <h1>Аудитория продвижения бизнеса</h1>
+    <p class="deck">Кто покупает продвижение онлайн и офлайн, в какой момент и какими словами это ему продаётся. Пятнадцать сегментов — от массового микробизнеса до нишевых закупщиков с длинным циклом сделки.</p>
+    <div class="meta">
+      <span>15 сегментов</span>
+      <span>Поведенческо-мотивационный принцип</span>
+      <span>Онлайн + офлайн</span>
+      <span>От массовых к нишевым</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Что на самом деле продаётся</h2></div>
+    <p class="lede">Клиент покупает не «рекламу». Он покупает <strong>предсказуемую загрузку своей мощности</strong> — кресла, стола, поста, бригады, кабинета, склада, календаря. Реклама — средство; единица ценности всегда называется на языке этой мощности.</p>
+
+    <div class="cols">
+      <div class="card">
+        <h3>Онлайн-контур</h3>
+        <ul>
+          <li>Перформанс: контекст, таргет, реклама на маркетплейсах</li>
+          <li>SEO и карты: Яндекс.Карты, 2ГИС, локальная выдача</li>
+          <li>Контент, соцсети, работа с отзывами и репутацией</li>
+          <li>Сайт и посадочные, CRM и сквозная аналитика</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Офлайн-контур</h3>
+        <ul>
+          <li>Наружная и indoor-реклама, промо в ТЦ</li>
+          <li>Витрина, POS-материалы, оформление входной группы</li>
+          <li>Локальные события, коллаборации, партнёрские сети</li>
+          <li>Полиграфия и раздатка, региональные радио и пресса</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Барьеры к покупке</h3>
+        <ul>
+          <li><strong>Плохой опыт:</strong> «слили бюджет, отчёт из охватов»</li>
+          <li><strong>Непрозрачность офлайна</strong> — отсюда требование гарантий</li>
+          <li><strong>Страх абонентки</strong> без результата в первый месяц</li>
+          <li><strong>У микробизнеса</strong> — сравнение с ценой одного сотрудника</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout">
+      <h3>Точка дифференциации</h3>
+      <p>Офлайн создаёт знание и доверие в радиусе, онлайн — конвертирует его и оцифровывает: промокоды, QR, коллтрекинг, геоаналитика, отложенная атрибуция визитов. Подавляющее большинство подрядчиков делает либо одно, либо другое и не сводит результат в один отчёт. Способность сшить два контура и есть продукт.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Принцип сегментации</h2></div>
+    <p class="lede">Взята <strong>поведенческо-мотивационная сегментация</strong>: по типу бизнеса, стадии его зрелости и конкретному сценарию, в котором предприниматель идёт искать подрядчика.</p>
+    <p class="why">Социально-демографический принцип здесь работает плохо: покупатель — ЛПР бизнеса, и возраст, пол или семейное положение почти не влияют на решение. Влияет связка <strong>«тип мощности → способ её загрузки → повод обратиться именно сейчас»</strong>. Владелец барбершопа и владелец завода могут быть ровесниками с сопоставимым доходом, но покупают разные вещи по разным триггерам. Соцдем внутри каждого сегмента приведён как описательная характеристика — для настройки таргетингов и тона коммуникации.</p>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Пятнадцать сегментов</h2></div>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">№</th>
+            <th scope="col">Сегмент</th>
+            <th scope="col">Ключевые характеристики</th>
+            <th scope="col">Главный триггер к покупке</th>
+            <th scope="col">Ключевое сообщение</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="band"><td colspan="5"><b>Ядро рынка</b> <span>— массовый малый бизнес, короткий цикл сделки, чувствительность к цене</span></td></tr>
+
+          <tr>
+            <td class="c-num">01</td>
+            <td class="c-name" data-label="Сегмент"><b>Владельцы точек «у дома»</b><em>Бьюти и бытовые услуги</em></td>
+            <td class="c-char" data-label="Характеристики">28–45 лет, собственник 1–3 точек: барбершоп, ногтевая студия, груминг, ремонт техники, химчистка. Выручка точки 0,8–3 млн ₽/мес. Города 100 тыс.+, спальные районы. Часто сам работает в зале. Женат/замужем, дети. Бюджет 30–80 тыс. ₽/мес, соцсети ведёт сам или SMM-щик за 15 тыс.</td>
+            <td class="c-trig" data-label="Триггер">Провалы в расписании в будни и в первые недели после открытия; ушёл мастер и увёл клиентскую базу</td>
+            <td class="c-msg" data-label="Сообщение"><q>Заполняем расписание из радиуса 2 км: карты, гео-таргет и локальная витрина. Считаем не охваты, а записи в журнале</q></td>
+          </tr>
+
+          <tr>
+            <td class="c-num">02</td>
+            <td class="c-name" data-label="Сегмент"><b>Рестораторы и владельцы кофеен</b><em>Общепит</em></td>
+            <td class="c-char" data-label="Характеристики">30–50 лет, 1–4 заведения: кафе, кофейня, пекарня, бар. Выручка 2–8 млн ₽/мес, маржа зажата арендой и ФОТ. Миллионники и центры регионов. Часто два партнёра-совладельца, решение принимают вдвоём. Бюджет 50–150 тыс. ₽/мес</td>
+            <td class="c-trig" data-label="Триггер">Пустой зал в будни и в межсезонье; сильный конкурент открылся в 200 метрах; запуск нового заведения — нужен полный зал с первого дня</td>
+            <td class="c-msg" data-label="Сообщение"><q>Даём поток в конкретные часы: закрываем провалы будних дней гео-акциями и картами, возвращаем гостя третьим визитом</q></td>
+          </tr>
+
+          <tr>
+            <td class="c-num">03</td>
+            <td class="c-name" data-label="Сегмент"><b>Владельцы несетевой розницы</b><em>Магазины у дома, локальные шоурумы</em></td>
+            <td class="c-char" data-label="Характеристики">35–55 лет, 1–5 магазинов: продукты, зоотовары, цветы, стройматериалы, одежда. Выручка 3–15 млн ₽/мес. Регионы и малые города. Женат/замужем, взрослые дети. Рекламу считает расходом, а не инвестицией; выбирает подрядчика по цене</td>
+            <td class="c-trig" data-label="Триггер">Падение трафика и среднего чека из-за федеральных сетей и маркетплейсов при растущей аренде</td>
+            <td class="c-msg" data-label="Сообщение"><q>Возвращаем покупателя, ушедшего в сети и на маркетплейсы: локальная реклама, витрина в картах и повторные покупки — по цене одного продавца</q></td>
+          </tr>
+
+          <tr>
+            <td class="c-num">04</td>
+            <td class="c-name" data-label="Сегмент"><b>Эксперты и частные практики</b><em>Личный бренд как актив</em></td>
+            <td class="c-char" data-label="Характеристики">27–45 лет: юристы, психологи, нутрициологи, репетиторы, стилисты, коучи. ИП или самозанятые, доход 150–600 тыс. ₽/мес. Работают из дома или коворкинга, часто на всю страну онлайн. Продают лично, живут на «сарафане», бюджет 20–60 тыс. ₽/мес</td>
+            <td class="c-trig" data-label="Триггер">«Сарафан» перестал давать поток; хочет поднять чек и перестать зависеть от рекомендаций и от одной площадки</td>
+            <td class="c-msg" data-label="Сообщение"><q>Строим систему вместо сарафана: профиль, контент и трафик, чтобы приходили уже прогретые и не спрашивали «а сколько стоит?»</q></td>
+          </tr>
+
+          <tr>
+            <td class="c-num">05</td>
+            <td class="c-name" data-label="Сегмент"><b>Строительно-ремонтные компании</b><em>Сезон, дорогая сделка</em></td>
+            <td class="c-char" data-label="Характеристики">32–50 лет, преимущественно мужчины. Бригада или компания 5–40 человек: загородное строительство, отделка, окна, кровля. Оборот 10–80 млн ₽/год, чек сделки 300 тыс. — 8 млн ₽. Область вокруг крупного города. Сезон март–сентябрь. Женат, дети</td>
+            <td class="c-trig" data-label="Триггер">Старт сезона: надо загрузить бригады на 3 месяца вперёд. Плюс провалившийся лид-ген у прошлого подрядчика — заявки по 5–8 тыс. ₽ без единой сделки</td>
+            <td class="c-msg" data-label="Сообщение"><q>Считаем не лиды, а подписанные договоры: квалификация заявок, скрипты и выезды на замер. Загружаем бригады до конца сезона</q></td>
+          </tr>
+
+          <tr>
+            <td class="c-num">06</td>
+            <td class="c-name" data-label="Сегмент"><b>Владельцы автобизнеса</b><em>Загрузка поста и нормо-час</em></td>
+            <td class="c-char" data-label="Характеристики">30–50 лет, мужчины: автосервис, шиномонтаж, детейлинг, кузовной ремонт, автоподбор. 2–15 сотрудников, выручка 1,5–10 млн ₽/мес. Города 300 тыс.+. Весь трафик сегодня — карты, Авито и «сарафан». Считает деньги в загрузке подъёмника</td>
+            <td class="c-trig" data-label="Триггер">Простой постов; сезонная волна (шиномонтаж, подготовка к зиме); падение после переезда или ухода ключевого мастера</td>
+            <td class="c-msg" data-label="Сообщение"><q>Загружаем посты, а не сайт: карты, Авито и возвратные касания по базе ТО. Отчёт — в заездах и стоимости нормо-часа</q></td>
+          </tr>
+
+          <tr>
+            <td class="c-num">07</td>
+            <td class="c-name" data-label="Сегмент"><b>Собственники клиник и стоматологий</b><em>Лицензия, модерация, дорогой пациент</em></td>
+            <td class="c-char" data-label="Характеристики">35–55 лет, часто врач-основатель или наёмный управляющий. 3–20 кресел и кабинетов, выручка 3–30 млн ₽/мес, чек услуги 15–300 тыс. ₽. Миллионники. Жёсткие ограничения рекламы медуслуг и сложная модерация. Решение согласуется с главврачом</td>
+            <td class="c-trig" data-label="Триггер">Дорогой пациент (CPL 3–10 тыс. ₽) при низкой доходимости до кресла; запуск нового направления — импланты, ортодонтия, аппаратная косметология — оборудование должно окупиться за 6–12 месяцев</td>
+            <td class="c-msg" data-label="Сообщение"><q>Приводим не звонки, а дошедших пациентов на дорогие направления — с креативами, проходящими модерацию, и контролем воронки от заявки до кресла</q></td>
+          </tr>
+
+          <tr>
+            <td class="c-num">08</td>
+            <td class="c-name" data-label="Сегмент"><b>Владельцы фитнеса и детских секций</b><em>Абонемент и даты набора</em></td>
+            <td class="c-char" data-label="Характеристики">28–45 лет: клубы, EMS- и йога-студии, танцы, детский футбол, школы развития. Выручка 1–8 млн ₽/мес, абонементная модель, отток 8–15% в месяц. Города 300 тыс.+. Часто пара основателей. Продажи жёстко привязаны к датам набора</td>
+            <td class="c-trig" data-label="Триггер">Сентябрьский и январский набор: продать план абонементов за три недели. В остальное время — полупустые групповые слоты и уснувшая база</td>
+            <td class="c-msg" data-label="Сообщение"><q>Продаём абонементы к дате набора, а не показы: воронка пробного занятия плюс реактивация базы — с планом продаж на месяц</q></td>
+          </tr>
+
+          <tr class="band"><td colspan="5"><b>Специализированные модели</b> <span>— зрелые в маркетинге покупатели, разговор идёт на языке юнит-экономики</span></td></tr>
+
+          <tr>
+            <td class="c-num">09</td>
+            <td class="c-name" data-label="Сегмент"><b>Селлеры маркетплейсов</b><em>WB, Ozon, ДРР</em></td>
+            <td class="c-char" data-label="Характеристики">25–40 лет, ИП/ООО, команда 1–5 человек, оборот 1–20 млн ₽/мес на WB и Ozon. Живут в любом регионе, работают удалённо, доход волатильный. Свободно оперируют юнит-экономикой, ДРР и процентом выкупа — проверяют подрядчика цифрами на первом созвоне</td>
+            <td class="c-trig" data-label="Триггер">Рост комиссий и внутренней рекламы площадки съел маржу; нужен внешний трафик и собственный бренд, чтобы не зависеть от одного канала</td>
+            <td class="c-msg" data-label="Сообщение"><q>Выводим вас из-под комиссии площадки: внешний трафик на карточку и свой D2C-канал. Считаем ДРР и маржу, а не охваты</q></td>
+          </tr>
+
+          <tr>
+            <td class="c-num">10</td>
+            <td class="c-name" data-label="Сегмент"><b>Основатели онлайн-школ и продюсеры</b><em>Запуски и когорты</em></td>
+            <td class="c-char" data-label="Характеристики">27–42 года, выручка 3–50 млн ₽ за запуск, распределённая удалённая команда, доход неравномерный по месяцам. Мыслят ROMI, CAC и окупаемостью когорт. Сами разбираются в рекламе — покупают экспертизу выше собственной, а не руки</td>
+            <td class="c-trig" data-label="Триггер">Окупаемость запуска упала ниже 100%; база выгорела; привычный канал подорожал или стал недоступен</td>
+            <td class="c-msg" data-label="Сообщение"><q>Чиним экономику запуска и диверсифицируем трафик: новые каналы, креативы и когортная аналитика — до окупаемости на холодном трафике</q></td>
+          </tr>
+
+          <tr>
+            <td class="c-num">11</td>
+            <td class="c-name" data-label="Сегмент"><b>Производственники и оптовики</b><em>B2B, длинный цикл</em></td>
+            <td class="c-char" data-label="Характеристики">Собственник 40–60 лет или коммерческий директор. Оборудование, комплектующие, стройматериалы, упаковка. Оборот 100 млн — 1,5 млрд ₽/год, цикл сделки 1–9 месяцев, отдел продаж 3–20 человек. Регионы, промзоны. Консервативны: выставки, тендеры, личные связи</td>
+            <td class="c-trig" data-label="Триггер">Ушёл ключевой клиент или сузился рынок сбыта; нужно найти дилеров и заместить импорт; выставки перестали окупаться</td>
+            <td class="c-msg" data-label="Сообщение"><q>Даём канал заявок помимо выставок и знакомств: отраслевой трафик, тендерные площадки и контент под ЛПР — с прогнозом сделок на квартал</q></td>
+          </tr>
+
+          <tr>
+            <td class="c-num">12</td>
+            <td class="c-name" data-label="Сегмент"><b>Франчайзи локальных точек</b><em>Чужой бренд-бук, свои деньги</em></td>
+            <td class="c-char" data-label="Характеристики">30–45 лет, купил франшизу: кофе с собой, пункт выдачи, стрит-фуд, детский центр. Инвестиции 1,5–7 млн ₽, часто заёмные; нередко это первый бизнес. Не имеет права менять бренд-платформу и креативы без согласования с УК. Регионы, спальные районы, ТЦ</td>
+            <td class="c-trig" data-label="Триггер">Федеральный маркетинг управляющей компании не даёт локального трафика, и точка не выходит на плановую окупаемость к шестому месяцу</td>
+            <td class="c-msg" data-label="Сообщение"><q>Локальный трафик внутри бренд-бука франшизы: гео, карты и программа открытия точки. Доводим до плановой выручки без конфликта с УК</q></td>
+          </tr>
+
+          <tr class="band"><td colspan="5"><b>Нишевые сегменты</b> <span>— высокий чек, длинный цикл, вход через отраслевую экспертизу и кейсы</span></td></tr>
+
+          <tr>
+            <td class="c-num">13</td>
+            <td class="c-name" data-label="Сегмент"><b>Наёмные маркетинг-директора</b><em>ЛПР — не собственник</em></td>
+            <td class="c-char" data-label="Характеристики">28–45 лет, руководитель маркетинга в компании 50–500 человек с оборотом 0,5–5 млрд ₽. Зарплата 200–500 тыс. ₽, годовой бюджет 5–50 млн ₽. Москва, Петербург, миллионники. Рискует не своими деньгами, а должностью и защитой бюджета на комитете</td>
+            <td class="c-trig" data-label="Триггер">Горит квартальный KPI, инхаус-команда не тянет объём; нужен подрядчик и отчёт, с которым можно защитить бюджет перед собственником</td>
+            <td class="c-msg" data-label="Сообщение"><q>Закрываем ваш KPI и даём отчёт, с которым вы защитите бюджет: сквозная аналитика, SLA по срокам и один ответственный менеджер</q></td>
+          </tr>
+
+          <tr>
+            <td class="c-num">14</td>
+            <td class="c-name" data-label="Сегмент"><b>Сезонные подрядчики событий</b><em>Год живёт четырьмя месяцами</em></td>
+            <td class="c-char" data-label="Характеристики">27–45 лет: организаторы мероприятий, банкетные площадки, кейтеринг, фотографы и видеографы, аренда лофтов. До 70% годовой выручки за четыре месяца — май–сентябрь и декабрь. ИП с командой фрилансеров. Пригороды и регионы. Бронь свадеб — за 6–12 месяцев до даты</td>
+            <td class="c-trig" data-label="Триггер">Календарь на сезон пустой, а окно продаж закрывается: заявки нужно собрать за 2–3 месяца до пика, иначе год убыточный</td>
+            <td class="c-msg" data-label="Сообщение"><q>Забиваем календарь до старта сезона: бронирования под конкретные даты, а не заявки «на подумать». Запускаем за 4–6 месяцев до пика</q></td>
+          </tr>
+
+          <tr>
+            <td class="c-num">15</td>
+            <td class="c-name" data-label="Сегмент"><b>Агентства недвижимости и малые девелоперы</b><em>Спрос завязан на ставку</em></td>
+            <td class="c-char" data-label="Характеристики">30–55 лет: руководитель АН с 10–60 агентами или директор по продажам застройщика с 1–3 объектами. Комиссия 150–800 тыс. ₽, объекты 4–20 млн ₽. Регионы и пригороды. Спрос полностью зависит от ипотечной ставки и госпрограмм, штат агентов сидит на проценте</td>
+            <td class="c-trig" data-label="Триггер">Сворачивание льготных программ обрушило спрос; остатки в сданном доме нужно распродать до конца квартала, иначе кредитная нагрузка съедает проект</td>
+            <td class="c-msg" data-label="Сообщение"><q>Продаём остатки и объекты в сложном рынке: трафик под конкретный ЖК и скрипты под текущую ставку. Отчёт в бронированиях и сделках</q></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Как этим пользоваться</h2></div>
+    <div class="rules">
+      <div class="rule">
+        <span class="tag">Объём</span>
+        <h4>Сегменты 1–3, 5, 6 — рынок «в ширину»</h4>
+        <p>Самый широкий спрос и короткий цикл сделки в одно-два касания, но низкий чек и высокая чувствительность к цене. Берутся типовым продуктом и потоком заявок, а не индивидуальной проработкой.</p>
+      </div>
+      <div class="rule">
+        <span class="tag">Чек</span>
+        <h4>Сегменты 7, 11, 13, 15 — рынок «в глубину»</h4>
+        <p>Цикл 1–3 месяца и согласование с несколькими лицами, зато чек выше в 5–15 раз и низкий отток. Заходить нужно отраслевыми кейсами и цифрами, а не прайсом на услуги.</p>
+      </div>
+      <div class="rule">
+        <span class="tag">Позиционирование</span>
+        <h4>Связка онлайн + офлайн сильнее всего в 1, 2, 3, 6, 8, 12</h4>
+        <p>Это бизнесы с физическим радиусом: офлайн-касание и онлайн-конверсию можно свести в один отчёт. Здесь и строится основное позиционирование. Сегментам 9, 10 и отчасти 4 нужен не радиус, а юнит-экономика.</p>
+      </div>
+    </div>
+    <div class="final">
+      <p>Общее правило по сообщениям: ни один сегмент не покупает «маркетинг». Каждый покупает загрузку своей единицы мощности — кресла, стола, поста, бригады, кабинета, склада, календаря. Метрика в оффере обязана называться на языке этой единицы.</p>
+    </div>
+  </section>
+
+  <footer>Сегментация ЦА · продвижение бизнеса онлайн и офлайн</footer>
+</div>
