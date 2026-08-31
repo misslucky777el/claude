@@ -1,0 +1,648 @@
+<title>От запроса до рекомендации</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600&family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --paper:#F1F0EC; --surface:#FBFAF7; --surface-2:#E8E7E1;
+    --ink:#16181A; --ink-2:#565A56; --ink-3:#7E827D;
+    --rule:#D6D5CC; --rule-soft:#E2E1D9;
+    --accent:#0F4C45; --accent-soft:#DCE7E3;
+    --signal:#9C3B2A; --signal-soft:#F0E0DA;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#101312; --surface:#171B1A; --surface-2:#1F2423;
+      --ink:#E9EBE7; --ink-2:#A3A9A4; --ink-3:#7C837E;
+      --rule:#2C3231; --rule-soft:#242A29;
+      --accent:#4FB3A2; --accent-soft:#17302C;
+      --signal:#D9705A; --signal-soft:#33201C;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#101312; --surface:#171B1A; --surface-2:#1F2423;
+    --ink:#E9EBE7; --ink-2:#A3A9A4; --ink-3:#7C837E;
+    --rule:#2C3231; --rule-soft:#242A29;
+    --accent:#4FB3A2; --accent-soft:#17302C;
+    --signal:#D9705A; --signal-soft:#33201C;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:"Golos Text","Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 24px 96px}
+  .eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+
+  .masthead{padding:64px 0 40px;border-bottom:2px solid var(--ink);display:flex;flex-direction:column;gap:22px}
+  h1{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;font-size:clamp(30px,4.6vw,54px);line-height:1.04;letter-spacing:-.02em;margin:0;text-wrap:balance}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lede{font-size:clamp(17px,1.5vw,19px);color:var(--ink-2);max-width:64ch;margin:0}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 28px;padding-top:4px}
+  .meta div{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;color:var(--ink-3)}
+  .meta b{color:var(--ink-2);font-weight:600}
+
+  section{padding-top:56px}
+  h2{font-weight:700;font-size:clamp(21px,2.4vw,27px);letter-spacing:-.015em;margin:0 0 6px;text-wrap:balance}
+  h2 .stage{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px;font-weight:600}
+  h3.sub{font-weight:700;font-size:17px;margin:34px 0 12px;letter-spacing:-.01em}
+  .sec-head{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+  .sec-head p{margin:0;color:var(--ink-2);max-width:78ch}
+
+  .note{border-left:3px solid var(--accent);background:var(--accent-soft);padding:18px 22px;border-radius:0 3px 3px 0;display:flex;flex-direction:column;gap:9px;margin-top:20px}
+  .note p{margin:0;font-size:14.5px;color:var(--ink-2);max-width:84ch}
+  .note strong{color:var(--ink)}
+  .warn{border-left:3px solid var(--signal);background:var(--signal-soft);padding:18px 22px;border-radius:0 3px 3px 0;display:flex;flex-direction:column;gap:9px;margin-top:20px}
+  .warn p{margin:0;font-size:14.5px;color:var(--ink-2);max-width:84ch}
+  .warn strong{color:var(--ink)}
+
+  .metrics{display:flex;flex-wrap:wrap;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:3px;overflow:hidden;margin-top:22px}
+  .metrics div{background:var(--surface);padding:16px 18px;flex:1 1 200px;display:flex;flex-direction:column;gap:5px}
+  .metrics .m-name{font-size:13px;color:var(--ink-2)}
+  .metrics .m-val{font-family:"JetBrains Mono",monospace;font-size:15px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums}
+  .metrics .m-src{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+
+  .scroller{overflow-x:auto;border:1px solid var(--rule);border-radius:3px;background:var(--surface)}
+  table{border-collapse:collapse;width:100%;font-size:13.5px}
+  table.ch{min-width:1080px}
+  table.up{min-width:960px}
+  table.ret{min-width:1000px}
+  thead th{background:var(--surface-2);text-align:left;vertical-align:bottom;padding:12px 14px;font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);border-bottom:1px solid var(--rule);font-weight:600}
+  tbody td{padding:14px;vertical-align:top;border-bottom:1px solid var(--rule-soft);color:var(--ink-2)}
+  tbody th{text-align:left;padding:14px;vertical-align:top;border-bottom:1px solid var(--rule-soft);color:var(--ink);font-weight:600;font-size:13.5px}
+  tbody tr:last-child td,tbody tr:last-child th{border-bottom:none}
+  tbody tr:hover td{background:var(--surface-2)}
+  .msg{color:var(--ink);border-left:2px solid var(--signal);padding-left:11px;display:block}
+
+  figure{margin:0;border:1px solid var(--rule);border-radius:3px;background:var(--surface);padding:24px 22px 18px}
+  figure svg{display:block;width:100%;max-width:100%;height:auto;color:var(--ink-2)}
+  figcaption{margin-top:14px;font-size:13.5px;color:var(--ink-3);max-width:84ch}
+
+  ol.flow{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+  ol.flow li{background:var(--surface);padding:18px 22px;display:grid;grid-template-columns:130px 1fr;gap:18px;align-items:start}
+  ol.flow .k{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--accent);padding-top:3px;font-weight:600}
+  ol.flow h4{margin:0 0 5px;font-size:15px;font-weight:600}
+  ol.flow p{margin:0;font-size:14.5px;color:var(--ink-2);max-width:84ch}
+  ol.flow p + p{margin-top:7px}
+  @media (max-width:640px){ol.flow li{grid-template-columns:1fr;gap:5px}}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+  .cell{background:var(--surface);padding:22px;display:flex;flex-direction:column;gap:10px}
+  .cell h4{margin:0;font-size:15px;font-weight:600}
+  .cell p{margin:0;font-size:14.5px;color:var(--ink-2)}
+  .cell ul{margin:0;padding-left:17px;font-size:14.5px;color:var(--ink-2);display:flex;flex-direction:column;gap:6px}
+  .cell .lab{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+  .cell strong{color:var(--ink)}
+
+  footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--rule);color:var(--ink-3);font-size:13px;max-width:82ch}
+  footer p{margin:0 0 8px}
+  a{color:var(--accent)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  @media (max-width:640px){.wrap{padding:0 16px 64px}.masthead{padding:40px 0 28px}}
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="eyebrow">Воронка AARRR · агентство по новостройкам · Москва</div>
+    <h1>От запроса до <em>рекомендации</em></h1>
+    <p class="lede">Пять этапов, собранные под конкретную конфигурацию: один менеджер, пять сделок в месяц, комиссия от застройщика и позиционирование через выезд и право отказа. Шесть каналов привлечения с гипотезами, сценарий первого касания по дням, шесть механик удержания, модель монетизации с апселлами и четыре сценария рекомендаций — плюс порядок внедрения по неделям.</p>
+    <div class="meta">
+      <div><b>Каналов:</b> 6</div>
+      <div><b>Механик удержания:</b> 6</div>
+      <div><b>Сценариев рекомендаций:</b> 4</div>
+      <div><b>Дата:</b> август 2026</div>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">00 · Адаптация модели</div>
+      <h2>Три места, где классический AARRR для этой ниши ломается</h2>
+      <p>Модель придумана для продуктов с повторным использованием и оплатой пользователем. Здесь ни того, ни другого нет — и если применить её буквально, два этапа из пяти окажутся пустыми. Вот как они переопределены.</p>
+    </div>
+    <div class="grid">
+      <div class="cell">
+        <span class="lab">Retention</span>
+        <h4>Не возврат к продукту, а удержание внутри длинного решения</h4>
+        <p>Квартиру не покупают дважды, «вернуться в продукт» некуда. Но между первым обращением и сделкой проходит от двух недель до восьми месяцев, и в этом промежутке клиента теряют чаще, чем на любом другом этапе.</p>
+        <p><strong>Здесь Retention — это две задачи:</strong> не потерять клиента внутри цикла и вернуть тех, кто отложил решение. Вторая по объёму сопоставима с привлечением новых.</p>
+      </div>
+      <div class="cell">
+        <span class="lab">Revenue</span>
+        <h4>Платит не клиент, и событий два, а не одно</h4>
+        <p>Услуга для покупателя бесплатна, вознаграждение приходит от застройщика после регистрации ДДУ с лагом в несколько недель. Значит момент «монетизации» распадается на два: сделка состоялась и деньги поступили.</p>
+        <p><strong>Следствие:</strong> в воронке нужны обе точки, иначе кассовый разрыв обнаруживается в момент, когда платить за рекламу нечем.</p>
+      </div>
+      <div class="cell">
+        <span class="lab">Referral</span>
+        <h4>Не бонус к росту, а основной канал масштабирования</h4>
+        <p>При отсутствии бренда и бюджета рекомендация — единственный канал, где стоимость привлечения стремится к нулю, а доверие приходит вместе с контактом.</p>
+        <p><strong>Следствие:</strong> Referral проектируется не «когда-нибудь потом», а с первой сделки, и момент просьбы о рекомендации — часть регламента, а не жест доброй воли.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">01 · Схема</div>
+      <h2>Вся воронка на одной картинке</h2>
+      <p>Числа — месячные, из обратного расчёта под пять сделок. Две петли обратной связи важнее прямой линии: именно они дают рост без роста бюджета.</p>
+    </div>
+    <figure>
+      <svg viewBox="0 0 920 430" role="img" aria-label="Схема воронки AARRR: 65 лидов на привлечении, 22 активации через интервью и отчёт, удержание внутри цикла и возврат отложенных, 5 сделок и поступление комиссии, 1 сделка в месяц по рекомендации. Две петли: рекомендации возвращаются в привлечение, отложенные клиенты возвращаются в активацию.">
+        <defs>
+          <marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+          </marker>
+          <marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#2E8B7A"/>
+          </marker>
+        </defs>
+
+        <g><title>Acquisition: 65 обращений в месяц из шести каналов</title>
+          <rect x="18" y="120" width="150" height="96" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+          <text x="93" y="150" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.7">Acquisition</text>
+          <text x="93" y="176" text-anchor="middle" font-size="22" fill="currentColor" font-weight="600">65</text>
+          <text x="93" y="198" text-anchor="middle" font-size="12" fill="currentColor">обращений</text>
+        </g>
+        <line x1="168" y1="168" x2="196" y2="168" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar3)"/>
+
+        <g><title>Activation: 22 проведённых интервью с выданным отчётом</title>
+          <rect x="198" y="120" width="150" height="96" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+          <text x="273" y="150" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.7">Activation</text>
+          <text x="273" y="176" text-anchor="middle" font-size="22" fill="currentColor" font-weight="600">22</text>
+          <text x="273" y="198" text-anchor="middle" font-size="12" fill="currentColor">интервью + отчёт</text>
+        </g>
+        <line x1="348" y1="168" x2="376" y2="168" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar3)"/>
+
+        <g><title>Retention: 14 клиентов доходят до выездов и показов, остальные уходят в отложенные</title>
+          <rect x="378" y="120" width="150" height="96" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+          <text x="453" y="150" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.7">Retention</text>
+          <text x="453" y="176" text-anchor="middle" font-size="22" fill="currentColor" font-weight="600">14</text>
+          <text x="453" y="198" text-anchor="middle" font-size="12" fill="currentColor">доходят до показов</text>
+        </g>
+        <line x1="528" y1="168" x2="556" y2="168" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar3)"/>
+
+        <g><title>Revenue: 5 сделок ДДУ и около 1,75 млн рублей вознаграждения</title>
+          <rect x="558" y="120" width="150" height="96" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+          <text x="633" y="150" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.7">Revenue</text>
+          <text x="633" y="176" text-anchor="middle" font-size="22" fill="currentColor" font-weight="600">5</text>
+          <text x="633" y="198" text-anchor="middle" font-size="12" fill="currentColor">сделок · 1,75 млн ₽</text>
+        </g>
+        <line x1="708" y1="168" x2="736" y2="168" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar3)"/>
+
+        <g><title>Referral: одна сделка в месяц приходит по рекомендации</title>
+          <rect x="738" y="120" width="160" height="96" rx="4" fill="none" stroke="#2E8B7A" stroke-width="2"/>
+          <text x="818" y="150" text-anchor="middle" font-size="12" fill="#2E8B7A" opacity="0.9">Referral</text>
+          <text x="818" y="176" text-anchor="middle" font-size="22" fill="#2E8B7A" font-weight="600">1+</text>
+          <text x="818" y="198" text-anchor="middle" font-size="12" fill="#2E8B7A">сделка/мес по совету</text>
+        </g>
+
+        <path d="M 818 216 L 818 300 L 93 300 L 93 220" fill="none" stroke="#2E8B7A" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ar4)"/>
+        <text x="455" y="322" text-anchor="middle" font-size="12.5" fill="#2E8B7A" font-weight="600">Петля 1 · рекомендация приходит с готовым доверием и почти нулевой ценой привлечения</text>
+
+        <path d="M 453 116 L 453 60 L 273 60 L 273 116" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#ar3)"/>
+        <text x="363" y="46" text-anchor="middle" font-size="12.5" fill="currentColor" font-weight="600">Петля 2 · отложенные возвращаются через 30–90–180 дней</text>
+
+        <text x="18" y="370" font-size="12.5" fill="currentColor" opacity="0.8">Сквозная конверсия обращение → сделка: 7,7%   ·   цикл: 30–90 дней   ·   лаг поступления комиссии после ДДУ: до 45 дней</text>
+        <text x="18" y="392" font-size="12.5" fill="currentColor" opacity="0.8">Из 22 активированных сделку в этом же месяце закрывают 5; около 12 уходят в отложенные — и это не потери, а вход в петлю 2</text>
+      </svg>
+      <figcaption>Прямая линия из пяти блоков — это то, что видно в отчёте. Работает же на результат другое: две пунктирные петли. Нижняя даёт сделки без затрат на рекламу, верхняя возвращает тех, кто отложил решение, — а таких из каждых двадцати двух активированных около двенадцати. Если обе петли не построены, агентство обязано каждый месяц покупать полный объём лидов заново, и любое подорожание рекламы бьёт по выручке напрямую.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">02 · Acquisition</div>
+      <h2><span class="stage">Этап 1 · Привлечение</span>Шесть каналов и гипотеза по каждому</h2>
+      <p>Каналы отсортированы по приоритету запуска. Главный принцип отбора: перехватывать человека в момент триггера, а не в момент, когда он уже пишет «купить квартиру в новостройке» — там он общается с тремя агентами одновременно и стоит дороже всего.</p>
+    </div>
+    <div class="scroller" tabindex="0">
+      <table class="ch">
+        <thead><tr>
+          <th>Канал</th><th>Гипотеза привлечения</th><th>Ключевое сообщение</th><th>Формат</th><th>Метрика и цель</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <th>1. Поиск по до-категорийным запросам</th>
+            <td>Человек в момент триггера ищет решение проблемы, а не агентство: «сколько стоит моя квартира в панельном доме», «ипотека или аренда что выгоднее», «как выбрать школу по прописке». Здесь конкуренция и цена клика ниже, а мы встречаем его на месяц раньше конкурентов.</td>
+            <td><span class="msg">«Посчитаем, что выгоднее в вашем случае: платить аренду 85 тысяч или ипотеку — по вашему району и вашему первому взносу»</span></td>
+            <td>Поисковые кампании + статья-калькулятор на сайте, где расчёт даётся сразу, а форма — после результата</td>
+            <td>CPL ≤ 3 500 ₽<br>доля квалифицированных ≥ 35%</td>
+          </tr>
+          <tr>
+            <th>2. Разборы конкретных ЖК в поиске</th>
+            <td>Запросы «ЖК N отзывы», «ЖК N минусы», «стоит ли покупать в ЖК N» задают люди на финальной стадии выбора. Наш разбор с реальными минусами и фото с выезда отвечает точнее, чем любой рекламный текст, и приводит уже прогретого человека.</td>
+            <td><span class="msg">«Съездили в этот двор в среду в семь вечера. Рассказываем, что там с парковкой, шумом и школой — и кому этот ЖК не подойдёт»</span></td>
+            <td>Серия статей по единому шаблону + фото и хронометраж с выезда; поддержка контекстом на брендовые запросы ЖК</td>
+            <td>CPL ≤ 800 ₽<br>≥ 25% лидов к 9-му месяцу</td>
+          </tr>
+          <tr>
+            <th>3. Партнёрская сеть смежных специалистов</th>
+            <td>О триггере раньше нас узнают те, к кому клиент идёт по своей проблеме: юристы по разделу имущества, риелторы по вторичке (им не интересны новостройки), оценщики, ипотечные брокеры, бухгалтеры. Им нужен надёжный партнёр, чтобы не терять клиента.</td>
+            <td><span class="msg">«Ваш клиент продаёт квартиру и не знает, что покупать дальше. Возьму на себя подбор новостройки и верну его вам после сделки»</span></td>
+            <td>Личные встречи, взаимный обмен клиентами, партнёрское вознаграждение или взаимозачёт; договорённость на 5–7 партнёров</td>
+            <td>CPL ≈ 0 ₽<br>≥ 8 лидов/мес к 4-му месяцу</td>
+          </tr>
+          <tr>
+            <th>4. Видео с выездов: короткие ролики</th>
+            <td>Обещание «мы съездим и проверим» абстрактно, пока его не видно. Ролик, снятый во дворе в будний вечер, доказывает услугу за 40 секунд и одновременно является контентом, который люди досматривают и пересылают.</td>
+            <td><span class="msg">«Вечер среды, 19:10, двор ЖК. Смотрите сами: парковка занята, детская площадка пустая, до школы 11 минут пешком»</span></td>
+            <td>Вертикальные ролики 40–60 сек для YouTube Shorts и Telegram; съёмка попутно с рабочими выездами, без отдельного бюджета</td>
+            <td>Досмотры ≥ 45%<br>≥ 5 лидов/мес к 6-му месяцу</td>
+          </tr>
+          <tr>
+            <th>5. Telegram-канал и районные сообщества</th>
+            <td>Персона «семья с дедлайном по школе» живёт в родительских и районных чатах и доверяет им больше рекламы. Регулярные разборы ЖК района плюс аккуратное присутствие в чатах дают дешёвый и тёплый трафик.</td>
+            <td><span class="msg">«Разбираем новостройки района: что построят рядом, какие школы реально берут по прописке, где двор шумит»</span></td>
+            <td>Собственный канал 3–4 поста в неделю + посевы в районных и родительских чатах; ответы на вопросы без прямой продажи</td>
+            <td>CPL ≤ 1 500 ₽<br>подписчики: +150/мес</td>
+          </tr>
+          <tr>
+            <th>6. Личная сеть и офлайн-точки</th>
+            <td>Первые сделки в новом агентстве всегда приходят из своего круга. Плюс места, где физически находятся люди в момент триггера: детские центры, школы, коворкинги, офисы работодателей с релокацией.</td>
+            <td><span class="msg">«Я разбираю новостройки Москвы: интервью, выезд на объект и честный ответ, стоит ли покупать. Первым десяти — бесплатный разбор»</span></td>
+            <td>Личные сообщения по своему кругу, выступления в родительских сообществах, партнёрство с детскими центрами района</td>
+            <td>≥ 10 лидов в первые 2 месяца<br>CPL ≈ 0 ₽</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="metrics">
+      <div><span class="m-name">Обращений в месяц</span><span class="m-val">65–70</span><span class="m-src">CRM + коллтрекинг</span></div>
+      <div><span class="m-name">Цена квалифицированного лида</span><span class="m-val">≤ 13 000 ₽</span><span class="m-src">Кабинеты + CRM</span></div>
+      <div><span class="m-name">Доля целевых персон</span><span class="m-val">≥ 60%</span><span class="m-src">CRM, поле «сегмент»</span></div>
+      <div><span class="m-name">Доля бесплатных каналов</span><span class="m-val">≥ 30% к 6 мес.</span><span class="m-src">Сквозная аналитика</span></div>
+    </div>
+    <div class="warn">
+      <p><strong>Ограничение сверху.</strong> Больше 70 обращений в месяц одному менеджеру не нужно: 22 интервью и 14 выездных циклов — это уже полный месячный фонд времени. Канал, дающий объём сверх этого, не увеличивает выручку, а ломает скорость ответа и качество разбора. Поэтому при выборе между «больше лидов» и «более целевые лиды» на этом этапе всегда выигрывает второе.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">03 · Activation</div>
+      <h2><span class="stage">Этап 2 · Активация</span>Момент первой ценности и сценарий первого касания</h2>
+      <p>Активация здесь — не заявка и не звонок. Это момент, когда человек впервые получает то, чего не мог получить сам, и переключается из режима «собираю варианты» в режим «работаю с этим человеком».</p>
+    </div>
+
+    <div class="grid">
+      <div class="cell">
+        <span class="lab">Первая ценность</span>
+        <h4>Наступает раньше отчёта — на пятой минуте первого разговора</h4>
+        <p>Момент «ага» возникает, когда менеджер задаёт вопрос, которого клиенту никто не задавал, или называет факт, которого тот не знал: <strong>«школу в этом ЖК построят во второй очереди, а не в первой — вашему ребёнку идти в сентябре, значит этот вариант вам не подходит»</strong>.</p>
+        <p>Ценность в этот момент — не выбор квартиры, а ощущение: этот человек разбирается и работает на меня. Всё остальное — отчёт, выезды, презентация — работает, только если этот момент состоялся.</p>
+      </div>
+      <div class="cell">
+        <span class="lab">Что убивает активацию</span>
+        <h4>Три ошибки первого разговора</h4>
+        <ul>
+          <li>Начать с вопроса о бюджете и первом взносе — так делают все, и клиент мгновенно относит вас к общей категории</li>
+          <li>Прислать подборку до разговора: она неотличима от подборок трёх других агентов, и работа обесценена ещё до старта</li>
+          <li>Провести интервью с одним из двух принимающих решение — второй потом всё отменит, и это будет выглядеть как «мы подумаем»</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="sub">Сценарий первого касания: от заявки до активации за 7 дней</h3>
+    <ol class="flow">
+      <li><span class="k">0–15 минут</span><div><h4>Короткий звонок, а не продажа</h4>
+        <p>Пять-семь минут: три вопроса о ситуации (что происходит, к какому сроку, кто ещё участвует в решении), один факт, которого клиент не знал, и назначение интервью — обязательно с обоими участниками решения. Ничего не продаём, вариантов не называем.</p>
+        <p>Сразу после звонка — сообщение с памяткой «как будет проходить работа»: пять шагов, сроки каждого и обещание не звонить в паузу. Это первое доказательство, что процесс управляемый.</p></div></li>
+      <li><span class="k">День 1–3</span><div><h4>Интервью на 60–75 минут</h4>
+        <p>Структура: как живёте сейчас и что не устраивает → какие сроки и чем они заданы → деньги и что произойдёт при плохом сценарии → что уже смотрели и к каким выводам пришли → чего боитесь в этой покупке. Последние два блока дают больше, чем первые три.</p>
+        <p>Финал интервью: вслух проговорить, что именно будет проверено, и назвать дату отчёта. Клиент уходит с ощущением запущенного процесса, а не с обещанием «мы вам перезвоним».</p></div></li>
+      <li><span class="k">День 2–4</span><div><h4>Отчёт: пять вариантов и список отклонённых</h4>
+        <p>Ключевая часть — не пять предложенных, а тридцать-сорок отклонённых с причиной по каждому. Именно этот раздел закрывает работу «получить право перестать искать», ради которой вас и наняли.</p>
+        <p>Отправка в мессенджер и на почту + короткий звонок на десять минут: «пробегите, отметьте, что смущает, разберём на встрече». Звонок обязателен — открытый, но не прочитанный отчёт активацией не считается.</p></div></li>
+      <li><span class="k">День 4–7</span><div><h4>Выезды и полевые заметки</h4>
+        <p>Менеджер едет на площадки отобранных вариантов — в будний вечер, а не в удобное время. Протокол на 15–20 пунктов, 5–7 фотографий, хронометраж дороги до школы или работы клиента.</p>
+        <p>Заметки отправляются до встречи: «был вчера в 19:10, вот что увидел». Это момент, когда клиент понимает разницу между вами и агентом, приславшим подборку из той же базы.</p></div></li>
+      <li><span class="k">День 7–10</span><div><h4>Презентация и поездки в офисы застройщиков</h4>
+        <p>Разбор вариантов с плюсами и минусами каждого, расчёт бюджета по сценариям, ответ на главный вопрос — стоит ли вообще покупать сейчас. Затем поездки в офисы продаж и согласованная пауза без звонков.</p></div></li>
+    </ol>
+
+    <h3 class="sub">Что считается успешной активацией</h3>
+    <div class="grid">
+      <div class="cell">
+        <span class="lab">Основное событие</span>
+        <h4>Интервью проведено и отчёт обсуждён</h4>
+        <p>Активированным считается клиент, у которого выполнены три условия: проведено полноценное интервью, получен отчёт и состоялся разговор по нему. Одно из трёх без остальных активацией не является — это просто контакт.</p>
+      </div>
+      <div class="cell">
+        <span class="lab">Усиленная активация</span>
+        <h4>Оба участника решения в разговоре</h4>
+        <p>Если интервью прошло с обоими — вероятность сделки заметно выше, а вероятность зависания на «мы подумаем» ниже. Это отдельная метрика, потому что ею можно управлять: назначать встречу только на время, когда есть оба.</p>
+      </div>
+      <div class="cell">
+        <span class="lab">Ранний сигнал</span>
+        <h4>Клиент прислал свои варианты на проверку</h4>
+        <p>Самый надёжный признак того, что вас наняли: человек пересылает найденные им самим ЖК с вопросом «а это как?». Значит он передал вам функцию отбора — работа началась.</p>
+      </div>
+    </div>
+    <div class="metrics">
+      <div><span class="m-name">Лид → интервью</span><span class="m-val">≥ 35%</span><span class="m-src">CRM, этап воронки</span></div>
+      <div><span class="m-name">Интервью с обоими ЛПР</span><span class="m-val">≥ 70%</span><span class="m-src">CRM, поле «участники»</span></div>
+      <div><span class="m-name">Время заявка → интервью</span><span class="m-val">≤ 3 дней</span><span class="m-src">CRM, таймстемпы</span></div>
+      <div><span class="m-name">Отчёт открыт и обсуждён</span><span class="m-val">≥ 80%</span><span class="m-src">Ссылка с отслеживанием + CRM</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">04 · Retention</div>
+      <h2><span class="stage">Этап 3 · Удержание</span>Шесть механик и календарь касаний</h2>
+      <p>Две задачи разного типа: не потерять клиента внутри цикла принятия решения и вернуть того, кто отложил. Инструменты для них разные, но питаются из одного источника — заполненного поля «причина отказа» и даты следующего касания.</p>
+    </div>
+    <div class="scroller" tabindex="0">
+      <table class="ret">
+        <thead><tr>
+          <th>Механика</th><th>Тип</th><th>Как работает</th><th>Периодичность</th><th>Метрика</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <th>1. Контракт ритма</th>
+            <td>Продуктовая</td>
+            <td>На первой встрече клиент получает памятку: пять шагов, срок каждого и обещание не звонить в согласованную паузу. Тревога уходит вместе с неопределённостью, а отсутствие дожима становится заметным преимуществом именно потому, что его соблюдают буквально.</td>
+            <td>Один раз на входе + соблюдение всю сделку</td>
+            <td>Соблюдение паузы: 100%</td>
+          </tr>
+          <tr>
+            <th>2. Полевые заметки по его вариантам</th>
+            <td>Продуктовая</td>
+            <td>Пока клиент думает, менеджер продолжает ездить и присылает наблюдения по его конкретным ЖК: как идёт стройка, что происходит во дворе, что открылось рядом. Это возвращает в диалог без вопроса «ну что, решили?».</td>
+            <td>Раз в 2–3 недели, пока клиент активен</td>
+            <td>Ответы на заметки ≥ 50%</td>
+          </tr>
+          <tr>
+            <th>3. Триггерные оповещения по его параметрам</th>
+            <td>Коммуникационная</td>
+            <td>Стартовал корпус в его бюджете и районе, изменилась цена на интересовавший лот, поменялись условия господдержки под его случай. Повод конкретный и персональный — отсюда высокий отклик по сравнению с рассылками.</td>
+            <td>По событию, не чаще раза в 2 недели</td>
+            <td>Отклик ≥ 12%</td>
+          </tr>
+          <tr>
+            <th>4. График 30–90–180 для отложенных</th>
+            <td>Коммуникационная</td>
+            <td>Через 30 дней — «как дела, что решили»; через 90 — пересчёт его ситуации с новыми условиями; через 180 — приглашение к повторному разбору. Каждое касание с личным поводом, взятым из причины отказа.</td>
+            <td>30 / 90 / 180 дней от даты отказа</td>
+            <td>Возврат в работу ≥ 8% за квартал</td>
+          </tr>
+          <tr>
+            <th>5. Ежеквартальный пересчёт ситуации</th>
+            <td>Продуктовая</td>
+            <td>Обновлённый расчёт платежа и бюджета для тех, кто ждёт: «в вашем случае за квартал изменилось вот что». Контакт без продажи, который держит вас в поле зрения и одновременно доказывает экспертизу.</td>
+            <td>Раз в квартал по всей активной базе</td>
+            <td>Открытия ≥ 45%</td>
+          </tr>
+          <tr>
+            <th>6. Канал с разборами ЖК</th>
+            <td>Контентная</td>
+            <td>Постоянное фоновое присутствие: человек читает разборы районов, которые рассматривал, и остаётся в контакте, даже когда решение отложено на год. Дешевле любых рассылок и не воспринимается как давление.</td>
+            <td>3–4 публикации в неделю</td>
+            <td>Удержание подписчиков ≥ 90%/квартал</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <p><strong>Календарь касаний целиком.</strong> Активный клиент — раз в 3–5 дней, но только с поводом. В согласованной паузе — ни одного звонка, одно сообщение в оговорённый день. Отложенный — 30, 90, 180 дней плюс событийные оповещения. После сделки — за месяц до ключей (напоминание о сроках и приёмке), через месяц после заселения (вопрос «что оказалось не так, как мы говорили»), далее раз в год.</p>
+      <p><strong>Почему это работает лучше рассылок.</strong> Из двадцати двух активированных клиентов месяца сделку сразу закрывают пять; около двенадцати уходят в «не сейчас». Через полгода в базе накапливается 70–80 человек, и при возврате 8% в квартал это 6 дополнительных активаций — то есть примерно одна сделка в месяц без единого рубля на рекламу.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">05 · Revenue</div>
+      <h2><span class="stage">Этап 4 · Монетизация</span>Модель, апселлы и триггеры покупки</h2>
+      <p>Базовая услуга для клиента бесплатна — и это ограничение, а не преимущество: доход с одного клиента фиксирован комиссией застройщика. Единственный способ его увеличить — закрывать смежные задачи, которые у клиента всё равно возникнут.</p>
+    </div>
+
+    <h3 class="sub">Основная модель</h3>
+    <div class="grid">
+      <div class="cell">
+        <span class="lab">Источник дохода</span>
+        <h4>Агентское вознаграждение от застройщика</h4>
+        <p>Выплачивается после регистрации ДДУ, ставки по договорам различаются между застройщиками и публично не раскрываются. Для расчётов используем ориентир 2,5% от чека 14 млн — около 350 000 ₽ за сделку, 1,75 млн ₽ в месяц при пяти сделках.</p>
+        <p><strong>Ключевое правило, вытекающее из позиционирования:</strong> подбор не строится по размеру комиссии. Иначе рушится вся конструкция доверия, на которой держится и Referral, и Retention.</p>
+      </div>
+      <div class="cell">
+        <span class="lab">Два события вместо одного</span>
+        <h4>Сделка и деньги разнесены во времени</h4>
+        <p>Между ДДУ и поступлением вознаграждения — до полутора месяцев. В воронке это две разные точки, и планировать бюджет нужно по второй. Норматив: лаг ≤ 45 дней, дебиторка не выше полутора месячных объёмов вознаграждения.</p>
+      </div>
+    </div>
+
+    <h3 class="sub">Основной оффер и то, что можно продать сверх него</h3>
+    <div class="scroller" tabindex="0">
+      <table class="up">
+        <thead><tr><th>Предложение</th><th>Тип</th><th>Кто платит</th><th>Экономика</th><th>Когда предлагать</th></tr></thead>
+        <tbody>
+          <tr>
+            <th>Разбор, выезд и сопровождение сделки</th>
+            <td>Основной оффер</td>
+            <td>Застройщик</td>
+            <td>≈ 350 000 ₽ за сделку</td>
+            <td>С первого контакта — это и есть продукт</td>
+          </tr>
+          <tr>
+            <th>Продажа старой квартиры клиента</th>
+            <td>Кросс-селл, самый крупный</td>
+            <td>Клиент</td>
+            <td>2–3% от 10–14 млн ≈ 250–400 тыс ₽ — фактически удваивает доход с клиента</td>
+            <td>На интервью с персоной «обмен из вторички»: у неё квартира на продажу есть всегда</td>
+          </tr>
+          <tr>
+            <th>Приёмка квартиры с партнёром</th>
+            <td>Апселл</td>
+            <td>Клиент</td>
+            <td>Партнёрская комиссия 20–30% от 8–15 тыс ₽</td>
+            <td>За месяц до выдачи ключей — тогда же, когда напоминаете о сроках</td>
+          </tr>
+          <tr>
+            <th>Дизайн-проект и ремонт</th>
+            <td>Кросс-селл</td>
+            <td>Клиент</td>
+            <td>Партнёрское вознаграждение от подрядчика, 3–7% сметы</td>
+            <td>Сразу после приёмки, пока квартира пустая</td>
+          </tr>
+          <tr>
+            <th>Ипотечный брокер на сложных случаях</th>
+            <td>Кросс-селл</td>
+            <td>Клиент или банк</td>
+            <td>Партнёрская комиссия; главное — спасает сделку, которая иначе развалится на отказе банка</td>
+            <td>При отказе банка или доходе без подтверждения</td>
+          </tr>
+          <tr>
+            <th>Сдача инвестиционного лота в аренду</th>
+            <td>Кросс-селл</td>
+            <td>Клиент</td>
+            <td>50–100% месячной ставки разово</td>
+            <td>При получении ключей, если квартира покупалась не для себя</td>
+          </tr>
+          <tr>
+            <th>Налоговый вычет под ключ</th>
+            <td>Апселл</td>
+            <td>Клиент</td>
+            <td>5–10 тыс ₽ или партнёрская комиссия; главная ценность — законный повод для контакта через год</td>
+            <td>В январе следующего после сделки года</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="warn">
+      <p><strong>Осторожно с апселлами.</strong> Ваше позиционирование построено на том, что вы не продаёте лишнего. Каждый апселл, предложенный до сделки, ставит это под сомнение. Правило: всё, кроме продажи старой квартиры, предлагается только после подписания ДДУ. Продажа вторички — исключение, потому что она часть той же задачи клиента, а не дополнительная услуга.</p>
+    </div>
+
+    <h3 class="sub">Триггеры покупки — что реально сдвигает решение</h3>
+    <div class="grid">
+      <div class="cell">
+        <span class="lab">Внутренние</span>
+        <h4>Создаются вами</h4>
+        <ul>
+          <li><strong>Список отклонённых в отчёте</strong> — снимает ощущение, что где-то есть вариант лучше</li>
+          <li><strong>Полевые фотографии двора</strong> — превращают абстрактный выбор в конкретный</li>
+          <li><strong>Сценарный расчёт бюджета</strong> — снимает страх «а вдруг не потяну»</li>
+          <li><strong>Прямая рекомендация с обоснованием</strong>, включая «не покупайте этот вариант»</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <span class="lab">Внешние</span>
+        <h4>Приходят от рынка и жизни</h4>
+        <ul>
+          <li>Дедлайн подачи заявления в школу</li>
+          <li>Возраст ребёнка на границе условий семейной ипотеки</li>
+          <li>Очередное повышение аренды или требование освободить квартиру</li>
+          <li>Продажа своей квартиры завершена, деньги на счёте</li>
+          <li>Окончание срока брони или старт продаж нужного корпуса</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <span class="lab">Как использовать</span>
+        <h4>Не создавать давление, а называть даты</h4>
+        <p>Разница между манипуляцией и работой: «осталось две квартиры, решайте сегодня» — давление; «заявление в школу подаётся в апреле, ключи по этому корпусу в феврале, значит решение нужно принять до декабря» — календарь клиента, произнесённый вслух. Второе двигает сделку и не разрушает доверие.</p>
+      </div>
+    </div>
+    <div class="metrics">
+      <div><span class="m-name">Сделок в месяц</span><span class="m-val">5</span><span class="m-src">CRM, статус ДДУ</span></div>
+      <div><span class="m-name">Вознаграждение в месяц</span><span class="m-val">≥ 1,6 млн ₽</span><span class="m-src">CRM + договоры</span></div>
+      <div><span class="m-name">Доля сделок с апселлом</span><span class="m-val">≥ 30%</span><span class="m-src">CRM, доп. услуги</span></div>
+      <div><span class="m-name">Лаг поступления денег</span><span class="m-val">≤ 45 дней</span><span class="m-src">Выписка + CRM</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">06 · Referral</div>
+      <h2><span class="stage">Этап 5 · Рекомендации</span>Четыре сценария и то, что реально мотивирует</h2>
+      <p>Главная ошибка в этой нише — платить за рекомендации деньгами. Человек, получивший вознаграждение за приведённого друга, чувствует, что продал знакомого, и перестаёт рекомендовать. Работает другая валюта.</p>
+    </div>
+
+    <div class="grid">
+      <div class="cell">
+        <span class="lab">Сценарий 1</span>
+        <h4>Отчёт как объект пересылки</h4>
+        <p>Клиент и так пересылает отчёт мужу, родителям, коллеге — чтобы обосновать решение. Значит документ должен быть понятен без вас: резюме на первой странице, минусы и отклонённые дальше.</p>
+        <p><strong>Механика:</strong> на последней странице одна строка — «если кто-то из ваших знакомых сейчас выбирает квартиру, перешлите: разбор бесплатный». Ноль затрат, работает на каждом отчёте, включая те, что не привели к сделке.</p>
+        <p><strong>Метрика:</strong> доля клиентов, переславших отчёт дальше — спрашивается прямо на встрече; лиды с пометкой «прислал знакомый».</p>
+      </div>
+      <div class="cell">
+        <span class="lab">Сценарий 2</span>
+        <h4>Благодарность услугой, а не деньгами</h4>
+        <p>За приведённого клиента, дошедшего до сделки, — оплаченная приёмка квартиры, дизайн-консультация или помощь с налоговым вычетом. Стоит вам 8–15 тысяч, воспринимается как забота, а не как комиссия за друга.</p>
+        <p><strong>Механика:</strong> предложение озвучивается один раз, через три-четыре недели после переезда, и никогда — до сделки.</p>
+        <p><strong>Метрика:</strong> доля сделок по рекомендации ≥ 15% к 6-му месяцу, ≥ 30% к 12-му.</p>
+      </div>
+      <div class="cell">
+        <span class="lab">Сценарий 3</span>
+        <h4>Истории отказа как вирусный контент</h4>
+        <p>Обезличенный разбор «пришла семья, посчитали, отговорили» — редкость на рынке и потому пересылается. Человек, отправляющий такой пост знакомому, выглядит осведомлённым, а вы получаете доверие до первого контакта.</p>
+        <p><strong>Механика:</strong> одна такая публикация в месяц в канале и в блоге, с цифрами и без имён.</p>
+        <p><strong>Метрика:</strong> пересылки публикации, лиды с фразой «прочитал ваш разбор».</p>
+      </div>
+      <div class="cell">
+        <span class="lab">Сценарий 4</span>
+        <h4>Чат жителей дома после заселения</h4>
+        <p>После получения ключей клиент попадает в чат своего корпуса, где десятки людей обсуждают приёмку, ремонт и соседние квартиры для родителей. Ваш довольный клиент там — естественный адвокат, а вы — знакомый специалист, а не реклама.</p>
+        <p><strong>Механика:</strong> помочь клиенту с приёмкой и разрешить упоминать вас; предложить чату разбор соседних корпусов.</p>
+        <p><strong>Метрика:</strong> лиды из чатов ЖК, где есть ваш клиент.</p>
+      </div>
+    </div>
+
+    <div class="note">
+      <p><strong>Момент просьбы решает больше, чем формулировка.</strong> Не после подписания — там клиент в стрессе и ещё не знает, хорошо ли всё вышло. Правильный момент — через три-четыре недели после переезда, когда подтвердилось или не подтвердилось то, о чём вы предупреждали. Тогда же задаётся вопрос «что оказалось не так, как мы говорили» — и ответ на него одновременно улучшает ваш протокол выезда и открывает разговор о рекомендации.</p>
+      <p><strong>Просьба должна быть конкретной.</strong> «Рекомендуйте нас знакомым» не работает: человек не знает, кого вспоминать. Работает вопрос-подсказка: <strong>«Кому из ваших знакомых сейчас поднимают аренду или у кого ребёнок идёт в школу через год?»</strong> — он запускает поиск по конкретному признаку, и в голове всплывают два-три имени.</p>
+      <p><strong>Что мотивирует на самом деле.</strong> Не вознаграждение, а социальная валюта: рассказывая о вас, человек рассказывает историю, в которой он умный — «я нашёл агента, который отговорил меня от покупки». Ваша задача — дать ему эту историю, а не бонус.</p>
+    </div>
+    <div class="metrics">
+      <div><span class="m-name">Доля сделок по рекомендации</span><span class="m-val">≥ 30% к 12 мес.</span><span class="m-src">CRM, источник</span></div>
+      <div><span class="m-name">Коэффициент рекомендаций</span><span class="m-val">≥ 0,4 лида с клиента</span><span class="m-src">CRM</span></div>
+      <div><span class="m-name">CAC рекомендованного клиента</span><span class="m-val">≤ 5 000 ₽</span><span class="m-src">Учёт расходов</span></div>
+      <div><span class="m-name">Просьба задана вовремя</span><span class="m-val">100% сделок</span><span class="m-src">CRM, задача после заселения</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">07 · Внедрение</div>
+      <h2>Что запускать первым и как это тестировать</h2>
+      <p>Порядок продиктован одним соображением: сначала то, без чего деньги, потраченные на рекламу, будут потеряны, и только потом сама реклама.</p>
+    </div>
+    <ol class="flow">
+      <li><span class="k">Недели 1–2</span><div><h4>Сначала Activation, а не Acquisition</h4>
+        <p>Собрать шаблон отчёта с разделом отклонённых, протокол выезда на 15–20 пунктов, структуру интервью и памятку «как будет проходить работа». Настроить CRM с шестью этапами и обязательными полями. <strong>Причина такого порядка:</strong> лиды, приведённые до того, как готова активация, сгорают — вы получите те же подборки, что и все, и потратите бюджет впустую.</p></div></li>
+      <li><span class="k">Недели 3–4</span><div><h4>Запустить два бесплатных канала и один платный</h4>
+        <p>Личная сеть и партнёрства дают первые 10 лидов без бюджета — на них обкатывается сценарий. Параллельно поиск по до-категорийным запросам с малым бюджетом: 40–60 тысяч, задача не сделки, а проверка гипотезы о цене квалифицированного лида.</p></div></li>
+      <li><span class="k">Недели 5–8</span><div><h4>Достроить Retention и начать копить базу</h4>
+        <p>Ввести график 30–90–180, триггерные оповещения и полевые заметки. К этому моменту накопятся первые 20–30 отложенных — им и адресуется механика. Тогда же запускается блог с разборами ЖК: он начнёт давать трафик через 3–4 месяца, поэтому стартовать надо сейчас.</p></div></li>
+      <li><span class="k">Недели 9–12</span><div><h4>Включить Referral и первый апселл</h4>
+        <p>После первых 3–5 сделок появляются клиенты в стадии «месяц после заселения» — с ними отрабатывается сценарий просьбы. Тогда же подключается партнёр по приёмке: он и апселл, и повод для контакта, и вход в чат жителей дома.</p></div></li>
+    </ol>
+
+    <h3 class="sub">Пять гипотез, которые надо проверить первыми</h3>
+    <div class="scroller" tabindex="0">
+      <table class="up">
+        <thead><tr><th>Гипотеза</th><th>Как проверяем</th><th>Критерий успеха</th><th>Срок</th></tr></thead>
+        <tbody>
+          <tr>
+            <th>До-категорийные запросы дешевле и качественнее прямых</th>
+            <td>Две кампании с равным бюджетом: «купить квартиру в новостройке» против «ипотека или аренда» и «сколько стоит моя квартира»</td>
+            <td>CPQL на до-категорийных ниже на 25%+ при доле квалифицированных не ниже</td>
+            <td>3–4 недели</td>
+          </tr>
+          <tr>
+            <th>Раздел отклонённых — то, за что ценят отчёт</th>
+            <td>Первым десяти клиентам после встречи один вопрос: что в отчёте было самым полезным</td>
+            <td>≥ 5 из 10 называют список отклонённых или минусы, а не подборку</td>
+            <td>4–6 недель</td>
+          </tr>
+          <tr>
+            <th>Интервью с обоими ЛПР повышает конверсию</th>
+            <td>Сравнить конверсию в показы у групп «интервью с одним» и «интервью с обоими»</td>
+            <td>Разница ≥ 20 процентных пунктов</td>
+            <td>6–8 недель</td>
+          </tr>
+          <tr>
+            <th>Ролики с выезда дают лиды дешевле контекста</th>
+            <td>10 роликов за месяц, снятых попутно с рабочими выездами, с одной ссылкой в описании</td>
+            <td>≥ 3 обращения при нулевом бюджете на производство</td>
+            <td>6–8 недель</td>
+          </tr>
+          <tr>
+            <th>Отложенные возвращаются при персональном поводе</th>
+            <td>Разделить базу пополам: одним — касание с личным поводом, другим — общее напоминание</td>
+            <td>Отклик на персональные выше в 2 раза и более</td>
+            <td>8–10 недель</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="warn">
+      <p><strong>Чего не делать в первые три месяца.</strong> Не запускать все шесть каналов сразу: при одном менеджере вы не сможете ни обработать поток, ни понять, какой канал сработал. Не строить сложную автоматизацию рассылок до того, как в базе появятся первые 50 контактов. И не платить за рекомендации деньгами — эта механика ломается один раз и навсегда.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Числа воронки взяты из ранее собранной системы KPI и пересчитываются от вашей фактической ставки вознаграждения: ориентир 2,5% от чека 14 млн даёт около 350 000 ₽ за сделку. Ставки застройщики публично не раскрывают — подставьте свои договорные условия, и изменятся допустимый бюджет привлечения и требуемый объём лидов.</p>
+    <p>Нормативы конверсий и откликов — стартовые ориентиры, а не измеренные показатели. После первых 50 обращений и 10 сделок замените их собственными медианами: до этого отклонение от норматива — повод разобраться в причине, а не менять каналы.</p>
+    <p>Верхняя граница воронки задана не бюджетом, а мощностью одного человека: около 22 интервью и 14 выездных циклов в месяц. Любой канал, дающий объём сверх этого, ухудшает результат, а не улучшает его — до найма второго специалиста.</p>
+  </footer>
+</div>
