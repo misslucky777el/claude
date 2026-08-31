@@ -1,0 +1,813 @@
+<title>Пять сделок в месяц</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600&family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --paper:#F1F0EC; --surface:#FBFAF7; --surface-2:#E8E7E1;
+    --ink:#16181A; --ink-2:#565A56; --ink-3:#7E827D;
+    --rule:#D6D5CC; --rule-soft:#E2E1D9;
+    --accent:#0F4C45; --accent-soft:#DCE7E3;
+    --signal:#9C3B2A; --signal-soft:#F0E0DA;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#101312; --surface:#171B1A; --surface-2:#1F2423;
+      --ink:#E9EBE7; --ink-2:#A3A9A4; --ink-3:#7C837E;
+      --rule:#2C3231; --rule-soft:#242A29;
+      --accent:#4FB3A2; --accent-soft:#17302C;
+      --signal:#D9705A; --signal-soft:#33201C;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#101312; --surface:#171B1A; --surface-2:#1F2423;
+    --ink:#E9EBE7; --ink-2:#A3A9A4; --ink-3:#7C837E;
+    --rule:#2C3231; --rule-soft:#242A29;
+    --accent:#4FB3A2; --accent-soft:#17302C;
+    --signal:#D9705A; --signal-soft:#33201C;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:"Golos Text","Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 24px 96px}
+  .eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+
+  .masthead{padding:64px 0 40px;border-bottom:2px solid var(--ink);display:flex;flex-direction:column;gap:22px}
+  h1{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;font-size:clamp(31px,4.7vw,56px);line-height:1.03;letter-spacing:-.02em;margin:0;text-wrap:balance}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lede{font-size:clamp(17px,1.5vw,19px);color:var(--ink-2);max-width:64ch;margin:0}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 28px;padding-top:4px}
+  .meta div{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;color:var(--ink-3)}
+  .meta b{color:var(--ink-2);font-weight:600}
+
+  section{padding-top:56px}
+  h2{font-weight:700;font-size:clamp(21px,2.4vw,27px);letter-spacing:-.015em;margin:0 0 6px;text-wrap:balance}
+  h3.lvl{font-weight:700;font-size:17px;margin:34px 0 12px;letter-spacing:-.01em;display:flex;align-items:baseline;gap:10px}
+  h3.lvl span{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  .sec-head{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+  .sec-head p{margin:0;color:var(--ink-2);max-width:76ch}
+
+  .note{border-left:3px solid var(--accent);background:var(--accent-soft);padding:18px 22px;border-radius:0 3px 3px 0;display:flex;flex-direction:column;gap:9px;margin-top:20px}
+  .note p{margin:0;font-size:14.5px;color:var(--ink-2);max-width:82ch}
+  .note strong{color:var(--ink)}
+  .warn{border-left:3px solid var(--signal);background:var(--signal-soft);padding:18px 22px;border-radius:0 3px 3px 0;display:flex;flex-direction:column;gap:9px}
+  .warn p{margin:0;font-size:14.5px;color:var(--ink-2);max-width:82ch}
+  .warn strong{color:var(--ink)}
+
+  .scroller{overflow-x:auto;border:1px solid var(--rule);border-radius:3px;background:var(--surface)}
+  table.kpi{border-collapse:collapse;width:100%;min-width:1060px;font-size:13.5px}
+  table.kpi thead th{background:var(--surface-2);text-align:left;vertical-align:bottom;padding:12px 14px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);border-bottom:1px solid var(--rule);font-weight:600}
+  table.kpi td{padding:14px;vertical-align:top;border-bottom:1px solid var(--rule-soft);color:var(--ink-2)}
+  table.kpi tbody th{text-align:left;padding:14px;vertical-align:top;border-bottom:1px solid var(--rule-soft);color:var(--ink);font-weight:600;font-size:13.5px}
+  table.kpi tr:last-child td,table.kpi tr:last-child th{border-bottom:none}
+  table.kpi tr:hover td{background:var(--surface-2)}
+  .f{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-2);line-height:1.5}
+  .tgt{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--accent);font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .unit,.per,.src{font-size:12.5px}
+  .src{color:var(--ink-3)}
+
+  figure{margin:0;border:1px solid var(--rule);border-radius:3px;background:var(--surface);padding:24px 22px 18px}
+  figure svg{display:block;width:100%;max-width:100%;height:auto;color:var(--ink-2)}
+  figcaption{margin-top:14px;font-size:13.5px;color:var(--ink-3);max-width:84ch}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+  .cell{background:var(--surface);padding:22px;display:flex;flex-direction:column;gap:10px}
+  .cell h4{margin:0;font-size:15px;font-weight:600}
+  .cell p{margin:0;font-size:14.5px;color:var(--ink-2)}
+  .cell ul{margin:0;padding-left:17px;font-size:14.5px;color:var(--ink-2);display:flex;flex-direction:column;gap:6px}
+  .cell .lab{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+  .cell .big{font-family:"Unbounded",sans-serif;font-weight:600;font-size:26px;color:var(--accent);letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
+  .cell .big small{display:block;margin-top:7px;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-3);font-weight:400;letter-spacing:0}
+
+  ol.steps{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+  ol.steps li{background:var(--surface);padding:20px 22px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}
+  ol.steps .k{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--accent);padding-top:2px;white-space:nowrap}
+  ol.steps h4{margin:0 0 5px;font-size:15.5px;font-weight:600}
+  ol.steps p{margin:0;font-size:14.5px;color:var(--ink-2);max-width:84ch}
+
+  footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--rule);color:var(--ink-3);font-size:13px;max-width:82ch}
+  footer p{margin:0 0 8px}
+  a{color:var(--accent)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  @media (max-width:640px){.wrap{padding:0 16px 64px}.masthead{padding:40px 0 28px}ol.steps li{grid-template-columns:1fr;gap:6px}}
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="eyebrow">Система KPI · лидогенерация · воронка · реактивация базы</div>
+    <h1>Пять сделок <em>в месяц</em></h1>
+    <p class="lede">Три уровня показателей, собранные под конкретную конфигурацию: один менеджер, комиссия от застройщика, старт с контекстной рекламы и цель в пять сделок ежемесячно. Каждый KPI — с формулой, единицей, стартовым нормативом, периодичностью и источником данных. Метрики, которые нельзя посчитать без конкретного инструмента, помечены отдельно.</p>
+    <div class="meta">
+      <div><b>Показателей:</b> 52</div>
+      <div><b>Уровней:</b> 3</div>
+      <div><b>Узкое горлышко:</b> часы менеджера, не бюджет</div>
+      <div><b>Дата:</b> август 2026</div>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">00 · Принципы</div>
+      <h2>Четыре правила, без которых система будет врать</h2>
+      <p>Это не общие слова: каждое правило меняет формулу конкретных метрик ниже. Нарушив любое, вы получите цифры, на которые нельзя опираться при решении о бюджете.</p>
+    </div>
+    <div class="grid">
+      <div class="cell">
+        <span class="lab">Правило 1</span>
+        <h4>Считать когортами, а не календарём</h4>
+        <p>Цикл сделки на новостройках — от двух недель до полугода. Деление сделок августа на лиды августа даёт бессмысленное число: это сделки из майских лидов и августовские деньги. Каждая конверсия считается по когорте месяца привлечения и дозревает 6 месяцев. В отчёте показываются два числа: конверсия закрытой когорты (шесть месяцев назад) и промежуточная конверсия текущих.</p>
+      </div>
+      <div class="cell">
+        <span class="lab">Правило 2</span>
+        <h4>Ограничитель — часы, а не деньги</h4>
+        <p>Один менеджер за месяц физически проводит около 22 интервью и 14 циклов выездов. Это потолок примерно в 5 сделок и он совпадает с целью. Значит рост лидов сверх нормы не увеличивает выручку, а снижает качество: KPI по объёму трафика ограничены сверху, а не только снизу. Метрика «комиссия на 100 рабочих часов» — главная в системе.</p>
+      </div>
+      <div class="cell">
+        <span class="lab">Правило 3</span>
+        <h4>Сделка и деньги — разные события</h4>
+        <p>Между подписанием ДДУ и поступлением вознаграждения от застройщика проходят недели. Планировать бюджет по числу сделок нельзя — нужен отдельный показатель лага и объёма ожидаемых поступлений, иначе кассовый разрыв обнаружится в момент, когда платить за рекламу уже нечем.</p>
+      </div>
+      <div class="cell">
+        <span class="lab">Правило 4</span>
+        <h4>«Не купил» ≠ «потерян»</h4>
+        <p>В этой нише отказ почти всегда означает «не сейчас»: ждут ставку, копят взнос, ребёнок ещё не пошёл в школу. Поэтому реактивация — не работа с мусором, а вторая по важности воронка. Её KPI строятся не на рассылках, а на дате следующего касания и поводе, релевантном конкретной семье.</p>
+      </div>
+    </div>
+    <div class="warn" style="margin-top:22px">
+      <p><strong>Две оговорки о нормативах.</strong> Первая: все целевые значения рассчитаны от средней комиссии 350 000 ₽ за сделку (чек 14 млн × ставка 2,5%). Ставки вознаграждения агентствам публично не раскрываются — подставьте свои фактические условия, и цели пересчитаются пропорционально.</p>
+      <p>Вторая: <strong>это стартовые нормативы, а не измеренные факты вашего бизнеса.</strong> Они взяты из типовых диапазонов рынка и логики вашей воронки. После первых 50 лидов и 10 сделок замените их собственными медианами — до этого момента отклонение от норматива является поводом разобраться, а не поводом менять стратегию.</p>
+      <p><strong>Про реактивацию отдельно:</strong> у компании на старте базы нет. Блок разворачивается с третьего месяца, когда накопится 80–120 контактов. До этого его KPI не измеряются — измерять нечего, и это нормально.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">01 · Рамка</div>
+      <h2>Сколько нужно на входе, чтобы получить пять сделок</h2>
+      <p>Обратный расчёт воронки от цели. Числа задают все нормативы ниже: если вы измените ставку комиссии или конверсию любого этапа, пересчитывается вся цепочка.</p>
+    </div>
+    <figure>
+      <svg viewBox="0 0 900 430" role="img" aria-label="Воронка месяца: 65 лидов, 52 состоявшихся контакта, 22 проведённых интервью, 14 циклов выездов и показов, 6 броней, 5 сделок. Этапы интервью и выездов упираются в потолок рабочего времени одного менеджера.">
+        <defs>
+          <pattern id="cap" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <rect width="8" height="8" fill="var(--accent)"/>
+            <line x1="0" y1="0" x2="0" y2="8" stroke="var(--surface)" stroke-width="3"/>
+          </pattern>
+        </defs>
+
+        <g>
+          <title>Лиды: 65 обращений за месяц</title>
+          <rect x="150" y="30" width="600" height="34" rx="4" fill="var(--accent)"/>
+          <text x="140" y="52" text-anchor="end" font-size="13" fill="currentColor">Лиды</text>
+          <text x="762" y="52" font-size="13" fill="currentColor" font-weight="600">65</text>
+        </g>
+        <text x="160" y="52" font-size="12" fill="var(--surface)" opacity="0.95">заявки с рекламы, блога и рекомендаций</text>
+        <text x="762" y="80" font-size="11.5" fill="currentColor" opacity="0.65">↓ дозвон 80%</text>
+
+        <g>
+          <title>Состоявшиеся контакты: 52 из 65 лидов</title>
+          <rect x="150" y="90" width="480" height="34" rx="4" fill="var(--accent)"/>
+          <text x="140" y="112" text-anchor="end" font-size="13" fill="currentColor">Контакт</text>
+          <text x="642" y="112" font-size="13" fill="currentColor" font-weight="600">52</text>
+        </g>
+        <text x="642" y="140" font-size="11.5" fill="currentColor" opacity="0.65">↓ квалификация 42%</text>
+
+        <g>
+          <title>Проведённые глубинные интервью: 22 в месяц — верхняя граница мощности одного менеджера</title>
+          <rect x="150" y="150" width="203" height="34" rx="4" fill="url(#cap)"/>
+          <text x="140" y="172" text-anchor="end" font-size="13" fill="currentColor">Интервью</text>
+          <text x="365" y="172" font-size="13" fill="currentColor" font-weight="600">22</text>
+        </g>
+        <text x="365" y="200" font-size="11.5" fill="currentColor" opacity="0.65">↓ доходят до показов 64%</text>
+
+        <g>
+          <title>Циклы выездов и показов: 14 в месяц — второй участок, упирающийся в рабочее время</title>
+          <rect x="150" y="210" width="129" height="34" rx="4" fill="url(#cap)"/>
+          <text x="140" y="232" text-anchor="end" font-size="13" fill="currentColor">Выезды</text>
+          <text x="291" y="232" font-size="13" fill="currentColor" font-weight="600">14</text>
+        </g>
+        <text x="291" y="260" font-size="11.5" fill="currentColor" opacity="0.65">↓ бронь 45%</text>
+
+        <g>
+          <title>Брони: 6 в месяц</title>
+          <rect x="150" y="270" width="55" height="34" rx="4" fill="var(--accent)"/>
+          <text x="140" y="292" text-anchor="end" font-size="13" fill="currentColor">Бронь</text>
+          <text x="217" y="292" font-size="13" fill="currentColor" font-weight="600">6</text>
+        </g>
+        <text x="217" y="320" font-size="11.5" fill="currentColor" opacity="0.65">↓ выходят на ДДУ 80%</text>
+
+        <g>
+          <title>Сделки: 5 подписанных ДДУ в месяц — цель</title>
+          <rect x="150" y="330" width="46" height="34" rx="4" fill="var(--accent)"/>
+          <text x="140" y="352" text-anchor="end" font-size="13" fill="currentColor">Сделки</text>
+          <text x="208" y="352" font-size="13" fill="currentColor" font-weight="600">5</text>
+        </g>
+
+        <line x1="420" y1="150" x2="420" y2="244" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 4"/>
+        <text x="432" y="184" font-size="12.5" fill="currentColor" font-weight="600">Штриховка — потолок мощности</text>
+        <text x="432" y="204" font-size="12" fill="currentColor" opacity="0.75">22 интервью и 14 выездных циклов —</text>
+        <text x="432" y="222" font-size="12" fill="currentColor" opacity="0.75">это уже около 170 рабочих часов в месяц</text>
+        <text x="432" y="240" font-size="12" fill="currentColor" opacity="0.75">на одного человека</text>
+
+        <text x="150" y="400" font-size="12.5" fill="currentColor" opacity="0.8">Сквозная конверсия лид → сделка: 7,7%   ·   допустимый CAC ≤ 60 000 ₽   ·   бюджет ≈ 260 000 ₽/мес   ·   CPL ≈ 4 000 ₽</text>
+      </svg>
+      <figcaption>Обратный расчёт от пяти сделок. Два средних этапа заштрихованы: это не конверсионная проблема, а физический предел одного человека — 22 интервью и 14 выездных циклов уже съедают месячный фонд времени. Поэтому наращивать лидогенерацию выше 65–70 обращений бессмысленно до найма второго специалиста: лишние лиды не превратятся в сделки, а испортят показатель скорости ответа и качество разбора.</figcaption>
+    </figure>
+    <div class="note">
+      <p><strong>Как читать эту рамку.</strong> При комиссии 350 000 ₽ пять сделок дают около 1,75 млн ₽ валового вознаграждения в месяц. Маркетинговый бюджет в 15% от этой суммы — примерно 260 000 ₽, что при CPL 4 000 ₽ даёт нужные 65 лидов. Система сходится, но с нулевым запасом: провал любой конверсии на 20% уводит вас с пяти сделок на четыре. Именно поэтому в тактическом блоке контролируются не итоги, а переходы между этапами — они предупреждают за месяц до того, как провалится выручка.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">02 · Уровень 1</div>
+      <h2>Стратегические KPI: смотрит собственник</h2>
+      <p>Восемь показателей, отвечающих на вопрос «бизнес вообще работает». Пересматриваются раз в месяц, решения по ним принимаются раз в квартал — реагировать на них еженедельно бессмысленно из-за длины цикла сделки.</p>
+    </div>
+    <div class="scroller" tabindex="0">
+      <table class="kpi">
+        <thead><tr>
+          <th>KPI</th><th>Формула</th><th>Ед.</th><th>Целевое значение</th><th>Период</th><th>Источник данных</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <th>Закрытые сделки (ДДУ)</th>
+            <td class="f">COUNT(сделок со статусом «ДДУ зарегистрирован» за период)</td>
+            <td class="unit">шт./мес</td>
+            <td class="tgt">5 к 6-му месяцу<br>(2 → 3 → 4 → 5)</td>
+            <td class="per">Месяц</td>
+            <td class="src">CRM, статус сделки</td>
+          </tr>
+          <tr>
+            <th>Валовое вознаграждение (GCI)</th>
+            <td class="f">Σ (цена лота × ставка вознаграждения по договору с застройщиком)</td>
+            <td class="unit">₽/мес</td>
+            <td class="tgt">≥ 1,6 млн ₽</td>
+            <td class="per">Месяц</td>
+            <td class="src">CRM + договоры с застройщиками</td>
+          </tr>
+          <tr>
+            <th>CAC — стоимость привлечения сделки</th>
+            <td class="f">(рекламный бюджет + расходы на сервисы и подрядчиков) ÷ число сделок когорты</td>
+            <td class="unit">₽/сделка</td>
+            <td class="tgt">≤ 60 000 ₽<br>(≤ 18% комиссии)</td>
+            <td class="per">Месяц, по когорте</td>
+            <td class="src">Рекламные кабинеты + учёт расходов + CRM</td>
+          </tr>
+          <tr>
+            <th>ROMI</th>
+            <td class="f">(GCI по когорте − маркетинговые расходы когорты) ÷ маркетинговые расходы × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 450%</td>
+            <td class="per">Квартал</td>
+            <td class="src">Сквозная аналитика + CRM</td>
+          </tr>
+          <tr>
+            <th>Вознаграждение на 100 часов менеджера</th>
+            <td class="f">GCI ÷ (отработанные клиентские часы ÷ 100)</td>
+            <td class="unit">₽ / 100 ч</td>
+            <td class="tgt">≥ 1 000 000 ₽</td>
+            <td class="per">Месяц</td>
+            <td class="src">CRM + учёт времени (календарь с типами задач)</td>
+          </tr>
+          <tr>
+            <th>Доля сделок из рекомендаций и повторных обращений</th>
+            <td class="f">сделки с источником «рекомендация» ÷ все сделки × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 15% к 6 мес.<br>≥ 30% к 12 мес.</td>
+            <td class="per">Квартал</td>
+            <td class="src">CRM, поле «источник» с обязательным опросом на сделке</td>
+          </tr>
+          <tr>
+            <th>Лаг поступления вознаграждения</th>
+            <td class="f">медиана(дата поступления денег − дата регистрации ДДУ)</td>
+            <td class="unit">дней</td>
+            <td class="tgt">≤ 45 дней;<br>дебиторка ≤ 1,5 месячного GCI</td>
+            <td class="per">Месяц</td>
+            <td class="src">Банковская выписка + CRM</td>
+          </tr>
+          <tr>
+            <th>Доля отговорённых клиентов и их возврат</th>
+            <td class="f">клиенты со статусом «рекомендовали не покупать» ÷ все квалифицированные × 100%; отдельно — доля вернувшихся из них в течение 9 мес.</td>
+            <td class="unit">%</td>
+            <td class="tgt">5–12% отговорённых;<br>≥ 30% из них возвращаются</td>
+            <td class="per">Квартал</td>
+            <td class="src">CRM, отдельный статус сделки</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <p><strong>Зачем последний показатель.</strong> Ваше УТП обещает прямой отказ, если покупать не стоит. Обещание без счётчика превращается в декларацию: если за квартал отговорённых ноль — вы его не выполняете, и рынок это почувствует. Если их больше 15% — вы либо привлекаете не ту аудиторию, либо перестраховываетесь и теряете выручку. Возврат отговорённых через 6–9 месяцев — прямое доказательство, что стратегия окупается, и лучший материал для блога.</p>
+      <p><strong>Почему нет LTV в классическом виде.</strong> Квартиру в новостройке человек покупает раз в 7–10 лет, считать пожизненную ценность бессмысленно. Её функцию выполняет доля сделок по рекомендации: это и есть монетизация репутации, только с горизонтом в год, а не в десятилетие.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">03 · Задача 1</div>
+      <h2>Лидогенерация</h2>
+      <p>Цель блока — не «больше заявок», а стабильные 65–70 обращений в месяц нужного качества по цене, которая укладывается в юнит-экономику. Верхняя граница здесь так же важна, как нижняя.</p>
+    </div>
+
+    <h3 class="lvl"><span>Уровень 2</span> Тактические: смотрит маркетолог еженедельно</h3>
+    <div class="scroller" tabindex="0">
+      <table class="kpi">
+        <thead><tr><th>KPI</th><th>Формула</th><th>Ед.</th><th>Целевое значение</th><th>Период</th><th>Источник данных</th></tr></thead>
+        <tbody>
+          <tr>
+            <th>Объём лидов</th>
+            <td class="f">COUNT(обращений: заявка + звонок + сообщение в мессенджер)</td>
+            <td class="unit">шт./мес</td>
+            <td class="tgt">65–70<br>(ниже — недобор, выше — перегруз)</td>
+            <td class="per">Неделя</td>
+            <td class="src">CRM + коллтрекинг</td>
+          </tr>
+          <tr>
+            <th>CPL по каналу</th>
+            <td class="f">расход канала ÷ лиды канала</td>
+            <td class="unit">₽/лид</td>
+            <td class="tgt">≤ 4 000 ₽ поиск;<br>≤ 2 500 ₽ ретаргет;<br>≤ 800 ₽ блог</td>
+            <td class="per">Неделя</td>
+            <td class="src">Рекламные кабинеты + сквозная аналитика</td>
+          </tr>
+          <tr>
+            <th>CPQL — цена квалифицированного лида</th>
+            <td class="f">расход ÷ число лидов, прошедших квалификацию (бюджет, задача, срок, готовность к интервью)</td>
+            <td class="unit">₽/квал. лид</td>
+            <td class="tgt">≤ 13 000 ₽</td>
+            <td class="per">Неделя</td>
+            <td class="src">CRM (статус «квалифицирован») + расходы</td>
+          </tr>
+          <tr>
+            <th>Доля квалифицированных лидов</th>
+            <td class="f">квалифицированные ÷ все лиды × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 35%<br>(ниже 25% — проблема в объявлениях, не в менеджере)</td>
+            <td class="per">Неделя</td>
+            <td class="src">CRM</td>
+          </tr>
+          <tr>
+            <th>Доля лидов целевых персон</th>
+            <td class="f">лиды из трёх фокус-сегментов (семья со школьным дедлайном, первое жильё, обмен из вторички) ÷ все лиды × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 60%</td>
+            <td class="per">Месяц</td>
+            <td class="src">CRM, поле «сегмент», заполняется на первом контакте</td>
+          </tr>
+          <tr>
+            <th>Конверсия сайта в обращение</th>
+            <td class="f">обращения ÷ уникальные посетители × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 2,5% общая;<br>≥ 4% на сегментной посадочной</td>
+            <td class="per">Неделя</td>
+            <td class="src">Яндекс.Метрика (цели) + CRM</td>
+          </tr>
+          <tr>
+            <th>Доля небрендового органического трафика в лидах</th>
+            <td class="f">лиды из органики ÷ все лиды × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 10% к 3 мес.;<br>≥ 25% к 9 мес.</td>
+            <td class="per">Месяц</td>
+            <td class="src">Метрика + сквозная аналитика</td>
+          </tr>
+          <tr>
+            <th>Перелив сверх мощности</th>
+            <td class="f">лиды, не обработанные в SLA из-за занятости ÷ все лиды × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≤ 5%<br>(выше — снижайте бюджет, а не «старайтесь лучше»)</td>
+            <td class="per">Неделя</td>
+            <td class="src">CRM, отметка времени первого контакта</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="lvl"><span>Уровень 3</span> Операционные: смотрит менеджер ежедневно</h3>
+    <div class="scroller" tabindex="0">
+      <table class="kpi">
+        <thead><tr><th>KPI</th><th>Формула</th><th>Ед.</th><th>Целевое значение</th><th>Период</th><th>Источник данных</th></tr></thead>
+        <tbody>
+          <tr>
+            <th>Speed-to-lead</th>
+            <td class="f">медиана(время первого контакта − время поступления заявки)</td>
+            <td class="unit">минуты</td>
+            <td class="tgt">≤ 15 мин в рабочее время;<br>≤ 60 мин после 21:00</td>
+            <td class="per">День</td>
+            <td class="src">CRM, таймстемпы</td>
+          </tr>
+          <tr>
+            <th>Дозвон (contact rate)</th>
+            <td class="f">лиды, с которыми состоялся разговор ÷ все лиды × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 80%</td>
+            <td class="per">День</td>
+            <td class="src">Коллтрекинг + CRM</td>
+          </tr>
+          <tr>
+            <th>Глубина попыток контакта</th>
+            <td class="f">доля лидов с ≥ 5 попытками связи по двум каналам за первые 48 часов</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 90%</td>
+            <td class="per">День</td>
+            <td class="src">CRM, история активностей</td>
+          </tr>
+          <tr>
+            <th>Полнота карточки лида</th>
+            <td class="f">карточки с заполненными обязательными полями (сегмент, бюджет, срок, источник) ÷ все новые карточки × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 95%</td>
+            <td class="per">День</td>
+            <td class="src">CRM, обязательные поля</td>
+          </tr>
+          <tr>
+            <th>Выпуск контента</th>
+            <td class="f">COUNT(опубликованных разборов ЖК и статей по методике)</td>
+            <td class="unit">шт./мес</td>
+            <td class="tgt">2–4</td>
+            <td class="per">Неделя</td>
+            <td class="src">Редакционный календарь, CMS сайта</td>
+          </tr>
+          <tr>
+            <th>Корректность разметки трафика</th>
+            <td class="f">объявления и ссылки с полной UTM-разметкой ÷ все размещения × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">100%</td>
+            <td class="per">Неделя</td>
+            <td class="src">Рекламные кабинеты, аудит вручную</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <p><strong>Почему speed-to-lead стоит первым в операционном блоке.</strong> На рынке новостроек человек оставляет заявку на трёх-четырёх сайтах подряд. Тот, кто перезвонил первым, получает возможность провести интервью и задать рамку разговора; остальные отрабатывают уже сформированное чужое мнение. Для агентства из одного человека это единственное конкурентное преимущество, которое не стоит ни рубля — но оно ломается ровно в тот момент, когда лидов становится больше мощности. Отсюда парная метрика «перелив сверх мощности».</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">04 · Задача 2</div>
+      <h2>Прохождение по воронке</h2>
+      <p>Здесь измеряется не активность, а переходы. Каждая конверсия — точка, где сделка либо продвигается, либо умирает; отдельно контролируется скорость, потому что при длинном цикле замедление воронки бьёт по выручке так же, как падение конверсии.</p>
+    </div>
+
+    <h3 class="lvl"><span>Уровень 2</span> Тактические: разбор на еженедельной планёрке</h3>
+    <div class="scroller" tabindex="0">
+      <table class="kpi">
+        <thead><tr><th>KPI</th><th>Формула</th><th>Ед.</th><th>Целевое значение</th><th>Период</th><th>Источник данных</th></tr></thead>
+        <tbody>
+          <tr>
+            <th>Конверсия «квалифицирован → интервью проведено»</th>
+            <td class="f">проведённые интервью ÷ квалифицированные лиды × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 85%</td>
+            <td class="per">Неделя</td>
+            <td class="src">CRM, этап воронки</td>
+          </tr>
+          <tr>
+            <th>Конверсия «интервью → выезды и показы»</th>
+            <td class="f">клиенты, доехавшие хотя бы до одного офиса застройщика ÷ проведённые интервью × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 64%</td>
+            <td class="per">Неделя</td>
+            <td class="src">CRM</td>
+          </tr>
+          <tr>
+            <th>Конверсия «показы → бронь»</th>
+            <td class="f">брони ÷ клиенты с состоявшимися показами × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 45%</td>
+            <td class="per">Неделя</td>
+            <td class="src">CRM + подтверждение брони у застройщика</td>
+          </tr>
+          <tr>
+            <th>Конверсия «бронь → ДДУ»</th>
+            <td class="f">сделки ÷ брони × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 80%<br>(главная причина потерь — отказ банка)</td>
+            <td class="per">Месяц</td>
+            <td class="src">CRM + ипотечный брокер</td>
+          </tr>
+          <tr>
+            <th>Сквозная конверсия «лид → сделка»</th>
+            <td class="f">сделки когорты ÷ лиды когорты × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 7% по закрытой когорте</td>
+            <td class="per">Месяц, когортно</td>
+            <td class="src">Сквозная аналитика + CRM</td>
+          </tr>
+          <tr>
+            <th>Длина цикла сделки</th>
+            <td class="f">медиана(дата ДДУ − дата первого обращения)</td>
+            <td class="unit">дней</td>
+            <td class="tgt">≤ 75 общая;<br>≤ 30 для разъезда, ≤ 90 для семей</td>
+            <td class="per">Месяц</td>
+            <td class="src">CRM, таймстемпы этапов</td>
+          </tr>
+          <tr>
+            <th>Покрытие плана воронкой (pipeline coverage)</th>
+            <td class="f">Σ (ожидаемая комиссия сделок в работе × вероятность этапа) ÷ план по GCI на квартал</td>
+            <td class="unit">×</td>
+            <td class="tgt">≥ 3,0×</td>
+            <td class="per">Неделя</td>
+            <td class="src">CRM, поле «сумма сделки» + матрица вероятностей</td>
+          </tr>
+          <tr>
+            <th>Скорость воронки (velocity)</th>
+            <td class="f">(сделки в работе × средняя комиссия × сквозная конверсия) ÷ длина цикла в днях</td>
+            <td class="unit">₽/день</td>
+            <td class="tgt">≥ 55 000 ₽/день</td>
+            <td class="per">Месяц</td>
+            <td class="src">CRM (расчёт в отчёте)</td>
+          </tr>
+          <tr>
+            <th>Доля зависших сделок</th>
+            <td class="f">сделки без смены этапа более 21 дня ÷ все активные сделки × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≤ 15%</td>
+            <td class="per">Неделя</td>
+            <td class="src">CRM, фильтр по дате последнего изменения</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="lvl"><span>Уровень 3</span> Операционные: ежедневная дисциплина</h3>
+    <div class="scroller" tabindex="0">
+      <table class="kpi">
+        <thead><tr><th>KPI</th><th>Формула</th><th>Ед.</th><th>Целевое значение</th><th>Период</th><th>Источник данных</th></tr></thead>
+        <tbody>
+          <tr>
+            <th>Проведённые интервью</th>
+            <td class="f">COUNT(встреч или созвонов со статусом «интервью завершено»)</td>
+            <td class="unit">шт./нед</td>
+            <td class="tgt">5–6</td>
+            <td class="per">Неделя</td>
+            <td class="src">CRM + календарь</td>
+          </tr>
+          <tr>
+            <th>Выездные проверки объектов</th>
+            <td class="f">COUNT(объектов с заполненным протоколом выезда)</td>
+            <td class="unit">шт./нед</td>
+            <td class="tgt">≥ 3</td>
+            <td class="per">Неделя</td>
+            <td class="src">CRM, вложение «протокол выезда»</td>
+          </tr>
+          <tr>
+            <th>Соблюдение срока отчёта</th>
+            <td class="f">отчёты, отправленные в течение 1 рабочего дня после интервью ÷ все отчёты × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 90%</td>
+            <td class="per">Неделя</td>
+            <td class="src">CRM, таймстемп отправки</td>
+          </tr>
+          <tr>
+            <th>Полнота протокола выезда</th>
+            <td class="f">заполненные пункты ÷ 20 пунктов протокола × 100%, среднее по объектам</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 90%</td>
+            <td class="per">Неделя</td>
+            <td class="src">Шаблон протокола (форма в CRM)</td>
+          </tr>
+          <tr>
+            <th>Соблюдение паузы без дожима</th>
+            <td class="f">сделки, где в согласованную паузу не было незапланированных касаний ÷ все сделки в паузе × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">100%</td>
+            <td class="per">Неделя</td>
+            <td class="src">CRM, история активностей</td>
+          </tr>
+          <tr>
+            <th>Заполненность причин отказа</th>
+            <td class="f">проигранные сделки с указанной причиной из справочника ÷ все проигранные × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">100%</td>
+            <td class="per">Неделя</td>
+            <td class="src">CRM, обязательное поле при закрытии</td>
+          </tr>
+          <tr>
+            <th>Клиентская загрузка календаря</th>
+            <td class="f">часы на интервью, выезды, показы и сделки ÷ все рабочие часы × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">60–70%<br>(выше 80% — выгорание и срыв сроков)</td>
+            <td class="per">Неделя</td>
+            <td class="src">Календарь с типами событий</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <p><strong>Две метрики здесь защищают позиционирование, а не продажи.</strong> «Соблюдение паузы без дожима» и «полнота протокола выезда» выглядят бюрократией, но именно они превращают обещания УТП в проверяемый факт. Как только под давлением плана менеджер начинает звонить в паузу и ездить на объекты «не глядя», компания теряет единственное отличие от конкурентов — и узнать об этом по выручке можно будет только через квартал.</p>
+      <p><strong>Про заполненность причин отказа.</strong> Это не отчётность ради отчётности: справочник причин («дорого», «не одобрили ипотеку», «выбрал у другого агента», «отложил до снижения ставки», «мы отговорили») — единственное сырьё для второй воронки. Без него реактивация превращается в веерную рассылку, у которой отклик стремится к нулю.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">05 · Задача 3</div>
+      <h2>Реактивация базы, которая не купила</h2>
+      <p>Запускается с третьего месяца, когда в базе накопится 80–120 контактов. Экономика этого блока принципиально другая: обращение из собственной базы стоит в разы дешевле нового лида, но конверсия ниже и растянута во времени. Ключевой актив — не список контактов, а причина отказа и дата следующего касания.</p>
+    </div>
+
+    <h3 class="lvl"><span>Уровень 1</span> Стратегический вклад блока</h3>
+    <div class="scroller" tabindex="0">
+      <table class="kpi">
+        <thead><tr><th>KPI</th><th>Формула</th><th>Ед.</th><th>Целевое значение</th><th>Период</th><th>Источник данных</th></tr></thead>
+        <tbody>
+          <tr>
+            <th>Доля сделок из базы в общем результате</th>
+            <td class="f">сделки, источник которых — реактивация ÷ все сделки × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 20% с 6-го месяца<br>(1 сделка из 5)</td>
+            <td class="per">Квартал</td>
+            <td class="src">CRM, источник сделки</td>
+          </tr>
+          <tr>
+            <th>CAC реактивированной сделки</th>
+            <td class="f">расходы на работу с базой (сервис рассылок + время менеджера в деньгах) ÷ сделки из базы</td>
+            <td class="unit">₽/сделка</td>
+            <td class="tgt">≤ 20 000 ₽<br>(в 3 раза дешевле нового привлечения)</td>
+            <td class="per">Квартал</td>
+            <td class="src">Учёт расходов + CRM</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="lvl"><span>Уровень 2</span> Тактические</h3>
+    <div class="scroller" tabindex="0">
+      <table class="kpi">
+        <thead><tr><th>KPI</th><th>Формула</th><th>Ед.</th><th>Целевое значение</th><th>Период</th><th>Источник данных</th></tr></thead>
+        <tbody>
+          <tr>
+            <th>Размер живой базы</th>
+            <td class="f">COUNT(контактов со статусом «отложен», валидным телефоном и согласием на коммуникацию)</td>
+            <td class="unit">чел.</td>
+            <td class="tgt">+40 в месяц;<br>≥ 250 к 9-му месяцу</td>
+            <td class="per">Месяц</td>
+            <td class="src">CRM, сегмент базы</td>
+          </tr>
+          <tr>
+            <th>Коэффициент реактивации</th>
+            <td class="f">контакты, вернувшиеся в активную работу (согласились на новый разбор или встречу) ÷ контакты, получившие касание × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 8% за квартал</td>
+            <td class="per">Месяц</td>
+            <td class="src">CRM, смена статуса</td>
+          </tr>
+          <tr>
+            <th>Win-back rate</th>
+            <td class="f">сделки из реактивированных ÷ реактивированные контакты × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 12%</td>
+            <td class="per">Квартал</td>
+            <td class="src">CRM</td>
+          </tr>
+          <tr>
+            <th>Стоимость реактивированного обращения</th>
+            <td class="f">расходы блока ÷ число вернувшихся в работу</td>
+            <td class="unit">₽/обращение</td>
+            <td class="tgt">≤ 1 300 ₽<br>(≤ ⅓ CPL нового лида)</td>
+            <td class="per">Месяц</td>
+            <td class="src">Учёт расходов + CRM</td>
+          </tr>
+          <tr>
+            <th>Отклик по каналам касания</th>
+            <td class="f">ответы ÷ доставленные сообщения × 100%, раздельно по каналам</td>
+            <td class="unit">%</td>
+            <td class="tgt">Telegram и мессенджеры ≥ 12%;<br>e-mail: открытия ≥ 35%, ответы ≥ 6%;<br>звонок ≥ 45%</td>
+            <td class="per">Месяц</td>
+            <td class="src">Сервис рассылок, мессенджеры, коллтрекинг</td>
+          </tr>
+          <tr>
+            <th>Утечка базы к конкурентам</th>
+            <td class="f">контакты, сообщившие о покупке в другом месте ÷ активная база × 100% (в годовом выражении)</td>
+            <td class="unit">%</td>
+            <td class="tgt">≤ 25% в год</td>
+            <td class="per">Квартал</td>
+            <td class="src">CRM, результат обзвона базы</td>
+          </tr>
+          <tr>
+            <th>Гигиена данных базы</th>
+            <td class="f">контакты с заполненной причиной отказа, сегментом и датой следующего касания ÷ вся база × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 95%</td>
+            <td class="per">Месяц</td>
+            <td class="src">CRM, отчёт по обязательным полям</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="lvl"><span>Уровень 3</span> Операционные</h3>
+    <div class="scroller" tabindex="0">
+      <table class="kpi">
+        <thead><tr><th>KPI</th><th>Формула</th><th>Ед.</th><th>Целевое значение</th><th>Период</th><th>Источник данных</th></tr></thead>
+        <tbody>
+          <tr>
+            <th>Персональные касания базы</th>
+            <td class="f">COUNT(индивидуальных сообщений и звонков по базе)</td>
+            <td class="unit">шт./нед</td>
+            <td class="tgt">≥ 25</td>
+            <td class="per">Неделя</td>
+            <td class="src">CRM, история активностей</td>
+          </tr>
+          <tr>
+            <th>Доля касаний с личным поводом</th>
+            <td class="f">касания с конкретным поводом (стартовал корпус в его бюджете, изменились условия по его ЖК, снизилась цена на интересовавший лот) ÷ все касания × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 70%<br>(«просто напоминаем о себе» — не повод)</td>
+            <td class="per">Неделя</td>
+            <td class="src">CRM, тип активности</td>
+          </tr>
+          <tr>
+            <th>Покрытие базы датой следующего касания</th>
+            <td class="f">контакты с назначенной будущей задачей ÷ вся активная база × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≥ 95%</td>
+            <td class="per">Неделя</td>
+            <td class="src">CRM, задачи</td>
+          </tr>
+          <tr>
+            <th>Просроченные задачи по базе</th>
+            <td class="f">COUNT(задач с датой в прошлом и статусом «не выполнена»)</td>
+            <td class="unit">шт.</td>
+            <td class="tgt">0 на конец недели</td>
+            <td class="per">День</td>
+            <td class="src">CRM</td>
+          </tr>
+          <tr>
+            <th>Отписки и запреты на связь</th>
+            <td class="f">отписавшиеся ÷ получившие касание × 100%</td>
+            <td class="unit">%</td>
+            <td class="tgt">≤ 1,5%<br>(выше — касания воспринимаются как спам)</td>
+            <td class="per">Месяц</td>
+            <td class="src">Сервис рассылок + CRM</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <p><strong>Главная метрика блока — доля касаний с личным поводом.</strong> Реактивация проваливается не потому, что база «холодная», а потому что касания безадресны. Семья, отложившая покупку до сентября из-за школы, реагирует на сообщение «в вашем ЖК открыли продажи корпуса рядом со школой, которую вы смотрели» и игнорирует «здравствуйте, ещё актуально?». Именно поэтому обязательное поле «причина отказа» из предыдущего блока — фундамент этого.</p>
+      <p><strong>Про ритм касаний.</strong> Для этой ниши работает график 30-90-180 дней от отказа, плюс внеплановое касание при событии, релевантном конкретному клиенту. Более частые касания без повода дают рост отписок при нулевом росте возвратов — это проверяется метрикой отписок, которая стоит здесь именно как ограничитель.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">06 · Инфраструктура</div>
+      <h2>Что нужно поставить, иначе половина метрик не считается</h2>
+      <p>Честно: без этих четырёх вещей значительная часть системы выше остаётся теорией. Это не «желательно», это условие измеримости.</p>
+    </div>
+    <ol class="steps">
+      <li><span class="k">Обязательно</span><div><h4>CRM с воронкой из шести этапов и обязательными полями</h4>
+        <p>Этапы: лид → квалифицирован → интервью проведено → показы → бронь → ДДУ, плюс два терминальных статуса: «отложен» с причиной и «рекомендовали не покупать». Обязательные поля: источник, сегмент, бюджет, срок, причина отказа. Без обязательности поля не заполняются никогда — это проверено на любом отделе продаж. <strong>Без CRM не считается: всё, что связано с этапами, циклом, когортами и базой.</strong></p></div></li>
+      <li><span class="k">Обязательно</span><div><h4>Коллтрекинг и единая точка приёма обращений</h4>
+        <p>Звонок — основной канал в этой нише, и без подмены номеров источник половины лидов будет «неизвестен». Все каналы (сайт, объявления, мессенджеры) заводятся в CRM автоматически. <strong>Без этого не считается:</strong> CPL и CPQL по каналам, ROMI, доля органики, speed-to-lead.</p></div></li>
+      <li><span class="k">Обязательно</span><div><h4>Сквозная UTM-разметка и цели в веб-аналитике</h4>
+        <p>Разметка на всех объявлениях и ссылках в блоге; цели в Яндекс.Метрике на отправку формы, клик по телефону и переход в мессенджер. <strong>Без этого не считается:</strong> конверсия сайта, эффективность отдельных кампаний и посадочных.</p></div></li>
+      <li><span class="k">Достаточно таблицы</span><div><h4>Когортный отчёт и учёт времени</h4>
+        <p>Одна таблица: строки — месяцы привлечения, столбцы — лиды, квалифицированные, интервью, показы, брони, сделки, расход, GCI. Заполняется раз в неделю вручную за 15 минут. Плюс календарь с типами событий, из которого берутся клиентские часы. <strong>Без этого не считается:</strong> сквозная конверсия, CAC, ROMI и вознаграждение на 100 часов — то есть весь стратегический уровень.</p></div></li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">07 · Антиметрики</div>
+      <h2>Что не измерять и почему</h2>
+    </div>
+    <div class="warn">
+      <p><strong>Охваты, показы, подписчики, лайки и «вовлечённость».</strong> При пяти сделках в месяц эти числа не связаны с выручкой никакой проверяемой зависимостью. Единственный контентный показатель, который здесь имеет смысл, — лиды из блога и их цена.</p>
+      <p><strong>Количество звонков и «активностей» как самоцель.</strong> Стимулирует имитацию работы: сто касаний без повода дают отписки, а не сделки. Поэтому в системе стоит не число касаний само по себе, а его пара с долей персональных поводов и отписками.</p>
+      <p><strong>CPL без квалификации.</strong> Самый опасный показатель: дешёвый лид почти всегда означает нецелевого клиента, а при одном менеджере каждый нецелевой лид отнимает час, который не вернуть. Смотрите только на CPQL, а CPL держите как вспомогательный.</p>
+      <p><strong>Конверсия «за месяц» без когорт.</strong> При цикле в 75 дней такая цифра описывает случайное совпадение двух разных потоков и колеблется вдвое от месяца к месяцу. Решения, принятые по ней, будут ошибочными в обе стороны.</p>
+      <p><strong>Средний чек как KPI маркетинга.</strong> Им управляет не маркетинг, а сегмент и рынок. Управляемая величина — доля лидов целевых персон, она и стоит в системе.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">08 · Внедрение</div>
+      <h2>Не 52 метрики с первого дня</h2>
+      <p>Один человек не может вести полсотни показателей и одновременно продавать. Система разворачивается очередями: сначала то, без чего нельзя принять ни одного решения, затем то, что даёт точность.</p>
+    </div>
+    <ol class="steps">
+      <li><span class="k">Месяц 1</span><div><h4>Шесть метрик и ничего сверх</h4>
+        <p>Лиды, CPQL, speed-to-lead, число проведённых интервью, брони, сделки. Плюс дисциплина заполнения CRM. Задача месяца — не оптимизация, а получение первых честных чисел: до пятидесяти лидов любые выводы о конверсии статистически пусты.</p></div></li>
+      <li><span class="k">Месяц 2–3</span><div><h4>Добавить конверсии этапов, длину цикла и когортный отчёт</h4>
+        <p>К этому моменту накопится достаточно данных, чтобы увидеть, где именно рвётся воронка. Здесь же заменяются стартовые нормативы на собственные медианы — и все цели ниже пересчитываются от них.</p></div></li>
+      <li><span class="k">Месяц 3–4</span><div><h4>Развернуть блок реактивации</h4>
+        <p>В базе появляются первые 80–120 отложенных. Включаются гигиена данных, график касаний 30-90-180 и метрики отклика. Первая сделка из базы ожидается к пятому-шестому месяцу.</p></div></li>
+      <li><span class="k">Месяц 6</span><div><h4>Включить стратегический контур целиком</h4>
+        <p>Первая когорта закрывается, появляются достоверные CAC, ROMI, сквозная конверсия и вознаграждение на 100 часов. С этого момента бюджет распределяется по данным, а не по интуиции.</p></div></li>
+      <li><span class="k">Ритм</span><div><h4>Ежедневно — 4 показателя, еженедельно — 12, ежемесячно — 15, ежеквартально — стратегия</h4>
+        <p>Ежедневно: speed-to-lead, дозвон, просроченные задачи, полнота карточек. Еженедельно: объём и качество лидов, конверсии этапов, покрытие воронкой, зависшие сделки, операционная дисциплина. Ежемесячно: когортные конверсии, CPQL и CPL, цикл сделки, метрики базы. Ежеквартально: CAC, ROMI, доля рекомендаций, доля отговорённых и решение о бюджете.</p></div></li>
+    </ol>
+  </section>
+
+  <footer>
+    <p>Все целевые значения — стартовые нормативы, выведенные из обратного расчёта воронки под пять сделок в месяц и средней комиссии 350 000 ₽ (чек 14 млн × ставка 2,5%). Фактические ставки вознаграждения агентствам застройщики публично не раскрывают: подставьте свои договорные условия и пересчитайте цепочку — изменятся допустимый CAC, бюджет и требуемый объём лидов.</p>
+    <p>Нормативы конверсий взяты из типовых диапазонов рынка новостроек и не являются измеренными показателями вашей компании. После первых 50 лидов и 10 сделок замените их собственными медианами: до этого отклонение — повод разобраться в причине, а не менять стратегию или бюджет.</p>
+    <p>Система рассчитана на конфигурацию «один менеджер, пять сделок в месяц». При найме второго специалиста пересматриваются потолки мощности (интервью, выезды, клиентская загрузка) и метрика вознаграждения на 100 часов — она становится показателем не человека, а команды.</p>
+  </footer>
+</div>
