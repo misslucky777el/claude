@@ -1,4 +1,4 @@
-<title>План вместо мечты</title>
+<title>Там, где кончается подборка</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600&family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
@@ -32,7 +32,7 @@
   .eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
 
   .masthead{padding:64px 0 40px;border-bottom:2px solid var(--ink);display:flex;flex-direction:column;gap:22px}
-  h1{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;font-size:clamp(32px,5vw,60px);line-height:1.02;letter-spacing:-.02em;margin:0;text-wrap:balance}
+  h1{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;font-size:clamp(30px,4.6vw,56px);line-height:1.03;letter-spacing:-.02em;margin:0;text-wrap:balance}
   h1 em{font-style:normal;color:var(--accent)}
   .lede{font-size:clamp(17px,1.5vw,19px);color:var(--ink-2);max-width:64ch;margin:0}
   .meta{display:flex;flex-wrap:wrap;gap:8px 28px;padding-top:4px}
@@ -42,37 +42,44 @@
   section{padding-top:56px}
   h2{font-weight:700;font-size:clamp(21px,2.4vw,27px);letter-spacing:-.015em;margin:0 0 6px;text-wrap:balance}
   .sec-head{display:flex;flex-direction:column;gap:10px;margin-bottom:26px}
-  .sec-head p{margin:0;color:var(--ink-2);max-width:72ch}
+  .sec-head p{margin:0;color:var(--ink-2);max-width:74ch}
 
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:3px;overflow:hidden}
-  .cell{background:var(--surface);padding:22px 22px 24px;display:flex;flex-direction:column;gap:11px}
-  .cell h3{margin:0;font-size:15px;font-weight:600;letter-spacing:-.01em}
-  .cell p{margin:0;font-size:14.5px;color:var(--ink-2)}
-  .cell ul{margin:0;padding-left:17px;font-size:14.5px;color:var(--ink-2);display:flex;flex-direction:column;gap:6px}
-  .cell li::marker{color:var(--accent)}
-  .cell .lab{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
-  .cell strong{color:var(--ink)}
-
-  .thesis{border:1px solid var(--accent);background:var(--accent-soft);border-radius:3px;padding:30px 30px 32px;display:flex;flex-direction:column;gap:16px}
-  .thesis .lab{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
-  .thesis p.big{margin:0;font-size:clamp(19px,2.2vw,25px);line-height:1.35;letter-spacing:-.015em;color:var(--ink);max-width:52ch;font-weight:500;text-wrap:balance}
-  .thesis p.small{margin:0;font-size:14.5px;color:var(--ink-2);max-width:76ch}
+  .warn{border-left:3px solid var(--signal);background:var(--signal-soft);padding:18px 22px;border-radius:0 3px 3px 0;display:flex;flex-direction:column;gap:9px}
+  .warn p{margin:0;font-size:14.5px;color:var(--ink-2);max-width:80ch}
+  .warn strong{color:var(--ink)}
+  .note{border-left:3px solid var(--accent);background:var(--accent-soft);padding:18px 22px;border-radius:0 3px 3px 0;display:flex;flex-direction:column;gap:9px}
+  .note p{margin:0;font-size:14.5px;color:var(--ink-2);max-width:80ch}
+  .note strong{color:var(--ink)}
 
   .scroller{overflow-x:auto;border:1px solid var(--rule);border-radius:3px;background:var(--surface)}
   table{border-collapse:collapse;width:100%;font-size:14px}
-  table.matrix{min-width:900px}
-  table.utp{min-width:1080px}
+  table.kill{min-width:820px}
+  table.cand{min-width:960px}
+  table.utp{min-width:980px}
   thead th{background:var(--surface-2);text-align:left;vertical-align:bottom;padding:13px 15px;font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);border-bottom:1px solid var(--rule);font-weight:600}
-  tbody td{padding:16px 15px;vertical-align:top;border-bottom:1px solid var(--rule-soft);color:var(--ink-2)}
-  tbody tr:last-child td{border-bottom:none}
+  tbody td{padding:15px;vertical-align:top;border-bottom:1px solid var(--rule-soft);color:var(--ink-2)}
+  tbody th{text-align:left;padding:15px;vertical-align:top;border-bottom:1px solid var(--rule-soft);color:var(--ink);font-weight:600;font-size:14px}
+  tbody tr:last-child td,tbody tr:last-child th{border-bottom:none}
   tbody tr:hover td{background:var(--surface-2)}
-  tbody th{text-align:left;vertical-align:top;padding:16px 15px;border-bottom:1px solid var(--rule-soft);color:var(--ink);font-weight:600;font-size:14px}
-  tbody tr:last-child th{border-bottom:none}
-  td.you{background:var(--accent-soft);color:var(--ink)}
-  tbody tr:hover td.you{background:var(--accent-soft)}
-  thead th.you{background:var(--accent);color:#FBFAF7}
-  .mark{font-family:"JetBrains Mono",monospace;font-weight:600;font-size:12px;letter-spacing:.04em;display:block;margin-bottom:4px}
-  .yes{color:var(--accent)} .no{color:var(--signal)} .part{color:var(--ink-3)}
+  td.dead{color:var(--signal)}
+  .win{color:var(--accent);font-weight:600}
+  .lose{color:var(--signal);font-weight:600}
+
+  figure{margin:0;border:1px solid var(--rule);border-radius:3px;background:var(--surface);padding:24px 22px 18px}
+  figure svg{display:block;width:100%;max-width:100%;height:auto;color:var(--ink-2)}
+  figcaption{margin-top:14px;font-size:13.5px;color:var(--ink-3);max-width:82ch}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+  .cell{background:var(--surface);padding:22px;display:flex;flex-direction:column;gap:10px}
+  .cell h4{margin:0;font-size:15px;font-weight:600}
+  .cell p{margin:0;font-size:14.5px;color:var(--ink-2)}
+  .cell ul{margin:0;padding-left:17px;font-size:14.5px;color:var(--ink-2);display:flex;flex-direction:column;gap:6px}
+  .cell .lab{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+
+  .thesis{border:1px solid var(--accent);background:var(--accent-soft);border-radius:3px;padding:30px;display:flex;flex-direction:column;gap:16px}
+  .thesis .lab{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  .thesis p.big{margin:0;font-size:clamp(19px,2.2vw,25px);line-height:1.35;letter-spacing:-.015em;color:var(--ink);max-width:54ch;font-weight:500;text-wrap:balance}
+  .thesis p.small{margin:0;font-size:14.5px;color:var(--ink-2);max-width:78ch}
 
   .utp-num{font-family:"Unbounded",sans-serif;font-weight:600;font-size:17px;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums}
   .kind{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;border-radius:2px;background:var(--surface-2);color:var(--ink-2);margin-top:8px;white-space:nowrap}
@@ -85,13 +92,8 @@
   ol.steps .k{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--accent);padding-top:2px}
   ol.steps h3{margin:0 0 5px;font-size:15.5px;font-weight:600}
   ol.steps p{margin:0;font-size:14.5px;color:var(--ink-2);max-width:82ch}
-  ol.steps p + p{margin-top:8px}
 
-  .warn{border-left:3px solid var(--signal);background:var(--signal-soft);padding:18px 22px;border-radius:0 3px 3px 0;display:flex;flex-direction:column;gap:9px}
-  .warn p{margin:0;font-size:14.5px;color:var(--ink-2);max-width:80ch}
-  .warn strong{color:var(--ink)}
-
-  footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--rule);color:var(--ink-3);font-size:13px;max-width:78ch}
+  footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--rule);color:var(--ink-3);font-size:13px;max-width:80ch}
   footer p{margin:0 0 8px}
   a{color:var(--accent)}
   :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -101,317 +103,361 @@
 
 <div class="wrap">
   <header class="masthead">
-    <div class="eyebrow">Позиционирование и УТП · агентство по новостройкам · Москва и область</div>
-    <h1>План вместо <em>мечты</em></h1>
-    <p class="lede">Разбор продукта, сравнение с конкурентами и десять формулировок УТП — собраны по итогам интервью и построены вокруг одной фразы заказчика: клиент должен уходить со встречи не с мечтой, а с конкретным планом того, что он может купить.</p>
+    <div class="eyebrow">Пересборка УТП · после обнаружения общего инструмента рынка</div>
+    <h1>Там, где кончается <em>подборка</em></h1>
+    <p class="lede">TrendAgent есть у каждого агента, и он закрывает весь слой, на котором строилось прежнее позиционирование: базу, сравнение, презентацию клиенту, расчёт ипотеки и бронь. Доступа в этот сервис у покупателей нет, поэтому против прямого визита к застройщику старые аргументы ещё работают. Против другого агента — уже нет. Этот документ отвечает на один вопрос: что остаётся ценного, когда инструмент общий, и как из этого собрать УТП, которое нельзя воспроизвести подпиской.</p>
     <div class="meta">
-      <div><b>Формат:</b> команда из одного менеджера + юрист и ипотечный брокер</div>
-      <div><b>Для клиента:</b> бесплатно, платит застройщик</div>
-      <div><b>Цель:</b> 5 сделок в месяц</div>
-      <div><b>Канал старта:</b> поиск + сайт с блогом</div>
+      <div><b>Отменяет:</b> продуктовую часть прежнего УТП</div>
+      <div><b>Новых формулировок:</b> 10</div>
+      <div><b>Ядро:</b> проверка и отказ, а не показ</div>
+      <div><b>Дата:</b> август 2026</div>
     </div>
   </header>
 
   <section>
-    <div class="warn">
-      <p><strong>Документ частично устарел — читайте вместе с «Там, где кончается подборка».</strong> После публикации выяснилось, что все агенты рынка работают через общий профессиональный сервис (TrendAgent), который сам формирует базу, сравнение, презентацию клиенту, расчёт ипотеки и бронирование. Из-за этого продуктовая часть УТП ниже — широта выбора, скорость подборки, формат сравнения, бесплатность — перестала быть отличием от других агентов и осталась работать только против прямого визита к застройщику, куда покупателю доступа в сервис нет.</p>
-      <p><strong>Что здесь по-прежнему верно:</strong> анализ проблемы клиента, конкурентная логика, а также эмоциональная и ценностная часть — работа без дожима (№5), отказ от прогнозов рынка (№7), история основателя (№6) и интервью до подбора (№8). Их подпиской на сервис не воспроизвести.</p>
-      <p><strong>Новые формулировки и новое ядро:</strong> <a href="https://claude.ai/code/artifact/dbcf4a8f-d006-426c-9897-641e6bb6e32a">Там, где кончается подборка</a>.</p>
+    <div class="sec-head">
+      <div class="eyebrow">01 · Диагноз</div>
+      <h2>Что именно обнулил общий инструмент</h2>
+      <p>Вы назвали одну функцию — автоматическую подборку. Проверка показала, что сервис закрывает существенно больше, и это важно: половина аргументов, которые мы заготовили, теперь звучит как описание отраслевого стандарта, а не преимущества.</p>
+    </div>
+    <div class="scroller" tabindex="0">
+      <table class="kill">
+        <thead><tr>
+          <th>Функция общего сервиса</th><th>Какое «преимущество» она убивает</th><th>Статус аргумента</th>
+        </tr></thead>
+        <tbody>
+          <tr><th>База новостроек по Москве и другим городам, 37 фильтров</th><td>«Доступ к закрытой базе, которой нет у покупателя», «охват 95% рынка»</td><td class="dead">Мёртв <em>как отличие от других агентов</em>: подписка есть у каждого. <span class="win">Уцелел как ответ на вопрос «зачем вообще агент»</span> — прямому покупателю доступа в сервис нет</td></tr>
+          <tr><th>Интерактивная презентация и сравнение объектов</th><td>«Сравнение по семи параметрам», «сводим варианты в одну таблицу»</td><td class="dead">Мёртв: сравнение генерируется в два клика</td></tr>
+          <tr><th>Отправка подборки клиенту на почту и в мессенджер</th><td>«Пять вариантов вместо тысячи», «отчёт остаётся у вас»</td><td class="dead">Мёртв как формат. Уцелеет только содержание, которого в автоподборке нет</td></tr>
+          <tr><th>Аэропанорамы хода строительства</th><td>«Показываем реальную стадию готовности»</td><td class="dead">Мёртв: картинка со стройки есть в сервисе</td></tr>
+          <tr><th>Расчёт ипотеки онлайн и заявка в банк, ипотечный центр</th><td>«Ипотечный брокер в связке», «посчитаем ваш платёж»</td><td class="dead">Мёртв как отличие: расчёт встроен в инструмент</td></tr>
+          <tr><th>Бронирование в два клика</th><td>«Быстро забронируем нужную квартиру»</td><td class="dead">Мёртв: скорость брони — функция сервиса, а не агента</td></tr>
+          <tr><th>Чего в сервисе нет: интервью, выезд, отказ, ответственность</th><td>—</td><td><span class="win">Здесь и только здесь возможна дифференциация</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="warn" style="margin-top:22px">
+      <p><strong>Вывод, который придётся принять.</strong> Всё, что можно сделать, не выходя из офиса и не задавая вопросов, автоматизировано и роздано всем участникам рынка по подписке. Любое УТП, описывающее работу с данными, теперь описывает работу сервиса — и клиент это почувствует, даже если не будет знать названия инструмента: он получит три одинаковые подборки от трёх разных агентов и сделает вывод, что агенты взаимозаменяемы.</p>
+      <p><strong>Хорошая новость.</strong> Обнуление коснулось и конкурентов тоже. Ни один агент, работающий «в кабинете», больше не отличается от другого. Отличие может появиться только у того, кто делает то, что инструмент физически сделать не может, — и таких зон ровно четыре.</p>
     </div>
   </section>
 
   <section>
     <div class="sec-head">
-      <div class="eyebrow">00 · Вводные</div>
-      <h2>С чем работаем</h2>
-      <p>Короткая сводка ответов из интервью — всё дальнейшее опирается только на эти факты, без домысленных преимуществ.</p>
+      <div class="eyebrow">01б · Уточнение</div>
+      <h2>Две разные конкуренции, которые нельзя смешивать</h2>
+      <p>Доступ в профессиональный сервис закрыт для прямых покупателей — и это меняет картину. Часть похороненных выше аргументов не умерла, а переехала: они работают в одной битве и не работают в другой. Смешивать их в одном сообщении — главная ошибка, которую здесь можно совершить.</p>
     </div>
     <div class="grid">
       <div class="cell">
-        <span class="lab">Актив</span>
-        <h3>Что уже есть</h3>
+        <span class="lab">Битва 1 · Агент против прямого визита к застройщику</span>
+        <h4>Здесь старые аргументы живы и работают</h4>
+        <p>Клиент, который идёт в отдел продаж сам, физически не имеет доступа к профессиональной базе: он видит один ЖК глазами его же продавца. Аргументы про широту выбора, сравнение нескольких застройщиков в одной таблице и бесплатность для покупателя здесь остаются в полной силе.</p>
         <ul>
-          <li>Доступ к профессиональному агрегатору с охватом ~95% новостроек, закрытому для покупателей</li>
-          <li>Сравнение вариантов по 7 параметрам, включая платёж и полную переплату</li>
-          <li>Глубинное интервью до показа вариантов</li>
-          <li>Юрист и ипотечный брокер на консалтинге</li>
-          <li>Личное сопровождение на встречах у застройщиков</li>
+          <li>Отвечает на вопрос «зачем мне вообще посредник»</li>
+          <li>Место — первый экран сайта, объявление в поиске, первая минута разговора</li>
+          <li><strong>Но это не УТП:</strong> ровно то же самое скажет любой другой агент</li>
         </ul>
       </div>
       <div class="cell">
-        <span class="lab">Позиция</span>
-        <h3>Принципы, заявленные вслух</h3>
+        <span class="lab">Битва 2 · Вы против другого агента</span>
+        <h4>Здесь не работает ничего из прежнего списка</h4>
+        <p>Клиент, дошедший до сравнения агентов, получает три письма с похожими подборками из одного источника. Широта, скорость, сравнение, расчёт ипотеки и бесплатность у всех троих одинаковы — различить отправителей по этим признакам невозможно.</p>
         <ul>
-          <li>Подбор идёт от потребности, а не от размера комиссии</li>
-          <li>Цена квартиры для клиента та же, что в офисе застройщика</li>
-          <li>Никаких прогнозов по ставкам и ценам — рынок непредсказуем</li>
-          <li>Плюсы и минусы каждого варианта проговариваются</li>
-          <li>После презентации — пауза на подумать, без дожима</li>
+          <li>Отвечает на вопрос «почему именно вы, а не тот, кто написал вчера»</li>
+          <li>Место — всё остальное: страница метода, блог, первая встреча</li>
+          <li><strong>Именно здесь нужно новое УТП</strong>, и оно строится только на том, что нельзя получить по подписке</li>
         </ul>
       </div>
-      <div class="cell">
-        <span class="lab">Дефицит</span>
-        <h3>Чего нет и не будет в ближайшее время</h3>
-        <ul>
-          <li>Бренда, узнаваемости, рекламного бюджета уровня застройщика</li>
-          <li>Портфеля отзывов и кейсов — компания новая</li>
-          <li>Своих шоурумов и офисов (используется инфраструктура застройщиков)</li>
-          <li>Сопровождения приёмки квартиры после ввода</li>
-          <li>Масштаба: физический потолок — около 5 сделок в месяц</li>
-        </ul>
-      </div>
-      <div class="cell">
-        <span class="lab">Фокус</span>
-        <h3>Кому продаём в первую очередь</h3>
-        <p>Три персоны из пятнадцати: <strong>семья с ребёнком и дедлайном по школе</strong>, <strong>покупатель первого жилья вместо аренды</strong>, <strong>обмен из старой вторички</strong>. Общее у них одно: высокая цена ошибки и полное отсутствие опыта таких сделок. Именно там разбор стоит дороже скидки.</p>
-      </div>
+    </div>
+    <div class="note" style="margin-top:22px">
+      <p><strong>Практический вывод.</strong> Не выбрасывайте аргумент про широкий выбор — перенесите его на позицию, где он уместен: он снимает возражение «пойду напрямую, посредник лишний». Но не пытайтесь строить на нём отличие: как только клиент начинает сравнивать агентов между собой, этот аргумент перестаёт работать и вы возвращаетесь в общую массу. Заголовок сайта отвечает на первый вопрос, всё остальное — на второй.</p>
     </div>
   </section>
 
   <section>
     <div class="sec-head">
-      <div class="eyebrow">01 · Анализ продукта</div>
-      <h2>Четыре параметра</h2>
+      <div class="eyebrow">02 · Где ещё возможна ценность</div>
+      <h2>Четыре зоны, недоступные сервису</h2>
+    </div>
+    <figure>
+      <svg viewBox="0 0 900 400" role="img" aria-label="Путь покупки из шести шагов: понять клиента, отобрать варианты, сравнить и презентовать, проверить объекты на месте, решить покупать или нет, забронировать и сопроводить. Шаги отбора, сравнения и брони закрыты общим сервисом; понимание клиента, проверка на месте и решение о покупке остаются человеку.">
+        <defs>
+          <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+          </marker>
+        </defs>
+
+        <text x="20" y="40" font-size="12" fill="currentColor" opacity="0.7">Путь покупки — шесть шагов</text>
+
+        <rect x="20" y="60" width="130" height="72" rx="3" fill="none" stroke="#2E8B7A" stroke-width="2"/>
+        <text x="85" y="88" text-anchor="middle" font-size="12.5" fill="#2E8B7A" font-weight="600">1. Понять,</text>
+        <text x="85" y="106" text-anchor="middle" font-size="12.5" fill="#2E8B7A" font-weight="600">как живёт клиент</text>
+
+        <rect x="170" y="60" width="120" height="72" rx="3" fill="currentColor" opacity="0.09"/>
+        <rect x="170" y="60" width="120" height="72" rx="3" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="230" y="88" text-anchor="middle" font-size="12.5" fill="currentColor">2. Отобрать</text>
+        <text x="230" y="106" text-anchor="middle" font-size="12.5" fill="currentColor">варианты</text>
+
+        <rect x="310" y="60" width="130" height="72" rx="3" fill="currentColor" opacity="0.09"/>
+        <rect x="310" y="60" width="130" height="72" rx="3" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="375" y="88" text-anchor="middle" font-size="12.5" fill="currentColor">3. Сравнить</text>
+        <text x="375" y="106" text-anchor="middle" font-size="12.5" fill="currentColor">и прислать</text>
+
+        <rect x="460" y="60" width="140" height="72" rx="3" fill="none" stroke="#2E8B7A" stroke-width="2"/>
+        <text x="530" y="88" text-anchor="middle" font-size="12.5" fill="#2E8B7A" font-weight="600">4. Проверить</text>
+        <text x="530" y="106" text-anchor="middle" font-size="12.5" fill="#2E8B7A" font-weight="600">лоты на месте</text>
+
+        <rect x="620" y="60" width="130" height="72" rx="3" fill="none" stroke="#2E8B7A" stroke-width="2"/>
+        <text x="685" y="88" text-anchor="middle" font-size="12.5" fill="#2E8B7A" font-weight="600">5. Решить:</text>
+        <text x="685" y="106" text-anchor="middle" font-size="12.5" fill="#2E8B7A" font-weight="600">брать или нет</text>
+
+        <rect x="770" y="60" width="110" height="72" rx="3" fill="currentColor" opacity="0.09"/>
+        <rect x="770" y="60" width="110" height="72" rx="3" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="825" y="88" text-anchor="middle" font-size="12.5" fill="currentColor">6. Бронь</text>
+        <text x="825" y="106" text-anchor="middle" font-size="12.5" fill="currentColor">и сделка</text>
+
+        <line x1="150" y1="96" x2="168" y2="96" stroke="currentColor" stroke-width="1.2" marker-end="url(#a2)"/>
+        <line x1="290" y1="96" x2="308" y2="96" stroke="currentColor" stroke-width="1.2" marker-end="url(#a2)"/>
+        <line x1="440" y1="96" x2="458" y2="96" stroke="currentColor" stroke-width="1.2" marker-end="url(#a2)"/>
+        <line x1="600" y1="96" x2="618" y2="96" stroke="currentColor" stroke-width="1.2" marker-end="url(#a2)"/>
+        <line x1="750" y1="96" x2="768" y2="96" stroke="currentColor" stroke-width="1.2" marker-end="url(#a2)"/>
+
+        <line x1="230" y1="150" x2="230" y2="196" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+        <line x1="375" y1="150" x2="375" y2="196" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+        <line x1="825" y1="150" x2="825" y2="196" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+        <rect x="170" y="200" width="710" height="52" rx="3" fill="currentColor" opacity="0.09"/>
+        <text x="525" y="231" text-anchor="middle" font-size="13" fill="currentColor">Закрыто общим сервисом: одинаково у всех агентов рынка</text>
+
+        <line x1="85" y1="150" x2="85" y2="286" stroke="#2E8B7A" stroke-width="1.4" stroke-dasharray="4 4"/>
+        <line x1="530" y1="150" x2="530" y2="286" stroke="#2E8B7A" stroke-width="1.4" stroke-dasharray="4 4"/>
+        <line x1="685" y1="150" x2="685" y2="286" stroke="#2E8B7A" stroke-width="1.4" stroke-dasharray="4 4"/>
+        <rect x="20" y="290" width="730" height="62" rx="3" fill="none" stroke="#2E8B7A" stroke-width="2"/>
+        <text x="385" y="316" text-anchor="middle" font-size="13" fill="#2E8B7A" font-weight="600">Требует человека, времени и готовности потерять сделку</text>
+        <text x="385" y="337" text-anchor="middle" font-size="12.5" fill="#2E8B7A">интервью · выезд и проверка конкретной квартиры · честный ответ «не берите»</text>
+      </svg>
+      <figcaption>Три из шести шагов сервис делает лучше и быстрее любого человека — конкурировать на них бессмысленно. Три оставшихся он не делает вовсе: они требуют времени, физического присутствия и готовности отговорить клиента от сделки, на которой агент зарабатывает. Именно эта неудобная для бизнеса часть и есть единственная территория дифференциации.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">03 · Кандидаты</div>
+      <h2>Три возможных ядра и проверка каждого на прочность</h2>
+      <p>Критерий отбора один: может ли конкурент повторить это, оформив подписку, наняв сотрудника или переписав тексты на сайте. Если да — это не УТП, а обещание.</p>
+    </div>
+    <div class="scroller" tabindex="0">
+      <table class="cand">
+        <thead><tr>
+          <th>Кандидат</th><th>В чём суть</th><th>Копируется сервисом?</th><th>Копируется конкурентом?</th><th>Чего стоит вам</th><th>Вердикт</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <th>A. Проверка объекта ногами</th>
+            <td>Агент выезжает на площадки отобранных ЖК и проверяет то, чего нет ни в одной базе: что реально видно из окон нужного корпуса, что строится напротив и что там будет через три года, уровень шума от трассы в час пик, дорога до школы в 8:15 утра, состояние сданных корпусов того же застройщика, кто уже живёт во дворе.</td>
+            <td><span class="win">Нет.</span> Аэропанорама показывает стройку сверху, а не вид из вашего окна и не шум на детской площадке</td>
+            <td>Технически да, но требует 4–6 часов на объект. Конвейер с тридцатью лидами на агента этого не сделает никогда</td>
+            <td>Дорого во времени: 1–2 дня на клиента. При пяти сделках в месяц выполнимо, при пятнадцати — нет</td>
+            <td><span class="win">Ядро</span></td>
+          </tr>
+          <tr>
+            <th>B. Финансовый сценарий семьи</th>
+            <td>Считается не платёж, а жизнь с ним: сколько останется на жизнь после платежа, что произойдёт при потере одного дохода, как ляжет второй ребёнок или декрет, во сколько обойдётся содержание квартиры с учётом коммуналки и налога, когда эту квартиру выгодно продавать.</td>
+            <td><span class="win">Нет.</span> Сервис считает платёж по кредиту, а не бюджет семьи на пять лет</td>
+            <td>Да, если конкурент захочет. Но требует другого разговора и другой квалификации, а также готовности сказать «вам не потянуть»</td>
+            <td>Умеренно: 2–3 часа на клиента плюс шаблон расчёта</td>
+            <td><span class="win">Доказательство глубины</span></td>
+          </tr>
+          <tr>
+            <th>C. Право сказать «не покупайте»</th>
+            <td>Прямое обязательство: если по итогам разбора покупка сейчас невыгодна или опасна для семейного бюджета, агент говорит это прямо и не ведёт сделку. Включая рекомендацию подождать, снизить бюджет или остаться в аренде ещё год.</td>
+            <td><span class="win">Нет.</span> Инструмент не имеет мнения</td>
+            <td>Формально да, фактически нет: конкурент живёт с комиссии и не станет отговаривать от сделки. Это обещание, которое дорого стоит и потому убедительно</td>
+            <td>Прямые потери: часть сделок вы отдадите сами. Но эти сделки и так были бы сорваны или обернулись бы плохим отзывом</td>
+            <td><span class="win">Характер бренда</span></td>
+          </tr>
+          <tr>
+            <th>D. Скорость, широта, бесплатность, отчёт как формат</th>
+            <td>Всё, на чём строилось прежнее позиционирование.</td>
+            <td><span class="lose">Да, полностью</span></td>
+            <td><span class="lose">Да, у всех уже есть</span></td>
+            <td>Ничего не стоит и ничего не даёт</td>
+            <td><span class="lose">Снять с использования</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">04 · Ядро</div>
+      <h2>Новое позиционирование</h2>
+    </div>
+    <div class="thesis">
+      <span class="lab">Формула</span>
+      <p class="big">Подборку вам пришлёт любой агент за две минуты. Мы поедем и проверим то, чего в подборке нет, — и скажем, если покупать не стоит.</p>
+      <p class="small"><strong>Что здесь работает.</strong> Первая часть обезоруживает: вы сами признаёте, что подборка ничего не стоит, — и этим отделяетесь от всех, кто ею гордится. Вторая часть описывает работу, которую клиент может проверить в тот же день: он едет с вами и видит, что вы были здесь до него. Третья часть — обязательство, которое противоречит вашей же выгоде, и потому единственная фраза во всём документе, которой невозможно не поверить.</p>
+      <p class="small"><strong>Почему это устойчиво.</strong> Сервис не поедет на площадку и не будет иметь мнения. Платформа не может позволить консультанту тратить день на объект. Конвейерное агентство не может отговаривать от сделок: у менеджера план. Блогер приезжает на объект ради контента, а не ради вашей квартиры, и не отвечает за ваш выбор. Скопировать эту связку можно только одним способом — начав работать так же, то есть отказавшись от потока.</p>
+      <p class="small"><strong>Цена вопроса, честно.</strong> Это позиционирование ограничивает вас сверху: выезд на объекты и разбор бюджета съедают день-два на клиента. Пять сделок в месяц — реалистичный потолок, и он совпадает с вашей целью. При попытке вырасти до пятнадцати придётся либо нанимать людей с той же дисциплиной, либо менять обещание. Второе разрушит бренд быстрее, чем первое построит выручку.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">05 · Формулировки</div>
+      <h2>Десять новых вариантов УТП</h2>
+      <p>Ни одна формулировка не опирается на базу, скорость, широту выбора и бесплатность — всё это теперь отраслевой стандарт. Опора только на выезд, отказ, интервью и ответственность.</p>
+    </div>
+    <div class="scroller" tabindex="0">
+      <table class="utp">
+        <thead><tr>
+          <th>№</th><th>Формулировка</th><th>Против чего работает</th><th>Чем доказываем</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="utp-num">01</span><span class="kind rat">Рацио</span></td>
+            <td><span class="formula">«Подборку вам пришлёт любой агент за две минуты — она у всех из одной базы. Мы поедем и проверим то, чего в ней нет».</span></td>
+            <td>Против взаимозаменяемости агентов: клиент уже получил три одинаковых письма</td>
+            <td>Фотоотчёт с площадки по каждому варианту, снятый до встречи с клиентом</td>
+          </tr>
+          <tr>
+            <td><span class="utp-num">02</span><span class="kind rat">Рацио</span></td>
+            <td><span class="formula">«Мы выбираем не жилой комплекс, а квартиру номер 147: этаж, вид, сторона, что построят напротив через три года».</span></td>
+            <td>Против подборок уровня «ЖК и тип планировки», где лот выбирает менеджер застройщика</td>
+            <td>Разбор конкретных лотов с указанием, какие из них в этом же корпусе брать не стоит и почему</td>
+          </tr>
+          <tr>
+            <td><span class="utp-num">03</span><span class="kind rat">Рацио</span></td>
+            <td><span class="formula">«Замеряем дорогу до вашей школы в 8:15 утра, а не время в пути из карточки объекта».</span></td>
+            <td>Против «10 минут до метро» из описания, посчитанных по пустым улицам</td>
+            <td>Хронометраж маршрута в час пик по каждому варианту, с датой и временем замера</td>
+          </tr>
+          <tr>
+            <td><span class="utp-num">04</span><span class="kind rat">Рацио</span></td>
+            <td><span class="formula">«Считаем не платёж, а сколько у вас останется на жизнь. И что будет с этой суммой, если один из вас потеряет работу».</span></td>
+            <td>Против ипотечного калькулятора, который отвечает на вопрос банка, а не семьи</td>
+            <td>Расчёт бюджета семьи на пять лет с проверкой сценариев: декрет, потеря дохода, рост коммуналки</td>
+          </tr>
+          <tr>
+            <td><span class="utp-num">05</span><span class="kind emo">Эмоция</span></td>
+            <td><span class="formula">«Скажем прямо, если покупать сейчас не стоит. Даже если это значит, что мы ничего не заработаем».</span></td>
+            <td>Против главного страха: агент заинтересован в сделке, а не в вашем благополучии</td>
+            <td>Само обязательство и случаи, когда вы им воспользовались — их нужно публиковать</td>
+          </tr>
+          <tr>
+            <td><span class="utp-num">06</span><span class="kind emo">Эмоция</span></td>
+            <td><span class="formula">«Мы были в этом дворе в будний вечер. Расскажем, что там происходит, когда заканчивается рабочий день».</span></td>
+            <td>Против рендеров и дневных фотографий, на которых всё всегда хорошо</td>
+            <td>Наблюдения с места: парковка, шум, освещение, кто гуляет во дворе</td>
+          </tr>
+          <tr>
+            <td><span class="utp-num">07</span><span class="kind emo">Эмоция</span></td>
+            <td><span class="formula">«Час вопросов о вашей жизни — прежде чем вы увидите первую квартиру».</span></td>
+            <td>Против разговора, который начинается с «какой у вас первоначальный взнос»</td>
+            <td>Структура интервью, опубликованная на сайте: клиент видит, о чём его спросят</td>
+          </tr>
+          <tr>
+            <td><span class="utp-num">08</span><span class="kind">Эксперт</span></td>
+            <td><span class="formula">«Смотрим, как этот застройщик сдал предыдущий корпус: ездим и разговариваем с теми, кто там уже живёт».</span></td>
+            <td>Против рейтингов надёжности, составленных по открытым данным и не отвечающих на вопрос «а как сдали»</td>
+            <td>Разговоры с жителями сданных очередей, фото мест общего пользования через год эксплуатации</td>
+          </tr>
+          <tr>
+            <td><span class="utp-num">09</span><span class="kind">Эксперт</span></td>
+            <td><span class="formula">«Не предсказываем рынок. Проверяем то, что можно потрогать: стройку, двор, дорогу, соседей и ваш бюджет».</span></td>
+            <td>Против прогнозов про ставки и цены, которыми торгует весь рынок</td>
+            <td>Ваш собственный запрет на прогнозы плюс перечень того, что проверяется по факту</td>
+          </tr>
+          <tr>
+            <td><span class="utp-num">10</span><span class="kind">Социальное</span></td>
+            <td><span class="formula">«Показываем, какие варианты мы отклонили и что именно нас в них не устроило. Список отклонённых длиннее списка предложенных».</span></td>
+            <td>Против автоподборки, где видно только предложенное и не видно работы отбора</td>
+            <td>Раздел «отклонено» с причиной по каждой позиции — единственное, что нельзя сгенерировать в два клика</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">05б · Перенесено</div>
+      <h2>Что уцелело из первой версии позиционирования</h2>
+      <p>Первый документ отменён не целиком: общий сервис обнулил продуктовые аргументы, но не тронул анализ клиента и ценностную часть. Всё живое перенесено сюда, чтобы актуальная версия была одна.</p>
     </div>
     <div class="grid">
       <div class="cell">
         <span class="lab">Проблема клиента</span>
-        <h3>Он вынужден выбирать вслепую и под давлением</h3>
-        <p>Покупатель заходит в отдел продаж и получает ровно один ЖК — там ему физически не с чем сравнить. Он не умеет считать разницу между платежом и полной переплатой, не знает, какие вопросы задавать про стадию готовности, и не понимает, кто в этом разговоре на его стороне. Параллельно на него давят: «последние квартиры», «завтра дороже». Итог — либо покупка не того, либо паралич на полгода, пока цена растёт.</p>
-      </div>
-      <div class="cell">
-        <span class="lab">Решение продукта</span>
-        <h3>Разбор рынка под конкретную жизнь клиента</h3>
-        <p>Сначала глубинное интервью — что за семья, какие сроки, какой платёж выдержит бюджет. Затем отбор через закрытый профессиональный агрегатор и сведение пяти вариантов в один письменный отчёт по семи параметрам. Затем личное сопровождение на встречах у застройщиков, где менеджер говорит на языке клиента, а не прайса. Юрист и ипотечный брокер подключаются на вопросах, а не после подписания.</p>
-      </div>
-      <div class="cell">
-        <span class="lab">Ключевые преимущества</span>
-        <h3>Четыре, которые проверяются</h3>
-        <ul>
-          <li><strong>Широта против узости:</strong> пять ЖК разных застройщиков вместо одного</li>
-          <li><strong>Ноль стоимости для клиента:</strong> цена квартиры та же, платит застройщик</li>
-          <li><strong>Письменный отчёт:</strong> работа овеществлена и остаётся у клиента</li>
-          <li><strong>Отказ от прогнозов:</strong> только проверяемые цифры — платёж, переплата, срок сдачи</li>
-        </ul>
+        <h4>Он выбирает вслепую и под давлением</h4>
+        <p>В отделе продаж ему показывают один ЖК, сравнить не с чем. Он не умеет считать разницу между платежом и полной переплатой, не знает, какие вопросы задавать про стадию готовности, и не понимает, кто в разговоре на его стороне. Параллельно давят сроками и «последними квартирами». Итог — покупка не того либо паралич на полгода.</p>
       </div>
       <div class="cell">
         <span class="lab">Эмоциональная выгода</span>
-        <h3>Возвращённое чувство контроля</h3>
-        <p>Человек перестаёт быть объектом продажи и становится тем, кто принимает решение. Он уходит со встречи не с ощущением, что его обработали, а с документом на руках и пониманием своих реальных возможностей. Исчезает главный страх этой покупки — «я переплатил и не узнаю об этом никогда». Пауза на размышление возвращает достоинство: решение принимает он, а не тот, кто громче давит.</p>
+        <h4>Возвращённое чувство контроля</h4>
+        <p>Человек перестаёт быть объектом продажи и становится тем, кто принимает решение. Исчезает главный страх этой покупки — «я ошибся и никогда об этом не узнаю»: теперь у него есть проверенные на месте факты и прямая рекомендация, включая право услышать «не берите».</p>
+      </div>
+      <div class="cell">
+        <span class="lab">Живые принципы</span>
+        <h4>Не воспроизводятся подпиской на сервис</h4>
+        <ul>
+          <li>Работа без дожима: пауза на размышление встроена в процесс, повторных давящих звонков нет</li>
+          <li>Отказ от прогнозов по ставкам и ценам — только проверяемые факты</li>
+          <li>История основателя: агентство выросло из покупки, где менеджер давил и не спрашивал</li>
+          <li>Интервью раньше вариантов: подбор не начинается с вопроса о первом взносе</li>
+          <li>Подбор от потребности, а не от размера комиссии</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <span class="lab">Ограничения</span>
+        <h4>Чего нельзя обещать</h4>
+        <ul>
+          <li>Скидки и «лучшей цены» — цена та же, что у застройщика</li>
+          <li>Прогнозов рынка — по вашему прямому требованию</li>
+          <li>Масштаба, опыта и количества сделок — компания новая, цифры были бы выдумкой</li>
+          <li>Сопровождения приёмки, пока не найдены партнёры на аутсорсе</li>
+        </ul>
       </div>
     </div>
   </section>
 
   <section>
     <div class="sec-head">
-      <div class="eyebrow">02 · Конкуренты</div>
-      <h2>С кем клиент сравнивает и где проходит граница</h2>
-      <p>Главный конкурент — не агентство, а убеждение «посредник лишний». Матрица показывает, что именно ломается в каждой альтернативе и почему это не лечится усилием отдельного человека: слабости встроены в бизнес-модель.</p>
-    </div>
-    <div class="scroller" tabindex="0">
-      <table class="matrix">
-        <thead>
-          <tr>
-            <th>Параметр</th>
-            <th>Отдел продаж застройщика</th>
-            <th>Известный риелтор с именем</th>
-            <th>Риелтор, ведущий по комиссии</th>
-            <th>Агрегаторы: ЦИАН, Авито</th>
-            <th class="you">Вы</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>Широта выбора</th>
-            <td><span class="mark no">нет</span>Только свои корпуса — это не недостаток менеджера, а его должностная инструкция</td>
-            <td><span class="mark yes">есть</span>Обычно широкая база и опыт</td>
-            <td><span class="mark part">формально есть</span>Выбор сужается до того, где выше вознаграждение</td>
-            <td><span class="mark yes">избыточна</span>Тысячи объявлений без отбора и приоритета</td>
-            <td class="you"><span class="mark yes">есть</span>~95% новостроек Москвы и области через закрытый профессиональный агрегатор</td>
-          </tr>
-          <tr>
-            <th>Цена для клиента</th>
-            <td><span class="mark yes">бесплатно</span>Прайс застройщика</td>
-            <td><span class="mark part">по-разному</span>Часть берёт комиссию с покупателя</td>
-            <td><span class="mark part">скрытая</span>Клиент не знает, чем оплачен совет</td>
-            <td><span class="mark yes">бесплатно</span>Но и работы никакой не сделано</td>
-            <td class="you"><span class="mark yes">бесплатно</span>Та же цена квартиры, платит застройщик</td>
-          </tr>
-          <tr>
-            <th>Объективность</th>
-            <td><span class="mark no">структурно невозможна</span>Минусы своего ЖК не называются никогда</td>
-            <td><span class="mark part">зависит от человека</span>Проверить нельзя</td>
-            <td><span class="mark no">нет</span>Обещания выгоды, которой не существует</td>
-            <td><span class="mark part">нейтральны</span>Никто не разбирает, что вам подходит</td>
-            <td class="you"><span class="mark yes">заявлена и овеществлена</span>Минусы каждого варианта — письменно, в отчёте</td>
-          </tr>
-          <tr>
-            <th>Доказуемость работы</th>
-            <td><span class="mark part">презентация ЖК</span>Материал о продукте, а не о вашем выборе</td>
-            <td><span class="mark part">устные консультации</span>Ничего не остаётся на руках</td>
-            <td><span class="mark no">нет</span>Работа невидима по замыслу</td>
-            <td><span class="mark no">нет</span>Клиент работает сам</td>
-            <td class="you"><span class="mark yes">PDF-отчёт за один день</span>5 вариантов, 7 параметров, отклонённые с причинами</td>
-          </tr>
-          <tr>
-            <th>Давление на решение</th>
-            <td><span class="mark no">высокое</span>План продаж корпуса — это их KPI</td>
-            <td><span class="mark part">умеренное</span></td>
-            <td><span class="mark no">высокое</span>Дожим до брони</td>
-            <td><span class="mark yes">отсутствует</span>Но и помощи нет</td>
-            <td class="you"><span class="mark yes">нет по регламенту</span>Пауза на размышление встроена в процесс</td>
-          </tr>
-          <tr>
-            <th>Инфраструктура и бренд</th>
-            <td><span class="mark yes">сильные</span>Реклама, шоурумы, офисы, брокеры</td>
-            <td><span class="mark yes">узнаваемость</span>Блог, аудитория, репутация</td>
-            <td><span class="mark part">разная</span></td>
-            <td><span class="mark yes">огромный трафик</span></td>
-            <td class="you"><span class="mark no">пока нет</span>Используется инфраструктура застройщиков; бренд только создаётся</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section>
-    <div class="sec-head">
-      <div class="eyebrow">03 · Вывод</div>
-      <h2>Что делает предложение неповторимым</h2>
-    </div>
-    <div class="thesis">
-      <span class="lab">Ядро позиционирования</span>
-      <p class="big">Единственный участник этой сделки, которому не нужно продать вам конкретный дом, — и единственный, кто оставляет вам письменное доказательство того, что выбор был сделан по вашим цифрам, а не по чужой выгоде.</p>
-      <p class="small"><strong>Почему это не копируется.</strong> Отдел продаж застройщика не может показать пять ЖК конкурентов — это увольнение, а не выбор стратегии. Агрегатор не может провести интервью и отсеять за вас — там нет человека. Крупное агентство-конвейер не может дать один день на отчёт и паузу без дожима — у менеджера план и тридцать лидов в работе. Риелтор, живущий на разнице комиссий, не может показать минусы варианта, который ему выгоден. Каждый из четырёх ограничен своей моделью, и ни одно из ограничений не снимается желанием.</p>
-      <p class="small"><strong>Три опоры, на которых это держится.</strong> Первая — доступ к закрытой профессиональной базе (~95% рынка), которого у покупателя нет физически. Вторая — письменный отчёт, превращающий невидимую работу посредника в предмет, который остаётся у клиента. Третья — происхождение компании: она создана человеком, которому самому продавали, не спросив, что ему нужно; это объясняет, почему здесь сначала спрашивают, а потом показывают.</p>
-    </div>
-  </section>
-
-  <section>
-    <div class="sec-head">
-      <div class="eyebrow">04 · Формулировки</div>
-      <h2>Десять вариантов УТП</h2>
-      <p>Три рациональных, три эмоциональных, два экспертных, два социальных. Каждое опирается только на то, что вы реально делаете; колонка «чем доказываем» существует именно для этого — обещание без доказательства снимается с использования.</p>
-    </div>
-    <div class="scroller" tabindex="0">
-      <table class="utp">
-        <thead>
-          <tr>
-            <th>№</th>
-            <th>Формулировка</th>
-            <th>Против чего работает</th>
-            <th>Чем доказываем</th>
-            <th>Где использовать</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="utp-num">01</span><span class="kind rat">Рацио</span></td>
-            <td><span class="formula">«Менеджер застройщика покажет вам один жилой комплекс. Мы покажем пять — и цена квартиры будет той же».</span></td>
-            <td>Миф «посредник — лишнее звено» и «через агентство дороже». Бьёт в него дважды за одну фразу.</td>
-            <td>Прайс застройщика совпадает с вашим; клиент проверяет это на первой же встрече в офисе продаж.</td>
-            <td>Заголовок сайта, объявление в поиске, первая фраза на созвоне.</td>
-          </tr>
-          <tr>
-            <td><span class="utp-num">02</span><span class="kind rat">Рацио</span></td>
-            <td><span class="formula">«Пять квартир, семь параметров, один день. Отчёт остаётся у вас — даже если вы купите без нас».</span></td>
-            <td>Недоверие к бесплатной услуге: «в чём подвох, если я ничего не плачу».</td>
-            <td>Сам PDF-отчёт: платёж, полная переплата, срок сдачи, площадь, время до метро, стадия готовности, застройщик.</td>
-            <td>Посадочная страница, форма заявки, оффер в контексте.</td>
-          </tr>
-          <tr>
-            <td><span class="utp-num">03</span><span class="kind rat">Рацио</span></td>
-            <td><span class="formula">«Мы не даём вам тысячу вариантов. Мы даём пять и объясняем, почему отклонили остальные».</span></td>
-            <td>Агрегаторы и усталость от выбора: клиент тонет в объявлениях и не может решить.</td>
-            <td>Раздел отчёта с отклонёнными вариантами и причиной по каждому.</td>
-            <td>Блог, страница «как мы работаем», второе касание в ретаргетинге.</td>
-          </tr>
-          <tr>
-            <td><span class="utp-num">04</span><span class="kind emo">Эмоция</span></td>
-            <td><span class="formula">«Вы уйдёте от нас не с мечтой, а с планом: что вы можете купить, на каких условиях и что для этого нужно сделать».</span></td>
-            <td>Ощущение бессилия и тумана: человек полгода «смотрит варианты» и не двигается.</td>
-            <td>Отчёт с расчётом платежа по каждому варианту — план, а не картинка.</td>
-            <td>Главный экран сайта, подпись в блоге, финал первой встречи.</td>
-          </tr>
-          <tr>
-            <td><span class="utp-num">05</span><span class="kind emo">Эмоция</span></td>
-            <td><span class="formula">«Никакого дожима. Вы получаете разбор и время подумать — сколько нужно вам, а не сколько нужно плану продаж».</span></td>
-            <td>Главная травма покупателя новостройки: «последние две квартиры», пять звонков в неделю.</td>
-            <td>Пауза после презентации встроена в процесс; повторных дожимающих звонков нет.</td>
-            <td>Сайт, скрипт первого контакта, статьи в блоге о давлении в продажах.</td>
-          </tr>
-          <tr>
-            <td><span class="utp-num">06</span><span class="kind emo">Эмоция</span></td>
-            <td><span class="formula">«Это агентство появилось после того, как мне самой продавали квартиру, ни разу не спросив, что мне нужно. Здесь сначала спрашивают».</span></td>
-            <td>Отсутствие бренда и отзывов: доверие приходится строить не репутацией, а происхождением.</td>
-            <td>Реальная история основателя — единственное, что конкурент не может ни скопировать, ни оспорить.</td>
-            <td>Страница «о нас», первая статья блога, личное представление на встрече.</td>
-          </tr>
-          <tr>
-            <td><span class="utp-num">07</span><span class="kind">Эксперт</span></td>
-            <td><span class="formula">«Мы не предсказываем ставки и цены. Мы считаем ваш платёж, вашу переплату и срок сдачи — то, что можно проверить».</span></td>
-            <td>Рыночный шум из прогнозов «ставка упадёт, цены взлетят», которым клиент уже не верит.</td>
-            <td>Ваш собственный запрет на прогнозы: ни в одном материале нет обещаний о будущем рынка.</td>
-            <td>Блог как основная площадка, экспертные статьи, ответы на возражение «а не подождать ли».</td>
-          </tr>
-          <tr>
-            <td><span class="utp-num">08</span><span class="kind">Эксперт</span></td>
-            <td><span class="formula">«Подбор начинается после часового интервью, а не после вопроса о бюджете. Пока мы не поняли, как вы живёте, вариантов не будет».</span></td>
-            <td>Стандарт рынка: разговор начинается с «какой у вас первоначальный взнос».</td>
-            <td>Регламент процесса: интервью, пауза на подбор, только затем презентация вариантов.</td>
-            <td>Страница методики, скрипт первого созвона, объяснение, почему подбор не мгновенный.</td>
-          </tr>
-          <tr>
-            <td><span class="utp-num">09</span><span class="kind">Социальное</span></td>
-            <td><span class="formula">«В нашем отчёте у каждой квартиры есть раздел с минусами. Если их нет — значит, мы плохо смотрели».</span></td>
-            <td>Тотальное недоверие к продавцу, который хвалит всё подряд.</td>
-            <td>Структура отчёта: минусы — обязательное поле, а не жест доброй воли.</td>
-            <td>Сайт, презентация вариантов, посты в блоге с разбором конкретных ЖК.</td>
-          </tr>
-          <tr>
-            <td><span class="utp-num">10</span><span class="kind">Социальное</span></td>
-            <td><span class="formula">«Нам платит застройщик, но выбираем мы не по его комиссии, а по вашему платежу. Проверить просто: сравните нашу подборку с ценами в их офисах».</span></td>
-            <td>Подозрение, что вас ведут туда, где посреднику выгоднее, — самое здравое возражение рынка.</td>
-            <td>Приглашение к проверке: клиент едет в офисы всех пяти застройщиков вместе с вами и сверяет цены сам.</td>
-            <td>Ответ на прямой вопрос «а вы на чём зарабатываете», страница честных ответов, блог.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section>
-    <div class="sec-head">
-      <div class="eyebrow">05 · Рекомендации</div>
-      <h2>Что делать с этим дальше</h2>
+      <div class="eyebrow">06 · Что построить</div>
+      <h2>Чтобы это было правдой, а не текстом на сайте</h2>
     </div>
     <ol class="steps">
-      <li><span class="k">01</span><div><h3>Главным сделайте №1, поддерживающими — №4 и №2</h3>
-        <p>Первое снимает возражение, из-за которого вы теряете клиента ещё до разговора, и делает это на языке выгоды, а не ценностей. Четвёртое даёт эмоциональное обещание результата встречи. Второе превращает обещание в осязаемый предмет. Этой тройки достаточно для сайта, объявления и первого созвона; остальные семь — для блога, скриптов и работы с конкретными возражениями.</p></div></li>
-      <li><span class="k">02</span><div><h3>Отчёт нужно построить раньше, чем запускать рекламу</h3>
-        <p>Шесть из десяти формулировок опираются на PDF-отчёт. Пока его нет, это обещания, а не УТП. Соберите шаблон: титул с именем клиента и датой, пять вариантов по семи параметрам в одной таблице, блок минусов у каждого, раздел отклонённых с причинами, финальная страница с расчётом платежа. Один день на выпуск достижим только при готовом шаблоне и заранее известных источниках данных.</p></div></li>
-      <li><span class="k">03</span><div><h3>Блог решает задачу, которую реклама не решит</h3>
-        <p>У вас нет отзывов и кейсов — доверие придётся производить текстом. Разборы конкретных ЖК с минусами, объяснение разницы между платежом и переплатой, честный ответ на «а не подождать ли снижения ставки» работают на УТП №7, №9 и №10 напрямую и одновременно приводят поисковый трафик дешевле контекста.</p></div></li>
-      <li><span class="k">04</span><div><h3>Проверьте позиционирование на пятом клиенте, а не на первом</h3>
-        <p>Все обещания здесь — про скорость и внимание: день на отчёт, интервью на час, личные выезды, отсутствие дожима. При пяти сделках в месяц это порядка пятнадцати активных клиентов в воронке одновременно. Если срок отчёта поедет, честнее переписать обещание на «два рабочих дня», чем нарушать своё же УТП: невыполненный срок бьёт по доверию сильнее, чем неамбициозный.</p></div></li>
+      <li><span class="k">01</span><div><h3>Протокол выезда — 15–20 пунктов, одинаковых для каждого объекта</h3>
+        <p>Что смотрим: вид из окон нужного корпуса и этажа, что строится и планируется рядом (проверяется по градостроительным планам), шум в вечерний час, освещённость двора, парковка после 19:00, состояние мест общего пользования в сданных корпусах застройщика, разговор с двумя-тремя жителями, дорога до школы или работы клиента в час пик с хронометражем. Протокол превращает выезд из «съездил посмотреть» в услугу с описанным содержанием. <strong>Срок: неделя на составление, дальше применяется всегда.</strong></p></div></li>
+      <li><span class="k">02</span><div><h3>Фото и видео с места как обязательное приложение</h3>
+        <p>Снимать не рендер и не фасад, а то, что клиент не увидит на сайте застройщика: вид из окна квартиры того же стека этажом ниже, вечерний двор, подъезд сданного корпуса. Пять-семь снимков на объект. Это одновременно доказательство работы и материал для блога. <strong>Срок: с первого же клиента, ресурсов не требует.</strong></p></div></li>
+      <li><span class="k">03</span><div><h3>Расчёт бюджета семьи вместо расчёта платежа</h3>
+        <p>Простая таблица: доходы, платёж, коммуналка, содержание, остаток на жизнь; и три сценария — потеря одного дохода, декрет, рост расходов на 20%. Считается один раз, повторяется у каждого клиента. Именно эта таблица делает разговор взрослым и отличает вас от калькулятора. <strong>Срок: две недели на шаблон.</strong></p></div></li>
+      <li><span class="k">04</span><div><h3>Правило отказа, записанное и опубликованное</h3>
+        <p>Сформулируйте условия, при которых вы говорите «не покупайте»: платёж выше 40–45% дохода семьи, отсутствие подушки на полгода, покупка под давлением дедлайна без запаса, застройщик с историей переносов на объекте с низкой строительной готовностью. Публикация условий превращает красивое обещание в проверяемое правило. <strong>Срок: неделя.</strong></p></div></li>
+      <li><span class="k">05</span><div><h3>Публикация случаев отказа — по одному в месяц</h3>
+        <p>Обезличенный разбор: пришла семья, посчитали, отговорили, объяснили почему. Это самый сильный контент, который у вас может быть, и его физически не может опубликовать агент, живущий на потоке сделок. Он же — доказательство УТП №5, без которого оно остаётся словами. <strong>Срок: начиная со второго месяца работы.</strong></p></div></li>
+      <li><span class="k">06</span><div><h3>Тест за две недели, прежде чем строить всё остальное</h3>
+        <p>Возьмите двух текущих клиентов, сделайте им полный выезд по протоколу и расчёт бюджета, отдайте материалы и спросите прямо: что из этого было ценно, за что бы вы заплатили, что из этого вам уже присылали другие. Ответ на третий вопрос важнее первых двух: он покажет, действительно ли территория свободна. <strong>Срок: две недели, стоимость — ноль.</strong></p></div></li>
     </ol>
   </section>
 
   <section>
     <div class="sec-head">
-      <div class="eyebrow">06 · Ограничения</div>
-      <h2>Чего в этих формулировках сознательно нет</h2>
+      <div class="eyebrow">07 · Стоп-лист</div>
+      <h2>Фразы, которые больше нельзя использовать</h2>
     </div>
     <div class="warn">
-      <p><strong>Нет обещаний скидки и «лучшей цены».</strong> Цена у вас та же, что у застройщика, и попытка намекнуть на выгоду в рублях разрушит доверие на первой же проверке. Ваша экономия — не в цене лота, а в том, что человек не купит неподходящий вариант за 15 миллионов.</p>
-      <p><strong>Нет прогнозов рынка</strong> — по вашему прямому требованию, и это позиция, а не отсутствие аргумента: на ней построено УТП №7.</p>
-      <p><strong>Нет заявлений о масштабе, опыте и количестве сделок.</strong> Компания новая, и любая цифра здесь была бы выдумкой. Когда появятся первые закрытые сделки и отзывы, их можно добавить как доказательство, но менять ядро позиционирования не потребуется.</p>
-      <p><strong>Нет приёмки квартиры.</strong> Ваша цепочка заканчивается на сделке — обещать сопровождение «до ключей» нельзя. Это, к слову, очевидный следующий шаг для расширения услуги: приёмка стоит недорого на аутсорсе и закрывает единственный явный разрыв в вашем процессе.</p>
+      <p><strong>«Широкий выбор из всех новостроек Москвы», «доступ к закрытой базе», «подберём варианты по вашим параметрам», «сравним по семи параметрам», «пришлём подборку за день», «бесплатно для вас», «рассчитаем ипотеку», «забронируем быстро»</strong> — всё это описывает функции сервиса, который есть у любого агента. Клиент, получивший три похожих письма, уже не различает отправителей.</p>
+      <p><strong>Важная оговорка.</strong> Эти фразы не запрещены полностью — они запрещены <em>как ответ на вопрос «почему вы»</em>. В битве с прямым визитом к застройщику они по-прежнему работают, потому что покупателю доступа в профессиональный сервис нет. Держите их на первом экране как снятие возражения «посредник лишний» и никогда — как аргумент в сравнении с другим агентом.</p>
+      <p><strong>Отдельно про формат отчёта.</strong> Сам по себе PDF со сравнением больше не аргумент — интерактивную презентацию генерирует сервис. Уцелевает только то, чего в автоподборке нет: наблюдения с выезда, список отклонённого с причинами, расчёт семейного бюджета и ваша письменная рекомендация, включая рекомендацию не покупать. Отчёт остаётся — но как носитель этого содержания, а не как красивая таблица.</p>
+      <p><strong>Проверочный вопрос к любой новой формулировке:</strong> может ли это сделать агент, не вставая из-за стола? Если да — вычёркивайте.</p>
     </div>
   </section>
 
   <footer>
-    <p>Документ построен исключительно на ответах, полученных в интервью. Формулировки УТП не проверялись на рынке: перед запуском рекламы имеет смысл протестировать три главных варианта в объявлениях на одинаковом бюджете и сравнить цену обращения, а после первых десяти сделок — переспросить клиентов, что именно заставило их обратиться.</p>
-    <p>Все обещания в формулировках выполнимы силами одного менеджера при потоке до пяти сделок в месяц. При росте потока обещания о сроках и личном сопровождении нужно пересматривать раньше, чем они начнут нарушаться.</p>
+    <p><strong>Это единственный актуальный документ по УТП и позиционированию.</strong> Он заменяет собой первую версию («План вместо мечты»): продуктовая часть того документа отменена, а всё, что осталось в силе, перенесено в раздел 05б выше. Отдельно читать первую версию больше не нужно.</p>
+    <p>Сведения о возможностях профессионального сервиса взяты из его публичных материалов: база новостроек по нескольким городам, 37 фильтров, интерактивная презентация и сравнение с отправкой клиенту, аэропанорамы хода строительства, онлайн-расчёт ипотеки с заявкой в банк, бронирование в два клика, ипотечный центр. Перед финальным решением проверьте по своей подписке, какие из этих функций доступны на вашем тарифе и по Москве.</p>
+    <p>Прежде чем вкладываться в сайт и рекламу под новое позиционирование, проведите двухнедельный тест из шага 06: он стоит ноль и способен отменить или подтвердить всю конструкцию.</p>
   </footer>
 </div>
