@@ -1,0 +1,254 @@
+<title>О чём спрашивает покупатель</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600&family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --paper:#F1F0EC; --surface:#FBFAF7; --surface-2:#E8E7E1;
+    --ink:#16181A; --ink-2:#565A56; --ink-3:#7E827D;
+    --rule:#D6D5CC; --rule-soft:#E2E1D9;
+    --accent:#0F4C45; --accent-soft:#DCE7E3;
+    --signal:#9C3B2A; --signal-soft:#F0E0DA;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#101312; --surface:#171B1A; --surface-2:#1F2423;
+      --ink:#E9EBE7; --ink-2:#A3A9A4; --ink-3:#7C837E;
+      --rule:#2C3231; --rule-soft:#242A29;
+      --accent:#4FB3A2; --accent-soft:#17302C;
+      --signal:#D9705A; --signal-soft:#33201C;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#101312; --surface:#171B1A; --surface-2:#1F2423;
+    --ink:#E9EBE7; --ink-2:#A3A9A4; --ink-3:#7C837E;
+    --rule:#2C3231; --rule-soft:#242A29;
+    --accent:#4FB3A2; --accent-soft:#17302C;
+    --signal:#D9705A; --signal-soft:#33201C;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:"Golos Text","Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px 96px}
+  .eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  .masthead{padding:64px 0 40px;border-bottom:2px solid var(--ink);display:flex;flex-direction:column;gap:22px}
+  h1{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;font-size:clamp(30px,4.5vw,52px);line-height:1.04;letter-spacing:-.02em;margin:0;text-wrap:balance}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lede{font-size:clamp(17px,1.5vw,19px);color:var(--ink-2);max-width:64ch;margin:0}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 28px;padding-top:4px}
+  .meta div{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;color:var(--ink-3)}
+  .meta b{color:var(--ink-2);font-weight:600}
+  section{padding-top:48px}
+  h2{font-weight:700;font-size:clamp(19px,2.2vw,24px);letter-spacing:-.015em;margin:0 0 4px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  h2 span.cnt{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-3);font-weight:400;letter-spacing:.06em}
+  .sec-head{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+  .sec-head p{margin:0;color:var(--ink-2);max-width:76ch;font-size:14.5px}
+  ol.needs{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+  ol.needs li{background:var(--surface);padding:14px 18px;display:grid;grid-template-columns:36px 1fr 108px;gap:14px;align-items:baseline;font-size:15px}
+  ol.needs li:hover{background:var(--surface-2)}
+  ol.needs .n{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+  ol.needs .t{color:var(--ink)}
+  ol.needs .k{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);text-align:right;padding-top:2px}
+  ol.needs .k.fear{color:var(--signal)}
+  @media (max-width:700px){
+    ol.needs li{grid-template-columns:30px 1fr;gap:10px}
+    ol.needs .k{grid-column:2;text-align:left;padding-top:2px}
+  }
+  .note{border-left:3px solid var(--accent);background:var(--accent-soft);padding:18px 22px;border-radius:0 3px 3px 0;display:flex;flex-direction:column;gap:9px;margin-top:22px}
+  .note p{margin:0;font-size:14.5px;color:var(--ink-2);max-width:82ch}
+  .note strong{color:var(--ink)}
+  footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--rule);color:var(--ink-3);font-size:13px;max-width:80ch}
+  footer p{margin:0 0 8px}
+  a{color:var(--accent)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  @media (max-width:640px){.wrap{padding:0 16px 64px}.masthead{padding:40px 0 28px}}
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="eyebrow">Контент-потребности аудитории · новостройки Москвы</div>
+    <h1>О чём спрашивает <em>покупатель</em></h1>
+    <p class="lede">Семьдесят пять запросов, с которыми три ваши персоны приходят в поиск, в чаты и в личные сообщения. Это не темы постов и не рубрики — это состояния и вопросы в тех формулировках, в которых они существуют в голове человека до того, как он услышал слово «новостройка».</p>
+    <div class="meta">
+      <div><b>Потребностей:</b> 75</div>
+      <div><b>Блоков:</b> 10</div>
+      <div><b>Типы:</b> вопрос · страх · цель · проблема · любопытство</div>
+      <div><b>Дата:</b> август 2026</div>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <h2>Деньги и ипотека <span class="cnt">01–12</span></h2>
+      <p>Самый плотный блок: здесь человек считает не квартиру, а свою жизнь на годы вперёд.</p>
+    </div>
+    <ol class="needs">
+      <li><span class="n">01</span><span class="t">Сколько денег останется на жизнь после платежа, если доход семьи 400 тысяч, а платёж 78</span><span class="k">Задача</span></li>
+      <li><span class="n">02</span><span class="t">Что произойдёт с ипотекой, если один из супругов потеряет работу на полгода</span><span class="k fear">Страх</span></li>
+      <li><span class="n">03</span><span class="t">Выгоднее при досрочном погашении сокращать срок или уменьшать платёж</span><span class="k">Вопрос</span></li>
+      <li><span class="n">04</span><span class="t">Сколько всего денег будет отдано банку за 20 лет сверх стоимости квартиры</span><span class="k">Вопрос</span></li>
+      <li><span class="n">05</span><span class="t">Банк одобрил сумму меньше, чем нужно для подходящей квартиры — что делать дальше</span><span class="k">Проблема</span></li>
+      <li><span class="n">06</span><span class="t">Можно ли использовать маткапитал, если дом ещё на стадии котлована</span><span class="k">Вопрос</span></li>
+      <li><span class="n">07</span><span class="t">Как считается субсидированная застройщиком ставка и за счёт чего она ниже рыночной</span><span class="k">Любопытство</span></li>
+      <li><span class="n">08</span><span class="t">Стоит ли соглашаться на удорожание квартиры ради низкой ставки от застройщика</span><span class="k">Задача</span></li>
+      <li><span class="n">09</span><span class="t">Сколько нужно иметь на счету сверх первого взноса, чтобы сделка не сорвалась</span><span class="k">Вопрос</span></li>
+      <li><span class="n">10</span><span class="t">Боюсь, что через год условия господдержки изменятся и мой платёж окажется хуже соседского</span><span class="k fear">Страх</span></li>
+      <li><span class="n">11</span><span class="t">Как влияет декрет второго родителя на способность обслуживать кредит</span><span class="k">Задача</span></li>
+      <li><span class="n">12</span><span class="t">Хочу понять, что дешевле в моём случае — снимать ещё два года или взять сейчас</span><span class="k">Цель</span></li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Застройщик и стройка <span class="cnt">13–22</span></h2>
+      <p>Здесь человек ищет не характеристики, а основания доверять.</p>
+    </div>
+    <ol class="needs">
+      <li><span class="n">13</span><span class="t">Как узнать, переносил ли этот застройщик сроки на предыдущих очередях и на сколько</span><span class="k">Вопрос</span></li>
+      <li><span class="n">14</span><span class="t">Что происходит с деньгами на эскроу, если застройщик обанкротится до сдачи</span><span class="k fear">Страх</span></li>
+      <li><span class="n">15</span><span class="t">По каким признакам видно, что стройка встала, а не идёт медленно</span><span class="k">Вопрос</span></li>
+      <li><span class="n">16</span><span class="t">Что реально можно требовать от застройщика при переносе срока на год</span><span class="k">Задача</span></li>
+      <li><span class="n">17</span><span class="t">Интересно, как выглядит дом этого же застройщика через три года после сдачи</span><span class="k">Любопытство</span></li>
+      <li><span class="n">18</span><span class="t">Отличается ли качество в разных очередях одного ЖК и почему</span><span class="k">Вопрос</span></li>
+      <li><span class="n">19</span><span class="t">Что означает высокая строительная готовность в цифрах и как её проверить самому</span><span class="k">Задача</span></li>
+      <li><span class="n">20</span><span class="t">Опасно ли покупать у застройщика, который строит первый объект в этом районе</span><span class="k fear">Страх</span></li>
+      <li><span class="n">21</span><span class="t">Кто отвечает за брак, обнаруженный через два года после заселения</span><span class="k">Вопрос</span></li>
+      <li><span class="n">22</span><span class="t">Почему в одном ЖК квартиры продаются годами, а в соседнем разбирают за месяц</span><span class="k">Любопытство</span></li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Локация и окружение <span class="cnt">23–32</span></h2>
+      <p>То, что нельзя изменить после покупки, — и потому проверяется тяжелее всего.</p>
+    </div>
+    <ol class="needs">
+      <li><span class="n">23</span><span class="t">Сколько на самом деле идти пешком до метро в декабре, а не по карте летом</span><span class="k">Задача</span></li>
+      <li><span class="n">24</span><span class="t">Что разрешено построить на пустыре напротив окон в ближайшие пять лет</span><span class="k">Вопрос</span></li>
+      <li><span class="n">25</span><span class="t">Хватит ли мест в школе рядом, если весь ЖК заселится одновременно</span><span class="k fear">Страх</span></li>
+      <li><span class="n">26</span><span class="t">Насколько слышно трассу в квартире на седьмом этаже с закрытыми окнами</span><span class="k">Вопрос</span></li>
+      <li><span class="n">27</span><span class="t">Куда денутся машины, когда заселятся все пять корпусов, а мест в паркинге вдвое меньше</span><span class="k">Проблема</span></li>
+      <li><span class="n">28</span><span class="t">Правда ли, что рядом планируют мусоросжигательный завод — и как это проверить</span><span class="k">Вопрос</span></li>
+      <li><span class="n">29</span><span class="t">Как понять, что обещанный парк действительно появится, а не останется рендером</span><span class="k">Задача</span></li>
+      <li><span class="n">30</span><span class="t">Насколько безопасно возвращаться в этот двор в одиннадцать вечера</span><span class="k fear">Страх</span></li>
+      <li><span class="n">31</span><span class="t">Что за люди живут в соседних корпусах и не будет ли половина квартир сдаваться посуточно</span><span class="k">Вопрос</span></li>
+      <li><span class="n">32</span><span class="t">Интересно, чем район реально живёт по вечерам, а не как его описывают в рекламе</span><span class="k">Любопытство</span></li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Квартира и планировка <span class="cnt">33–42</span></h2>
+      <p>Здесь человек примеряет свой быт к чертежу и почти всегда ошибается в масштабе.</p>
+    </div>
+    <ol class="needs">
+      <li><span class="n">33</span><span class="t">Поместятся ли два рабочих места так, чтобы созвоны не пересекались</span><span class="k">Задача</span></li>
+      <li><span class="n">34</span><span class="t">Что такое евродвушка в реальных метрах и чем она отличается от обычной двушки</span><span class="k">Вопрос</span></li>
+      <li><span class="n">35</span><span class="t">Куда в этой планировке встанет двухметровый шкаф, если все стены с окнами или дверями</span><span class="k">Проблема</span></li>
+      <li><span class="n">36</span><span class="t">Насколько слышно соседей через перегородку в 80 миллиметров</span><span class="k">Вопрос</span></li>
+      <li><span class="n">37</span><span class="t">Стоит ли брать квартиру с окнами на север, если работаешь из дома</span><span class="k">Задача</span></li>
+      <li><span class="n">38</span><span class="t">Что можно и что нельзя менять в квартире со свободной планировкой</span><span class="k">Вопрос</span></li>
+      <li><span class="n">39</span><span class="t">Выгоднее взять отделку от застройщика или сделать ремонт самому — с реальными числами</span><span class="k">Задача</span></li>
+      <li><span class="n">40</span><span class="t">Первый этаж дешевле из-за качества или из-за спроса</span><span class="k">Любопытство</span></li>
+      <li><span class="n">41</span><span class="t">Хватит ли одного лифта на секцию в двадцать пять этажей в утренний час</span><span class="k">Вопрос</span></li>
+      <li><span class="n">42</span><span class="t">Как понять по плану, будет ли в детской темно после того, как достроят соседний корпус</span><span class="k">Задача</span></li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Сделка и документы <span class="cnt">43–50</span></h2>
+      <p>Область, где человек чувствует себя наименее компетентным и потому боится сильнее всего.</p>
+    </div>
+    <ol class="needs">
+      <li><span class="n">43</span><span class="t">На что смотреть в ДДУ, кроме цены и срока сдачи</span><span class="k">Задача</span></li>
+      <li><span class="n">44</span><span class="t">Что означает пункт про допустимое отклонение площади и чем это грозит в деньгах</span><span class="k">Вопрос</span></li>
+      <li><span class="n">45</span><span class="t">Как оформить квартиру, если часть денег дали родители</span><span class="k">Задача</span></li>
+      <li><span class="n">46</span><span class="t">Что будет с квартирой и ипотекой при разводе, если она куплена в браке</span><span class="k fear">Страх</span></li>
+      <li><span class="n">47</span><span class="t">Можно ли отказаться от навязанной страховки и насколько вырастет ставка</span><span class="k">Вопрос</span></li>
+      <li><span class="n">48</span><span class="t">Что такое переуступка и чем рискует тот, кто покупает по ней</span><span class="k">Вопрос</span></li>
+      <li><span class="n">49</span><span class="t">Как выделять доли детям при использовании маткапитала и что это ограничивает при продаже</span><span class="k">Задача</span></li>
+      <li><span class="n">50</span><span class="t">Боюсь подписать что-то, чего не понял, и обнаружить это через два года</span><span class="k fear">Страх</span></li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Процесс покупки и переговоры <span class="cnt">51–58</span></h2>
+      <p>Запросы про то, как вести себя в разговоре, где вторая сторона профессиональнее.</p>
+    </div>
+    <ol class="needs">
+      <li><span class="n">51</span><span class="t">Какие вопросы задать менеджеру застройщика, чтобы он не смог отделаться общими словами</span><span class="k">Цель</span></li>
+      <li><span class="n">52</span><span class="t">Правда ли, что осталось две квартиры по этой цене, или это стандартная фраза</span><span class="k">Вопрос</span></li>
+      <li><span class="n">53</span><span class="t">Сколько времени можно держать бронь и что происходит по её окончании</span><span class="k">Вопрос</span></li>
+      <li><span class="n">54</span><span class="t">Отличается ли цена квартиры у застройщика напрямую и через агента</span><span class="k">Вопрос</span></li>
+      <li><span class="n">55</span><span class="t">На чём зарабатывает риелтор, если для меня услуга бесплатна</span><span class="k">Любопытство</span></li>
+      <li><span class="n">56</span><span class="t">Можно ли торговаться на первичном рынке и в каких случаях это работает</span><span class="k">Вопрос</span></li>
+      <li><span class="n">57</span><span class="t">Устал от того, что каждый агент присылает одинаковый список и никто не спрашивает про мою ситуацию</span><span class="k">Проблема</span></li>
+      <li><span class="n">58</span><span class="t">Хочу перестать чувствовать, что меня ведут к решению, которое выгодно не мне</span><span class="k">Цель</span></li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Сроки: ждать или брать <span class="cnt">59–64</span></h2>
+      <p>Блок, в котором живёт большинство отложенных решений.</p>
+    </div>
+    <ol class="needs">
+      <li><span class="n">59</span><span class="t">Сколько стоит год ожидания в деньгах, если продолжать снимать</span><span class="k">Задача</span></li>
+      <li><span class="n">60</span><span class="t">Успею ли получить ключи до сентября, если сдача заявлена на второй квартал</span><span class="k">Вопрос</span></li>
+      <li><span class="n">61</span><span class="t">Боюсь купить прямо перед падением цен и потом объяснять это себе годами</span><span class="k fear">Страх</span></li>
+      <li><span class="n">62</span><span class="t">Насколько должна упасть ставка, чтобы ожидание окупилось в моём случае</span><span class="k">Задача</span></li>
+      <li><span class="n">63</span><span class="t">Что происходит с ценой квартиры между котлованом и вводом на реальных примерах</span><span class="k">Любопытство</span></li>
+      <li><span class="n">64</span><span class="t">Как понять, что момент упущен и надо перестать ждать</span><span class="k">Цель</span></li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Обмен и продажа своего жилья <span class="cnt">65–69</span></h2>
+      <p>Отдельный контур задач у тех, кто въезжает не с нуля.</p>
+    </div>
+    <ol class="needs">
+      <li><span class="n">65</span><span class="t">Сколько стоит моя панельная трёшка сейчас и почему оценки риелторов расходятся на два миллиона</span><span class="k">Задача</span></li>
+      <li><span class="n">66</span><span class="t">Где жить те два года, пока строится новый дом, если старая квартира уже продана</span><span class="k">Проблема</span></li>
+      <li><span class="n">67</span><span class="t">Что дешевле в содержании: девяносто метров в старом доме или пятьдесят в новом</span><span class="k">Задача</span></li>
+      <li><span class="n">68</span><span class="t">Продать сначала свою или сначала забронировать новую — и чем рискую в обоих случаях</span><span class="k">Вопрос</span></li>
+      <li><span class="n">69</span><span class="t">Какой налог придётся заплатить при продаже квартиры, полученной в наследство пять лет назад</span><span class="k">Вопрос</span></li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Жизнь после ключей <span class="cnt">70–73</span></h2>
+      <p>То, о чём почти не думают до покупки, но начинают искать сразу после.</p>
+    </div>
+    <ol class="needs">
+      <li><span class="n">70</span><span class="t">Что смотреть на приёмке, чтобы не подписать акт с недоделками</span><span class="k">Задача</span></li>
+      <li><span class="n">71</span><span class="t">Почему коммуналка в новостройке выше, чем в старой панели, и на сколько именно</span><span class="k">Вопрос</span></li>
+      <li><span class="n">72</span><span class="t">Как получить налоговый вычет за квартиру и проценты по ипотеке</span><span class="k">Задача</span></li>
+      <li><span class="n">73</span><span class="t">Сколько лет продлится ремонт у соседей и когда дом перестанет быть стройплощадкой</span><span class="k">Вопрос</span></li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Отношения и самоощущение <span class="cnt">74–75</span></h2>
+      <p>Запросы, которые не формулируют вслух, но именно они останавливают сделки.</p>
+    </div>
+    <ol class="needs">
+      <li><span class="n">74</span><span class="t">Мы с мужем третий месяц спорим: он про переплату, я про школу — нужен кто-то со стороны</span><span class="k">Проблема</span></li>
+      <li><span class="n">75</span><span class="t">Хочу уметь объяснить свой выбор родителям, которые дали часть денег, так чтобы не оправдываться</span><span class="k">Цель</span></li>
+    </ol>
+  </section>
+
+  <div class="note">
+    <p><strong>Что видно из распределения.</strong> Больше трети запросов — не про квартиру, а про деньги и последствия решения: сколько останется на жизнь, что будет при потере работы, сколько стоит год ожидания. Ещё четверть — про то, что нельзя изменить после покупки: окружение, шум, школа, что построят напротив. Собственно квартира — планировка, отделка, этаж — занимает меньше места, чем принято думать, глядя на рекламу застройщиков.</p>
+    <p><strong>Где вы уникальны.</strong> Ответы на блоки «локация и окружение» и «застройщик и стройка» требуют физического присутствия и не берутся из базы: именно там ваш метод даёт то, чего не даст ни один конкурент. Блоки про деньги и документы закрываются расчётом и юристом — там вы конкурируете качеством, а не доступом.</p>
+    <p><strong>Чего в списке намеренно нет.</strong> Запросов вида «топ районов Москвы», «инвестиции в недвижимость», «как заработать на переуступке» — они относятся к другим сегментам, которые вы в этом году не берёте. Добавлять их в контент означает приводить аудиторию, которая не станет вашими клиентами.</p>
+  </div>
+
+  <footer>
+    <p>Формулировки восстановлены из логики трёх целевых персон и типовых сценариев покупки на первичном рынке, а не собраны из реальных обращений: у компании пока нет накопленной статистики вопросов. После первых пятидесяти диалогов проверьте список по переписке — какие пункты клиенты действительно задают, каких не хватает и какими словами они это формулируют.</p>
+    <p>Самый дешёвый способ пополнять список дальше: раз в месяц выписывать в отдельный файл все вопросы из личных сообщений и комментариев дословно, без редактуры. Через полгода этот файл будет ценнее любого исследования аудитории.</p>
+  </footer>
+</div>
