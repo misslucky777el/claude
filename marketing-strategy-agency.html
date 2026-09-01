@@ -1,0 +1,630 @@
+<title>Маркетинговая стратегия агентства</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Unbounded:wght@600&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F0;--surface:#FFFFFF;--surface-2:#E8EBE7;
+    --ink:#15191C;--ink-2:#454E54;--ink-3:#6E787E;
+    --line:#CDD3CE;--line-soft:#DEE2DC;
+    --route:#1F44C8;--route-soft:#E4E8FB;
+    --signal:#B93A28;--signal-soft:#F7E5E1;
+    --band:#E2E6E0;--shadow:0 1px 0 rgba(21,25,28,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0E1215;--surface:#161B1F;--surface-2:#1D2429;
+      --ink:#E7EBE7;--ink-2:#B0B9BC;--ink-3:#828D92;
+      --line:#2C353A;--line-soft:#232B30;
+      --route:#8AA5FF;--route-soft:#1A2340;
+      --signal:#F0836C;--signal-soft:#331B16;
+      --band:#1D2429;--shadow:0 1px 0 rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E1215;--surface:#161B1F;--surface-2:#1D2429;
+    --ink:#E7EBE7;--ink-2:#B0B9BC;--ink-3:#828D92;
+    --line:#2C353A;--line-soft:#232B30;
+    --route:#8AA5FF;--route-soft:#1A2340;
+    --signal:#F0836C;--signal-soft:#331B16;
+    --band:#1D2429;--shadow:0 1px 0 rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);
+    font-family:"Golos Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+
+  header.mast{padding:clamp(40px,7vw,80px) 0 clamp(26px,4vw,40px);border-bottom:2px solid var(--ink)}
+  .eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--route);margin:0 0 clamp(16px,3vw,26px);
+    display:flex;align-items:center;gap:12px}
+  .eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+  h1{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(28px,5vw,54px);line-height:1.05;letter-spacing:-.02em;
+    margin:0 0 20px;text-wrap:balance;max-width:15ch}
+  .deck{font-size:clamp(16px,1.9vw,20px);color:var(--ink-2);max-width:66ch;margin:0}
+  .facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:clamp(22px,3.4vw,32px)}
+  .facts span{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    border:1px solid var(--line);border-radius:2px;padding:6px 10px;color:var(--ink-2);background:var(--surface)}
+
+  section{padding:clamp(42px,6vw,72px) 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  .sec-head{display:flex;gap:16px;align-items:baseline;margin-bottom:clamp(18px,2.6vw,28px)}
+  .sec-num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;font-weight:500;
+    color:var(--route);padding-top:.4em;flex:none;letter-spacing:.08em}
+  h2{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(21px,2.8vw,30px);line-height:1.2;letter-spacing:-.015em;margin:0;text-wrap:balance}
+  .ru{margin:7px 0 0;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+  h3{font-size:13px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+  p{margin:0 0 1em}p:last-child{margin-bottom:0}
+  .lede{font-size:clamp(16px,1.9vw,18.5px);color:var(--ink-2);max-width:74ch}
+  .lede strong{color:var(--ink);font-weight:600}
+  a{color:var(--route)}
+  :focus-visible{outline:2px solid var(--route);outline-offset:2px}
+
+  .math{margin-top:clamp(18px,2.6vw,26px);border:1px solid var(--line);border-radius:3px;
+    background:var(--surface);overflow:hidden}
+  .mrow{display:grid;grid-template-columns:1fr 120px 130px;gap:clamp(12px,2vw,24px);
+    padding:13px clamp(15px,2vw,20px);border-bottom:1px solid var(--line-soft);align-items:baseline}
+  .mrow:last-child{border-bottom:0}
+  .mrow.h{background:var(--ink);color:var(--paper);font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:10.5px;letter-spacing:.11em;text-transform:uppercase}
+  .mrow.res{background:var(--route-soft);border-top:1px solid var(--route)}
+  .mrow .lb{font-size:14.5px;color:var(--ink-2)}
+  .mrow.res .lb{color:var(--route);font-weight:600;font-size:15.5px}
+  .mrow .cv,.mrow .vl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:14px;
+    font-variant-numeric:tabular-nums;color:var(--ink)}
+  .mrow .cv{color:var(--ink-3);font-size:13px}
+  .mrow.res .vl{color:var(--route);font-weight:500;font-size:16px}
+
+  .warn{margin-top:clamp(20px,3vw,30px);background:var(--signal-soft);border-left:3px solid var(--signal);
+    padding:clamp(18px,2.4vw,26px);border-radius:0 3px 3px 0}
+  .warn h3{color:var(--signal)}
+  .warn p,.warn ul{color:var(--ink);max-width:84ch}
+  .warn ul{margin:0;padding-left:1.15em;display:flex;flex-direction:column;gap:9px}
+
+  .pos{margin-top:clamp(18px,2.6vw,26px);background:var(--route-soft);border-left:3px solid var(--route);
+    padding:clamp(20px,3vw,32px);border-radius:0 3px 3px 0}
+  .pos .claim{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(18px,2.5vw,26px);line-height:1.25;letter-spacing:-.015em;color:var(--route);
+    margin:0 0 16px;text-wrap:balance}
+  .pos p{color:var(--ink);max-width:76ch}
+
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(14px,2.2vw,24px);margin-top:clamp(18px,2.6vw,26px)}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+    padding:clamp(17px,2.1vw,23px);box-shadow:var(--shadow)}
+  .card .t{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);margin-bottom:9px}
+  .card h4{margin:0 0 11px;font-size:16.5px;font-weight:600;line-height:1.3}
+  .card ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;font-size:14.5px;color:var(--ink-2)}
+  .card li{padding-left:17px;position:relative;line-height:1.5}
+  .card li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1.5px;background:var(--route)}
+  .card p{font-size:14.5px;color:var(--ink-2)}
+
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface);margin-top:clamp(18px,2.6vw,26px)}
+  table{border-collapse:collapse;width:100%;min-width:880px;font-size:14.5px;line-height:1.5}
+  thead th{background:var(--ink);color:var(--paper);font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-weight:500;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;text-align:left;padding:11px 15px}
+  td{padding:14px 15px;border-bottom:1px solid var(--line-soft);vertical-align:top;color:var(--ink-2)}
+  tr:last-child td{border-bottom:0}
+  td.w{width:16%;color:var(--ink);font-weight:600}
+  td.w em{display:block;font-style:normal;font-weight:400;font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);margin-top:5px}
+  td.msg{color:var(--ink)}
+  td.msg q{quotes:"«" "»";display:block;border-left:2px solid var(--route);padding-left:11px}
+  td.num{white-space:nowrap;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;color:var(--route)}
+  tr.band td{background:var(--band);font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);padding:9px 15px}
+
+  .journey{display:flex;flex-direction:column;gap:0;margin-top:clamp(18px,2.6vw,26px)}
+  .jn{display:grid;grid-template-columns:150px 1fr;gap:clamp(14px,2.2vw,26px);
+    padding:16px 0;border-top:1px solid var(--line)}
+  .jn:last-child{border-bottom:1px solid var(--line)}
+  .jn .ph{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--route);padding-top:3px}
+  .jn p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.55;max-width:84ch}
+  .jn p b{color:var(--ink);font-weight:600}
+
+  .qs{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:clamp(14px,2vw,22px);margin-top:clamp(18px,2.6vw,26px)}
+  .q{border-top:2px solid var(--ink);padding-top:15px}
+  .q .w{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);display:block;margin-bottom:8px}
+  .q h4{margin:0 0 10px;font-size:16.5px;font-weight:600;line-height:1.3}
+  .q ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+  .q li{padding-left:17px;position:relative;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+  .q li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1.5px;background:var(--route)}
+  .q .goal{margin-top:12px;padding-top:12px;border-top:1px solid var(--line-soft);font-size:14px;color:var(--ink)}
+  .q .goal b{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--signal);display:block;margin-bottom:5px;font-weight:500}
+
+  .risks{display:flex;flex-direction:column;gap:12px;margin-top:clamp(18px,2.6vw,26px)}
+  .rk{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--signal);
+    border-radius:0 3px 3px 0;padding:16px 19px}
+  .rk h4{margin:0 0 8px;font-size:16px;font-weight:600;line-height:1.3}
+  .rk p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5;max-width:86ch}
+  .rk .mit{margin-top:10px;padding-top:10px;border-top:1px solid var(--line-soft);font-size:14.5px;color:var(--ink)}
+  .rk .mit b{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);display:block;margin-bottom:5px;font-weight:500}
+  .rk.top{border-left-color:var(--signal);background:var(--signal-soft)}
+  .rk.top h4{color:var(--signal)}
+  .rk.top p{color:var(--ink)}
+
+  .plan90{display:flex;flex-direction:column;gap:0;margin-top:clamp(18px,2.6vw,26px)}
+  .p9{display:grid;grid-template-columns:118px 1fr;gap:clamp(14px,2.2vw,26px);padding:15px 0;border-top:1px solid var(--line)}
+  .p9:last-child{border-bottom:1px solid var(--line)}
+  .p9 .wk{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--route);padding-top:2px}
+  .p9 h4{margin:0 0 7px;font-size:16px;font-weight:600;line-height:1.3}
+  .p9 ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+  .p9 li{padding-left:16px;position:relative;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+  .p9 li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:1.5px;background:var(--ink-3)}
+  .p9 .out{margin-top:9px;font-size:14px;color:var(--ink)}
+  .p9 .out b{color:var(--route);font-weight:600}
+
+  .sum{background:var(--route-soft);border-left:3px solid var(--route);padding:clamp(20px,3vw,32px);
+    border-radius:0 3px 3px 0;margin-top:clamp(18px,2.6vw,26px)}
+  .sum p{color:var(--ink);max-width:78ch;font-size:clamp(15.5px,1.9vw,17.5px)}
+  .sum p strong{font-weight:600}
+
+  footer{padding:36px 0 56px;color:var(--ink-3);font-size:13px;font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+  @media (max-width:760px){
+    .mrow{grid-template-columns:1fr auto;gap:8px}
+    .mrow .cv{grid-column:1/-1;font-size:12px}
+    .jn,.p9{grid-template-columns:1fr;gap:7px}
+    .tablewrap{border:0;background:transparent;overflow-x:visible}
+    table{min-width:0;display:block}thead{display:none}tbody{display:block}
+    tbody tr{display:block;background:var(--surface);border:1px solid var(--line);border-radius:3px;margin-bottom:12px;padding:4px 0}
+    td{display:flex;flex-direction:column;gap:6px;border-bottom:0;padding:10px 15px;width:auto!important}
+    td[data-label]::before{content:attr(data-label);font-family:"IBM Plex Mono",ui-monospace,monospace;
+      font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+    tr.band{display:block;margin:18px 0 10px}
+    tr.band td{display:block;background:transparent;border-top:2px solid var(--ink);padding:9px 0 0}
+  }
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow">Маркетинговая стратегия · 12 месяцев</p>
+    <h1>Пять сделок в месяц</h1>
+    <p class="deck">Стратегия для нишевого агентства в сегменте услуг с дорогой сделкой. География — вся Россия, горизонт — год, цель — выйти на пять сделок в месяц и удержать этот темп.</p>
+    <div class="facts">
+      <span>Агентство 3–10 человек</span>
+      <span>Ниша: дорогая сделка</span>
+      <span>Вся Россия</span>
+      <span>Цель: 5 сделок / мес</span>
+      <span>Фикс-абонемент</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">00</span><div><h2>Арифметика цели</h2><p class="ru">Что «пять сделок в месяц» требует вверх по воронке</p></div></div>
+    <p class="lede">Стратегия начинается не с каналов, а с обратного счёта. Конверсии взяты из целевых значений ранее построенной системы KPI — <strong>это гипотезы, а не факт: ваш базовый уровень пока не измерен</strong>, и после первого квартала модель пересчитывается по реальным данным.</p>
+
+    <div class="math">
+      <div class="mrow h"><div>Ступень воронки</div><div class="cv">Конверсия</div><div class="vl">В месяц</div></div>
+      <div class="mrow"><div class="lb">Подписки на отраслевой индекс</div><div class="cv">30% со страницы</div><div class="vl">≈ 350</div></div>
+      <div class="mrow"><div class="lb">MQL — заявки, прошедшие скоринг по нише, мощности и дате</div><div class="cv">10% от подписок + другие каналы</div><div class="vl">≈ 35</div></div>
+      <div class="mrow"><div class="lb">Состоявшиеся встречи</div><div class="cv">45%</div><div class="vl">≈ 16</div></div>
+      <div class="mrow"><div class="lb">Отправленные предрасчёты</div><div class="cv">80%</div><div class="vl">≈ 13</div></div>
+      <div class="mrow res"><div class="lb">Подписанные договоры</div><div class="cv">40%</div><div class="vl">5</div></div>
+    </div>
+
+    <div class="warn">
+      <h3>Главное ограничение: узкое место не в лидогенерации, а в производстве</h3>
+      <p>Пять новых клиентов в месяц при среднем сроке жизни в шесть месяцев дают устойчивый портфель около <b>30 одновременных клиентов</b>. Только еженедельные сверки по ним — это 7–8 часов в неделю; вместе с ведением кампаний один аккаунт-менеджер удерживает 8–12 таких клиентов. Значит, к концу года команде нужно вырасти примерно вдвое. Продавать вы научитесь раньше, чем сможете обслуживать, и это типичная причина, по которой агентства ломаются именно на этом рубеже.</p>
+      <ul>
+        <li><b>Рекомендация — считать цель портфелем, а не пятью одинаковыми абонементами:</b> три абонемента «Загрузка к дате» плюс два входных продукта (платный предрасчёт или аудит обработки заявок) в месяц. Входные продукты дают ту же цифру по сделкам, не создают производственной нагрузки и конвертируются в абонемент через один-два месяца.</li>
+        <li><b>Триггер найма зафиксировать заранее:</b> при 12 активных клиентах — второй аккаунт-менеджер, при 24 — третий. Не по выручке, а по числу клиентов.</li>
+        <li><b>Поднимать чек параллельно с потоком.</b> Пять сделок при выросшем на 15% чеке — другая экономика; пять сделок при демпинге ради плана убьют маржу и команду.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><div><h2>Позиционирование и ценностное предложение</h2><p class="ru">Одно утверждение, из которого выводится всё остальное</p></div></div>
+    <div class="pos">
+      <p class="claim">Агентство, которое обещает меньше остальных и единственное показывает экономику до того, как вы заплатили.</p>
+      <p><b>Ценностное предложение:</b> мы приводим обращения в нишах с дорогой сделкой и называем их цену до старта — на основе собственной базы по сотням проектов. Мы не обещаем сделок и прямо пишем в договоре, за что не отвечаем. Взамен вы получаете то, чего не даёт никто: возможность спланировать сезон по цифрам, а не по обещаниям.</p>
+    </div>
+    <div class="grid3">
+      <div class="card"><div class="t">Почему это работает</div><h4>Ниша перестала быть отстройкой</h4>
+        <p>Вас сравнивают с агентствами, которые говорят «мы знаем вашу отрасль» теми же словами и показывают такие же кейсы. Отраслевая экспертиза стала входным билетом. Отстройка возможна только уровнем глубже — в форме, в которой экспертиза предъявляется до сделки.</p></div>
+      <div class="card"><div class="t">Почему в это верят</div><h4>Рынок гарантий скомпрометирован</h4>
+        <p>Клиент уже знает, что под «гарантией» часто скрыто продление кампании вместо возврата. На этом фоне узкое, честно очерченное обещание читается не как слабость, а как единственное правдоподобное заявление в стопке коммерческих предложений.</p></div>
+      <div class="card"><div class="t">Что защищает позицию</div><h4>Данные, которые не копируются</h4>
+        <p>Отчёт конкурент повторит за месяц. Базу цен на заявку по регионам, месяцам и каналам — нет: она накапливается только временем и проектами. Каждый новый клиент делает её точнее, а верх воронки — сильнее.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><div><h2>Сообщения по сегментам</h2><p class="ru">Одна позиция, четыре перевода на язык мощности</p></div></div>
+    <p class="lede">Ни один сегмент не покупает маркетинг. Каждый покупает загрузку своей единицы мощности — бригады, кресла, календаря, агента. Метрика в сообщении обязана называться на языке этой единицы.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Сегмент</th><th>Ключевое сообщение</th><th>Доказательство в сообщении</th><th>Окно</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="w" data-label="Сегмент">Строительство и ремонт<em>Прораб в сезоне</em></td>
+            <td class="msg" data-label="Сообщение"><q>Считаем не лиды, а подписанные договоры. Скажем цену договора в вашем регионе до того, как вы потратите первый рубль</q></td>
+            <td data-label="Доказательство">Цена заявки и договора по загородному строительству в его области, помесячно; разбор «40 заявок и ноль сделок»</td>
+            <td class="num" data-label="Окно">Дек — март</td>
+          </tr>
+          <tr>
+            <td class="w" data-label="Сегмент">Клиники и стоматологии<em>Доктор с бизнес-планом</em></td>
+            <td class="msg" data-label="Сообщение"><q>Приводим дошедших пациентов на дорогие направления — с креативами, проходящими модерацию, и контролем воронки от заявки до кресла</q></td>
+            <td data-label="Доказательство">Стоимость дошедшего пациента по направлению; срок окупаемости оборудования при разной загрузке</td>
+            <td class="num" data-label="Окно">После лизинга</td>
+          </tr>
+          <tr>
+            <td class="w" data-label="Сегмент">События и площадки<em>Календарь на год вперёд</em></td>
+            <td class="msg" data-label="Сообщение"><q>Забиваем календарь до старта сезона: брони под конкретные даты, а не заявки «на подумать». Запускаем за 4–6 месяцев до пика</q></td>
+            <td data-label="Доказательство">Разница цены обращения в межсезонье и в пик; глубина бронирования по месяцам</td>
+            <td class="num" data-label="Окно">Сент — янв</td>
+          </tr>
+          <tr>
+            <td class="w" data-label="Сегмент">Недвижимость<em>Риелтор против ставки</em></td>
+            <td class="msg" data-label="Сообщение"><q>Продаём остатки в сложном рынке: трафик под конкретный ЖК и скрипты под текущую ставку. Отчёт в бронированиях, а не в кликах</q></td>
+            <td data-label="Доказательство">Цена обращения и брони по сегменту жилья; срок реализации остатков при разных бюджетах</td>
+            <td class="num" data-label="Окно">2–6 нед. после события</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grid3" style="margin-top:clamp(16px,2.2vw,24px)">
+      <div class="card"><div class="t">Общее правило</div><h4>Сообщение всегда содержит цифру</h4>
+        <p>Не процент роста, а рублёвую стоимость единицы результата в его регионе. Процент невозможно проверить, рубль — можно, и именно это отличает вас от соседнего предложения в той же стопке.</p></div>
+      <div class="card"><div class="t">Общее правило</div><h4>Отказ звучит первым, не мелким шрифтом</h4>
+        <p>«Мы не обещаем сделок» произносится на первой встрече и попадает в договор. Это одновременно отстройка и профилактика вашей главной причины оттока — расхождения ожиданий.</p></div>
+      <div class="card"><div class="t">Общее правило</div><h4>Второй адресат — не клиент</h4>
+        <p>У половины сегментов решение проходит через партнёра, главврача или застройщика. Материалы должны быть пригодны для показа третьему лицу без вашего присутствия.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><div><h2>Привлечение, удержание, возврат</h2><p class="ru">Три контура, один актив</p></div></div>
+    <div class="grid3">
+      <div class="card">
+        <div class="t">Контур 1</div><h4>Привлечение</h4>
+        <ul>
+          <li><b>Ядро — отраслевой индекс цены заявки.</b> Один артефакт питает все каналы: без него шесть источников рассыпаются на шесть разных сообщений</li>
+          <li>Вход в разговор — не услуга, а цифра, которую клиенту негде взять</li>
+          <li>Работа с двумя классами спроса: коммерческим (дорогой, конкурентный) и тревожным (дешевле в разы, приводит того же человека раньше)</li>
+          <li>Точечный обход по внешним триггерам: лизинг, сдача объекта, новое направление, изменение ставки</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="t">Контур 2</div><h4>Удержание</h4>
+        <ul>
+          <li><b>Точка отвала — конец сезона, а не месяца.</b> Клиент не уходит к конкуренту, он ставит на паузу — и не возвращается</li>
+          <li>Еженедельная сверка факта с прогнозом — ритуал производства доверия, не отчётность</li>
+          <li>Межсезонный тариф: зимой платит меньше, но остаётся, а вы готовите сезон</li>
+          <li>Квартальный персональный срез индекса — ценность, которой нет ни у кого другого</li>
+          <li>Правило раннего предупреждения: о проблеме сообщаете вы, а не он её обнаруживает</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="t">Контур 3</div><h4>Возврат</h4>
+        <ul>
+          <li><b>База отказов — не архив, а канал</b> с собственным планом: цель 10–15% годовой выручки</li>
+          <li>Реактивация идёт от повода, а не от рассылки: новый выпуск индекса по его нише, изменение цены заявки, старт его сезона</li>
+          <li>Обязательное условие — заполненная причина прошлого отказа: без неё вы пишете одно и то же тем, кто ушёл по цене, и тем, кто выбрал конкурента</li>
+          <li>Ушедшие клиенты возвращаются к началу следующего сезона: контакт ставится за 3 месяца до его окна, а не когда вспомнили</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><div><h2>Каналы и бюджет</h2><p class="ru">Обоснование, роль в воронке, деньги</p></div></div>
+    <p class="lede">География «вся Россия» меняет расстановку: локальные форматы отпадают, зато <strong>региональные разрезы делают индекс ценнее, а разброс городов делает возможным клуб клиентов</strong> — участники из одной ниши, но разных регионов друг другу не конкуренты. Офлайн не распыляется по стране, а концентрируется на трёх-четырёх отраслевых событиях в год.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Канал</th><th>Роль и обоснование</th><th>Бюджет</th><th>Что даёт</th></tr></thead>
+        <tbody>
+          <tr class="band"><td colspan="4">Онлайн</td></tr>
+          <tr>
+            <td class="w" data-label="Канал">Отраслевой индекс<em>Контент-актив</em></td>
+            <td data-label="Роль">Не канал, а ядро системы: источник лид-магнита, доказательство в продаже, повод для PR и предмет пересылки. Единственный элемент с накопительным эффектом</td>
+            <td class="num" data-label="Бюджет">120–150 тыс. ₽ / квартал</td>
+            <td data-label="Результат">≈ 350 подписок в месяц на выходе на режим</td>
+          </tr>
+          <tr>
+            <td class="w" data-label="Канал">Контекстная реклама<em>Перформанс</em></td>
+            <td data-label="Роль">Горячий коммерческий спрос по всей стране плюс отдельная группа на тревожные запросы. Второй класс дешевле в разы и приводит клиента до того, как он начал выбирать подрядчика</td>
+            <td class="num" data-label="Бюджет">120–180 тыс. ₽ / мес</td>
+            <td data-label="Результат">12–15 MQL / мес</td>
+          </tr>
+          <tr>
+            <td class="w" data-label="Канал">Telegram: посевы и свой канал<em>Контент и охват в нише</em></td>
+            <td data-label="Роль">Аудитория дорогой сделки читает 3–5 отраслевых каналов и там же спрашивает рекомендации. Рекламный пост игнорируется, разбор с цифрами пересылается</td>
+            <td class="num" data-label="Бюджет">40–70 тыс. ₽ / мес</td>
+            <td data-label="Результат">6–10 MQL / мес, рост базы подписчиков</td>
+          </tr>
+          <tr>
+            <td class="w" data-label="Канал">SEO под запросы тревоги<em>Долгий органический</em></td>
+            <td data-label="Роль">Материалы под «почему реклама не даёт договоров» и «сколько стоит пациент». Даёт бесплатный поток с 5–6 месяца и снижает общий CPMQL</td>
+            <td class="num" data-label="Бюджет">50–80 тыс. ₽ / мес</td>
+            <td data-label="Результат">4–8 MQL / мес начиная с полугода</td>
+          </tr>
+          <tr>
+            <td class="w" data-label="Канал">Email и мессенджеры<em>Реактивация</em></td>
+            <td data-label="Роль">Работа с базой отказов и подписчиками индекса. Единственный сегмент, где почта реально читается — эксперты и медицина</td>
+            <td class="num" data-label="Бюджет">10–15 тыс. ₽ / мес</td>
+            <td data-label="Результат">10–15% годовой выручки</td>
+          </tr>
+          <tr class="band"><td colspan="4">Офлайн и партнёрства</td></tr>
+          <tr>
+            <td class="w" data-label="Канал">Отраслевые конференции<em>Доклады, не стенды</em></td>
+            <td data-label="Роль">ЛПР бывает на одном-трёх событиях в год и там принимает решения о подрядчиках. Доклад с данными по рынку конвертирует кратно лучше стенда, потому что не выглядит продажей</td>
+            <td class="num" data-label="Бюджет">150–250 тыс. ₽ × 4 события</td>
+            <td data-label="Результат">8–15 MQL с события, высокая доля сделок</td>
+          </tr>
+          <tr>
+            <td class="w" data-label="Канал">Партнёрская сеть<em>Смежные подрядчики</em></td>
+            <td data-label="Роль">Лизинговые брокеры, поставщики оборудования, интеграторы CRM, управляющие компании франшиз узнают о триггере раньше вас. Самый дешёвый канал после рекомендаций</td>
+            <td class="num" data-label="Бюджет">Время + 50 тыс. ₽ на совместные материалы</td>
+            <td data-label="Результат">5–8 MQL / мес к концу года</td>
+          </tr>
+          <tr>
+            <td class="w" data-label="Канал">PR в отраслевых медиа<em>Через данные</em></td>
+            <td data-label="Роль">Индекс — готовый информационный повод: отраслевые издания охотно берут цифры по рынку. Публикация даёт то, что не купить рекламой — статус источника нормы</td>
+            <td class="num" data-label="Бюджет">Время редактора, без закупки</td>
+            <td data-label="Результат">≥ 10 упоминаний / квартал</td>
+          </tr>
+          <tr>
+            <td class="w" data-label="Канал">Клуб клиентов<em>Удержание и рекомендации</em></td>
+            <td data-label="Роль">Онлайн-встреча раз в квартал для клиентов одной ниши из разных городов. Возможна только благодаря географии «вся Россия»: участники не конкуренты</td>
+            <td class="num" data-label="Бюджет">Время, 20 тыс. ₽ / встреча</td>
+            <td data-label="Результат">Рост продлений и рекомендаций</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="warn">
+      <h3>Чего в стратегии нет намеренно</h3>
+      <ul>
+        <li><b>Таргетированная реклама с широким охватом.</b> Релевантная аудитория по стране — тысячи компаний, а не сотни тысяч человек. Деньги уйдут в показы тем, кто никогда ничего не купит. Таргет допустим только узкий: ретаргетинг на посетителей страницы индекса и look-alike по загрузке существующих клиентов.</li>
+        <li><b>Стенды на выставках.</b> Дорого, конвертирует хуже доклада, требует людей на площадке — при команде 3–10 человек это прямой вычет из производства.</li>
+        <li><b>Второй контент-канал до стабильного потока с первого.</b> Два производственных цикла одновременно команда не вытянет и провалит оба.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">05</span><div><h2>Точки контакта</h2><p class="ru">Карта пути от незнания до рекомендации</p></div></div>
+    <div class="journey">
+      <div class="jn"><div class="ph">До знакомства</div><div><p>Выжимка индекса, пересланная коллегой в отраслевой чат · доклад на конференции · упоминание в профильном медиа · рекомендация партнёра-поставщика · объявление в поиске по тревожному запросу. <b>Общее: во всех точках он встречает цифру, а не предложение услуг.</b></p></div></div>
+      <div class="jn"><div class="ph">Первое касание</div><div><p>Страница индекса с формой · автоответ, содержащий сам отчёт, а не обещание перезвонить · звонок в течение 15 минут из трёх вопросов — ниша, мощность, дата. <b>Ни одна из этих точек не является презентацией агентства.</b></p></div></div>
+      <div class="jn"><div class="ph">Выбор</div><div><p>Персональный предрасчёт с тремя сценариями за 48 часов · защита расчёта на встрече в 30 минут · чек-лист готовности его отдела продаж · демо-дашборд с обезличенным проектом его отрасли · договор с приложением о границе ответственности.</p></div></div>
+      <div class="jn"><div class="ph">Онбординг</div><div><p>Доступы в первые два дня · тридцатиминутное обучение того, кто принимает заявки, — не собственника · первая квалифицированная заявка до десятого дня · <b>сверка факта с прогнозом на седьмой день</b> · отчёт для партнёра на четырнадцатый.</p></div></div>
+      <div class="jn"><div class="ph">Жизнь клиента</div><div><p>Дашборд с записями звонков круглосуточно · еженедельная сверка на 15 минут · ежемесячный отчёт для показа третьему лицу · автоалерт при отклонении от прогноза более 20% и звонок в тот же день · квартальный персональный срез индекса · квартальный аудит обработки заявок · клуб клиентов.</p></div></div>
+      <div class="jn"><div class="ph">Выход и возврат</div><div><p>Разговор на выходе с фиксацией причины в CRM · предложение межсезонного тарифа вместо паузы · контакт за три месяца до открытия его следующего окна найма · новый выпуск индекса по его нише как повод вернуться без продажи.</p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">06</span><div><h2>KPI и способы измерения</h2><p class="ru">Семь метрик в управлении, остальные — диагностические</p></div></div>
+    <p class="lede">Полная система из 38 метрик построена отдельно; здесь — то, что выносится на панель собственника. <strong>Не больше семи показателей в мотивации</strong>: остальные смотрятся, когда основной просел.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Показатель</th><th>Цель к 12-му месяцу</th><th>Как измеряется</th><th>Ритм</th></tr></thead>
+        <tbody>
+          <tr><td class="w" data-label="Показатель">Сделок в месяц</td><td data-label="Цель">5 (3 абонемента + 2 входных продукта)</td><td data-label="Измерение">CRM: закрытые-выигранные с разделением по типу продукта</td><td class="num" data-label="Ритм">Месяц</td></tr>
+          <tr><td class="w" data-label="Показатель">MQL в месяц</td><td data-label="Цель">≈ 35 при текущих конверсиях</td><td data-label="Измерение">CRM: обязательное поле квалификации — ниша, мощность, дата</td><td class="num" data-label="Ритм">Месяц</td></tr>
+          <tr><td class="w" data-label="Показатель">CPMQL</td><td data-label="Цель">≤ 25% чека первого месяца</td><td data-label="Измерение">Рекламные кабинеты + управленческий учёт ÷ MQL</td><td class="num" data-label="Ритм">Месяц</td></tr>
+          <tr><td class="w" data-label="Показатель">Конверсия предрасчёт → договор</td><td data-label="Цель">35–45%</td><td data-label="Измерение">CRM: связка отправленного документа и статуса сделки</td><td class="num" data-label="Ритм">Месяц</td></tr>
+          <tr><td class="w" data-label="Показатель">Renewal Rate</td><td data-label="Цель">≥ 85% в сезон, ≥ 60% на переходе в межсезонье</td><td data-label="Измерение">CRM: продления по датам окончания контрактов</td><td class="num" data-label="Ритм">Квартал</td></tr>
+          <tr><td class="w" data-label="Показатель">Доля выручки от входящих</td><td data-label="Цель">60%</td><td data-label="Измерение">CRM: источник сделки + управленческий учёт</td><td class="num" data-label="Ритм">Квартал</td></tr>
+          <tr><td class="w" data-label="Показатель">LTV / CAC</td><td data-label="Цель">≥ 4:1, окупаемость CAC ≤ 4 месяцев</td><td data-label="Измерение">Управленческий учёт: ФОТ маркетинга и продаж, рекламные расходы, срок жизни клиента</td><td class="num" data-label="Ритм">Квартал</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="warn">
+      <h3>Условие достоверности</h3>
+      <p>Ни один из этих показателей не считается корректно без инфраструктуры: обязательных полей в CRM, единого справочника причин отказа, UTM-разметки и коллтрекинга. Это работа первых двух недель, и до её завершения планирование по цифрам невозможно — вы будете управлять по данным, которых нет.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">07</span><div><h2>Календарный план на год</h2><p class="ru">Четыре квартала, четыре разные задачи</p></div></div>
+    <div class="qs">
+      <div class="q">
+        <span class="w">Месяцы 1–3</span><h4>Фундамент</h4>
+        <ul>
+          <li>Инфраструктура данных: CRM, коллтрекинг, справочник отказов, UTM</li>
+          <li>Шаблон предрасчёта и регламент ответа за 15 минут</li>
+          <li>Первый выпуск индекса и страница сбора контактов</li>
+          <li>Контекст на две группы запросов, старт Telegram-канала</li>
+          <li>Переписанный сайт под позиционирование</li>
+        </ul>
+        <div class="goal"><b>Цель квартала</b>1–2 сделки в месяц, измерен базовый уровень всех конверсий</div>
+      </div>
+      <div class="q">
+        <span class="w">Месяцы 4–6</span><h4>Верх воронки</h4>
+        <ul>
+          <li>Второй выпуск индекса, первый питч в отраслевые медиа</li>
+          <li>SEO-материалы под запросы тревоги</li>
+          <li>Первые 10 партнёрских договорённостей</li>
+          <li>Первая конференция с докладом</li>
+          <li>Приложение о границе ответственности во всех договорах</li>
+        </ul>
+        <div class="goal"><b>Цель квартала</b>3 сделки в месяц, два канала с долей MQL выше 15%</div>
+      </div>
+      <div class="q">
+        <span class="w">Месяцы 7–9</span><h4>Удержание и чек</h4>
+        <ul>
+          <li>Аудит обработки заявок запущен как платный продукт</li>
+          <li>Первая встреча клуба клиентов</li>
+          <li>Третий выпуск индекса с региональными разрезами</li>
+          <li>Вторая конференция, запуск реактивации базы отказов</li>
+          <li>Найм второго аккаунт-менеджера при 12 активных клиентах</li>
+        </ul>
+        <div class="goal"><b>Цель квартала</b>4 сделки в месяц, доля выручки от апселлов ≥ 15%</div>
+      </div>
+      <div class="q">
+        <span class="w">Месяцы 10–12</span><h4>Устойчивость</h4>
+        <ul>
+          <li>Годовой выпуск индекса — главный PR-повод года</li>
+          <li>Межсезонный тариф в продаже, третья и четвёртая конференции</li>
+          <li>Реферальная механика на потоке, вторая встреча клуба</li>
+          <li>Пересчёт всей модели по фактическим конверсиям года</li>
+          <li>Повышение чека на новых договорах</li>
+        </ul>
+        <div class="goal"><b>Цель квартала</b>5 сделок в месяц устойчиво, доля входящих 60%</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">08</span><div><h2>Ресурсы</h2><p class="ru">Деньги, люди, время, технологии</p></div></div>
+    <div class="grid3">
+      <div class="card"><div class="t">Финансовые</div><h4>≈ 3,8–4,5 млн ₽ за год</h4>
+        <ul>
+          <li>Реклама и посевы: 160–250 тыс. ₽/мес — 2,0–3,0 млн ₽</li>
+          <li>Производство индекса: 480–600 тыс. ₽</li>
+          <li>Конференции: 4 события × 150–250 тыс. ₽ — 600 тыс. — 1,0 млн ₽</li>
+          <li>Инструменты: 40–75 тыс. ₽/мес — 480–900 тыс. ₽</li>
+          <li>Расходы идут равномерно, выручка сезонная — заложите кассовый резерв на межсезонье</li>
+        </ul>
+      </div>
+      <div class="card"><div class="t">Человеческие</div><h4>Плюс 2–3 человека за год</h4>
+        <ul>
+          <li>Маркетолог-аналитик в штат — держит индекс и предрасчёты, ключевая роль</li>
+          <li>Редактор и дизайнер на подряде — 35 часов в квартал под выпуск</li>
+          <li>Второй аккаунт-менеджер при 12 активных клиентах, третий при 24</li>
+          <li>Продажи ведёт основатель как минимум первые два квартала: предрасчёт защищает тот, кто его считал</li>
+        </ul>
+      </div>
+      <div class="card"><div class="t">Временны́е</div><h4>Что съедает календарь</h4>
+        <ul>
+          <li>Выпуск индекса: 65 часов на квартал совокупно</li>
+          <li>Еженедельные сверки: 15 минут × число клиентов — при 30 клиентах это 7–8 часов в неделю</li>
+          <li>Подготовка доклада: 20–30 часов на событие</li>
+          <li>Часовые пояса: ответ за 15 минут по всей стране требует покрытия с 6:00 до 20:00 по Москве — минимум двое дежурных</li>
+        </ul>
+      </div>
+      <div class="card"><div class="t">Технологические</div><h4>Минимальный стек</h4>
+        <ul>
+          <li>CRM с обязательными полями и справочником причин отказа</li>
+          <li>Коллтрекинг и запись звонков — основа и продукта, и аудита</li>
+          <li>Сервис рассылок с контролем доставляемости</li>
+          <li>Дашборд для клиента: на старте достаточно таблицы с автообновлением</li>
+          <li>Хранилище обезличенных данных проектов — фундамент индекса</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">09</span><div><h2>Риски и ограничения</h2><p class="ru">По убыванию вероятности провала стратегии</p></div></div>
+    <div class="risks">
+      <div class="rk top">
+        <h4>1. Производственный потолок наступит раньше, чем цель по сделкам</h4>
+        <p>Тридцать одновременных клиентов при команде 3–10 человек физически не обслуживаются с тем качеством, которое вы продаёте. Провал наступит не в лидогенерации, а в момент, когда еженедельные сверки начнут срываться — и вы потеряете позиционирование вместе с клиентами.</p>
+        <div class="mit"><b>Смягчение</b>Портфель вместо пяти одинаковых абонементов: 3 абонемента + 2 входных продукта. Триггер найма по числу клиентов, а не по выручке. Продуктизация сверки: один шаблон, один экран, жёсткие 15 минут.</div>
+      </div>
+      <div class="rk">
+        <h4>2. Индекс держится на одном-двух людях</h4>
+        <p>Главный актив стратегии производится вручную и зависит от конкретных сотрудников. Их болезнь или уход останавливает верх воронки целиком.</p>
+        <div class="mit"><b>Смягчение</b>Методика выпуска описана как регламент с первого выпуска; данные хранятся централизованно, а не в личных файлах; со второго квартала в выпуске участвуют минимум двое.</div>
+      </div>
+      <div class="rk">
+        <h4>3. Сезонные пики продаж и производства совпадают</h4>
+        <p>Строительство, события и недвижимость входят в сезон почти одновременно. Вы будете продавать и запускать проекты в одни и те же недели, а зимой окажетесь без выручки.</p>
+        <div class="mit"><b>Смягчение</b>Медицина как всесезонный балансир портфеля — держать её долю не ниже трети. Межсезонный тариф. Кассовый резерв на 3 месяца постоянных расходов.</div>
+      </div>
+      <div class="rk">
+        <h4>4. Отсутствие офлайн-доверия при работе на всю страну</h4>
+        <p>Клиент с чеком в сотни тысяч рублей привык видеть подрядчика лично. «Приезжайте, посмотрите объект» — частая реплика, на которую у вас нет ответа.</p>
+        <div class="mit"><b>Смягчение</b>Видеосверки с включённой камерой как норма; клуб клиентов как коллективное доказательство; возможность созвониться с действующим клиентом из его отрасли; доклады на событиях как физическое присутствие.</div>
+      </div>
+      <div class="rk">
+        <h4>5. План построен на непроверенных конверсиях</h4>
+        <p>Ваш базовый уровень не измерен: средний чек, срок жизни клиента и текущие конверсии в работе не назывались. Ошибка в конверсии «предрасчёт → договор» на десять пунктов меняет требуемый объём MQL почти в полтора раза — и весь бюджет вместе с ним.</p>
+        <div class="mit"><b>Смягчение</b>Первый квартал — замер, а не выполнение плана. Пересчёт модели на четвёртом месяце и повторно на двенадцатом. Не привязывать мотивацию к цифрам до окончания замера.</div>
+      </div>
+      <div class="rk">
+        <h4>6. Публикация бенчмарков затрагивает данные клиентов</h4>
+        <p>Индекс строится на цифрах реальных проектов. Без корректного обезличивания и согласия это репутационный и юридический риск, а один конфликт с клиентом обесценит весь актив.</p>
+        <div class="mit"><b>Смягчение</b>Пункт о праве использовать обезличенные агрегированные данные во всех новых договорах; выпуск только агрегатов, минимум пять проектов в любом разрезе; предварительное согласование с клиентами при малой выборке.</div>
+      </div>
+      <div class="rk">
+        <h4>7. Конкурент скопирует формат отчёта</h4>
+        <p>Идея публичного индекса воспроизводится за месяц — и первым это сделает то самое нишевое агентство, с которым вас сравнивают.</p>
+        <div class="mit"><b>Смягчение</b>Копируется формат, но не данные. Защита — регулярность выпусков и глубина разрезов: к моменту появления копии у вас должно быть четыре выпуска и статус источника, на который ссылаются.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">10</span><div><h2>Резюме и первые 90 дней</h2><p class="ru">Что делать с понедельника</p></div></div>
+    <div class="sum">
+      <p><strong>Суть стратегии в одном абзаце.</strong> Вы перестаёте конкурировать отраслевой экспертизой, которая есть у всех, и начинаете конкурировать проверяемостью, которой нет ни у кого: единственным на рынке публичным индексом цены заявки по нишам и регионам и персональным предрасчётом до оплаты. Обещание сознательно сужается — «не обещаем сделок, отвечаем за заявки» — и это одновременно отстройка от перегретого рынка гарантий и лекарство от вашей главной причины оттока. Индекс работает как ядро: он приводит клиента, доказывает вашу правоту в продаже, удерживает его квартальными срезами и распространяется через пересылки. Каждый новый клиент делает его точнее — это единственный контур в системе, который со временем усиливается сам. Цель в пять сделок достигается не наращиванием рекламы, а связкой «индекс → предрасчёт → узкое обещание», при условии, что производство растёт вместе с продажами.</p>
+    </div>
+
+    <div class="plan90">
+      <div class="p9"><div class="wk">Недели 1–2</div><div>
+        <h4>Инфраструктура: без неё остальное не считается</h4>
+        <ul>
+          <li>Обязательные поля в CRM: ниша, мощность, дата, регион, источник, причина отказа</li>
+          <li>Коллтрекинг и запись звонков, UTM-разметка всех каналов</li>
+          <li>Пункт об обезличенных данных в шаблон договора</li>
+          <li>Выгрузка всех прошлых проектов в единый датасет — сырьё для индекса</li>
+        </ul>
+        <div class="out"><b>Результат:</b> метрики стали считаться, база для индекса собрана</div>
+      </div></div>
+      <div class="p9"><div class="wk">Недели 3–4</div><div>
+        <h4>Предрасчёт как продукт</h4>
+        <ul>
+          <li>Шаблон расчётного листа: три сценария, стоимость договора, блок «за что не отвечаем»</li>
+          <li>Регламент: ответ за 15 минут, расчёт за 48 часов</li>
+          <li>Чек-лист готовности отдела продаж клиента</li>
+          <li>Обкатка на пяти текущих переговорах</li>
+        </ul>
+        <div class="out"><b>Результат:</b> измерена реальная конверсия «предрасчёт → договор»</div>
+      </div></div>
+      <div class="p9"><div class="wk">Недели 5–7</div><div>
+        <h4>Первый выпуск индекса</h4>
+        <ul>
+          <li>Сбор и обезличивание данных, расчёт разрезов по регионам и месяцам</li>
+          <li>Отчёт на 10–15 страниц, страница сбора контактов, автоответ с самим отчётом</li>
+          <li>Выжимка для Telegram и слайд для будущего доклада</li>
+        </ul>
+        <div class="out"><b>Результат:</b> главный актив существует и работает как лид-магнит</div>
+      </div></div>
+      <div class="p9"><div class="wk">Недели 8–9</div><div>
+        <h4>Запуск каналов</h4>
+        <ul>
+          <li>Контекст на две группы запросов: коммерческие и тревожные</li>
+          <li>Посев выжимки в 5–8 отраслевых каналах, старт собственного канала</li>
+          <li>Сайт переписан под позиционирование, отказ вынесен на первый экран</li>
+        </ul>
+        <div class="out"><b>Результат:</b> первый измеримый CPMQL по каждому каналу</div>
+      </div></div>
+      <div class="p9"><div class="wk">Недели 10–11</div><div>
+        <h4>Партнёры и заявка на события</h4>
+        <ul>
+          <li>Список 30 потенциальных партнёров, переговоры с первыми десятью</li>
+          <li>Подача заявок на доклады в два отраслевых события ближайшего полугодия</li>
+          <li>Питч первого выпуска индекса в три отраслевых медиа</li>
+        </ul>
+        <div class="out"><b>Результат:</b> заложены каналы, которые дадут результат в 4–6 месяце</div>
+      </div></div>
+      <div class="p9"><div class="wk">Недели 12–13</div><div>
+        <h4>Сверка модели и пересчёт</h4>
+        <ul>
+          <li>Фактические конверсии против гипотез: где модель ошиблась</li>
+          <li>Пересчёт требуемого объёма MQL и бюджета на второй квартал</li>
+          <li>Решение по портфелю: сколько абонементов и входных продуктов в месяце</li>
+          <li>Фиксация целевых значений KPI — теперь на фактических данных</li>
+        </ul>
+        <div class="out"><b>Результат:</b> план второго квартала построен на цифрах, а не на ориентирах</div>
+      </div></div>
+    </div>
+  </section>
+
+  <footer>Маркетинговая стратегия · нишевое агентство · сегмент дорогой сделки · 12 месяцев</footer>
+</div>
