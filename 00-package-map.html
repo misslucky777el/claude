@@ -1,0 +1,441 @@
+<title>Карта пакета документов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Unbounded:wght@600&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F0;--surface:#FFFFFF;--surface-2:#E8EBE7;
+    --ink:#15191C;--ink-2:#454E54;--ink-3:#6E787E;
+    --line:#CDD3CE;--line-soft:#DEE2DC;
+    --route:#1F44C8;--route-soft:#E4E8FB;
+    --signal:#B93A28;--signal-soft:#F7E5E1;
+    --band:#E2E6E0;--shadow:0 1px 0 rgba(21,25,28,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0E1215;--surface:#161B1F;--surface-2:#1D2429;
+      --ink:#E7EBE7;--ink-2:#B0B9BC;--ink-3:#828D92;
+      --line:#2C353A;--line-soft:#232B30;
+      --route:#8AA5FF;--route-soft:#1A2340;
+      --signal:#F0836C;--signal-soft:#331B16;
+      --band:#1D2429;--shadow:0 1px 0 rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E1215;--surface:#161B1F;--surface-2:#1D2429;
+    --ink:#E7EBE7;--ink-2:#B0B9BC;--ink-3:#828D92;
+    --line:#2C353A;--line-soft:#232B30;
+    --route:#8AA5FF;--route-soft:#1A2340;
+    --signal:#F0836C;--signal-soft:#331B16;
+    --band:#1D2429;--shadow:0 1px 0 rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);
+    font-family:"Golos Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+
+  header.mast{padding:clamp(40px,7vw,80px) 0 clamp(26px,4vw,40px);border-bottom:2px solid var(--ink)}
+  .eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--route);margin:0 0 clamp(16px,3vw,26px);
+    display:flex;align-items:center;gap:12px}
+  .eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+  h1{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(28px,5vw,54px);line-height:1.05;letter-spacing:-.02em;
+    margin:0 0 20px;text-wrap:balance;max-width:14ch}
+  .deck{font-size:clamp(16px,1.9vw,20px);color:var(--ink-2);max-width:66ch;margin:0}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:clamp(22px,3.4vw,32px)}
+  .meta span{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    border:1px solid var(--line);border-radius:2px;padding:6px 10px;color:var(--ink-2);background:var(--surface)}
+
+  section{padding:clamp(42px,6vw,72px) 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  .sec-head{display:flex;gap:16px;align-items:baseline;margin-bottom:clamp(18px,2.6vw,28px)}
+  .sec-num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;font-weight:500;
+    color:var(--route);padding-top:.4em;flex:none;letter-spacing:.08em}
+  h2{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(21px,2.8vw,30px);line-height:1.2;letter-spacing:-.015em;margin:0;text-wrap:balance}
+  .ru{margin:7px 0 0;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+  h3{font-size:13px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+  p{margin:0 0 1em}p:last-child{margin-bottom:0}
+  .lede{font-size:clamp(16px,1.9vw,18.5px);color:var(--ink-2);max-width:74ch}
+  .lede strong{color:var(--ink);font-weight:600}
+  a{color:var(--route)}
+  :focus-visible{outline:2px solid var(--route);outline-offset:2px}
+
+  figure{margin:clamp(20px,3vw,30px) 0 0}
+  figure svg{width:100%;max-width:100%;height:auto;display:block;color:var(--ink-2)}
+  figcaption{margin-top:14px;font-size:14.5px;color:var(--ink-3);max-width:76ch;line-height:1.55}
+  .dgwrap{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface);
+    padding:clamp(14px,2.4vw,26px)}
+
+  .docs{display:flex;flex-direction:column;gap:12px;margin-top:clamp(18px,2.6vw,26px)}
+  .doc{background:var(--surface);border:1px solid var(--line);border-radius:3px;box-shadow:var(--shadow);
+    display:grid;grid-template-columns:52px 1fr;overflow:hidden}
+  .doc .n{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--route);
+    padding:18px 0 0 18px;font-variant-numeric:tabular-nums}
+  .doc .b{padding:16px 20px 18px 0}
+  .doc h4{margin:0 0 4px;font-size:clamp(16.5px,2vw,19px);font-weight:600;line-height:1.25}
+  .doc .one{margin:0 0 11px;font-size:14.5px;color:var(--ink-2);line-height:1.5;max-width:82ch}
+  .doc ul{margin:0 0 13px;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+  .doc li{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.05em;
+    border:1px solid var(--line);border-radius:2px;padding:4px 8px;color:var(--ink-3)}
+  .doc .links{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;
+    padding-top:11px;border-top:1px solid var(--line-soft)}
+  .doc .links a{font-size:14px;font-weight:500;text-decoration:none;border-bottom:1px solid var(--route)}
+  .doc .links a:hover{border-bottom-width:2px}
+  .doc .links code{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--ink-3)}
+  .doc.key{border-left:3px solid var(--route)}
+
+  .thr{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:clamp(14px,2.2vw,24px);margin-top:clamp(18px,2.6vw,26px)}
+  .th{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:clamp(17px,2.1vw,23px)}
+  .th .t{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);margin-bottom:9px}
+  .th h4{margin:0 0 10px;font-size:16.5px;font-weight:600;line-height:1.3}
+  .th p{font-size:14.5px;color:var(--ink-2);line-height:1.5}
+  .th .where{margin-top:11px;padding-top:11px;border-top:1px solid var(--line-soft);
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--ink-3)}
+
+  .routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(14px,2vw,22px);margin-top:clamp(18px,2.6vw,26px)}
+  .rt{border-top:2px solid var(--ink);padding-top:15px}
+  .rt .w{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);display:block;margin-bottom:8px}
+  .rt h4{margin:0 0 10px;font-size:16px;font-weight:600;line-height:1.3}
+  .rt ol{margin:0;padding-left:1.25em;display:flex;flex-direction:column;gap:7px}
+  .rt li{font-size:14.5px;color:var(--ink-2);line-height:1.5}
+  .rt li b{color:var(--ink);font-weight:600}
+
+  .open{background:var(--signal-soft);border-left:3px solid var(--signal);
+    padding:clamp(18px,2.4vw,26px);border-radius:0 3px 3px 0;margin-top:clamp(18px,2.6vw,26px)}
+  .open h3{color:var(--signal)}
+  .open ul{margin:0;padding-left:1.15em;color:var(--ink);display:flex;flex-direction:column;gap:10px;max-width:86ch}
+
+  footer{padding:36px 0 56px;color:var(--ink-3);font-size:13px;font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+  @media (max-width:640px){
+    .doc{grid-template-columns:1fr}
+    .doc .n{padding:16px 20px 0}
+    .doc .b{padding:8px 20px 18px}
+  }
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow">Ветка claude/business-promotion-audience-segments-mz3jun</p>
+    <h1>Карта пакета</h1>
+    <p class="deck">Десять документов, собранных последовательно: от карты аудитории до плана продвижения блога. Здесь — что в каждом, как они связаны и в каком порядке читать под конкретную задачу.</p>
+    <div class="meta">
+      <span>10 документов</span>
+      <span>10 коммитов</span>
+      <span>~665 КБ</span>
+      <span>Сентябрь 2026</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><div><h2>Как документы связаны</h2><p class="ru">Не список, а цепочка выводов</p></div></div>
+    <p class="lede">Пакет собирался последовательно, и каждый документ опирается на предыдущие. Но <strong>сходится всё в один актив</strong> — отраслевой индекс цены заявки: он и доказательство в продаже, и содержание блога, и предмет продвижения, и единственный контур, который со временем усиливается сам.</p>
+
+    <div class="dgwrap">
+      <figure>
+        <svg viewBox="0 0 960 420" role="img" aria-label="Схема связей десяти документов: исследование аудитории питает позиционирование, позиционирование задаёт систему продаж, система формирует исполнение; все опираются на общий актив — отраслевой индекс цены заявки, который пополняется данными каждого нового клиента">
+          <defs>
+            <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+            </marker>
+            <marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#1F44C8"/>
+            </marker>
+          </defs>
+
+          <g font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1" fill="currentColor" opacity="0.62" text-anchor="middle">
+            <text x="125" y="30">ИССЛЕДОВАНИЕ</text>
+            <text x="355" y="30">ПОЗИЦИЯ</text>
+            <text x="585" y="30">СИСТЕМА</text>
+            <text x="815" y="30">ИСПОЛНЕНИЕ</text>
+          </g>
+
+          <g fill="none" stroke="currentColor" stroke-width="1.25" opacity="0.9">
+            <rect x="40" y="50" width="170" height="46" rx="3"/>
+            <rect x="40" y="120" width="170" height="46" rx="3"/>
+            <rect x="40" y="190" width="170" height="46" rx="3"/>
+            <rect x="270" y="85" width="170" height="46" rx="3"/>
+            <rect x="270" y="155" width="170" height="46" rx="3"/>
+            <rect x="500" y="85" width="170" height="46" rx="3"/>
+            <rect x="500" y="155" width="170" height="46" rx="3"/>
+            <rect x="730" y="50" width="170" height="46" rx="3"/>
+            <rect x="730" y="120" width="170" height="46" rx="3"/>
+            <rect x="730" y="190" width="170" height="46" rx="3"/>
+          </g>
+
+          <g font-family="Golos Text, sans-serif" font-size="13" fill="currentColor" text-anchor="middle">
+            <text x="125" y="78">1 · Сегменты</text>
+            <text x="125" y="148">2 · Персоны</text>
+            <text x="125" y="218">6 · JTBD</text>
+            <text x="355" y="113">4 · Конкуренты</text>
+            <text x="355" y="183">3 · УТП</text>
+            <text x="585" y="113">7 · Воронка AARRR</text>
+            <text x="585" y="183">5 · Система KPI</text>
+            <text x="815" y="78">8 · Стратегия</text>
+            <text x="815" y="148">9 · Блог</text>
+            <text x="815" y="218">10 · Продвижение</text>
+          </g>
+
+          <g fill="none" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar)" opacity="0.85">
+            <line x1="125" y1="98" x2="125" y2="116"/>
+            <line x1="125" y1="168" x2="125" y2="186"/>
+            <line x1="355" y1="133" x2="355" y2="151"/>
+            <line x1="212" y1="143" x2="266" y2="170"/>
+            <line x1="212" y1="211" x2="266" y2="187"/>
+            <line x1="442" y1="170" x2="496" y2="114"/>
+            <line x1="442" y1="186" x2="496" y2="176"/>
+            <line x1="672" y1="104" x2="726" y2="80"/>
+            <line x1="672" y1="172" x2="726" y2="92"/>
+            <line x1="815" y1="98" x2="815" y2="116"/>
+            <line x1="815" y1="168" x2="815" y2="186"/>
+          </g>
+          <line x1="585" y1="151" x2="585" y2="133" fill="none" stroke="currentColor" stroke-width="1.4" opacity="0.85" marker-end="url(#ar)" marker-start="url(#ar)"/>
+
+          <g font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity="0.7">
+            <text x="150" y="112">детализирует</text>
+            <text x="150" y="182">углубляет</text>
+            <text x="380" y="147">подтверждает</text>
+            <text x="216" y="132" text-anchor="start">боли</text>
+            <text x="216" y="228" text-anchor="start">триггеры</text>
+            <text x="446" y="140" text-anchor="start">обещание</text>
+            <text x="600" y="147" text-anchor="start">измеряет</text>
+            <text x="676" y="96" text-anchor="start">механика</text>
+          </g>
+
+          <rect x="40" y="320" width="860" height="50" rx="3" fill="none" stroke="#1F44C8" stroke-width="2"/>
+          <text x="470" y="350" font-family="Golos Text, sans-serif" font-size="14" font-weight="600" fill="#1F44C8" text-anchor="middle">Отраслевой индекс цены заявки — общий актив всех документов</text>
+
+          <g fill="none" stroke="#1F44C8" stroke-width="1.3" stroke-dasharray="5 4" opacity="0.85" marker-end="url(#arb)">
+            <line x1="355" y1="203" x2="355" y2="316"/>
+            <line x1="585" y1="203" x2="585" y2="316"/>
+            <line x1="815" y1="238" x2="815" y2="316"/>
+          </g>
+          <text x="366" y="268" font-family="IBM Plex Mono, monospace" font-size="10" fill="#1F44C8" text-anchor="start">опирается на</text>
+
+          <path d="M 40 345 L 18 345 L 18 40 L 125 40 L 125 48" fill="none" stroke="#1F44C8" stroke-width="1.4" marker-end="url(#arb)"/>
+          <text x="26" y="196" font-family="IBM Plex Mono, monospace" font-size="10" fill="#1F44C8" text-anchor="middle" transform="rotate(-90 26 196)">каждый клиент пополняет базу</text>
+        </svg>
+        <figcaption>Четыре слоя работы и общий актив под ними. Исследование аудитории питает позиционирование, позиционирование задаёт систему продаж, система превращается в исполнение. Пунктиром — опора на индекс; слева — обратная связь: данные каждого нового клиента делают индекс точнее, а значит усиливают верх воронки. Это единственный контур в схеме с накопительным эффектом.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><div><h2>Десять документов</h2><p class="ru">В порядке создания</p></div></div>
+    <div class="docs">
+
+      <div class="doc">
+        <div class="n">01</div>
+        <div class="b">
+          <h4>Аудитория продвижения бизнеса</h4>
+          <p class="one">Карта рынка: 15 сегментов покупателей услуг по продвижению, от массового микробизнеса до нишевых закупщиков с длинным циклом. Поведенческо-мотивационный принцип, а не соцдем.</p>
+          <ul><li>15 сегментов</li><li>характеристики</li><li>триггеры</li><li>сообщения</li></ul>
+          <div class="links">
+            <a href="https://claude.ai/code/artifact/fb84f09f-c937-4943-8855-2b59dd2f42a9">Открыть</a>
+            <code>audience-segments-business-promotion.html / .md</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc">
+        <div class="n">02</div>
+        <div class="b">
+          <h4>Персоны покупателей маркетинга</h4>
+          <p class="one">По одной Buyer Persona на каждый сегмент: как живёт, чего боится, кому верит, какими словами возражает. Именно отсюда взяты четыре персоны, на которых стоит вся дальнейшая работа.</p>
+          <ul><li>15 персон</li><li>11 полей</li><li>ЛПР</li><li>каналы</li></ul>
+          <div class="links">
+            <a href="https://claude.ai/code/artifact/2ed10b80-024a-49d1-84a7-17807f74ff08">Открыть</a>
+            <code>buyer-personas-business-promotion.html / .md</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc key">
+        <div class="n">03</div>
+        <div class="b">
+          <h4>УТП нишевого агентства</h4>
+          <p class="one">Разбор продукта по четырём параметрам и 10 формулировок УТП. Здесь впервые появляется ключевое утверждение всего пакета: обещать меньше остальных и показывать экономику до оплаты.</p>
+          <ul><li>4 параметра</li><li>10 УТП</li><li>рекомендация №09</li></ul>
+          <div class="links">
+            <a href="https://claude.ai/code/artifact/465ed19e-2ecf-4dae-a375-ab5c21498e72">Открыть</a>
+            <code>usp-positioning-niche-agency.html</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc">
+        <div class="n">04</div>
+        <div class="b">
+          <h4>Конкурентное поле агентства</h4>
+          <p class="one">Восемь групп конкурентов на публичных рыночных данных, карта поля по двум осям, зоны насыщения и свободные ниши, шесть точек дифференциации с планом. С явным перечнем того, что проверить не удалось.</p>
+          <ul><li>8 групп</li><li>рыночные цифры</li><li>карта поля</li><li>SWOT</li></ul>
+          <div class="links">
+            <a href="https://claude.ai/code/artifact/b65e4f5c-1bc1-46cb-bba1-089a4dc380e4">Открыть</a>
+            <code>competitive-analysis-niche-agency.html</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc">
+        <div class="n">05</div>
+        <div class="b">
+          <h4>Система KPI агентства</h4>
+          <p class="one">38 метрик по трём целям и трём уровням, каждая с формулой, единицей, целью, периодичностью и источником данных. Плюс порядок внедрения и список метрик, которые KPI быть не должны.</p>
+          <ul><li>38 метрик</li><li>3 уровня</li><li>формулы</li><li>антиметрики</li></ul>
+          <div class="links">
+            <a href="https://claude.ai/code/artifact/80e31a99-5be2-4b72-94bb-80940d042dbd">Открыть</a>
+            <code>kpi-system-agency.html / .md</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc key">
+        <div class="n">06</div>
+        <div class="b">
+          <h4>Jobs to Be Done: дорогая сделка</h4>
+          <p class="one">На какую работу клиент нанимает маркетинг. Здесь объясняется главная причина оттока: контракт можно выполнить и провалить работу — KPI зелёные, а клиент уходит.</p>
+          <ul><li>триггеры найма</li><li>3 слоя работы</li><li>8 формулировок</li><li>заменители</li></ul>
+          <div class="links">
+            <a href="https://claude.ai/code/artifact/a977e826-28ed-4cca-84b5-7a9af28b0731">Открыть</a>
+            <code>jtbd-high-ticket-clients.html</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc">
+        <div class="n">07</div>
+        <div class="b">
+          <h4>Воронка для дорогой сделки</h4>
+          <p class="one">AARRR, адаптированная под услугу с длинным циклом: активация происходит до оплаты, удержание — это продление через межсезонье, рекомендации работают на артефактах, а не на бонусах.</p>
+          <ul><li>6 каналов</li><li>сценарий активации</li><li>7 механик удержания</li><li>лестница офферов</li></ul>
+          <div class="links">
+            <a href="https://claude.ai/code/artifact/89ff4818-3dae-4460-abe4-7e6f0967ef02">Открыть</a>
+            <code>aarrr-funnel-agency.html</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc key">
+        <div class="n">08</div>
+        <div class="b">
+          <h4>Пять сделок в месяц</h4>
+          <p class="one">Годовая стратегия: арифметика цели, позиционирование, сообщения по сегментам, каналы с бюджетом, календарь, ресурсы, риски и план на 90 дней. Головной документ, ссылающийся на все предыдущие.</p>
+          <ul><li>обратный счёт воронки</li><li>бюджет 3,8–4,5 млн ₽</li><li>7 рисков</li><li>90 дней</li></ul>
+          <div class="links">
+            <a href="https://claude.ai/code/artifact/0d33af4e-2a37-4778-a72a-452fdc20e517">Открыть</a>
+            <code>marketing-strategy-agency.html</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc">
+        <div class="n">09</div>
+        <div class="b">
+          <h4>Концепция блога «Цена клиента»</h4>
+          <p class="one">Telegram и сайт: блог, который не советует, а публикует цифры. Позиция автора — отраслевой статистик, а не эксперт. Правило канала вынесено в описание: ни одного поста без числа.</p>
+          <ul><li>идея и миссия</li><li>15 рубрик</li><li>Tone of Voice</li><li>4 уровня метрик</li></ul>
+          <div class="links">
+            <a href="https://claude.ai/code/artifact/7757538c-b2b7-4ca8-80b4-67065d33399c">Открыть</a>
+            <code>blog-concept-price-of-a-client.html</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc">
+        <div class="n">10</div>
+        <div class="b">
+          <h4>Инструменты роста с нуля</h4>
+          <p class="one">Продвижение канала и блога с учётом проверенного правового контура: реклама на ресурсах Meta запрещена, по Telegram переходный период ФАС заканчивается 31 декабря 2026 года.</p>
+          <ul><li>правовой контур</li><li>5 органических</li><li>6 коллабораций</li><li>4 платных</li><li>90 дней</li></ul>
+          <div class="links">
+            <a href="https://claude.ai/code/artifact/6f19e49e-0e8b-4389-9964-4b47bc1e6187">Открыть</a>
+            <code>promotion-toolkit-telegram-blog.html</code>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><div><h2>Пять сквозных решений</h2><p class="ru">Что проходит через весь пакет</p></div></div>
+    <p class="lede">Если менять что-то одно из этого списка, придётся пересобирать несколько документов сразу — они держатся друг за друга именно в этих точках.</p>
+    <div class="thr">
+      <div class="th"><div class="t">Решение 1</div><h4>Ниша — услуги с дорогой сделкой</h4>
+        <p>Строительство, медицина, события, недвижимость. Отсюда взяты четыре персоны, на них построены JTBD, воронка, стратегия и содержание блога. Смена ниши обнуляет документы 3, 6, 7, 8, 9.</p>
+        <div class="where">Задано в документе 2</div></div>
+      <div class="th"><div class="t">Решение 2</div><h4>Узкое обещание вместо гарантий</h4>
+        <p>«Не обещаем сделок — отвечаем за заявки». Одновременно отстройка от перегретого рынка и лекарство от главной причины оттока. Проходит через УТП, конкурентов, JTBD, воронку и стратегию.</p>
+        <div class="where">Задано в документе 3</div></div>
+      <div class="th"><div class="t">Решение 3</div><h4>Индекс как главный актив</h4>
+        <p>Отраслевой бенчмарк цены заявки. Доказательство в продаже, ядро блога, лид-магнит, инфоповод для медиа и барьер против копирования. Без него шесть каналов привлечения рассыпаются на шесть разных сообщений.</p>
+        <div class="where">Возникает в документе 4</div></div>
+      <div class="th"><div class="t">Решение 4</div><h4>Предрасчёт до оплаты</h4>
+        <p>Клиент видит экономику до того, как заплатил. В воронке это точка активации, в KPI — главная конверсия, в стратегии — причина побед в тендерах. Узел, в котором решается экономика всего пакета.</p>
+        <div class="where">Возникает в документе 3, разворачивается в 7</div></div>
+      <div class="th"><div class="t">Решение 5</div><h4>Правовое окно до 31.12.2026</h4>
+        <p>Переходный период ФАС по рекламе в Telegram. Платный трафик там — исчерпаемый ресурс, а не постоянный канал, поэтому приоритет смещён к собственной базе, поиску и офлайну.</p>
+        <div class="where">Проверено в документе 10</div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><div><h2>С чего начинать</h2><p class="ru">Три маршрута под разные задачи</p></div></div>
+    <div class="routes">
+      <div class="rt">
+        <span class="w">Маршрут A</span>
+        <h4>Если запускаете стратегию</h4>
+        <ol>
+          <li><b>8 · Стратегия</b> — целиком, начиная с арифметики цели и ограничения по производству</li>
+          <li><b>4 · Конкуренты</b> — карта поля и свободные зоны</li>
+          <li><b>3 · УТП</b> — формулировка №09 как ядро</li>
+          <li><b>5 · KPI</b> — семь метрик на панель собственника</li>
+        </ol>
+      </div>
+      <div class="rt">
+        <span class="w">Маршрут B</span>
+        <h4>Если чините продажи</h4>
+        <ol>
+          <li><b>6 · JTBD</b> — почему уходят клиенты при зелёных метриках</li>
+          <li><b>2 · Персоны</b> — возражения и ЛПР по каждому сегменту</li>
+          <li><b>7 · Воронка</b> — сценарий первого касания и онбординга</li>
+          <li><b>5 · KPI</b> — блок про воронку продаж</li>
+        </ol>
+      </div>
+      <div class="rt">
+        <span class="w">Маршрут C</span>
+        <h4>Если запускаете блог</h4>
+        <ol>
+          <li><b>9 · Концепция блога</b> — позиция, рубрикатор, ToV</li>
+          <li><b>10 · Продвижение</b> — правовой контур первым делом</li>
+          <li><b>1 · Сегменты</b> — язык и единица мощности каждой ниши</li>
+          <li><b>8 · Стратегия</b> — раздел про каналы и бюджет</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">05</span><div><h2>Что осталось незакрытым</h2><p class="ru">Честный перечень пробелов</p></div></div>
+    <div class="open">
+      <h3>Чего в пакете нет и почему</h3>
+      <ul>
+        <li><b>Ваш базовый уровень.</b> Средний чек, срок жизни клиента и фактические конверсии не назывались. Все целевые значения в документах 5, 7 и 8 помечены как рыночные ориентиры или гипотезы, и первый квартал по плану работает на замер, а не на выполнение. С этими цифрами модель воронки и бюджет пересчитываются за один заход.</li>
+        <li><b>Локальные конкуренты и визуальный аудит.</b> В документе 4 разобраны бизнес-модели, а не конкретные фирмы вашего региона: города и имён компаний я не знал. Постраничный визуальный разбор конкурентов тоже не проводился — это отдельная работа по скриншотам.</li>
+        <li><b>Юридическая проверка.</b> Правовой контур в документе 10 собран по открытым источникам и не является заключением. Позиция ФАС о переходном периоде — не нормативный акт, а граница «реклама / не реклама» для постов о собственных услугах остаётся серой зоной.</li>
+        <li><b>Название канала и BIO.</b> Десять вариантов нейминга с разбором и три версии BIO под лимит 255 знаков остались в переписке и в файлы не попали. Скажите — оформлю одиннадцатым документом.</li>
+        <li><b>Занятость названий.</b> Проверка юзернеймов, одноимённых каналов и товарных знаков не выполнена: поисковики Telegram индексируют плохо. Нужен ручной прогон перед решением.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>Карта пакета · 10 документов · ветка claude/business-promotion-audience-segments-mz3jun</footer>
+</div>
