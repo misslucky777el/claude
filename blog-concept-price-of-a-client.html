@@ -1,0 +1,450 @@
+<title>Концепция блога «Цена клиента»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Unbounded:wght@600&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F0;--surface:#FFFFFF;--surface-2:#E8EBE7;
+    --ink:#15191C;--ink-2:#454E54;--ink-3:#6E787E;
+    --line:#CDD3CE;--line-soft:#DEE2DC;
+    --route:#1F44C8;--route-soft:#E4E8FB;
+    --signal:#B93A28;--signal-soft:#F7E5E1;
+    --band:#E2E6E0;--shadow:0 1px 0 rgba(21,25,28,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0E1215;--surface:#161B1F;--surface-2:#1D2429;
+      --ink:#E7EBE7;--ink-2:#B0B9BC;--ink-3:#828D92;
+      --line:#2C353A;--line-soft:#232B30;
+      --route:#8AA5FF;--route-soft:#1A2340;
+      --signal:#F0836C;--signal-soft:#331B16;
+      --band:#1D2429;--shadow:0 1px 0 rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E1215;--surface:#161B1F;--surface-2:#1D2429;
+    --ink:#E7EBE7;--ink-2:#B0B9BC;--ink-3:#828D92;
+    --line:#2C353A;--line-soft:#232B30;
+    --route:#8AA5FF;--route-soft:#1A2340;
+    --signal:#F0836C;--signal-soft:#331B16;
+    --band:#1D2429;--shadow:0 1px 0 rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);
+    font-family:"Golos Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+
+  header.mast{padding:clamp(40px,7vw,80px) 0 clamp(26px,4vw,40px);border-bottom:2px solid var(--ink)}
+  .eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--route);margin:0 0 clamp(16px,3vw,26px);
+    display:flex;align-items:center;gap:12px}
+  .eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+  h1{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(28px,5vw,54px);line-height:1.05;letter-spacing:-.02em;
+    margin:0 0 20px;text-wrap:balance;max-width:14ch}
+  .deck{font-size:clamp(16px,1.9vw,20px);color:var(--ink-2);max-width:66ch;margin:0}
+  .facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:clamp(22px,3.4vw,32px)}
+  .facts span{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    border:1px solid var(--line);border-radius:2px;padding:6px 10px;color:var(--ink-2);background:var(--surface)}
+
+  section{padding:clamp(42px,6vw,72px) 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  .sec-head{display:flex;gap:16px;align-items:baseline;margin-bottom:clamp(18px,2.6vw,28px)}
+  .sec-num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;font-weight:500;
+    color:var(--route);padding-top:.4em;flex:none;letter-spacing:.08em}
+  h2{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(21px,2.8vw,30px);line-height:1.2;letter-spacing:-.015em;margin:0;text-wrap:balance}
+  .ru{margin:7px 0 0;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+  h3{font-size:13px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+  p{margin:0 0 1em}p:last-child{margin-bottom:0}
+  .lede{font-size:clamp(16px,1.9vw,18.5px);color:var(--ink-2);max-width:74ch}
+  .lede strong{color:var(--ink);font-weight:600}
+  a{color:var(--route)}
+  :focus-visible{outline:2px solid var(--route);outline-offset:2px}
+
+  .idea{background:var(--route-soft);border-left:3px solid var(--route);padding:clamp(20px,3vw,32px);
+    border-radius:0 3px 3px 0;margin-top:clamp(18px,2.6vw,26px)}
+  .idea .claim{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(18px,2.5vw,26px);line-height:1.25;letter-spacing:-.015em;color:var(--route);
+    margin:0 0 16px;text-wrap:balance}
+  .idea p{color:var(--ink);max-width:78ch}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(265px,1fr));gap:clamp(14px,2.2vw,24px);margin-top:clamp(18px,2.6vw,26px)}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+    padding:clamp(17px,2.1vw,23px);box-shadow:var(--shadow)}
+  .card .t{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);margin-bottom:9px}
+  .card h4{margin:0 0 11px;font-size:16.5px;font-weight:600;line-height:1.3}
+  .card ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;font-size:14.5px;color:var(--ink-2)}
+  .card li{padding-left:17px;position:relative;line-height:1.5}
+  .card li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1.5px;background:var(--route)}
+  .card p{font-size:14.5px;color:var(--ink-2)}
+  .card.no li::before{background:var(--signal)}
+  .card.no .t{color:var(--signal)}
+
+  .rule{margin-top:clamp(18px,2.6vw,26px);background:var(--signal-soft);border-left:3px solid var(--signal);
+    padding:clamp(18px,2.4vw,26px);border-radius:0 3px 3px 0}
+  .rule h3{color:var(--signal)}
+  .rule p,.rule ul{color:var(--ink);max-width:84ch}
+  .rule ul{margin:0;padding-left:1.15em;display:flex;flex-direction:column;gap:9px}
+
+  .split{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(16px,2.4vw,28px);margin-top:clamp(18px,2.6vw,26px)}
+  .plat{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:clamp(18px,2.2vw,24px);box-shadow:var(--shadow)}
+  .plat .t{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);margin-bottom:8px}
+  .plat h4{margin:0 0 6px;font-size:18px;font-weight:600}
+  .plat .role{margin:0 0 14px;font-size:14.5px;color:var(--ink-3);font-style:italic}
+  .plat dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:9px 14px;font-size:14.5px}
+  .plat dt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ink-3);padding-top:3px}
+  .plat dd{margin:0;color:var(--ink-2);line-height:1.5}
+
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface);margin-top:clamp(18px,2.6vw,26px)}
+  table{border-collapse:collapse;width:100%;min-width:940px;font-size:14.5px;line-height:1.5}
+  thead th{background:var(--ink);color:var(--paper);font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-weight:500;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;text-align:left;padding:11px 15px}
+  td{padding:14px 15px;border-bottom:1px solid var(--line-soft);vertical-align:top;color:var(--ink-2)}
+  tr:last-child td{border-bottom:0}
+  td.rn{width:17%;color:var(--ink)}
+  td.rn b{display:block;font-weight:600;font-size:15.5px;line-height:1.3;margin-bottom:5px}
+  td.rn em{font-style:normal;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+  td.ex{color:var(--ink)}
+  td.ex q{quotes:"«" "»";display:block;border-left:2px solid var(--route);padding-left:11px;font-size:14px}
+  td.fr{white-space:nowrap;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;color:var(--route);width:12%}
+
+  .voice{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:clamp(16px,2.4vw,28px);margin-top:clamp(18px,2.6vw,26px)}
+  .vc{border:1px solid var(--line);border-radius:3px;padding:clamp(17px,2.1vw,23px);background:var(--surface)}
+  .vc.yes{border-left:3px solid var(--route)}
+  .vc.no{border-left:3px solid var(--signal);background:var(--signal-soft)}
+  .vc h4{margin:0 0 13px;font-size:16px;font-weight:600}
+  .vc.yes h4{color:var(--route)}.vc.no h4{color:var(--signal)}
+  .vc ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .vc li{font-size:14.5px;line-height:1.5;color:var(--ink);padding-left:14px;border-left:2px solid var(--line)}
+  .vc.yes li{border-left-color:var(--route)}
+  .vc.no li{border-left-color:var(--signal);color:var(--ink-2)}
+
+  .mets{display:flex;flex-direction:column;gap:13px;margin-top:clamp(18px,2.6vw,26px)}
+  .mg{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:clamp(17px,2.1vw,22px);box-shadow:var(--shadow)}
+  .mg h4{margin:0 0 12px;font-size:16.5px;font-weight:600;display:flex;align-items:center;gap:10px}
+  .mg h4 span{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);border:1px solid var(--route);border-radius:2px;padding:2px 6px}
+  .mg ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px 24px}
+  .mg li{font-size:14.5px;color:var(--ink-2);line-height:1.45;padding-left:16px;position:relative}
+  .mg li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1.5px;background:var(--route)}
+  .mg li b{color:var(--ink);font-weight:600}
+
+  .cps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:clamp(16px,2.2vw,24px)}
+  .cp{border-top:2px solid var(--ink);padding-top:14px}
+  .cp .m{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);display:block;margin-bottom:7px}
+  .cp p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+  .cp p b{color:var(--ink);font-weight:600}
+
+  footer{padding:36px 0 56px;color:var(--ink-3);font-size:13px;font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+  @media (max-width:760px){
+    .tablewrap{border:0;background:transparent;overflow-x:visible}
+    table{min-width:0;display:block}thead{display:none}tbody{display:block}
+    tbody tr{display:block;background:var(--surface);border:1px solid var(--line);border-radius:3px;margin-bottom:12px;padding:4px 0}
+    td{display:flex;flex-direction:column;gap:6px;border-bottom:0;padding:10px 15px;width:auto!important}
+    td[data-label]::before{content:attr(data-label);font-family:"IBM Plex Mono",ui-monospace,monospace;
+      font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+    .plat dl{grid-template-columns:1fr;gap:4px}
+  }
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow">Концепция экспертного блога · Telegram + сайт</p>
+    <h1>Цена клиента</h1>
+    <p class="deck">Блог, который не советует, а публикует. Тема — экономика привлечения клиента в бизнесах с дорогой сделкой: сколько стоит заявка, договор и пациент в строительстве, медицине, событиях и недвижимости — по регионам и месяцам.</p>
+    <div class="facts">
+      <span>Telegram — поток</span>
+      <span>Сайт — архив и поиск</span>
+      <span>4 ниши, дорогая сделка</span>
+      <span>Ни одного поста без числа</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><div><h2>Идея и миссия</h2><p class="ru">Какую задачу решает и что меняет в читателе</p></div></div>
+    <div class="idea">
+      <p class="claim">Сделать стоимость клиента такой же публичной величиной, как курс валют или ключевая ставка.</p>
+      <p>Собственник автосервиса знает цену нормо-часа по городу. Врач знает, сколько стоит имплант у конкурентов. Застройщик знает цену метра. И только стоимость привлечения клиента остаётся тайной, которую каждый выясняет за свой счёт — обычно на третий месяц и после 300–400 тысяч рублей. Блог закрывает именно этот пробел: не учит маркетингу, а публикует цифры, которых нет ни в одном открытом источнике.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card"><div class="t">Изменение 1</div><h4>Меняется вопрос, который читатель задаёт</h4>
+        <p>Было: «сколько стоит реклама». Стало: «сколько стоит подписанный договор в моём городе в марте». Первый вопрос не имеет ответа и потому обрекает на веру подрядчику. Второй проверяем — и меняет расстановку сил в переговорах.</p></div>
+      <div class="card"><div class="t">Изменение 2</div><h4>Появляется язык для разговора</h4>
+        <p>Читатель получает три вопроса, на которые слабый подрядчик не отвечает, и понимание, что стоит за словами «ДРР», «квалификация», «атрибуция». Разговор перестаёт быть допросом, в котором он ничего не понимает.</p></div>
+      <div class="card"><div class="t">Изменение 3</div><h4>Снимается личный стыд</h4>
+        <p>Собственник, потерявший бюджет, обычно считает это своей глупостью и молчит. Увидев в цифрах, что разброс по рынку огромен и промахи — норма, он перестаёт прятать проблему и начинает её решать. Это то, ради чего он в итоге напишет автору.</p></div>
+    </div>
+
+    <div class="grid">
+      <div class="card"><div class="t">Задачи автора</div><h4>Зачем блог нужен бизнесу</h4>
+        <ul>
+          <li>Входящие заявки на бесплатную консультацию — 15–20 в месяц к концу года</li>
+          <li>Продажи услуг: не менее 30% сделок с источником «блог»</li>
+          <li>Персональный бренд: статус источника, на который ссылаются, а не подрядчика в списке</li>
+          <li>Пополнение той самой базы: каждая консультация даёт новые данные для следующего выпуска</li>
+        </ul>
+      </div>
+      <div class="card"><div class="t">Задачи аудитории</div><h4>Что читатель сможет сделать</h4>
+        <ul>
+          <li>Понять, сколько должен стоить его клиент, и проверить своего подрядчика</li>
+          <li>Спланировать бюджет сезона до того, как сезон начался</li>
+          <li>Построить разговор с менеджером или партнёром на фактах, а не на раздражении</li>
+          <li>Понять, когда начинать продавать: календарь окон по нишам</li>
+          <li>Посчитать, во сколько ему обходится скидка — и сравнить с ценой рекламы</li>
+          <li>Забрать шаблон отчёта, который можно показать банку или партнёру</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><div><h2>Позиционирование и УТП</h2><p class="ru">Роль автора и чем это отличается от соседних блогов</p></div></div>
+    <p class="lede">Ключевой сдвиг: автор — <strong>не эксперт, который учит, а статистик отрасли, который считает и публикует</strong>. Экспертных блогов маркетологов сотни, и все они устроены одинаково: советы, кейсы «было — стало», тренды года, разборы чужих ошибок с моралью. Позиция статистика в этой нише свободна почти полностью.</p>
+
+    <div class="idea">
+      <p class="claim">Единственный канал, где стоимость клиента публикуют, а не обсуждают.</p>
+      <p>Публичное правило, вынесенное в описание канала и в шапку сайта: <b>ни одного поста без числа из реальных проектов</b>. Правило работает и как обещание читателю, и как фильтр для автора — оно физически не позволяет скатиться в мотивацию и общие рассуждения, чем убивает себя большинство экспертных блогов на третьем месяце.</p>
+    </div>
+
+    <div class="split">
+      <div class="card"><div class="t">Отстройка</div><h4>Как устроены соседние блоги — и как этот</h4>
+        <ul>
+          <li><b>Не кейсы «было — стало», а бенчмарки.</b> Кейс отвечает «получилось ли у кого-то», бенчмарк — «где нахожусь лично я относительно рынка». Второе применимо, первое только развлекает</li>
+          <li><b>Не советы, а нормативы и разбор отклонений.</b> Вместо «как снизить цену заявки» — «норма 7 400 ₽, у вас 19 000, вот три причины разрыва»</li>
+          <li><b>Не личный успех, а чужая экономика.</b> В блоге почти нет автора как героя</li>
+          <li><b>Не универсальный маркетинг, а четыре ниши.</b> Отказ от всех остальных — часть позиции</li>
+          <li><b>Публикуются и собственные провалы с суммами.</b> На рынке, где показывают только победы, это самый дешёвый способ купить доверие</li>
+        </ul>
+      </div>
+      <div class="card no"><div class="t">Анти-позиционирование</div><h4>Чего в блоге не будет никогда</h4>
+        <ul>
+          <li>Подборок «5 способов» и «10 ошибок»</li>
+          <li>Трендов года и предсказаний</li>
+          <li>Новостей рекламных площадок без пересчёта в деньги читателя</li>
+          <li>Разборов чужих креативов «красиво / некрасиво»</li>
+          <li>Мотивации, историй успеха, цитат предпринимателей</li>
+          <li>Постов о том, как автор провёл выходные</li>
+          <li>Рекламы чужих курсов и марафонов</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><div><h2>Основа контент-стратегии</h2><p class="ru">Две площадки, две разные работы</p></div></div>
+    <p class="lede">Телеграм и сайт не дублируют друг друга и не «кросс-постятся». <strong>Телеграм — поток и разговор, сайт — архив, методология и поисковый вход.</strong> Цифра живёт в канале, объяснение цифры — на сайте, и одно ссылается на другое.</p>
+
+    <div class="split">
+      <div class="plat">
+        <div class="t">Площадка 1</div>
+        <h4>Telegram</h4>
+        <p class="role">Ежедневное присутствие в поле зрения человека, который читает три отраслевых канала за завтраком</p>
+        <dl>
+          <dt>Ритм</dt><dd>4 поста в неделю: пн — цифра недели, ср — слепой разбор, пт — методичка или спор, вс — короткий ответ на вопрос подписчика</dd>
+          <dt>Форматы</dt><dd>Карточка с одним числом; аудио на 2–3 минуты вместо длинного текста; опрос-калибровка («угадайте цену заявки — потом покажу реальную»); таблица месяца картинкой; скрин кабинета с разбором</dd>
+          <dt>Длина</dt><dd>800–1200 знаков. Одна мысль — один пост. Всё длиннее уходит на сайт</dd>
+          <dt>Комментарии</dt><dd>Открыты. Это основной источник материала для рубрик «слепой разбор» и «считаем вслух»</dd>
+        </dl>
+      </div>
+      <div class="plat">
+        <div class="t">Площадка 2</div>
+        <h4>Сайт</h4>
+        <p class="role">Архив, который находят поиском через год, и место, где заявка превращается в разговор</p>
+        <dl>
+          <dt>Ритм</dt><dd>2 больших материала в месяц плюс ежеквартальный выпуск индекса</dd>
+          <dt>Форматы</dt><dd>Разбор с методологией и выборкой; интерактивная страница индекса с фильтрами по нише, региону и месяцу; калькулятор «цена вашей скидки»; глоссарий на языке смет и кресел; шаблоны отчётов для скачивания</dd>
+          <dt>SEO-роль</dt><dd>Материалы затачиваются под запросы тревоги — «почему реклама не даёт договоров», «сколько стоит пациент в стоматологии». Дешевле коммерческих запросов в разы и приводят человека раньше</dd>
+          <dt>Конверсия</dt><dd>Каждый материал заканчивается не призывом «пишите», а инструментом: чек-листом, калькулятором или формой на разбор его цифр</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="rule">
+      <h3>Как контент превращается в заявку</h3>
+      <p>Путь один и он короткий: <b>цифра в канале → развёрнутый разбор на сайте → инструмент (калькулятор, чек-лист, шаблон) → форма «посчитайте мои цифры» → бесплатная консультация на 30 минут → предрасчёт</b>. Прямых продаж в контенте почти нет: единственная продающая рубрика выходит раз в месяц. Всё остальное продаёт демонстрацией компетентности, а не призывом.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card"><div class="t">Пропорция</div><h4>Соотношение типов контента</h4>
+        <ul>
+          <li><b>60% — данные:</b> цифры, бенчмарки, разрезы, таблицы</li>
+          <li><b>25% — методология и разборы:</b> как считать, где ошибаются, что спрашивать</li>
+          <li><b>10% — закулисье и провалы:</b> собственные неудачи с суммами, кухня расчётов</li>
+          <li><b>5% — прямые продажи:</b> одна рубрика раз в месяц</li>
+        </ul>
+      </div>
+      <div class="card"><div class="t">Источник контента</div><h4>Откуда берутся посты</h4>
+        <ul>
+          <li>Собственная база проектов — основной источник, обновляется каждым новым клиентом</li>
+          <li>Вопросы и скрины из комментариев — бесплатное и бесконечное сырьё</li>
+          <li>Коммерческие предложения конкурентов, которые присылают читатели</li>
+          <li>Записи консультаций: каждая даёт один пост и один разрез в базу</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><div><h2>Рубрикатор</h2><p class="ru">Пятнадцать рубрик с примерами постов</p></div></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Рубрика</th><th>Суть и формат</th><th>Пример поста</th><th>Частота</th></tr></thead>
+        <tbody>
+          <tr><td class="rn" data-label="Рубрика"><b>Цифра недели</b><em>Telegram, карточка</em></td><td data-label="Суть">Одно число из базы и один вывод. Флагманская рубрика: именно её пересылают</td><td class="ex" data-label="Пример"><q>Заявка на дом из газобетона в Подмосковье в феврале — 4 900 ₽. В июне — 11 300 ₽. Разница в 2,3 раза и есть цена промедления</q></td><td class="fr" data-label="Частота">Еженедельно</td></tr>
+          <tr><td class="rn" data-label="Рубрика"><b>Норма и отклонение</b><em>Сайт + анонс в канале</em></td><td data-label="Суть">Бенчмарк по нише и признаки, по которым читатель поймёт, что у него плохо</td><td class="ex" data-label="Пример"><q>Норма доходимости пациента до кресла — 45–60%. Если у вас 30%, дело почти никогда не в рекламе. Три места, где теряются остальные</q></td><td class="fr" data-label="Частота">2 раза в месяц</td></tr>
+          <tr><td class="rn" data-label="Рубрика"><b>Слепой разбор</b><em>Telegram, скрин + диагноз</em></td><td data-label="Суть">Читатель присылает скрин кабинета или отчёта без пояснений — автор ставит диагноз, не зная контекста. Главный двигатель вовлечения</td><td class="ex" data-label="Пример"><q>Прислали отчёт без комментариев. Вижу 340 заявок и ни одного упоминания договоров — значит, их считать нечем. Дальше по пунктам</q></td><td class="fr" data-label="Частота">Еженедельно</td></tr>
+          <tr><td class="rn" data-label="Рубрика"><b>Три вопроса подрядчику</b><em>Telegram, короткий список</em></td><td data-label="Суть">Даёт читателю власть в переговорах. Отсеивает слабых подрядчиков за минуту</td><td class="ex" data-label="Пример"><q>Спросите: сколько стоит заявка в моём городе в марте? Если ответ начинается со слов «зависит от многого» — у него нет данных, только надежда</q></td><td class="fr" data-label="Частота">2 раза в месяц</td></tr>
+          <tr><td class="rn" data-label="Рубрика"><b>Сколько это стоило на самом деле</b><em>Сайт, длинный разбор</em></td><td data-label="Суть">Анонимный разбор чужого провала с полными цифрами и согласия участника</td><td class="ex" data-label="Пример"><q>Клиника потратила 1,2 млн за полгода и получила 14 пациентов на импланты. Разбираем по месяцам, где именно утекли деньги</q></td><td class="fr" data-label="Частота">Ежемесячно</td></tr>
+          <tr><td class="rn" data-label="Рубрика"><b>Мои провалы с чеками</b><em>Telegram, от первого лица</em></td><td data-label="Суть">Собственные неудачные проекты с суммами и выводами. Редкий формат — и потому самый убедительный</td><td class="ex" data-label="Пример"><q>Обещал клиенту заявку по 6 000, вышло 11 400. Ошибся в сезонности на месяц. Вернули часть абонемента, вот что изменили в методике расчёта</q></td><td class="fr" data-label="Частота">Раз в квартал</td></tr>
+          <tr><td class="rn" data-label="Рубрика"><b>Сезонная карта</b><em>Сайт, обновляемая страница</em></td><td data-label="Суть">Календарь окон найма и цен по месяцам для каждой из четырёх ниш</td><td class="ex" data-label="Пример"><q>Свадебная площадка, которая начинает продавать в апреле, опоздала на полгода: 70% дат мая бронируют в ноябре–январе</q></td><td class="fr" data-label="Частота">Ежеквартально</td></tr>
+          <tr><td class="rn" data-label="Рубрика"><b>Перевод с маркетингового</b><em>Telegram, мини-словарь</em></td><td data-label="Суть">Один термин на языке смет, кресел и нормо-часов</td><td class="ex" data-label="Пример"><q>«Атрибуция» — это ответ на вопрос, чей звонок засчитать рекламе, если человек сначала увидел щит, а потом загуглил вас по названию. От ответа зависит, кому вы платите премию</q></td><td class="fr" data-label="Частота">2 раза в месяц</td></tr>
+          <tr><td class="rn" data-label="Рубрика"><b>Считаем вслух</b><em>Telegram, аудио 3 минуты</em></td><td data-label="Суть">Публичный расчёт экономики по вводным, присланным подписчиком</td><td class="ex" data-label="Пример"><q>Пять бригад, чек 4,5 млн, маржа 18%. Считаем предельную цену договора и сколько заявок нужно в марте, чтобы не простаивать в мае</q></td><td class="fr" data-label="Частота">Раз в 2 недели</td></tr>
+          <tr><td class="rn" data-label="Рубрика"><b>Спор</b><em>Telegram, полемика с данными</em></td><td data-label="Суть">Разбор популярного утверждения рынка — с цифрами против или за</td><td class="ex" data-label="Пример"><q>«Оплата за лид выгоднее абонемента». Посчитал на 12 проектах: выгоднее в двух. В остальных десяти вы платите за заявку, проданную ещё троим</q></td><td class="fr" data-label="Частота">Ежемесячно</td></tr>
+          <tr><td class="rn" data-label="Рубрика"><b>Что не так с этим КП</b><em>Telegram, разбор документа</em></td><td data-label="Суть">Обезличенные коммерческие предложения, присланные читателями. Ставит автора на сторону читателя против рынка</td><td class="ex" data-label="Пример"><q>В этом КП обещают 150 заявок и не указывают, что считается заявкой. Три места, где формулировка позволит подрядчику засчитать что угодно</q></td><td class="fr" data-label="Частота">2 раза в месяц</td></tr>
+          <tr><td class="rn" data-label="Рубрика"><b>Цена вашей скидки</b><em>Сайт, калькулятор</em></td><td data-label="Суть">Расчёт, во что обходится снижение цены по сравнению с рекламой. Бьёт в настоящего конкурента — привычку демпинговать</td><td class="ex" data-label="Пример"><q>Скидка 10% на доме за 5 млн — это 500 000 ₽ с объекта. За эти деньги можно купить 60 заявок и закрыть три дома по полной цене</q></td><td class="fr" data-label="Частота">Постоянная страница</td></tr>
+          <tr><td class="rn" data-label="Рубрика"><b>Отчёт, который можно показать</b><em>Сайт, шаблоны</em></td><td data-label="Суть">Шаблоны отчётности для показа партнёру, банку или застройщику</td><td class="ex" data-label="Пример"><q>Как выглядит отчёт, с которым не стыдно прийти к партнёру: четыре цифры, одно сравнение с планом, ноль слова «охват»</q></td><td class="fr" data-label="Частота">Ежеквартально</td></tr>
+          <tr><td class="rn" data-label="Рубрика"><b>Индекс</b><em>Сайт + канал, событие</em></td><td data-label="Суть">Ежеквартальный выпуск полного отчёта. Главное событие блога и повод для отраслевых медиа</td><td class="ex" data-label="Пример"><q>Индекс за третий квартал: цена заявки выросла в трёх нишах из четырёх. Полный разрез по 11 регионам внутри</q></td><td class="fr" data-label="Частота">Ежеквартально</td></tr>
+          <tr><td class="rn" data-label="Рубрика"><b>Открытая дверь</b><em>Telegram, единственная продажа</em></td><td data-label="Суть">Три слота бесплатного разбора в месяц — с прямо названными условиями и отсевом</td><td class="ex" data-label="Пример"><q>Три слота на март. Беру тех, у кого есть цифры за последние 3 месяца и человек, который отвечает на звонки. Без этого разбор бессмыслен</q></td><td class="fr" data-label="Частота">Ежемесячно</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">05</span><div><h2>Tone of Voice</h2><p class="ru">Ближе к бухгалтеру, чем к коучу</p></div></div>
+    <p class="lede">Регистр — <strong>спокойный профессионал, который считает</strong>. Не гуру, не друг, не разоблачитель. Читатель — собственник сорока лет, который управляет людьми и деньгами; снисходительность и фамильярность он считывает мгновенно, а восторженный тон воспринимает как признак того, что продают.</p>
+
+    <div class="grid">
+      <div class="card"><div class="t">Характеристики речи</div><h4>Как звучит</h4>
+        <ul>
+          <li>Число в первом предложении. Если числа нет, пост не публикуется</li>
+          <li>Единица измерения читателя: не «конверсия», а «сколько из десяти доехало на замер»</li>
+          <li>Короткие предложения, без придаточных на три строки</li>
+          <li>Никаких превосходных степеней и усилителей: «значительно», «кратно», «мощно»</li>
+          <li>Готовность сказать «не знаю» и назвать размер выборки</li>
+          <li>Обращение на «вы», без массового «друзья» и «коллеги»</li>
+        </ul>
+      </div>
+      <div class="card"><div class="t">Эмоциональный регистр</div><h4>Где эмоция уместна</h4>
+        <ul>
+          <li><b>Сухо</b> — в цифрах и методологии. Это база</li>
+          <li><b>Жёстко</b> — когда разбирается формулировка, позволяющая подрядчику обмануть. Здесь автор на стороне читателя</li>
+          <li><b>Спокойно и по-человечески</b> — в рубрике о собственных провалах. Без самобичевания и без бравады</li>
+          <li><b>Никогда воодушевлённо.</b> Восторг в этом канале означает, что что-то продают</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="voice">
+      <div class="vc yes">
+        <h4>Так говорим</h4>
+        <ul>
+          <li>«Медиана по 34 проектам — 7 400 ₽. Разброс от 3 100 до 19 800, ниже объясню, откуда такая вилка.»</li>
+          <li>«Не знаю. По Дальнему Востоку у меня четыре проекта — этого мало, чтобы называть цифру.»</li>
+          <li>«Это дорого. В марте будет дороже вдвое — решайте сейчас.»</li>
+          <li>«Если подрядчик не отвечает на этот вопрос за минуту, у него нет данных. Это не обязательно обман, но платить за его обучение будете вы.»</li>
+          <li>«Здесь я ошибся: заложил сезонность на месяц раньше. Вот что изменил в методике.»</li>
+          <li>«Ваша проблема не в рекламе. Заявки есть, их не берут в работу — посмотрите записи звонков за прошлый вторник.»</li>
+        </ul>
+      </div>
+      <div class="vc no">
+        <h4>Так не говорим</h4>
+        <ul>
+          <li>«Друзья, сегодня хочу поделиться с вами…»</li>
+          <li>«Взрывной рост заявок» · «кратно увеличили» · «результат превзошёл ожидания»</li>
+          <li>«Топ-5 ошибок, которые убивают ваш маркетинг»</li>
+          <li>«В 2026 году всё изменится, и вот к чему готовиться»</li>
+          <li>«Пишите в личку — разберём вашу ситуацию» (вместо этого — конкретная рубрика с условиями и слотами)</li>
+          <li>«Мы душой болеем за каждый проект»</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rule">
+      <h3>Как автор ведёт себя в комментариях</h3>
+      <ul>
+        <li><b>Отвечает цифрой или «не знаю».</b> Третьего варианта нет</li>
+        <li><b>Не спорит о вкусах</b> — только о величинах. «Креатив плохой» не обсуждается, «заявка дорогая» обсуждается</li>
+        <li><b>Не уводит полезный разговор в личку.</b> Если вопрос интересен многим, ответ остаётся публичным — это и есть контент</li>
+        <li><b>Не защищается от критики цифр</b>, а просит встречные данные. Это единственный способ пополнять базу бесплатно</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">06</span><div><h2>Метрики успеха</h2><p class="ru">Четыре уровня и то, что не считается вовсе</p></div></div>
+    <p class="lede">Для узкого B2B-канала абсолютное число подписчиков почти ничего не говорит. <strong>Тысяча собственников из четырёх ниш стоит дороже двадцати тысяч случайных читателей</strong>, поэтому качество аудитории замеряется отдельно и прямым опросом.</p>
+
+    <div class="mets">
+      <div class="mg">
+        <h4><span>Уровень 1</span> Аудитория и охват</h4>
+        <ul>
+          <li><b>Подписчики:</b> 600 к третьему месяцу, 1 200 к шестому, 3 000 к двенадцатому</li>
+          <li><b>Доля целевых</b> — собственники и ЛПР из четырёх ниш: ≥ 60%, замеряется опросом в канале раз в квартал</li>
+          <li><b>ERR</b> (охват к числу подписчиков): ≥ 40% — норма для узкого профессионального канала</li>
+          <li><b>Доля пересылок от охвата:</b> ≥ 3%. Ключевая метрика: пересылка здесь и есть дистрибуция</li>
+          <li><b>Прирост без закупки</b> — доля органических подписок ≥ 50% со второго полугодия</li>
+        </ul>
+      </div>
+      <div class="mg">
+        <h4><span>Уровень 2</span> Вовлечение и доверие</h4>
+        <ul>
+          <li><b>Материал от читателей:</b> ≥ 8 присланных скринов, КП или вводных в месяц — топливо для трёх рубрик</li>
+          <li><b>Глубина чтения на сайте:</b> ≥ 4 минуты на длинных разборах</li>
+          <li><b>Скачивания индекса:</b> ≥ 350 в месяц на выходе на режим</li>
+          <li><b>Возвраты:</b> доля повторных визитов на сайт ≥ 35%</li>
+          <li><b>Ответы на опросы-калибровки:</b> ≥ 15% подписчиков — показатель живой, а не накрученной аудитории</li>
+        </ul>
+      </div>
+      <div class="mg">
+        <h4><span>Уровень 3</span> Заявки и продажи</h4>
+        <ul>
+          <li><b>Заявки на бесплатный разбор:</b> 5 в месяц к третьему месяцу, 10 к шестому, 15–20 к двенадцатому</li>
+          <li><b>Конверсия подписчика в заявку:</b> 0,5–1% в месяц</li>
+          <li><b>Разбор → предрасчёт:</b> ≥ 60%</li>
+          <li><b>Предрасчёт → договор:</b> 35–45%</li>
+          <li><b>Доля сделок с источником «блог»:</b> ≥ 30% к концу года</li>
+          <li><b>CAC из блога</b> против CAC из контекста — должен быть кратно ниже к третьему кварталу</li>
+        </ul>
+      </div>
+      <div class="mg">
+        <h4><span>Уровень 4</span> Персональный бренд</h4>
+        <ul>
+          <li><b>Цитирования и ссылки на индекс:</b> ≥ 10 за квартал</li>
+          <li><b>Приглашения на отраслевые события:</b> ≥ 4 за год, без самостоятельной подачи заявки</li>
+          <li><b>Упоминания в чужих каналах</b> без вашего участия — отслеживаются сервисами аналитики Telegram</li>
+          <li><b>Запросы на комментарий от отраслевых медиа</b> — признак того, что позиция источника нормы занята</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rule">
+      <h3>Что не считается метрикой</h3>
+      <ul>
+        <li><b>Лайки и реакции.</b> Растут от эмоциональных постов и падают от полезных таблиц — ровно наоборот целям блога</li>
+        <li><b>Число публикаций.</b> Как дисциплина — да, как показатель результата — прямой путь к производству контента ради отчёта</li>
+        <li><b>Абсолютный охват без доли целевых.</b> Виральный пост, приведший тысячу маркетологов вместо ста собственников, ухудшает канал, а не улучшает</li>
+      </ul>
+    </div>
+
+    <div class="cps">
+      <div class="cp"><span class="m">Как измеряем</span><p><b>UTM на каждой ссылке</b> из канала, отдельная посадочная под бесплатный разбор</p></div>
+      <div class="cp"><span class="m">Как измеряем</span><p><b>Обязательный вопрос «откуда узнали»</b> на первом звонке, поле в CRM</p></div>
+      <div class="cp"><span class="m">Как измеряем</span><p><b>Квартальный опрос в канале</b> о нише, роли и городе подписчика</p></div>
+      <div class="cp"><span class="m">Как измеряем</span><p><b>Внешняя аналитика Telegram</b> для упоминаний и источников прироста</p></div>
+    </div>
+  </section>
+
+  <footer>Концепция экспертного блога · «Цена клиента» · Telegram и сайт</footer>
+</div>
