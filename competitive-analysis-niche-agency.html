@@ -1,0 +1,521 @@
+<title>Конкурентное поле агентства</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Unbounded:wght@600&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F0;--surface:#FFFFFF;--surface-2:#E8EBE7;
+    --ink:#15191C;--ink-2:#454E54;--ink-3:#6E787E;
+    --line:#CDD3CE;--line-soft:#DEE2DC;
+    --route:#1F44C8;--route-soft:#E4E8FB;
+    --signal:#B93A28;--signal-soft:#F7E5E1;
+    --band:#E2E6E0;--shadow:0 1px 0 rgba(21,25,28,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0E1215;--surface:#161B1F;--surface-2:#1D2429;
+      --ink:#E7EBE7;--ink-2:#B0B9BC;--ink-3:#828D92;
+      --line:#2C353A;--line-soft:#232B30;
+      --route:#8AA5FF;--route-soft:#1A2340;
+      --signal:#F0836C;--signal-soft:#331B16;
+      --band:#1D2429;--shadow:0 1px 0 rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E1215;--surface:#161B1F;--surface-2:#1D2429;
+    --ink:#E7EBE7;--ink-2:#B0B9BC;--ink-3:#828D92;
+    --line:#2C353A;--line-soft:#232B30;
+    --route:#8AA5FF;--route-soft:#1A2340;
+    --signal:#F0836C;--signal-soft:#331B16;
+    --band:#1D2429;--shadow:0 1px 0 rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);
+    font-family:"Golos Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+
+  header.mast{padding:clamp(40px,7vw,80px) 0 clamp(26px,4vw,40px);border-bottom:2px solid var(--ink)}
+  .eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--route);margin:0 0 clamp(16px,3vw,26px);
+    display:flex;align-items:center;gap:12px}
+  .eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+  h1{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(28px,5vw,54px);line-height:1.05;letter-spacing:-.02em;
+    margin:0 0 20px;text-wrap:balance;max-width:16ch}
+  .deck{font-size:clamp(16px,1.9vw,20px);color:var(--ink-2);max-width:66ch;margin:0}
+
+  section{padding:clamp(42px,6vw,72px) 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  .sec-head{display:flex;gap:16px;align-items:baseline;margin-bottom:clamp(20px,3vw,32px)}
+  .sec-num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;font-weight:500;
+    color:var(--route);padding-top:.35em}
+  h2{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(21px,2.8vw,30px);line-height:1.2;letter-spacing:-.015em;margin:0;text-wrap:balance}
+  h3{font-size:13px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 12px}
+  p{margin:0 0 1em}p:last-child{margin-bottom:0}
+  .lede{font-size:clamp(17px,2vw,19px);color:var(--ink-2);max-width:68ch}
+  .lede strong{color:var(--ink);font-weight:600}
+  a{color:var(--route)}
+  :focus-visible{outline:2px solid var(--route);outline-offset:2px}
+
+  .gap{background:var(--signal-soft);border-left:3px solid var(--signal);
+    padding:clamp(18px,2.4vw,26px);border-radius:0 3px 3px 0}
+  .gap h3{color:var(--signal)}
+  .gap ul{margin:0;padding-left:1.15em;color:var(--ink);display:flex;flex-direction:column;gap:8px;max-width:80ch}
+
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:clamp(20px,3vw,30px)}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:16px 18px}
+  .stat .v{font-family:"Unbounded","Golos Text",sans-serif;font-size:clamp(19px,2.4vw,25px);
+    font-weight:600;letter-spacing:-.02em;color:var(--route);line-height:1.1;margin-bottom:8px;
+    font-variant-numeric:tabular-nums}
+  .stat .k{font-size:13.5px;color:var(--ink-2);line-height:1.45}
+
+  .comp{display:flex;flex-direction:column;gap:14px;margin-top:clamp(20px,3vw,30px)}
+  .c{background:var(--surface);border:1px solid var(--line);border-radius:3px;box-shadow:var(--shadow);overflow:hidden}
+  .c-top{display:flex;gap:14px;align-items:flex-start;padding:18px clamp(16px,2vw,22px) 0}
+  .c-n{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--paper);
+    background:var(--ink);border-radius:3px;padding:5px 8px;flex:none;margin-top:3px}
+  .c-top h4{margin:0 0 6px;font-size:clamp(17px,2vw,20px);font-weight:600;line-height:1.25}
+  .c-top .lead{margin:0;font-size:14.5px;color:var(--ink-2);max-width:82ch}
+  .c-rows{padding:16px clamp(16px,2vw,22px) 18px;display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 clamp(18px,2.4vw,30px)}
+  .r{padding:10px 0;border-top:1px solid var(--line-soft)}
+  .r dt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-3);margin-bottom:5px}
+  .r dd{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+  .r.pro dt{color:var(--route)}
+  .r.con dt{color:var(--signal)}
+  .r.con dd{color:var(--ink)}
+  .nodata{font-style:italic;color:var(--ink-3)}
+
+  /* quadrant map */
+  .map{margin-top:clamp(22px,3vw,32px);display:grid;
+    grid-template-columns:38px 1fr;grid-template-rows:1fr 38px;gap:10px}
+  .y-ax,.x-ax{display:flex;align-items:center;justify-content:center;
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-3);text-align:center}
+  .y-ax{writing-mode:vertical-rl;transform:rotate(180deg)}
+  .quads{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .q{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:clamp(14px,2vw,20px);min-height:150px}
+  .q .qt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--ink-3);margin-bottom:9px}
+  .q h5{margin:0 0 9px;font-size:16px;font-weight:600;line-height:1.25}
+  .q p{margin:0;font-size:14px;color:var(--ink-2);line-height:1.5}
+  .q.hot{background:var(--signal-soft);border-color:var(--signal)}
+  .q.hot h5{color:var(--signal)}
+  .q.free{background:var(--route-soft);border-color:var(--route);border-width:2px}
+  .q.free h5{color:var(--route)}
+  .corner{}
+
+  .zones{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(16px,2.2vw,26px);margin-top:clamp(22px,3vw,32px)}
+  .z h3{margin-bottom:14px}
+  .z ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .z li{padding-left:18px;position:relative;font-size:15px;color:var(--ink-2);line-height:1.5}
+  .z li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1.5px;background:var(--signal)}
+  .z.free li::before{background:var(--route)}
+  .z li b{color:var(--ink);font-weight:600}
+
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface);margin-top:clamp(20px,3vw,30px)}
+  table{border-collapse:collapse;width:100%;min-width:940px;font-size:14.5px;line-height:1.5}
+  thead th{background:var(--ink);color:var(--paper);font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-weight:500;font-size:11px;letter-spacing:.11em;text-transform:uppercase;
+    text-align:left;padding:12px 15px}
+  td{padding:15px;border-bottom:1px solid var(--line-soft);vertical-align:top;color:var(--ink-2)}
+  tr:last-child td{border-bottom:0}
+  td.dir{color:var(--ink);width:17%}
+  td.dir b{display:block;font-weight:600;font-size:15.5px;line-height:1.3;margin-bottom:5px}
+  td.dir em{font-style:normal;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--route)}
+  td.term{white-space:nowrap;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;color:var(--ink)}
+  td.eff{color:var(--ink)}
+
+  .swot{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(14px,2vw,20px);margin-top:clamp(20px,3vw,30px)}
+  .sw{border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:clamp(16px,2vw,22px)}
+  .sw h4{margin:0 0 12px;font-size:15px;font-weight:600;display:flex;align-items:center;gap:9px}
+  .sw h4 span{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+    border:1px solid var(--line);border-radius:2px;padding:2px 6px;color:var(--ink-3)}
+  .sw ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;font-size:14.5px;color:var(--ink-2)}
+  .sw li{padding-left:17px;position:relative;line-height:1.5}
+  .sw li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1.5px;background:var(--route)}
+  .sw.neg li::before{background:var(--signal)}
+
+  .final{margin-top:clamp(22px,3vw,32px);background:var(--route-soft);border-left:3px solid var(--route);
+    padding:clamp(20px,3vw,32px);border-radius:0 3px 3px 0}
+  .final p{font-size:clamp(16px,2vw,19px);color:var(--ink);max-width:72ch}
+  .final .claim{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(18px,2.4vw,24px);line-height:1.25;letter-spacing:-.015em;color:var(--route);
+    margin:0 0 18px;text-wrap:balance}
+
+  footer{padding:36px 0 56px;color:var(--ink-3);font-size:13px}
+  footer h3{margin-bottom:14px}
+  footer ol{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px;max-width:80ch}
+  footer li{line-height:1.5}
+
+  @media (max-width:820px){
+    .quads{grid-template-columns:1fr}
+    .map{grid-template-columns:1fr;grid-template-rows:auto auto auto}
+    .y-ax{writing-mode:horizontal-tb;transform:none;justify-content:flex-start}
+    .x-ax{justify-content:flex-start}
+  }
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow">Конкурентный анализ · рынок маркетинговых услуг</p>
+    <h1>Конкурентное поле агентства</h1>
+    <p class="deck">Восемь групп конкурентов, карта поля, зоны насыщения и свободные ниши, шесть точек дифференциации с планом внедрения и вывод о позиционировании. Для нишевого агентства 3–10 человек в сегменте услуг с дорогой сделкой.</p>
+  </header>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">00</span><h2>Что здесь подтверждено, а что нет</h2></div>
+    <p class="lede">Это первый блок сознательно: без него анализ выглядел бы точнее, чем он есть. Ниже — граница между проверяемыми данными и реконструкцией.</p>
+    <div class="stats" style="margin-bottom:clamp(22px,3vw,32px)">
+      <div class="stat"><div class="v">Есть</div><div class="k">Публичные рыночные данные: объём рынка, динамика CPL в недвижимости, открытые прайсы отраслевых агентств, критика моделей с гарантиями. Всё со ссылками в конце.</div></div>
+      <div class="stat"><div class="v">Реконструкция</div><div class="k">Группировка конкурентов по бизнес-моделям и их сильные/слабые стороны: выведены из открытых предложений и структуры рынка, а не из внутренних данных компаний.</div></div>
+      <div class="stat"><div class="v">Нет</div><div class="k">Данных о ваших конкретных локальных конкурентах — вы не называли ни город, ни имена компаний.</div></div>
+    </div>
+    <div class="gap">
+      <h3>Пробелы, которые я не стал заполнять догадками</h3>
+      <ul>
+        <li><b>Имена и цифры конкурентов в вашем регионе.</b> Названные ниже компании — публичные примеры бизнес-моделей с открытыми прайсами, а не утверждение, что именно они лежат у вас на столе. Слабые стороны сформулированы как слабости модели, а не как обвинения в адрес конкретной фирмы.</li>
+        <li><b>Визуальная идентичность конкурентов.</b> Постраничный визуальный аудит я не проводил. Ниже — паттерны, читаемые по публичным заголовкам и структуре предложений; полноценный визуальный разбор нужно делать по скриншотам, это отдельная работа.</li>
+        <li><b>Реальные бюджеты, маржинальность, отток и NPS конкурентов.</b> Эти данные закрыты. Любые цифры здесь были бы выдумкой.</li>
+        <li><b>Ваши собственные показатели.</b> Средний чек, LTV клиента, число проектов в базе и география в интервью не назывались — а без них нельзя посчитать запас прочности при повышении цены.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Рынок: что известно точно</h2></div>
+    <div class="stats">
+      <div class="stat"><div class="v">1,236 трлн ₽</div><div class="k">Объём рынка интернет-рекламы в России по итогам 2024 года, рост на 53%. Темп роста опережает мировой в 4–5 раз — а значит, растут и конкуренция, и цены.</div></div>
+      <div class="stat"><div class="v">3 слоя</div><div class="k">Рынок агентств расслоился: крупные digital-группы с performance-департаментами, профильные нишевые агентства и студии на 5–15 проектов, работающие руками. Вы в третьем слое, конкурируете со вторым.</div></div>
+      <div class="stat"><div class="v">+25–30%</div><div class="k">Рост стоимости целевого лида в недвижимости: с 15 600 ₽ до 19 500–20 300 ₽. Квалифицированный лид по рынку — 7 900–17 000 ₽, примерно на треть выше уровня 2022–2023 годов.</div></div>
+      <div class="stat"><div class="v">160–220 тыс. ₽</div><div class="k">Стоимость одной продажи через лидогенерацию в недвижимости. Цена ошибки в подрядчике измеряется не бюджетом, а упущенными сделками.</div></div>
+      <div class="stat"><div class="v">~120 тыс. ₽</div><div class="k">Средний чек агентства в месяц по рынку. Ведение контекста — 25–100 тыс. ₽/мес либо 10–20% рекламного бюджета; фикс начинается примерно от 40 тыс. ₽.</div></div>
+      <div class="stat"><div class="v">47%</div><div class="k">Доля РСЯ в уникальных обращениях застройщиков в digital — канальная концентрация, которая делает прогноз по каналам более предсказуемым, чем принято считать.</div></div>
+    </div>
+    <p class="lede" style="margin-top:clamp(20px,3vw,30px)"><strong>Главный вывод из цифр:</strong> заявка дорожает быстрее, чем растут бюджеты клиентов. Ценность точного прогноза стоимости заявки растёт вместе с её ценой — то есть ваш выигрышный аргумент усиливается самим рынком.</p>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Восемь групп конкурентов</h2></div>
+    <p class="lede">По каждой группе: продукт, цены (где публичны), каналы, тональность, приёмы, сильные и слабые стороны. Где данных нет — это сказано прямо.</p>
+
+    <div class="comp">
+
+      <article class="c">
+        <div class="c-top"><span class="c-n">01</span><div>
+          <h4>Крупные digital-группы и агентства полного цикла</h4>
+          <p class="lead">Верхний слой рынка. Работают с федеральными брендами, сетями и крупными застройщиками, имеют performance-департаменты и собственную аналитику.</p>
+        </div></div>
+        <div class="c-rows">
+          <div class="r"><dt>Продукты</dt><dd>Стратегия, performance, медийная реклама, продакшн, сквозная аналитика, ретейл-медиа, брендформанс.</dd></div>
+          <div class="r"><dt>Цены</dt><dd>Публично почти не раскрываются. Ориентир по рынку — от 60 000 ₽/мес за одно направление, крупные проекты кратно выше. <span class="nodata">Точных прайсов по конкретным группам в открытом доступе нет.</span></dd></div>
+          <div class="r"><dt>Каналы</dt><dd>Отраслевые рейтинги и премии, конференции, тендеры, PR в деловых и профильных медиа, экспертные колонки.</dd></div>
+          <div class="r"><dt>Тональность и визуал</dt><dd>Корпоративный, безличный, «партнёр по росту бизнеса». Визуально — сдержанные системы, крупная типографика, витрина логотипов клиентов. <span class="nodata">Оценка по публичным материалам, без полного аудита.</span></dd></div>
+          <div class="r"><dt>УТП и приёмы</dt><dd>Масштаб и позиция в рейтингах, логотипы клиентов, собственные исследования рынка, участие в премиях, экспертный контент.</dd></div>
+          <div class="r pro"><dt>Сильные стороны</dt><dd>Ресурс и устойчивость, доступ к тендерам, технологическая база, репутация как аргумент для наёмного ЛПР.</dd></div>
+          <div class="r con"><dt>Слабые стороны</dt><dd>Дорогой вход и длинные согласования; проект часто ведут младшие специалисты; малый и средний бизнес обслуживается по остаточному принципу. С вашим клиентом почти не пересекаются — кроме верхнего края вашей ниши.</dd></div>
+        </div>
+      </article>
+
+      <article class="c">
+        <div class="c-top"><span class="c-n">02</span><div>
+          <h4>Профильные нишевые агентства — ваш прямой конкурент</h4>
+          <p class="lead">Именно эта группа, по вашим словам, лежит на столе рядом с вашим КП. Публичные примеры с открытыми ценами: в медицине — Team-B, MedMarketing, «Медико Маркетинг», Doctorpromo, MedTarget; в недвижимости — «Лидсити», работающее только с первичным рынком.</p>
+        </div></div>
+        <div class="c-rows">
+          <div class="r"><dt>Продукты</dt><dd>Комплекс под отрасль: сайт и посадочные, контекст, карты, агрегаторы, репутация, коллтрекинг, CRM, работа с администраторами и отделом продаж.</dd></div>
+          <div class="r"><dt>Цены (проверяемые)</dt><dd>MedMarketing — от 50 000 ₽/мес плюс бонус за рост выручки; Team-B — от 65 000 ₽/мес; «Медико Маркетинг» — 170 000 ₽/мес в первые два месяца, 160 000 ₽ в третий–четвёртый, от 140 000 ₽ с пятого.</dd></div>
+          <div class="r"><dt>Каналы</dt><dd>SEO по отраслевым запросам, кейсы на профильных площадках, отраслевые конференции и вебинары, Telegram, партнёрства с поставщиками оборудования.</dd></div>
+          <div class="r"><dt>Тональность и визуал</dt><dd>Экспертная, «мы говорим на языке вашей отрасли», часто с обещанием в цифре прямо в заголовке — вплоть до «привлечение пациентов +50%». Визуал — отраслевой, аккуратный, без риска.</dd></div>
+          <div class="r"><dt>УТП и приёмы</dt><dd>Отраслевая специализация, кейсы с процентами роста, бонус за увеличение выручки, пакетирование «под ключ», ступенчатый прайс со снижением цены к пятому месяцу.</dd></div>
+          <div class="r pro"><dt>Сильные стороны</dt><dd>Реально понимают отрасль и её ограничения, имеют готовые процессы и отраслевую лексику, вызывают доверие самим фактом специализации.</dd></div>
+          <div class="r con"><dt>Слабые стороны</dt><dd><b>Специализация перестала различать:</b> все говорят одно и то же и показывают похожие кейсы. Обещания в процентах непроверяемы до сделки. Экономика конкретного города и месяца не раскрывается до подписания. Ступенчатый прайс с понижением выдаёт ставку на удержание клиента ценой, а не результатом.</dd></div>
+        </div>
+      </article>
+
+      <article class="c">
+        <div class="c-top"><span class="c-n">03</span><div>
+          <h4>Лидоген-подрядчики с оплатой за заявку</h4>
+          <p class="lead">Продают не работу, а готовые заявки. Публичные примеры модели: VICTORY group (лиды на строительство домов и бань), «Нефтетрафик», Progress-leads (лиды на новостройки).</p>
+        </div></div>
+        <div class="c-rows">
+          <div class="r"><dt>Продукты</dt><dd>Квалифицированные заявки по согласованным критериям: собственный колл-центр прозванивает и отсеивает, в заявке передаются параметры объекта — тип, материал, площадь, бюджет.</dd></div>
+          <div class="r"><dt>Цены</dt><dd>В рекламе фигурируют «лиды от 150 ₽» и «лидогенерация от 9 000 ₽/мес» — при том что по отраслевым обзорам целевой лид в недвижимости стоит 12 500–20 300 ₽, а квалифицированный 7 900–17 000 ₽. Разрыв в два порядка — прямой индикатор несопоставимости качества.</dd></div>
+          <div class="r"><dt>Каналы</dt><dd>Контекст по коммерческим запросам, агрегаторы, холодные продажи, партнёрские сети.</dd></div>
+          <div class="r"><dt>Тональность и визуал</dt><dd>Результатная и напористая: «платите только за результат», «железные лиды». Визуально — конверсионные лендинги с калькуляторами и счётчиками.</dd></div>
+          <div class="r"><dt>УТП и приёмы</dt><dd>Оплата за результат, перенос риска на подрядчика, квалификация колл-центром, обещание фиксированной цены заявки.</dd></div>
+          <div class="r pro"><dt>Сильные стороны</dt><dd>Механика понятна собственнику за минуту, риск формально на стороне подрядчика, быстрый старт без погружения.</dd></div>
+          <div class="r con"><dt>Слабые стороны</dt><dd>Одна заявка нередко продаётся нескольким подрядчикам. По критике рынка модель CPL часто означает закупку дешёвого трафика, формально засчитываемого целевым. Бренд клиента не растёт — он арендует спрос. Спор о том, что считать «целевой заявкой», встроен в модель.</dd></div>
+        </div>
+      </article>
+
+      <article class="c">
+        <div class="c-top"><span class="c-n">04</span><div>
+          <h4>Классифайды, агрегаторы и площадки</h4>
+          <p class="lead">Формально не агентства — но конкурируют за тот же бюджет клиента и часто выигрывают его без всякой презентации. Авито, Циан, Домклик, агрегаторы врачей, свадебные каталоги.</p>
+        </div></div>
+        <div class="c-rows">
+          <div class="r"><dt>Продукты</dt><dd>Платное продвижение объявлений и анкет, приоритет в выдаче, пакеты лидов, брендированные витрины.</dd></div>
+          <div class="r"><dt>Цены</dt><dd>Тарифицированы внутри кабинета и сильно зависят от категории и региона. <span class="nodata">Сопоставимой публичной цифры по рынку нет — сравнение возможно только по конкретной категории и городу.</span></dd></div>
+          <div class="r"><dt>Каналы</dt><dd>Сама платформа, персональные менеджеры, обучающие вебинары, email-коммуникация внутри сервиса.</dd></div>
+          <div class="r"><dt>Тональность и визуал</dt><dd>Сервисная, нейтральная, инструментальная. Визуал — продуктовый интерфейс, а не рекламное сообщение.</dd></div>
+          <div class="r"><dt>УТП и приёмы</dt><dd>Готовый спрос здесь и сейчас, нулевой порог входа, «ничего не надо настраивать», геймификация продвижения внутри кабинета.</dd></div>
+          <div class="r pro"><dt>Сильные стороны</dt><dd>Спрос уже собран на площадке; клиенту не нужно ни во что вникать; результат виден в первый день.</dd></div>
+          <div class="r con"><dt>Слабые стороны</dt><dd>Клиент арендует трафик и не строит собственный актив; ставки растут, а зависимость закрепляется; площадка забирает контакт себе. Для вас это значит: реальный конкурент за бюджет часто не агентство, а строка «продвижение на площадке».</dd></div>
+        </div>
+      </article>
+
+      <article class="c">
+        <div class="c-top"><span class="c-n">05</span><div>
+          <h4>Фрилансеры и микро-команды</h4>
+          <p class="lead">Нижний ценовой слой. Именно они формируют у клиента представление о «нормальной» цене и делают ваш абонемент предметом торга.</p>
+        </div></div>
+        <div class="c-rows">
+          <div class="r"><dt>Продукты</dt><dd>Настройка и ведение одного канала: контекст, таргет, иногда сайт на конструкторе.</dd></div>
+          <div class="r"><dt>Цены</dt><dd>По рынку ведение контекста — 25 000–100 000 ₽/мес; фрилансер обычно в нижней трети этого диапазона или ниже. <span class="nodata">Верифицированных прайсов по вашему региону у меня нет.</span></dd></div>
+          <div class="r"><dt>Каналы</dt><dd>Биржи и профильные чаты, личный бренд в Telegram, рекомендации, отклики на вакансии.</dd></div>
+          <div class="r"><dt>Тональность и визуал</dt><dd>Личная, неформальная, от первого лица. Визуально — минимум: аккаунт, PDF-презентация, реже одностраничник.</dd></div>
+          <div class="r"><dt>УТП и приёмы</dt><dd>Цена, прямой контакт с исполнителем, «без наценки агентства», гибкость по задачам.</dd></div>
+          <div class="r pro"><dt>Сильные стороны</dt><dd>Дёшево, быстро, лично; собственнику психологически комфортно работать с конкретным человеком.</dd></div>
+          <div class="r con"><dt>Слабые стороны</dt><dd>Нет отраслевой базы сравнения — учится на бюджете клиента; не масштабируется в сезонный пик; исчезает без предупреждения; не закрывает аналитику и работу с отделом продаж.</dd></div>
+        </div>
+      </article>
+
+      <article class="c">
+        <div class="c-top"><span class="c-n">06</span><div>
+          <h4>Наём маркетолога в штат</h4>
+          <p class="lead">Не конкурент в привычном смысле, но альтернатива, с которой вас сравнивают по деньгам напрямую: средний чек агентства сопоставим с ФОТ одного-полутора специалистов в регионе.</p>
+        </div></div>
+        <div class="c-rows">
+          <div class="r"><dt>Продукт</dt><dd>Полная занятость специалиста внутри компании, погружение в продукт, контроль в ручном режиме.</dd></div>
+          <div class="r"><dt>Цены</dt><dd>Сопоставление прямое: фикс агентства от 40 000 ₽/мес, средний чек по рынку около 120 000 ₽/мес. <span class="nodata">Зарплатные вилки сильно зависят от региона — конкретных данных по вашему рынку нет.</span></dd></div>
+          <div class="r"><dt>Каналы</dt><dd>Работные сайты и профильные чаты — то есть решение принимается вне поля вашей коммуникации.</dd></div>
+          <div class="r"><dt>Тональность</dt><dd>Отсутствует как таковая: это внутреннее решение собственника, а не бренд.</dd></div>
+          <div class="r"><dt>Приёмы</dt><dd>Аргумент «свой человек будет предан и погружён», подкреплённый прошлым негативным опытом с подрядчиками.</dd></div>
+          <div class="r pro"><dt>Сильные стороны</dt><dd>Лояльность, доступность в любой момент, накопление знаний внутри компании.</dd></div>
+          <div class="r con"><dt>Слабые стороны</dt><dd>Один человек без базы сравнения; 3–6 месяцев на разгон; отпуск или увольнение останавливают поток целиком; нет доступа к отраслевым бенчмаркам — сравнивать себя не с чем.</dd></div>
+        </div>
+      </article>
+
+      <article class="c">
+        <div class="c-top"><span class="c-n">07</span><div>
+          <h4>Платформы самообслуживания и автоматика площадок</h4>
+          <p class="lead">Самый тихий конкурент: клиент, который решил, что «система всё сделает сама». Автостратегии и мастера кампаний в рекламных кабинетах, сервисы-посредники с кешбэком, внутренняя реклама маркетплейсов.</p>
+        </div></div>
+        <div class="c-rows">
+          <div class="r"><dt>Продукты</dt><dd>Автоматический запуск без специалиста, готовые шаблоны кампаний, обучение и сертификация, бонусы за оборот.</dd></div>
+          <div class="r"><dt>Цены</dt><dd>Для клиента формально бесплатно: платится только рекламный бюджет, сервис зарабатывает на обороте или комиссии.</dd></div>
+          <div class="r"><dt>Каналы</dt><dd>Сама площадка, обучающие вебинары и справка, партнёрские и агентские программы, email внутри кабинета.</dd></div>
+          <div class="r"><dt>Тональность и визуал</dt><dd>Обучающая и ободряющая: «вы справитесь сами». Визуал — продуктовый, дружелюбный, с онбордингом.</dd></div>
+          <div class="r"><dt>УТП и приёмы</dt><dd>Нулевой порог входа, машинное обучение вместо специалиста, бонусы за первый бюджет, бесплатные обучающие программы.</dd></div>
+          <div class="r pro"><dt>Сильные стороны</dt><dd>Бесплатно на входе, постоянно улучшается, поддержано ресурсом площадки, снимает страх сложности.</dd></div>
+          <div class="r con"><dt>Слабые стороны</dt><dd>В нишах с дорогой сделкой автостратегии охотно тратят бюджет на широкий неквалифицированный спрос; за качество заявки не отвечает никто; клиент обнаруживает проблему через два-три месяца — и приходит к вам уже с негативным опытом.</dd></div>
+        </div>
+      </article>
+
+      <article class="c">
+        <div class="c-top"><span class="c-n">08</span><div>
+          <h4>Отраслевые консультанты и наставники</h4>
+          <p class="lead">Продают не услугу, а знание: аудиты, наставничество, курсы и клубы для собственников. Забирают тот же бюджет и формируют убеждение «надо строить инхаус».</p>
+        </div></div>
+        <div class="c-rows">
+          <div class="r"><dt>Продукты</dt><dd>Разовый аудит, стратегическая сессия, наставничество на 3–6 месяцев, закрытый клуб или курс для владельцев бизнеса.</dd></div>
+          <div class="r"><dt>Цены</dt><dd><span class="nodata">Публично сопоставимых данных нет: разброс огромный, цена привязана к личному бренду конкретного консультанта, а не к объёму работ.</span></dd></div>
+          <div class="r"><dt>Каналы</dt><dd>Личный Telegram-канал, выступления на отраслевых конференциях, подкасты, закрытые сообщества, вебинары.</dd></div>
+          <div class="r"><dt>Тональность и визуал</dt><dd>Личная, авторская, часто провокационная — с разбором чужих ошибок. Визуал построен вокруг лица и имени.</dd></div>
+          <div class="r"><dt>УТП и приёмы</dt><dd>«Научим — и вы перестанете зависеть от подрядчиков», публичные разборы, бесплатный аудит как вход в воронку.</dd></div>
+          <div class="r pro"><dt>Сильные стороны</dt><dd>Высокая маржинальность, лёгкий вход без обязательств по результату, сильный личный бренд как барьер для конкурентов.</dd></div>
+          <div class="r con"><dt>Слабые стороны</dt><dd>Не делают руками — результат целиком зависит от исполнительности клиента; после курса собственник часто возвращается к подрядчику, но уже с завышенными ожиданиями и чужой терминологией.</dd></div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Карта конкурентного поля</h2></div>
+    <p class="lede">Две оси, которые реально разделяют игроков: <strong>ширина обещания</strong> (за что подрядчик берётся отвечать) и <strong>тип доказательства</strong> (чем он это подкрепляет до сделки). Отраслевая специализация осью быть перестала — она есть у всех.</p>
+
+    <div class="map">
+      <div class="y-ax">Доказательство: проверяемые данные ↑</div>
+      <div class="quads">
+        <div class="q free">
+          <div class="qt">Узкое обещание · сильные данные</div>
+          <h5>Свободная зона</h5>
+          <p>Тот, кто обещает мало, но доказывает цифрами до денег. Практически не занята: данные до сделки показывают крупные группы, но они не работают с этим клиентом, а нишевые агентства до подписания цифр не дают. Ваша территория.</p>
+        </div>
+        <div class="q">
+          <div class="qt">Широкое обещание · сильные данные</div>
+          <h5>Крупные digital-группы</h5>
+          <p>Сквозная аналитика, исследования, прогнозы — но вход дорогой, согласования долгие, а малый и средний бизнес им не интересен. Занято, но не для вашего клиента.</p>
+        </div>
+        <div class="q">
+          <div class="qt">Узкое обещание · слабые данные</div>
+          <h5>Фрилансеры и автоматика площадок</h5>
+          <p>Делают одну задачу и ни за что не отвечают. Конкуренция исключительно ценой, дно уже нащупано. Заходить сюда бессмысленно.</p>
+        </div>
+        <div class="q hot">
+          <div class="qt">Широкое обещание · слабые данные</div>
+          <h5>Зона перегрева</h5>
+          <p>Нишевые агентства с «+50%», лидогены с «железными лидами», гарантии результата. Все обещают всё и доказывают кейсами. Здесь же — скомпрометированное доверие: рынок уже знает, что возврат подменяют продлением кампании.</p>
+        </div>
+      </div>
+      <div class="corner"></div>
+      <div class="x-ax">Обещание: от трафика к сделкам →</div>
+    </div>
+
+    <div class="zones">
+      <div class="z">
+        <h3>Зоны насыщения — заходить не стоит</h3>
+        <ul>
+          <li><b>«Мы знаем вашу отрасль».</b> Заявляют все игроки второй группы. Как отстройка не работает: вас сравнивают именно с теми, кто говорит это же.</li>
+          <li><b>Гарантии и оплата за результат.</b> Насыщена и вдобавок скомпрометирована: рынку известно, что под «гарантией» часто скрыто продление кампании вместо возврата, а модель CPL — закупка дешёвого трафика, формально засчитанного целевым.</li>
+          <li><b>Демпинг.</b> «Лид от 150 ₽» и «лидогенерация от 9 000 ₽/мес» при рыночной цене квалифицированного лида 7 900–17 000 ₽. Ценовая война здесь уже проиграна всеми.</li>
+          <li><b>«Полный цикл под ключ».</b> Занято крупными группами с несопоставимым ресурсом; для команды 3–10 человек это обещание не подкреплено.</li>
+        </ul>
+      </div>
+      <div class="z free">
+        <h3>Свободные зоны — куда идти</h3>
+        <ul>
+          <li><b>Публичный бенчмарк цены заявки по узкой нише.</b> Агрегированные цифры по рынку недвижимости публикуются, но разрезов по узким сегментам, регионам и месяцам в открытом доступе нет. Пусто.</li>
+          <li><b>Граница ответственности как продаваемая ценность.</b> Никто не продаёт «за что мы не отвечаем». На фоне скомпрометированных гарантий это читается как честность, а не как слабость.</li>
+          <li><b>Предсезонный контракт.</b> В межсезонье конкуренты замолкают, а заявка стоит дешевле пиковой. Окно продаж свободно.</li>
+          <li><b>Прозрачная экономика до подписания для малого и среднего бизнеса.</b> У крупных есть, но недоступна; у нишевых — не практикуется.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Шесть точек дифференциации</h2></div>
+    <p class="lede">Каждая опирается на конкретную слабую зону конкурентов и на ваш единственный невоспроизводимый актив — накопленную отраслевую базу.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr>
+          <th>Направление</th><th>Что делаем</th><th>Срок</th><th>Формат</th><th>Ожидаемый эффект</th><th>Ресурсы</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td class="dir"><b>Прогноз до договора</b><em>Продукт</em></td>
+            <td>Свести базу в единый датасет: цена заявки по нише, региону, месяцу и каналу. Собрать шаблон предрасчёта с тремя сценариями и сделать его обязательным этапом продажи.</td>
+            <td class="term">6 недель</td>
+            <td>Расчётный лист на 1 страницу + 30-минутная защита на встрече</td>
+            <td class="eff">Усиление фактора, который уже выигрывает вам тендеры; снижение оттока по причине расхождения ожиданий</td>
+            <td>Аналитик ~40 ч, руководитель ~20 ч, таблица или простой BI</td>
+          </tr>
+          <tr>
+            <td class="dir"><b>«Индекс заявки»</b><em>Коммуникация</em></td>
+            <td>Ежеквартальный публичный отраслевой бенчмарк: сколько стоит заявка в нише по регионам и месяцам. Анонс в отраслевых Telegram-каналах и на профильных площадках, питч в отраслевые СМИ.</td>
+            <td class="term">8 недель до первого выпуска, далее ежеквартально</td>
+            <td>Отчёт 10–15 страниц + пост-выжимка + слайд для конференции</td>
+            <td class="eff">Прямое решение задачи входящего потока: цитируемость, пересылки, вход в отраслевую повестку</td>
+            <td>Аналитик ~30 ч/квартал, редактор ~20 ч, дизайн ~15 ч, бюджет на посев</td>
+          </tr>
+          <tr>
+            <td class="dir"><b>Контракт с названной границей</b><em>Сервис</em></td>
+            <td>Приложение к договору: зона ответственности сторон, критерии квалифицированной заявки, обязанности клиента. Чек-лист готовности отдела продаж на входе. Еженедельный 15-минутный созвон по одной метрике.</td>
+            <td class="term">3 недели</td>
+            <td>Приложение к договору + чек-лист + регламент созвона</td>
+            <td class="eff">Снятие вашей главной причины оттока — разошедшихся ожиданий; рост доли продлений</td>
+            <td>Юрист, руководитель ~15 ч</td>
+          </tr>
+          <tr>
+            <td class="dir"><b>Агентство, которое сужает обещание</b><em>Бренд</em></td>
+            <td>Переписать сайт под утверждение «не обещаем сделок — отвечаем за заявки». Манифест о том, почему вы не даёте гарантий, с опорой на публичную критику этих моделей. Два выступления на отраслевых конференциях в сезон.</td>
+            <td class="term">6–8 недель</td>
+            <td>Первый экран + страница «как мы работаем» + доклад</td>
+            <td class="eff">Выход из перегретого квадранта; запоминаемость формулировки дословно</td>
+            <td>Копирайтер, дизайнер, время спикера</td>
+          </tr>
+          <tr>
+            <td class="dir"><b>Витрина проекта</b><em>Пользовательский опыт</em></td>
+            <td>Один экран для клиента: заявки, цена заявки, доля квалифицированных, следующий шаг. Записи звонков рядом с цифрами. Доступ круглосуточно, ежемесячный разбор по одному шаблону.</td>
+            <td class="term">5 недель</td>
+            <td>Дашборд + ежемесячный разбор 40 минут</td>
+            <td class="eff">Снятие тревоги собственника, рост LTV и доли рекомендаций</td>
+            <td>Аналитик, шаблон отчёта, коллтрекинг</td>
+          </tr>
+          <tr>
+            <td class="dir"><b>Фикс плюс предсезонный тариф</b><em>Ценообразование</em></td>
+            <td>Ввести зимний тариф с фиксацией цены на сезон, установить нижний порог рекламного бюджета, отказаться от скидок в пользу сужения объёма работ.</td>
+            <td class="term">4 недели</td>
+            <td>Обновлённая финмодель и КП с двумя тарифами</td>
+            <td class="eff">Выручка в межсезонье; выход из ценового сравнения с демпингом</td>
+            <td>Финмодель, обновление КП и скриптов продаж</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">05</span><h2>SWOT-обоснование</h2></div>
+    <div class="swot">
+      <div class="sw">
+        <h4><span>S</span> Сильные стороны</h4>
+        <ul>
+          <li>Накопленная отраслевая база — единственный актив, который конкурент не скопирует за квартал</li>
+          <li>Расчёт до старта уже подтверждён как причина побед в тендерах</li>
+          <li>Фиксированный абонемент снимает подозрение в конфликте интересов</li>
+          <li>Узкая ниша: отраслевая лексика и понимание цикла сделки</li>
+        </ul>
+      </div>
+      <div class="sw neg">
+        <h4><span>W</span> Слабые стороны</h4>
+        <ul>
+          <li>Ответственность кончается на заявке, а клиент меряет договорами — источник оттока</li>
+          <li>Нет гарантий как аргумента в переговорах, где их предлагают конкуренты</li>
+          <li>Команда 3–10 человек — узкое горло в сезонный пик</li>
+          <li>Неизвестны собственные LTV и чек: запас прочности при повышении цены не посчитан</li>
+        </ul>
+      </div>
+      <div class="sw">
+        <h4><span>O</span> Возможности</h4>
+        <ul>
+          <li>Рынок гарантий скомпрометирован — честная граница стала свободной позицией</li>
+          <li>Заявка дорожает (+25–30% в недвижимости): ценность точного прогноза растёт вместе с ценой ошибки</li>
+          <li>Бенчмарков по узким нишам и регионам в открытом доступе нет</li>
+          <li>Концентрация каналов (РСЯ — около 47% обращений застройщиков) делает прогноз реалистичным</li>
+        </ul>
+      </div>
+      <div class="sw neg">
+        <h4><span>T</span> Угрозы</h4>
+        <ul>
+          <li>Демпинг ломает восприятие цены: «лид от 150 ₽» против рыночных 7 900–17 000 ₽</li>
+          <li>Автостратегии и площадки забирают самостоятельных клиентов до первого контакта</li>
+          <li>Крупные группы спускаются вниз по чеку в поисках объёма</li>
+          <li>Бенчмарк-отчёт скопируют — но не базу, на которой он построен</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">06</span><h2>Вывод о стратегическом позиционировании</h2></div>
+    <div class="final">
+      <p class="claim">Не №1 по цене, не по гарантиям и не по масштабу. №1 по проверяемой предсказуемости в нише услуг с дорогой сделкой.</p>
+      <p>Рынок расслоился, и в вашем слое все конкурируют одинаково: отраслевой экспертизой и обещанием результата. Обе валюты обесценились — первая потому, что есть у всех, вторая потому, что рынок уже научился не верить гарантиям. Свободной осталась единственная позиция: <strong>агентство, которое обещает меньше остальных, но единственное показывает экономику до того, как клиент заплатит</strong>.</p>
+      <p>Механика лидерства — не в коммуникации, а в активе. Публикуя отраслевой индекс цены заявки, вы перестаёте быть одним из подрядчиков и становитесь источником нормы: у того, кто задаёт норму, спрашивают до того, как объявляют тендер. Это одновременно закрывает вашу задачу по входящему потоку, снабжает доказательством ваше УТП и строит барьер, который конкурент не преодолеет копированием — данные накапливаются только временем.</p>
+      <p><strong>Условие, без которого позиция не работает:</strong> граница ответственности должна звучать первой, на первой встрече и в договоре. Обещая меньше, вы обязаны быть точнее — иначе узкое обещание превращается в обычную оговорку мелким шрифтом.</p>
+    </div>
+  </section>
+
+  <footer>
+    <h3>Источники публичных данных</h3>
+    <ol>
+      <li>Sostav — «Лидогенерация в недвижимости: разбираем реалии рынка» (динамика CPL, стоимость продажи)</li>
+      <li>Novostroikino — «Лидогенерация для застройщиков 2026: каналы, CPL и стоимость лида» (доля РСЯ, цены лидов)</li>
+      <li>Adesk — обзор рынка диджитал-агентств России 2026 (расслоение рынка на три слоя)</li>
+      <li>1PS — исследование рынка интернет-рекламы 2025–2026 (объём рынка, темпы роста)</li>
+      <li>Team-B, MedMarketing, «Медико Маркетинг» — публичные прайсы агентств медицинского маркетинга</li>
+      <li>Workspace, HL2B — стоимость ведения контекстной рекламы и услуг интернет-маркетинга, средний чек агентства</li>
+      <li>VICTORY group, «Нефтетрафик», Progress-leads — публичные предложения по лидогенерации с оплатой за заявку</li>
+      <li>Avocado Agency (vc.ru), CMS Magazine — критика моделей гарантий и «железных лидов»</li>
+    </ol>
+  </footer>
+</div>
