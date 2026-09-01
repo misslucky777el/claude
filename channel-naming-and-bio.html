@@ -1,0 +1,343 @@
+<title>Упаковка канала: имя и BIO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Unbounded:wght@600&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F0;--surface:#FFFFFF;--surface-2:#E8EBE7;
+    --ink:#15191C;--ink-2:#454E54;--ink-3:#6E787E;
+    --line:#CDD3CE;--line-soft:#DEE2DC;
+    --route:#1F44C8;--route-soft:#E4E8FB;
+    --signal:#B93A28;--signal-soft:#F7E5E1;
+    --band:#E2E6E0;--shadow:0 1px 0 rgba(21,25,28,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0E1215;--surface:#161B1F;--surface-2:#1D2429;
+      --ink:#E7EBE7;--ink-2:#B0B9BC;--ink-3:#828D92;
+      --line:#2C353A;--line-soft:#232B30;
+      --route:#8AA5FF;--route-soft:#1A2340;
+      --signal:#F0836C;--signal-soft:#331B16;
+      --band:#1D2429;--shadow:0 1px 0 rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E1215;--surface:#161B1F;--surface-2:#1D2429;
+    --ink:#E7EBE7;--ink-2:#B0B9BC;--ink-3:#828D92;
+    --line:#2C353A;--line-soft:#232B30;
+    --route:#8AA5FF;--route-soft:#1A2340;
+    --signal:#F0836C;--signal-soft:#331B16;
+    --band:#1D2429;--shadow:0 1px 0 rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);
+    font-family:"Golos Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+
+  header.mast{padding:clamp(40px,7vw,80px) 0 clamp(26px,4vw,40px);border-bottom:2px solid var(--ink)}
+  .eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--route);margin:0 0 clamp(16px,3vw,26px);
+    display:flex;align-items:center;gap:12px}
+  .eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+  h1{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(28px,5vw,52px);line-height:1.05;letter-spacing:-.02em;
+    margin:0 0 20px;text-wrap:balance;max-width:15ch}
+  .deck{font-size:clamp(16px,1.9vw,20px);color:var(--ink-2);max-width:66ch;margin:0}
+
+  section{padding:clamp(40px,5.6vw,68px) 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  .sec-head{display:flex;gap:16px;align-items:baseline;margin-bottom:clamp(18px,2.6vw,28px)}
+  .sec-num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;font-weight:500;
+    color:var(--route);padding-top:.4em;flex:none;letter-spacing:.08em}
+  h2{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(21px,2.8vw,30px);line-height:1.2;letter-spacing:-.015em;margin:0;text-wrap:balance}
+  .ru{margin:7px 0 0;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+  h3{font-size:13px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+  p{margin:0 0 1em}p:last-child{margin-bottom:0}
+  .lede{font-size:clamp(16px,1.9vw,18.5px);color:var(--ink-2);max-width:74ch}
+  .lede strong{color:var(--ink);font-weight:600}
+  a{color:var(--route)}
+  :focus-visible{outline:2px solid var(--route);outline-offset:2px}
+
+  .warn{background:var(--signal-soft);border-left:3px solid var(--signal);
+    padding:clamp(18px,2.4vw,26px);border-radius:0 3px 3px 0;margin-top:clamp(18px,2.6vw,26px)}
+  .warn h3{color:var(--signal)}
+  .warn p,.warn ul{color:var(--ink);max-width:84ch}
+  .warn ul{margin:0;padding-left:1.15em;display:flex;flex-direction:column;gap:9px}
+
+  .names{display:flex;flex-direction:column;gap:12px;margin-top:clamp(18px,2.6vw,26px)}
+  .nm{background:var(--surface);border:1px solid var(--line);border-radius:3px;box-shadow:var(--shadow);
+    display:grid;grid-template-columns:46px 1fr;overflow:hidden}
+  .nm .n{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--route);
+    padding:17px 0 0 16px;font-variant-numeric:tabular-nums}
+  .nm .b{padding:15px 20px 17px 0}
+  .nm .top{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 14px;margin-bottom:10px}
+  .nm h4{margin:0;font-family:"Unbounded","Golos Text",sans-serif;font-size:clamp(18px,2.2vw,22px);
+    font-weight:600;line-height:1.2;letter-spacing:-.015em}
+  .nm .tag{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.08em;
+    text-transform:uppercase;border:1px solid var(--line);border-radius:2px;padding:3px 7px;color:var(--ink-3)}
+  .nm .un{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--route)}
+  .nm .why{margin:0 0 10px;font-size:14.5px;color:var(--ink-2);line-height:1.55;max-width:84ch}
+  .nm .risk{margin:0;padding-top:10px;border-top:1px solid var(--line-soft);
+    font-size:14px;color:var(--ink);line-height:1.5;max-width:84ch}
+  .nm .risk b{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--signal);display:block;margin-bottom:5px;font-weight:500}
+  .nm.fin{border-left:3px solid var(--route)}
+
+  .an{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:clamp(14px,2.2vw,24px);margin-top:clamp(18px,2.6vw,26px)}
+  .ac{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:clamp(17px,2.1vw,23px)}
+  .ac .t{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);margin-bottom:9px}
+  .ac h4{margin:0 0 10px;font-size:16.5px;font-weight:600;line-height:1.3}
+  .ac p{font-size:14.5px;color:var(--ink-2);line-height:1.55}
+
+  .fins{display:flex;flex-direction:column;gap:13px;margin-top:clamp(18px,2.6vw,26px)}
+  .fn{background:var(--route-soft);border-left:3px solid var(--route);border-radius:0 3px 3px 0;
+    padding:clamp(17px,2.1vw,23px)}
+  .fn .pl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);margin-bottom:8px}
+  .fn h4{margin:0 0 10px;font-family:"Unbounded","Golos Text",sans-serif;font-size:clamp(18px,2.2vw,23px);
+    font-weight:600;letter-spacing:-.015em;color:var(--route)}
+  .fn p{font-size:15px;color:var(--ink);line-height:1.55;max-width:84ch}
+
+  .bios{display:flex;flex-direction:column;gap:16px;margin-top:clamp(18px,2.6vw,26px)}
+  .bio{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+    padding:clamp(18px,2.2vw,24px);box-shadow:var(--shadow)}
+  .bio .bh{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 14px;margin-bottom:14px}
+  .bio h4{margin:0;font-size:17.5px;font-weight:600}
+  .bio .cnt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+    border:1px solid var(--route);color:var(--route);border-radius:2px;padding:3px 7px;
+    font-variant-numeric:tabular-nums}
+  .bio .em{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+    border:1px solid var(--line);color:var(--ink-3);border-radius:2px;padding:3px 7px}
+  .bio pre{margin:0 0 14px;background:var(--surface-2);border:1px solid var(--line);border-radius:3px;
+    padding:16px 18px;font-family:"Golos Text",sans-serif;font-size:15px;line-height:1.6;
+    white-space:pre-wrap;color:var(--ink);overflow-x:auto}
+  .bio .note{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.55;max-width:84ch}
+  .bio .note b{color:var(--ink);font-weight:600}
+  .bio .who{margin:10px 0 0;padding-top:11px;border-top:1px solid var(--line-soft);
+    font-size:14px;color:var(--ink);line-height:1.5}
+  .bio .who b{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);display:block;margin-bottom:5px;font-weight:500}
+
+  .prac{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:clamp(14px,2vw,22px);margin-top:clamp(18px,2.6vw,26px)}
+  .pr{border-top:2px solid var(--ink);padding-top:15px}
+  .pr h4{margin:0 0 9px;font-size:16px;font-weight:600;line-height:1.3}
+  .pr p{font-size:14.5px;color:var(--ink-2);line-height:1.5}
+
+  footer{padding:36px 0 56px;color:var(--ink-3);font-size:13px;font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+  @media (max-width:620px){
+    .nm{grid-template-columns:1fr}
+    .nm .n{padding:15px 20px 0}
+    .nm .b{padding:6px 20px 17px}
+  }
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow">Нейминг и BIO · Telegram</p>
+    <h1>Упаковка канала</h1>
+    <p class="deck">Десять вариантов названия с разбором типов и рисков, три финалиста и три версии описания канала, уложенные в лимит платформы. Под концепцию блога о цене клиента в бизнесах с дорогой сделкой.</p>
+  </header>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">00</span><div><h2>Что проверено, а что нет</h2><p class="ru">До того, как выбирать</p></div></div>
+    <div class="warn">
+      <h3>Занятость названий не подтверждена</h3>
+      <p>Открытый поиск не дал подтверждения ни занятости, ни свободы вариантов ниже: поисковые системы индексируют Telegram-каналы плохо. <b>Перед решением нужен ручной прогон</b>, и он занимает полчаса:</p>
+      <ul>
+        <li>Поиск по названию внутри самого Telegram — по точной фразе и по отдельным словам</li>
+        <li>Проверка через внешние сервисы статистики каналов</li>
+        <li>Проверка свободного юзернейма — он занимается быстрее, чем название</li>
+        <li>Беглая проверка товарных знаков в реестре Роспатента по 35-му классу</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><div><h2>Десять вариантов</h2><p class="ru">Разные типы, разная длина</p></div></div>
+    <div class="names">
+
+      <div class="nm fin">
+        <div class="n">01</div><div class="b">
+          <div class="top"><h4>Цена клиента</h4><span class="tag">смысловое прямое</span><span class="tag">2 слова</span><span class="un">@cenaklienta</span></div>
+          <p class="why">Ноль объяснений: тема считывается за полсекунды. Хорошо ищется, легко цитируется в разговоре — «в „Цене клиента“ публиковали».</p>
+          <p class="risk"><b>Риск</b>Самое очевидное решение, а значит и самое вероятно занятое. Звучит функционально, без характера.</p>
+        </div>
+      </div>
+
+      <div class="nm fin">
+        <div class="n">02</div><div class="b">
+          <div class="top"><h4>Курс заявки</h4><span class="tag">метафорическое, финансовое</span><span class="tag">2 слова</span><span class="un">@kurszayavki</span></div>
+          <p class="why">Кодирует прямо миссию блога: сделать стоимость клиента публичной величиной вроде курса валют. Даёт готовую систему форматов — «курс на сегодня», квартальный индекс как котировки, «курс вырос». Метафора биржи понятна всем четырём нишам без объяснений.</p>
+          <p class="risk"><b>Риск</b>Первые секунды можно прочитать как «обучающий курс». Снимается дескриптором под названием.</p>
+        </div>
+      </div>
+
+      <div class="nm">
+        <div class="n">03</div><div class="b">
+          <div class="top"><h4>Смета на спрос</h4><span class="tag">метафорическое, отраслевое</span><span class="tag">3 слова</span><span class="un">@smeta_na_spros</span></div>
+          <p class="why">«Смета» — родное слово для строителя и понятное всем: документ, который считают заранее. Точно передаёт УТП — считаем до, а не по факту.</p>
+          <p class="risk"><b>Риск</b>Написание без разделителей читается как «сметана спрос» — только с подчёркиваниями. Плюс лёгкий крен в строительную нишу.</p>
+        </div>
+      </div>
+
+      <div class="nm">
+        <div class="n">04</div><div class="b">
+          <div class="top"><h4>Считаем до денег</h4><span class="tag">смысловое, действенное</span><span class="tag">3 слова</span><span class="un">@schitaem_do</span></div>
+          <p class="why">Буквально главное отличие: расчёт до оплаты. Глагол в первом лице множественного числа даёт ощущение работы, а не вещания. Хорошо звучит вслух.</p>
+          <p class="risk"><b>Риск</b>«До денег» можно прочитать как «пока не заработаем». Двусмысленность скорее полезная, но проверьте на пяти живых людях.</p>
+        </div>
+      </div>
+
+      <div class="nm">
+        <div class="n">05</div><div class="b">
+          <div class="top"><h4>Сколько стоит договор</h4><span class="tag">вопросное, голосом читателя</span><span class="tag">3 слова</span><span class="un">@skolko_stoit_dogovor</span></div>
+          <p class="why">Не ваш вопрос, а его — ровно та формулировка, которую собственник вбивает в поиск. Отстраивает от всех, кто считает заявки, а не договоры.</p>
+          <p class="risk"><b>Риск</b>Длинновато для юзернейма, а вопросительная интонация без знака вопроса выглядит незавершённой.</p>
+        </div>
+      </div>
+
+      <div class="nm">
+        <div class="n">06</div><div class="b">
+          <div class="top"><h4>Медиана</h4><span class="tag">терминологическое</span><span class="tag">1 слово</span><span class="un">@mediana_index</span></div>
+          <p class="why">Ключевое понятие блога: вы публикуете медиану по проектам, а не среднее и не рекорд. Сухо, статистично, мгновенно отделяет от «экспертов». Короткое и звучное.</p>
+          <p class="risk"><b>Риск</b>Без дескриптора тема не считывается вообще. Слово общеупотребимое — свободный юзернейм маловероятен.</p>
+        </div>
+      </div>
+
+      <div class="nm fin">
+        <div class="n">07</div><div class="b">
+          <div class="top"><h4>Табличка</h4><span class="tag">игровое, разговорное</span><span class="tag">1 слово</span><span class="un">@tablichka</span></div>
+          <p class="why">Взято из реальной речи собственника: «скинь табличку». Тёплое, антипафосное, резко контрастирует с «Маркетинг PRO» и «Твой рост». Обещает ровно то, что вы даёте: не мнение, а таблицу.</p>
+          <p class="risk"><b>Риск</b>Самое несерьёзное из списка. Часть аудитории 45+ может счесть легковесным для чека в сотни тысяч.</p>
+        </div>
+      </div>
+
+      <div class="nm">
+        <div class="n">08</div><div class="b">
+          <div class="top"><h4>Заявка по прайсу</h4><span class="tag">игровое, ироничное</span><span class="tag">3 слова</span><span class="un">@zayavka_po_praisu</span></div>
+          <p class="why">Ирония в том, что у заявки прайса не бывает — а вы его печатаете. Собственник, обжёгшийся на «зависит от многого», считывает шутку сразу.</p>
+          <p class="risk"><b>Риск</b>Ирония требует контекста. Человек, впервые увидевший название в пересылке, поймёт буквально и решит, что вы продаёте лиды. Из списка я бы этот вариант исключил первым.</p>
+        </div>
+      </div>
+
+      <div class="nm">
+        <div class="n">09</div><div class="b">
+          <div class="top"><h4>Ни одного поста без цифры</h4><span class="tag">манифестное</span><span class="tag">5 слов</span><span class="un">@bez_cifry_net</span></div>
+          <p class="why">Название равно правилу канала. Само себя объясняет, само дисциплинирует, само отстраивает — потому что ни один конкурент такое обещание не выдержит. Длина здесь сознательный контраст с односложными соседями по подпискам.</p>
+          <p class="risk"><b>Риск</b>Плохо ложится в устную рекомендацию и в юзернейм. Работает скорее как слоган, чем как имя.</p>
+        </div>
+      </div>
+
+      <div class="nm">
+        <div class="n">10</div><div class="b">
+          <div class="top"><h4>[Фамилия] считает</h4><span class="tag">личное, авторское</span><span class="tag">2 слова</span><span class="un">@familiya_schitaet</span></div>
+          <p class="why">Например «Ковалёв считает». Строит персональный бренд напрямую, а глагол задаёт роль: не учит и не разоблачает — считает. Легко масштабируется в подкаст и доклады.</p>
+          <p class="risk"><b>Риск</b>Личное имя привязывает актив к человеку и мешает передать канал команде. И оно бесполезно, пока автора не знают.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><div><h2>Анализ списка</h2><p class="ru">Что преобладает и почему</p></div></div>
+    <div class="an">
+      <div class="ac"><div class="t">Типы</div><h4>Смысловые и метафорические — половина</h4>
+        <p>Смысловых три, метафорических два, игровых два, по одному терминологическому, манифестному и личному. Перекос сознательный: аудитория — не маркетологи, и метафора работает, только если взята из их мира (смета) или из мира денег вообще (курс). Отвлечённые образы вроде «Компас» или «Пульс» отсекались сразу — они не переводятся в действие.</p></div>
+      <div class="ac"><div class="t">Длина</div><h4>От одного слова до пяти</h4>
+        <p>Одно слово — два варианта, два слова — три, три слова — четыре, пять слов — один. Разброс намеренный: короткие выигрывают в устной рекомендации, длинные — в пересылке, где название работает как подпись под смыслом.</p></div>
+      <div class="ac"><div class="t">Аббревиатуры</div><h4>Их почти нет — и это позиция</h4>
+        <p>Вариант вроде «CPL/RUB» выглядит остроумно на бумаге, но ваш читатель не расшифрует CPL, а у канала есть рубрика «Перевод с маркетингового». Аббревиатура на вывеске противоречила бы миссии: вы тот, кто убирает жаргон, а не добавляет. «Медиана» — единственное терминологическое исключение, и работает оно не как термин, а как сигнал «здесь считают».</p></div>
+      <div class="ac"><div class="t">Эмоция</div><h4>Ни одно не обещает роста</h4>
+        <p>Три регистра: спокойная уверенность (1, 2, 4, 6), любопытство от вопроса или парадокса (5, 8, 9) и тёплая простота (7, 10). Ни один вариант не обещает успеха или прорыва — принципиально: канал строится на отказе от обещаний, и название, обещающее рост, обесценило бы первое же сообщение.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><div><h2>Три финалиста</h2><p class="ru">С обоснованием выбора</p></div></div>
+    <div class="fins">
+      <div class="fn">
+        <div class="pl">Рекомендую · вариант 02</div>
+        <h4>Курс заявки</h4>
+        <p>Единственное название, которое кодирует миссию, а не тему. «Курс» ставит вас в позицию источника котировки, а не участника рынка — то самое «норму задаёт тот, на кого ссылаются». Оно порождает форматы, а не просто называет. Два слова, оба бытовые, произносится без запинки, ищется, живёт в пересылке. И расширяется за пределы канала: тем же именем можно назвать индекс на сайте. Дескриптор под названием: «Сколько стоит клиент в стройке, медицине, событиях и недвижимости. Каждый пост — с цифрой».</p>
+      </div>
+      <div class="fn">
+        <div class="pl">Безопасный выбор · вариант 01</div>
+        <h4>Цена клиента</h4>
+        <p>Максимальная ясность и лучшая поисковая проходимость: человек, ищущий эту тему, найдёт вас без подсказки. Ноль риска непонимания. Берите, если приоритет — скорость набора аудитории, а не характер бренда. Проверяйте занятость первым делом: вероятность, что имя уже используется, здесь самая высокая из трёх.</p>
+      </div>
+      <div class="fn">
+        <div class="pl">Самый смелый · вариант 07</div>
+        <h4>Табличка</h4>
+        <p>Единственное в списке, у которого есть характер. Говорит на языке читателя буквально его словами и создаёт запоминающийся контраст: канал про сотни тысяч рублей называется уменьшительно и по-домашнему. Такие имена набирают медленнее, но обрастают лояльностью быстрее — их пересылают со словами «вот тут по-человечески объясняют». Берите, если готовы полгода объяснять название, а взамен получить то, чего не будет ни у кого в нише.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><div><h2>Три варианта BIO</h2><p class="ru">Под лимит описания канала — 255 знаков</p></div></div>
+    <p class="lede">Все три написаны под рабочее название «Курс заявки». Главное ограничение формата: <strong>длинная упаковка живёт в закреплённом посте, а BIO работает как обложка</strong>, которую человек читает до подписки. Если выберете другое имя, первые строки нужно переписать: с «Ценой клиента» описание не должно повторять название, с «Табличкой» — придётся объяснять имя.</p>
+
+    <div class="bios">
+
+      <div class="bio">
+        <div class="bh"><h4>Вариант 1. Манифест — сухой и категоричный</h4><span class="cnt">243 знака</span><span class="em">без эмодзи</span></div>
+        <pre>Сколько стоит клиент в стройке, медицине, событиях и недвижимости.
+
+Правило канала: ни одного поста без цифры из реальных проектов. Ни трендов, ни «5 способов», ни мотивации.
+
+Индекс цен на заявку — раз в квартал.
+Разбор ваших цифр → @username</pre>
+        <p class="note"><b>Акцент:</b> правило вместо обещания. Стимул к подписке здесь не «будет полезно», а отказ: перечисление того, чего в канале нет, работает сильнее перечисления того, что есть. Собственник, уставший от «топ-5 ошибок» в ленте, считывает это за секунду. Второй абзац одновременно продаёт и дисциплинирует автора — публично взятое обязательство сложно нарушить.</p>
+        <p class="who"><b>Кому подойдёт</b>Если хотите с первого дня занять позицию источника нормы, а не эксперта. Самый близкий к тону канала вариант.</p>
+      </div>
+
+      <div class="bio">
+        <div class="bh"><h4>Вариант 2. Структура — что человек получит</h4><span class="cnt">237 знаков</span><span class="em">один эмодзи</span></div>
+        <pre>📊 Цена клиента в бизнесе с дорогой сделкой
+
+• сколько стоит заявка в вашем регионе и месяце
+• где теряются деньги между заявкой и договором
+• что спросить у подрядчика, чтобы отсеять слабого
+
+Каждый пост — с цифрой. Индекс цен: @username</pre>
+        <p class="note"><b>Акцент:</b> три конкретные задачи читателя вместо описания канала. Каждый буллит — не тема, а вопрос, который у него уже есть, причём третий («что спросить у подрядчика») даёт власть, а не знание, и обычно именно он решает подписку. Формулировка «в вашем регионе и месяце» сразу снимает ощущение общих советов.</p>
+        <p class="who"><b>Кому подойдёт</b>Лучший вариант для холодного трафика — рекламы, посевов, перехода из поиска. Буллиты сканируются быстрее сплошного текста, а на превью канала у вас есть три секунды.</p>
+      </div>
+
+      <div class="bio">
+        <div class="bh"><h4>Вариант 3. Разговорный — от ситуации читателя</h4><span class="cnt">234 знака</span><span class="em">без эмодзи</span></div>
+        <pre>Вам называют цену рекламы. Вы хотите знать цену договора.
+
+Публикую цифры по четырём нишам: сколько стоит клиент, где утекает бюджет и когда начинать продавать, чтобы не опоздать на сезон.
+
+Свои цифры присылайте — разберу: @username</pre>
+        <p class="note"><b>Акцент:</b> первая строка — противопоставление, которое читатель узнаёт как свою мысль. Она работает автономно, а это важно: в поиске и в пересылке видно именно её. «Не опоздать на сезон» добавляет срочность без единого слова про срочность. Последняя строка превращает подписку в приглашение к диалогу и заодно кормит рубрику «слепой разбор» бесплатным материалом.</p>
+        <p class="who"><b>Кому подойдёт</b>Если приоритет — вовлечение и комментарии, а не только набор. Самый тёплый по интонации при сохранении сухого тона.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">05</span><div><h2>Практика установки</h2><p class="ru">Четыре правила, которые легко упустить</p></div></div>
+    <div class="prac">
+      <div class="pr"><h4>Первая строка решает всё</h4>
+        <p>В превью канала, в поиске и при пересылке Telegram часто показывает только её. Во всех трёх вариантах она осмысленна в одиночку — сохраните это условие, если будете править текст.</p></div>
+      <div class="pr"><h4>Эмодзи — один или ноль</h4>
+        <p>Для канала, который строится на сухости и цифрах, три эмодзи в описании противоречили бы обещанию с первой секунды. Один допустим как навигационный маркер, не больше.</p></div>
+      <div class="pr"><h4>Длинная версия — в закреп</h4>
+        <p>BIO даёт крючок, закреплённый пост объясняет методику: откуда данные, сколько проектов в выборке, что считается заявкой, как попасть на разбор. Там же — ссылка на последний выпуск индекса.</p></div>
+      <div class="pr"><h4>Тест стоит копейки</h4>
+        <p>Меняйте BIO раз в две недели и сравнивайте конверсию из просмотра карточки в подписку по встроенной статистике. Гипотеза для проверки: вариант 2 выиграет на платном трафике, вариант 1 — на пересылках от коллег.</p></div>
+    </div>
+  </section>
+
+  <footer>Упаковка канала · нейминг и BIO · блог «Цена клиента»</footer>
+</div>

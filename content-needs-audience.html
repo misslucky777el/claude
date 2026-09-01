@@ -1,0 +1,165 @@
+<title>Контент-потребности аудитории</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Unbounded:wght@600&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F0;--surface:#FFFFFF;--surface-2:#E8EBE7;
+    --ink:#15191C;--ink-2:#454E54;--ink-3:#6E787E;
+    --line:#CDD3CE;--line-soft:#DEE2DC;
+    --route:#1F44C8;--route-soft:#E4E8FB;
+    --signal:#B93A28;--signal-soft:#F7E5E1;
+    --band:#E2E6E0;--shadow:0 1px 0 rgba(21,25,28,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0E1215;--surface:#161B1F;--surface-2:#1D2429;
+      --ink:#E7EBE7;--ink-2:#B0B9BC;--ink-3:#828D92;
+      --line:#2C353A;--line-soft:#232B30;
+      --route:#8AA5FF;--route-soft:#1A2340;
+      --signal:#F0836C;--signal-soft:#331B16;
+      --band:#1D2429;--shadow:0 1px 0 rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E1215;--surface:#161B1F;--surface-2:#1D2429;
+    --ink:#E7EBE7;--ink-2:#B0B9BC;--ink-3:#828D92;
+    --line:#2C353A;--line-soft:#232B30;
+    --route:#8AA5FF;--route-soft:#1A2340;
+    --signal:#F0836C;--signal-soft:#331B16;
+    --band:#1D2429;--shadow:0 1px 0 rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);
+    font-family:"Golos Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+
+  header.mast{padding:clamp(40px,7vw,80px) 0 clamp(26px,4vw,40px);border-bottom:2px solid var(--ink)}
+  .eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--route);margin:0 0 clamp(16px,3vw,26px);
+    display:flex;align-items:center;gap:12px}
+  .eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+  h1{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(28px,5vw,52px);line-height:1.05;letter-spacing:-.02em;
+    margin:0 0 20px;text-wrap:balance;max-width:15ch}
+  .deck{font-size:clamp(16px,1.9vw,20px);color:var(--ink-2);max-width:66ch;margin:0}
+
+  section{padding:clamp(40px,5.6vw,68px) 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  .sec-head{display:flex;gap:16px;align-items:baseline;margin-bottom:clamp(18px,2.6vw,28px)}
+  .sec-num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;font-weight:500;
+    color:var(--route);padding-top:.4em;flex:none;letter-spacing:.08em}
+  h2{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(21px,2.8vw,30px);line-height:1.2;letter-spacing:-.015em;margin:0;text-wrap:balance}
+  .ru{margin:7px 0 0;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+  p{margin:0 0 1em}p:last-child{margin-bottom:0}
+  .lede{font-size:clamp(16px,1.9vw,18.5px);color:var(--ink-2);max-width:74ch}
+  .lede strong{color:var(--ink);font-weight:600}
+
+  .rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-top:clamp(18px,2.6vw,26px)}
+  .rl{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:15px 17px}
+  .rl b{display:block;font-size:15px;font-weight:600;margin-bottom:7px}
+  .rl span{font-size:14px;color:var(--ink-2);line-height:1.5}
+
+  .blk{margin-top:clamp(26px,3.6vw,40px)}
+  .bh{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:14px;
+    padding-bottom:10px;border-bottom:2px solid var(--ink)}
+  .bh h3{margin:0;font-size:clamp(17px,2.1vw,20px);font-weight:600;color:var(--ink);
+    font-family:"Golos Text",sans-serif;letter-spacing:0;text-transform:none}
+  .bs{margin:0;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+    letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+
+  ol.ns{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+  ol.ns li{display:grid;grid-template-columns:38px 1fr auto;gap:12px;align-items:baseline;
+    padding:11px 4px;border-bottom:1px solid var(--line-soft)}
+  ol.ns li:last-child{border-bottom:0}
+  ol.ns li:hover{background:var(--surface)}
+  .num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--ink-3);
+    font-variant-numeric:tabular-nums}
+  .tx{font-size:15.5px;line-height:1.5;color:var(--ink)}
+  .tp{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;letter-spacing:.08em;
+    text-transform:uppercase;border-radius:2px;padding:3px 6px;white-space:nowrap;border:1px solid}
+  .tp.q{color:var(--route);border-color:var(--route);background:var(--route-soft)}
+  .tp.p{color:var(--signal);border-color:var(--signal);background:var(--signal-soft)}
+  .tp.n{color:var(--ink-3);border-color:var(--line);background:var(--surface-2)}
+
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-top:clamp(18px,2.6vw,26px)}
+  .sc{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:14px 16px;text-align:center}
+  .sc .v{font-family:"Unbounded","Golos Text",sans-serif;font-size:24px;font-weight:600;
+    color:var(--route);line-height:1;margin-bottom:7px;font-variant-numeric:tabular-nums}
+  .sc .k{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ink-3)}
+
+  .obs{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:clamp(14px,2.2vw,24px);margin-top:clamp(20px,3vw,30px)}
+  .ob{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--route);
+    border-radius:0 3px 3px 0;padding:clamp(17px,2.1vw,23px)}
+  .ob h4{margin:0 0 10px;font-size:16.5px;font-weight:600;line-height:1.3}
+  .ob p{font-size:14.5px;color:var(--ink-2);line-height:1.55}
+  .ob.alt{border-left-color:var(--signal)}
+  .ob.alt h4{color:var(--signal)}
+
+  footer{padding:36px 0 56px;color:var(--ink-3);font-size:13px;font-family:"IBM Plex Mono",ui-monospace,monospace}
+  a{color:var(--route)}
+  :focus-visible{outline:2px solid var(--route);outline-offset:2px}
+
+  @media (max-width:620px){
+    ol.ns li{grid-template-columns:30px 1fr;gap:8px}
+    .tp{grid-column:2;justify-self:start;margin-top:4px}
+  }
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow">Медиаресерч · сырьё для контент-плана</p>
+    <h1>Контент-потребности аудитории</h1>
+    <p class="deck">67 конкретных потребностей собственников в нишах с дорогой сделкой — вопросы, проблемы, страхи, цели и мотивы, по которым они ищут информацию. Формулировки от лица аудитории, каждая несёт один смысл.</p>
+  </header>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">00</span><div><h2>Как читать список</h2><p class="ru">Три правила, по которым он собран</p></div></div>
+    <div class="rules">
+      <div class="rl"><b>Только потребность</b><span>Ни форматов, ни рубрик, ни решений. Что делать с каждым пунктом — отдельная работа: список специально оставлен сырьём, чтобы не сузить его раньше времени.</span></div>
+      <div class="rl"><b>Один пункт — один смысл</b><span>Формулировки не совмещают две потребности. «Сколько стоит заявка и как её снизить» — это два разных пункта и два разных материала.</span></div>
+      <div class="rl"><b>Голосом аудитории</b><span>Так, как это звучит в голове у собственника, а не в терминах маркетинга. Часть пунктов вообще не имеет поисковой частотности — и это не ошибка, а самое ценное в списке.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><div><h2>Список</h2><p class="ru">Десять тематических блоков</p></div></div>
+<div class="blk"><div class="bh"><h3>Цена клиента: ориентиры и норма</h3><p class="bs">Что считать нормальным</p></div><ol class="ns"><li><span class="num">01</span><span class="tx">Сколько стоит одна заявка на строительство дома в моей области в марте</span><span class="tp q">вопрос</span></li><li><span class="num">02</span><span class="tx">Не понимаю, считать ли 8 000 ₽ за заявку нормой или переплатой</span><span class="tp p">проблема</span></li><li><span class="num">03</span><span class="tx">Хочу знать стоимость подписанного договора, а не стоимость обращения</span><span class="tp q">цель</span></li><li><span class="num">04</span><span class="tx">Насколько цена пациента на импланты отличается от цены пациента на гигиену</span><span class="tp q">вопрос</span></li><li><span class="num">05</span><span class="tx">Боюсь, что конкурент получает того же клиента дешевле, а я об этом не узнаю</span><span class="tp p">страх</span></li><li><span class="num">06</span><span class="tx">Любопытно, в каких регионах заявка на загородный дом стоит меньше всего</span><span class="tp n">любопытство</span></li><li><span class="num">07</span><span class="tx">Нужна цифра, которую можно назвать партнёру в ответ на вопрос об эффективности</span><span class="tp q">цель</span></li><li><span class="num">08</span><span class="tx">Кажется, что цена обращения в моей нише выросла за год, но подтверждения у меня нет</span><span class="tp n">сомнение</span></li></ol></div>
+<div class="blk"><div class="bh"><h3>Сезон и планирование</h3><p class="bs">Когда начинать и сколько закладывать</p></div><ol class="ns"><li><span class="num">09</span><span class="tx">Когда запускать рекламу, чтобы бригады были загружены к маю</span><span class="tp q">вопрос</span></li><li><span class="num">10</span><span class="tx">За сколько месяцев до сезона пары начинают выбирать банкетную площадку</span><span class="tp q">вопрос</span></li><li><span class="num">11</span><span class="tx">Не знаю, сколько закладывать на маркетинг в межсезонье, когда выручки нет</span><span class="tp p">проблема</span></li><li><span class="num">12</span><span class="tx">Хочу перестать входить в сезон, не понимая заранее объём заявок</span><span class="tp q">цель</span></li><li><span class="num">13</span><span class="tx">Тревожит, что в прошлом году спохватился в апреле и потерял два месяца продаж</span><span class="tp p">страх</span></li><li><span class="num">14</span><span class="tx">Насколько дешевле обходится обращение зимой по сравнению с пиком</span><span class="tp q">вопрос</span></li><li><span class="num">15</span><span class="tx">Нужен ориентир, сколько бюджета требует один полностью загруженный месяц клиники</span><span class="tp q">цель</span></li></ol></div>
+<div class="blk"><div class="bh"><h3>Проверка подрядчика</h3><p class="bs">Как не отдать деньги впустую</p></div><ol class="ns"><li><span class="num">16</span><span class="tx">Как на первой встрече понять, что у агентства нет данных по моей отрасли</span><span class="tp q">вопрос</span></li><li><span class="num">17</span><span class="tx">Хочу задать подрядчику вопросы, на которые нельзя ответить общими словами</span><span class="tp q">цель</span></li><li><span class="num">18</span><span class="tx">Не понимаю, за что плачу абонемент в месяцы, когда заявок мало</span><span class="tp p">проблема</span></li><li><span class="num">19</span><span class="tx">Боюсь снова отдать деньги и через три месяца услышать «рынок изменился»</span><span class="tp p">страх</span></li><li><span class="num">20</span><span class="tx">Что считать нормальным сроком выхода на плановое количество заявок</span><span class="tp q">вопрос</span></li><li><span class="num">21</span><span class="tx">Мне присылают отчёт с охватами, и я не понимаю, что с ним делать</span><span class="tp p">проблема</span></li><li><span class="num">22</span><span class="tx">Любопытно, чем предложение за 150 тысяч отличается от предложения за 40</span><span class="tp n">любопытство</span></li><li><span class="num">23</span><span class="tx">Хочу проверить, не завышена ли доля агентства в моём рекламном бюджете</span><span class="tp q">цель</span></li></ol></div>
+<div class="blk"><div class="bh"><h3>Разрыв между заявкой и договором</h3><p class="bs">Где именно теряются деньги</p></div><ol class="ns"><li><span class="num">24</span><span class="tx">Заявок стало больше, а договоров столько же — причина мне не ясна</span><span class="tp p">проблема</span></li><li><span class="num">25</span><span class="tx">Какая доля обратившихся в норме доезжает до замера на участке</span><span class="tp q">вопрос</span></li><li><span class="num">26</span><span class="tx">Сколько записавшихся пациентов реально доходит до кресла</span><span class="tp q">вопрос</span></li><li><span class="num">27</span><span class="tx">Хочу знать, за сколько минут менеджер обязан перезвонить, чтобы не терять клиента</span><span class="tp q">цель</span></li><li><span class="num">28</span><span class="tx">Подозреваю, что администраторы теряют половину звонков, но доказать не могу</span><span class="tp p">проблема</span></li><li><span class="num">29</span><span class="tx">Боюсь потратиться на рекламу и обнаружить, что обрабатывать заявки некому</span><span class="tp p">страх</span></li><li><span class="num">30</span><span class="tx">Что вообще считается качественной заявкой именно в моей нише</span><span class="tp q">вопрос</span></li><li><span class="num">31</span><span class="tx">Нужен способ обсуждать работу менеджера фактами, а не раздражением</span><span class="tp q">цель</span></li></ol></div>
+<div class="blk"><div class="bh"><h3>Экономика и деньги</h3><p class="bs">Считать до, а не после</p></div><ol class="ns"><li><span class="num">32</span><span class="tx">Во что обходится скидка в 10% по сравнению с той же загрузкой через рекламу</span><span class="tp q">вопрос</span></li><li><span class="num">33</span><span class="tx">Хочу определить предельную цену клиента, выше которой сделка убыточна</span><span class="tp q">цель</span></li><li><span class="num">34</span><span class="tx">Не знаю, как связать окупаемость лизингового оборудования с потоком пациентов</span><span class="tp p">проблема</span></li><li><span class="num">35</span><span class="tx">Сколько составляет маркетинг в процентах от оборота у компаний моей отрасли</span><span class="tp q">вопрос</span></li><li><span class="num">36</span><span class="tx">Тревожит, что расходы на рекламу растут быстрее среднего чека</span><span class="tp p">страх</span></li><li><span class="num">37</span><span class="tx">Любопытно, окупается ли отраслевая выставка в сравнении с рекламным бюджетом</span><span class="tp n">любопытство</span></li><li><span class="num">38</span><span class="tx">Нужно обосновать банку, за счёт чего вырастет выручка следующего года</span><span class="tp q">цель</span></li></ol></div>
+<div class="blk"><div class="bh"><h3>Каналы и площадки</h3><p class="bs">Куда уходит бюджет</p></div><ol class="ns"><li><span class="num">39</span><span class="tx">Стоит ли платить за продвижение объявлений на классифайде или это деньги в пустоту</span><span class="tp q">вопрос</span></li><li><span class="num">40</span><span class="tx">Насколько дороже обходится клиент с агрегатора по сравнению с собственным сайтом</span><span class="tp q">вопрос</span></li><li><span class="num">41</span><span class="tx">Не понимаю, почему автоматические кампании тратят бюджет на нецелевые запросы</span><span class="tp p">проблема</span></li><li><span class="num">42</span><span class="tx">Хочу перестать зависеть от площадки, которая ежегодно поднимает комиссию</span><span class="tp q">цель</span></li><li><span class="num">43</span><span class="tx">Какая доля обращений приходит с карт, а какая с платной рекламы</span><span class="tp q">вопрос</span></li><li><span class="num">44</span><span class="tx">Боюсь, что при отключении рекламы на месяц поток исчезнет полностью</span><span class="tp p">страх</span></li><li><span class="num">45</span><span class="tx">Любопытно, влияют ли отзывы на рейтинговых площадках так же сильно, как раньше</span><span class="tp n">любопытство</span></li></ol></div>
+<div class="blk"><div class="bh"><h3>Ограничения и регуляторика</h3><p class="bs">Что можно и чем рискую</p></div><ol class="ns"><li><span class="num">46</span><span class="tx">Что сейчас можно и нельзя писать в рекламе медуслуг без риска штрафа</span><span class="tp q">вопрос</span></li><li><span class="num">47</span><span class="tx">Не понимаю, кто отвечает за маркировку рекламы — я или подрядчик</span><span class="tp p">проблема</span></li><li><span class="num">48</span><span class="tx">Боюсь получить штраф за формулировку, которую писал не я</span><span class="tp p">страх</span></li><li><span class="num">49</span><span class="tx">Нужно понять, какие рекламные площадки остались доступны легально</span><span class="tp q">цель</span></li><li><span class="num">50</span><span class="tx">Насколько велик риск, что кампания не пройдёт модерацию из-за требований к медуслугам</span><span class="tp q">вопрос</span></li></ol></div>
+<div class="blk"><div class="bh"><h3>Люди и внутренние процессы</h3><p class="bs">То, что за границей рекламы</p></div><ol class="ns"><li><span class="num">51</span><span class="tx">Как удержать агентов в месяцы, когда заявок мало и они смотрят на сторону</span><span class="tp q">вопрос</span></li><li><span class="num">52</span><span class="tx">Ушёл мастер и увёл клиентов — хочу восстановить этот поток</span><span class="tp q">цель</span></li><li><span class="num">53</span><span class="tx">Не знаю, что делать с базой клиентов, лежащей мёртвым грузом в 1С и в тетради</span><span class="tp p">проблема</span></li><li><span class="num">54</span><span class="tx">Сколько стоит вернуть старого клиента в сравнении с привлечением нового</span><span class="tp q">вопрос</span></li><li><span class="num">55</span><span class="tx">Хочу перестать сам вести рекламу по ночам после смены</span><span class="tp q">цель</span></li><li><span class="num">56</span><span class="tx">Тревожит, что поток держится исключительно на моём личном участии в продажах</span><span class="tp p">страх</span></li></ol></div>
+<div class="blk"><div class="bh"><h3>Конкуренты и рынок</h3><p class="bs">Где я относительно других</p></div><ol class="ns"><li><span class="num">57</span><span class="tx">Хочу понять, за счёт чего сосед по улице загружен круглый год, а я нет</span><span class="tp q">цель</span></li><li><span class="num">58</span><span class="tx">Сколько тратят на рекламу компании моего размера в моём городе</span><span class="tp q">вопрос</span></li><li><span class="num">59</span><span class="tx">Соседняя площадка уронила цену, и я не понимаю, выдержу ли такую войну</span><span class="tp p">проблема</span></li><li><span class="num">60</span><span class="tx">Любопытно, как менялся спрос в моей нише за последние два года</span><span class="tp n">любопытство</span></li><li><span class="num">61</span><span class="tx">Боюсь, что федеральная сеть зайдёт в город и заберёт поток себе</span><span class="tp p">страх</span></li><li><span class="num">62</span><span class="tx">Нужны аргументы для застройщика-партнёра, который требует еженедельный отчёт по броням</span><span class="tp q">цель</span></li></ol></div>
+<div class="blk"><div class="bh"><h3>Статус, самооценка, мотивы</h3><p class="bs">То, что никто не наберёт в поиске</p></div><ol class="ns"><li><span class="num">63</span><span class="tx">Стыдно признаться коллегам, что слил бюджет, — хочу понять, у всех ли так</span><span class="tp n">мотивация</span></li><li><span class="num">64</span><span class="tx">Не хочу выглядеть перед женой-финансистом человеком, который тратит наугад</span><span class="tp n">мотивация</span></li><li><span class="num">65</span><span class="tx">Хочу говорить с подрядчиками на равных, а не кивать на незнакомые термины</span><span class="tp n">мотивация</span></li><li><span class="num">66</span><span class="tx">Хочу понять, растёт ли моя доля рынка или я просто стал больше работать</span><span class="tp n">любопытство</span></li><li><span class="num">67</span><span class="tx">Устал принимать решения по маркетингу вслепую и хочу опору в цифрах</span><span class="tp n">мотивация</span></li></ol></div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><div><h2>Распределение и выводы</h2><p class="ru">Что видно из состава списка</p></div></div>
+    <div class="stats">
+<div class="sc"><div class="v">20</div><div class="k">вопрос</div></div><div class="sc"><div class="v">16</div><div class="k">цель</div></div><div class="sc"><div class="v">11</div><div class="k">проблема</div></div><div class="sc"><div class="v">9</div><div class="k">страх</div></div><div class="sc"><div class="v">6</div><div class="k">любопытство</div></div><div class="sc"><div class="v">4</div><div class="k">мотивация</div></div><div class="sc"><div class="v">1</div><div class="k">сомнение</div></div>
+    </div>
+    <div class="obs">
+      <div class="ob">
+        <h4>Треть списка не имеет поисковой частотности</h4>
+        <p>Страхи и мотивы — блок «Статус, самооценка, мотивы» и все пункты с пометкой «страх» — никто никогда не наберёт в поисковой строке. При этом именно они решают, подпишется человек или закроет канал. Отраслевые блоги этот пласт обычно не трогают вовсе, потому что под него нет ключевых слов, — и именно поэтому он свободен.</p>
+      </div>
+      <div class="ob alt">
+        <h4>Четверть потребностей — за границей вашей ответственности</h4>
+        <p>Блоки «Разрыв между заявкой и договором» и «Люди и внутренние процессы» — это отдел продаж клиента, его администраторы и его база, а не реклама. Формально не ваша зона. Но потребность у аудитории есть, закрывать её больше некому, а у вас на руках записи звонков и цифры, которых нет ни у кого другого.</p>
+      </div>
+      <div class="ob">
+        <h4>Вопросы дают охват, страхи дают подписку</h4>
+        <p>Пункты-вопросы хорошо находятся поиском и приводят новых людей. Пункты-страхи не приводят никого, но удерживают тех, кто уже пришёл, и заставляют пересылать коллеге. Здоровый контент-план смешивает и то и другое, а не строится на одних вопросах ради частотности.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>Контент-потребности · блог «Цена клиента» · аудитория с дорогой сделкой</footer>
+</div>
