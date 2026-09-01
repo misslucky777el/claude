@@ -1,0 +1,557 @@
+<title>Воронка AARRR для агентства</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Unbounded:wght@600&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F0;--surface:#FFFFFF;--surface-2:#E8EBE7;
+    --ink:#15191C;--ink-2:#454E54;--ink-3:#6E787E;
+    --line:#CDD3CE;--line-soft:#DEE2DC;
+    --route:#1F44C8;--route-soft:#E4E8FB;
+    --signal:#B93A28;--signal-soft:#F7E5E1;
+    --band:#E2E6E0;--shadow:0 1px 0 rgba(21,25,28,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0E1215;--surface:#161B1F;--surface-2:#1D2429;
+      --ink:#E7EBE7;--ink-2:#B0B9BC;--ink-3:#828D92;
+      --line:#2C353A;--line-soft:#232B30;
+      --route:#8AA5FF;--route-soft:#1A2340;
+      --signal:#F0836C;--signal-soft:#331B16;
+      --band:#1D2429;--shadow:0 1px 0 rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E1215;--surface:#161B1F;--surface-2:#1D2429;
+    --ink:#E7EBE7;--ink-2:#B0B9BC;--ink-3:#828D92;
+    --line:#2C353A;--line-soft:#232B30;
+    --route:#8AA5FF;--route-soft:#1A2340;
+    --signal:#F0836C;--signal-soft:#331B16;
+    --band:#1D2429;--shadow:0 1px 0 rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);
+    font-family:"Golos Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+
+  header.mast{padding:clamp(40px,7vw,80px) 0 clamp(26px,4vw,40px);border-bottom:2px solid var(--ink)}
+  .eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--route);margin:0 0 clamp(16px,3vw,26px);
+    display:flex;align-items:center;gap:12px}
+  .eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+  h1{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(28px,5vw,54px);line-height:1.05;letter-spacing:-.02em;
+    margin:0 0 20px;text-wrap:balance;max-width:15ch}
+  .deck{font-size:clamp(16px,1.9vw,20px);color:var(--ink-2);max-width:66ch;margin:0}
+
+  section{padding:clamp(42px,6vw,72px) 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  .sec-head{display:flex;gap:16px;align-items:baseline;margin-bottom:clamp(18px,2.6vw,28px)}
+  .sec-num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;font-weight:500;
+    color:var(--route);padding-top:.4em;flex:none;letter-spacing:.08em}
+  h2{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(21px,2.8vw,30px);line-height:1.2;letter-spacing:-.015em;margin:0;text-wrap:balance}
+  .ru{margin:7px 0 0;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+  h3{font-size:13px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+  p{margin:0 0 1em}p:last-child{margin-bottom:0}
+  .lede{font-size:clamp(16px,1.9vw,18.5px);color:var(--ink-2);max-width:74ch}
+  .lede strong{color:var(--ink);font-weight:600}
+  a{color:var(--route)}
+  :focus-visible{outline:2px solid var(--route);outline-offset:2px}
+
+  .metrics{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+    padding:clamp(16px,2vw,20px);margin-top:clamp(18px,2.4vw,26px);box-shadow:var(--shadow)}
+  .metrics h3{margin-bottom:12px;color:var(--route)}
+  .metrics ul{margin:0;padding:0;list-style:none;display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px 24px}
+  .metrics li{font-size:14.5px;color:var(--ink-2);line-height:1.45;padding-left:16px;position:relative}
+  .metrics li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1.5px;background:var(--route)}
+  .metrics li b{color:var(--ink);font-weight:600}
+
+  .chans{display:flex;flex-direction:column;gap:13px;margin-top:clamp(18px,2.6vw,26px)}
+  .ch{background:var(--surface);border:1px solid var(--line);border-radius:3px;box-shadow:var(--shadow);overflow:hidden}
+  .ch-h{display:flex;gap:14px;align-items:flex-start;padding:17px clamp(16px,2vw,22px) 0}
+  .ch-n{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--paper);
+    background:var(--ink);border-radius:3px;padding:5px 8px;flex:none;margin-top:2px}
+  .ch-h h4{margin:0;font-size:clamp(16.5px,2vw,19px);font-weight:600;line-height:1.25}
+  .ch-b{padding:14px clamp(16px,2vw,22px) 18px;display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:0 clamp(18px,2.4vw,30px)}
+  .fld{padding:10px 0;border-top:1px solid var(--line-soft)}
+  .fld dt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-3);margin-bottom:5px}
+  .fld dd{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+  .fld.msg dt{color:var(--route)}
+  .fld.msg dd{color:var(--ink);border-left:2px solid var(--route);padding-left:11px}
+
+  .flow{display:flex;flex-direction:column;gap:0;margin-top:clamp(18px,2.6vw,26px)}
+  .fs{display:grid;grid-template-columns:96px 1fr;gap:clamp(14px,2.2vw,26px);
+    padding:16px 0;border-top:1px solid var(--line)}
+  .fs:last-child{border-bottom:1px solid var(--line)}
+  .fs .tm{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--route);
+    padding-top:2px;letter-spacing:.03em}
+  .fs h4{margin:0 0 7px;font-size:16px;font-weight:600;line-height:1.3}
+  .fs p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5;max-width:80ch}
+
+  .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:clamp(16px,2.4vw,28px);margin-top:clamp(18px,2.6vw,26px)}
+  .col ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+  .col li{padding-left:18px;position:relative;font-size:15px;color:var(--ink-2);line-height:1.5}
+  .col li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1.5px;background:var(--route)}
+  .col li b{color:var(--ink);font-weight:600}
+  .col.ok li::before{background:var(--route)}
+  .col.no li::before{background:var(--signal)}
+
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface);margin-top:clamp(18px,2.6vw,26px)}
+  table{border-collapse:collapse;width:100%;min-width:820px;font-size:14.5px;line-height:1.5}
+  thead th{background:var(--ink);color:var(--paper);font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-weight:500;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;text-align:left;padding:11px 15px}
+  td{padding:14px 15px;border-bottom:1px solid var(--line-soft);vertical-align:top;color:var(--ink-2)}
+  tr:last-child td{border-bottom:0}
+  td.w{width:17%;color:var(--ink);font-weight:600}
+  td.f{white-space:nowrap;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;color:var(--route);width:14%}
+  td.lvl{color:var(--ink)}
+
+  .ladder{display:flex;flex-direction:column;gap:11px;margin-top:clamp(18px,2.6vw,26px)}
+  .rung{display:grid;grid-template-columns:130px 1fr;gap:clamp(14px,2vw,24px);
+    background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:16px 18px}
+  .rung .lb{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);padding-top:3px}
+  .rung h4{margin:0 0 7px;font-size:16.5px;font-weight:600;line-height:1.3}
+  .rung p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+  .rung.core{border-color:var(--route);background:var(--route-soft)}
+  .rung.core h4{color:var(--route)}
+
+  .scen{display:flex;flex-direction:column;gap:13px;margin-top:clamp(18px,2.6vw,26px)}
+  .sc{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--route);
+    border-radius:0 3px 3px 0;padding:clamp(17px,2.1vw,22px)}
+  .sc h4{margin:0 0 10px;font-size:clamp(16.5px,2vw,19px);font-weight:600;line-height:1.3}
+  .sc p{font-size:15px;color:var(--ink-2);line-height:1.55;max-width:86ch}
+  .sc .mech{margin-top:11px;padding-top:11px;border-top:1px solid var(--line-soft);font-size:14.5px;color:var(--ink)}
+  .sc .mech b{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);display:block;margin-bottom:6px;font-weight:500}
+
+  .schema{margin-top:clamp(20px,3vw,30px)}
+  .stages{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+  .sg{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:15px 16px;position:relative}
+  .sg .l{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);margin-bottom:8px}
+  .sg h4{margin:0 0 7px;font-size:15.5px;font-weight:600;line-height:1.25}
+  .sg p{margin:0;font-size:13.5px;color:var(--ink-2);line-height:1.45}
+  .bridges{margin-top:clamp(16px,2.2vw,24px);display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:11px}
+  .br{background:var(--surface-2);border:1px solid var(--line);border-radius:3px;padding:14px 16px}
+  .br b{display:block;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+    letter-spacing:.08em;color:var(--route);margin-bottom:7px}
+  .br span{font-size:14.5px;color:var(--ink-2);line-height:1.5}
+  .loop{margin-top:clamp(16px,2.2vw,24px);background:var(--route-soft);border-left:3px solid var(--route);
+    padding:clamp(18px,2.4vw,26px);border-radius:0 3px 3px 0}
+  .loop h3{color:var(--route)}
+  .loop p{color:var(--ink);max-width:80ch;font-size:clamp(15.5px,1.9vw,17.5px)}
+
+  .waves{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(14px,2vw,22px);margin-top:clamp(18px,2.6vw,26px)}
+  .wv{border-top:2px solid var(--ink);padding-top:15px}
+  .wv .w{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);display:block;margin-bottom:8px}
+  .wv h4{margin:0 0 10px;font-size:16.5px;font-weight:600;line-height:1.3}
+  .wv ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+  .wv li{padding-left:17px;position:relative;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+  .wv li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1.5px;background:var(--route)}
+  .wv .test{margin-top:12px;padding-top:12px;border-top:1px solid var(--line-soft);font-size:14px;color:var(--ink)}
+  .wv .test b{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--signal);display:block;margin-bottom:5px;font-weight:500}
+
+  .warn{margin-top:clamp(20px,3vw,30px);background:var(--signal-soft);border-left:3px solid var(--signal);
+    padding:clamp(18px,2.4vw,26px);border-radius:0 3px 3px 0}
+  .warn h3{color:var(--signal)}
+  .warn ul{margin:0;padding-left:1.15em;color:var(--ink);display:flex;flex-direction:column;gap:9px;max-width:82ch}
+
+  footer{padding:36px 0 56px;color:var(--ink-3);font-size:13px;font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+  @media (max-width:700px){
+    .fs{grid-template-columns:1fr;gap:6px}
+    .rung{grid-template-columns:1fr;gap:8px}
+    .tablewrap{border:0;background:transparent;overflow-x:visible}
+    table{min-width:0;display:block}thead{display:none}tbody{display:block}
+    tbody tr{display:block;background:var(--surface);border:1px solid var(--line);border-radius:3px;margin-bottom:12px;padding:4px 0}
+    td{display:flex;flex-direction:column;gap:6px;border-bottom:0;padding:10px 15px;width:auto!important}
+    td[data-label]::before{content:attr(data-label);font-family:"IBM Plex Mono",ui-monospace,monospace;
+      font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+  }
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow">AARRR · воронка продаж агентства</p>
+    <h1>Воронка для дорогой сделки</h1>
+    <p class="deck">Пять этапов под клиентов с длинным циклом и высоким чеком: прораб в сезоне, врач-собственник, организатор событий, руководитель агентства недвижимости. С метриками, сценариями и порядком внедрения.</p>
+  </header>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">00</span><div><h2>Как AARRR переводится на агентский бизнес</h2><p class="ru">Три поправки, без которых модель не работает</p></div></div>
+    <p class="lede">AARRR придумана для продукта с самообслуживанием. В услуге с циклом сделки в месяцы и чеком в сотни тысяч рублей три этапа означают не то же самое — и главная поправка меняет всю конструкцию.</p>
+    <div class="two">
+      <div class="col">
+        <ul>
+          <li><b>Активация происходит до оплаты.</b> Первую ценность клиент получает не после подписания, а на предрасчёте — до того, как отдал деньги. Вы отдаёте главный актив бесплатно, потому что именно он снимает тревогу, а тревога здесь — основной барьер, а не цена.</li>
+          <li><b>Retention — это продление и расширение,</b> а не возврат в интерфейс. Ключевая точка отвала — конец сезона, а не конец месяца.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <ul>
+          <li><b>Referral не покупается бонусом.</b> Денежное вознаграждение за рекомендацию собственник клиники или агентства воспринимает как понижение статуса. Работает другое: доступ, данные, повод выглядеть человеком, который знает, к кому обратиться.</li>
+          <li><b>Воронка привязана к календарю клиента,</b> а не к вашему кварталу: у работы есть срок годности, и после закрытия окна найма клиент выпадает на год.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">A</span><div><h2>Acquisition</h2><p class="ru">Привлечение · шесть источников</p></div></div>
+    <p class="lede">Аудитория измеряется сотнями компаний в регионе, а не десятками тысяч человек. Поэтому охватные форматы и широкий таргет здесь не работают в принципе: <strong>все каналы построены вокруг одного актива — отраслевого индекса цены заявки</strong>, и различаются только способом доставки.</p>
+
+    <div class="chans">
+      <div class="ch">
+        <div class="ch-h"><span class="ch-n">A1</span><h4>«Индекс заявки» — собственный отраслевой бенчмарк</h4></div>
+        <div class="ch-b">
+          <div class="fld"><dt>Гипотеза</dt><dd>Собственнику негде узнать, сколько стоит заявка в его нише, городе и месяце. За этой цифрой он придёт даже к незнакомому агентству и оставит контакт — потому что она нужна ему для планирования, а не для покупки.</dd></div>
+          <div class="fld msg"><dt>Ключевое сообщение</dt><dd>«Сколько стоит заявка в загородном строительстве по вашему региону в марте. Данные по N проектам, обновление ежеквартально»</dd></div>
+          <div class="fld"><dt>Формат</dt><dd>PDF-отчёт на 10–15 страниц, страница со сбором контакта, выжимка постом, слайд для доклада. Один артефакт питает все остальные каналы.</dd></div>
+        </div>
+      </div>
+
+      <div class="ch">
+        <div class="ch-h"><span class="ch-n">A2</span><h4>Отраслевые Telegram-каналы: посевы и собственный канал</h4></div>
+        <div class="ch-b">
+          <div class="fld"><dt>Гипотеза</dt><dd>Эта аудитория читает три-пять отраслевых каналов и там же спрашивает рекомендации подрядчиков. Рекламный пост игнорируется, разбор чужой ошибки с цифрами — читается и пересылается.</dd></div>
+          <div class="fld msg"><dt>Ключевое сообщение</dt><dd>«40 заявок и ноль договоров: разбираем, где именно ломается воронка в загородном строительстве»</dd></div>
+          <div class="fld"><dt>Формат</dt><dd>Посев выжимок индекса в 5–8 отраслевых каналах; собственный канал с разборами дважды в неделю; присутствие в профильных чатах без прямых продаж.</dd></div>
+        </div>
+      </div>
+
+      <div class="ch">
+        <div class="ch-h"><span class="ch-n">A3</span><h4>Поиск: коммерческие запросы и запросы тревоги</h4></div>
+        <div class="ch-b">
+          <div class="fld"><dt>Гипотеза</dt><dd>Два разных класса спроса. Коммерческий («лиды для строительной компании») — горячий, дорогой, выжженный конкурентами. Тревожный («почему реклама не даёт договоров», «сколько стоит пациент в стоматологии») — дешевле в разы и приводит того же человека на две недели раньше, до того как он начал выбирать подрядчика.</dd></div>
+          <div class="fld msg"><dt>Ключевое сообщение</dt><dd>На коммерческих: «Расчёт стоимости договора до того, как вы заплатите». На тревожных: конкретная цифра из индекса вместо ответа «зависит от многого»</dd></div>
+          <div class="fld"><dt>Формат</dt><dd>Контекст на коммерческую группу; SEO-материалы под запросы тревоги, ведущие на индекс, а не на страницу услуг.</dd></div>
+        </div>
+      </div>
+
+      <div class="ch">
+        <div class="ch-h"><span class="ch-n">A4</span><h4>Отраслевые конференции и профильные события</h4></div>
+        <div class="ch-b">
+          <div class="fld"><dt>Гипотеза</dt><dd>ЛПР в этих нишах бывает на одном-трёх отраслевых событиях в год и именно там принимает решения о подрядчиках. Доклад с чужими цифрами конвертирует кратно лучше стенда, потому что не выглядит продажей.</dd></div>
+          <div class="fld msg"><dt>Ключевое сообщение</dt><dd>«Сколько на самом деле стоит клиент в нашей отрасли: данные по N проектам за год» — доклад про рынок, а не про агентство</dd></div>
+          <div class="fld"><dt>Формат</dt><dd>Доклад на 20 минут, раздача индекса по QR-коду со сцены, 8–10 встреч, назначенных до мероприятия, а не собранных на нём.</dd></div>
+        </div>
+      </div>
+
+      <div class="ch">
+        <div class="ch-h"><span class="ch-n">A5</span><h4>Партнёрская сеть смежных подрядчиков</h4></div>
+        <div class="ch-b">
+          <div class="fld"><dt>Гипотеза</dt><dd>У клиента уже есть подрядчики, которым он доверяет и которые видят его триггер раньше вас: поставщики оборудования и материалов, лизинговые брокеры, интеграторы CRM, бухгалтеры на аутсорсе, управляющие компании франшиз. Лизинговый брокер узнаёт о покупке установки в тот же день — а это триггер найма.</dd></div>
+          <div class="fld msg"><dt>Ключевое сообщение партнёру</dt><dd>«Мы бесплатно посчитаем экономику привлечения вашему клиенту — вы выглядите полезным, мы получаем разговор». Не «дайте контакты»</dd></div>
+          <div class="fld"><dt>Формат</dt><dd>10–15 партнёрских договорённостей, совместные вебинары, соавторство в выпуске индекса, обмен клиентскими мероприятиями.</dd></div>
+        </div>
+      </div>
+
+      <div class="ch">
+        <div class="ch-h"><span class="ch-n">A6</span><h4>Точечный обход по внешним триггерам</h4></div>
+        <div class="ch-b">
+          <div class="fld"><dt>Гипотеза</dt><dd>Триггеры найма видны снаружи: сдан дом, клиника открыла направление, площадка выложила свободные даты, компания получила разрешение на строительство. Персональное обращение в неделю триггера бьёт любой охват, потому что попадает в открытое окно.</dd></div>
+          <div class="fld msg"><dt>Ключевое сообщение</dt><dd>«Вы сдали дом в июле — по нашим данным остатки в вашем сегменте расходятся за N месяцев при цене обращения M. Показать расчёт?»</dd></div>
+          <div class="fld"><dt>Формат</dt><dd>Список 50–100 компаний с мониторингом событий, 15–20 персональных касаний в день, письмо-разбор вместо коммерческого предложения.</dd></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="metrics">
+      <h3>Метрики этапа</h3>
+      <ul>
+        <li><b>Число MQL</b> — заявок, прошедших скоринг по нише, мощности и дате</li>
+        <li><b>CPMQL по каждому каналу</b> — цель ≤ 25% чека первого месяца</li>
+        <li><b>Конверсия страницы индекса в подписку</b> — 25–35%</li>
+        <li><b>Канальная концентрация</b> — ни один источник не даёт более 50% MQL</li>
+        <li><b>Доля расхода на нецелевой трафик</b> — ≤ 10%</li>
+        <li><b>Число активных партнёров</b> — давших минимум один лид за квартал</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">B</span><div><h2>Activation</h2><p class="ru">Активация · момент первой ценности</p></div></div>
+    <p class="lede"><strong>Первая ценность — момент, когда клиент впервые видит цифру про свой собственный бизнес, которой у него не было.</strong> Не заявка и не договор: во сколько ему обойдётся один договор в его городе, в его месяце, при его мощности. Это происходит до оплаты — и в этом главная особенность воронки.</p>
+
+    <h3 style="margin-top:clamp(24px,3.4vw,36px)">Сценарий первого касания: от заявки до защиты расчёта</h3>
+    <div class="flow">
+      <div class="fs"><div class="tm">0 минут</div><div><h4>Отдаём то, за чем пришли</h4><p>Автоответ содержит сам отчёт, а не фразу «менеджер свяжется с вами». Обещание выполнено до первого разговора — это первый акт доверия и он бесплатный.</p></div></div>
+      <div class="fs"><div class="tm">≤ 15 минут</div><div><h4>Звонок из трёх вопросов</h4><p>Не презентация агентства. Ниша и город, мощность (сколько бригад, кресел, дат, агентов), дата, к которой нужна загрузка. Три вопроса дают всё для расчёта и одновременно квалифицируют.</p></div></div>
+      <div class="fs"><div class="tm">24–48 часов</div><div><h4>Персональный предрасчёт</h4><p>Три сценария — консервативный, базовый, агрессивный. Стоимость договора, а не заявки. Сроки выхода на объём. Отдельным блоком — что вы не делаете и за что не отвечаете. Это тот самый документ, который выигрывает вам тендеры.</p></div></div>
+      <div class="fs"><div class="tm">Встреча, 30 минут</div><div><h4>Защита расчёта и чек-лист продаж</h4><p>Разбор цифр и допущений. В конце — чек-лист готовности его отдела продаж: скорость ответа, скрипт, запись звонков. Он одновременно диагностика, снятие риска «заявки будут, а продавать некому» и якорь для будущего апселла.</p></div></div>
+      <div class="fs"><div class="tm">В тот же день</div><div><h4>Демо-дашборд</h4><p>Доступ к обезличенному проекту из его отрасли: он видит, как будет выглядеть его отчётность. Инструмент проверки вместо обещания — прямое лекарство от тревоги «я не смогу проконтролировать их работу».</p></div></div>
+    </div>
+
+    <h3 style="margin-top:clamp(24px,3.4vw,36px)">Онбординг после подписания: первые четырнадцать дней</h3>
+    <div class="flow">
+      <div class="fs"><div class="tm">День 0</div><div><h4>Договор с приложением о границе</h4><p>Зона ответственности сторон, критерии квалифицированной заявки, обязанности клиента и подписанный чек-лист готовности продаж. Всё, что не проговорено здесь, вернётся причиной оттока.</p></div></div>
+      <div class="fs"><div class="tm">Дни 1–2</div><div><h4>Доступы и обучение его менеджера</h4><p>Дашборд, коллтрекинг, тридцатиминутное обучение того человека, который будет принимать заявки. Не собственника — исполнителя.</p></div></div>
+      <div class="fs"><div class="tm">Дни 3–10</div><div><h4>Первая квалифицированная заявка</h4><p>Ключевой порог. Если за десять дней не пришла ни одна заявка нужного профиля, клиент начинает сомневаться в решении независимо от плана.</p></div></div>
+      <div class="fs"><div class="tm">День 7</div><div><h4>Первая сверка факта с прогнозом</h4><p>Пятнадцать минут по одному экрану: что обещали, что получилось, почему разница. Этот ритуал важнее любого отчёта — доверие возникает от совпадения с прогнозом, а не от объёма.</p></div></div>
+      <div class="fs"><div class="tm">День 14</div><div><h4>Первый отчёт для партнёра</h4><p>Версия, пригодная для показа третьему лицу — партнёру, главврачу, застройщику, банку. Закрывает социальный слой задачи, ради которой вас наняли.</p></div></div>
+    </div>
+
+    <div class="two">
+      <div class="col ok">
+        <h3>Активация лида — засчитана, если</h3>
+        <ul>
+          <li>Скачал индекс и <b>назвал мощность и дату</b> в звонке — то есть заговорил цифрами о своём бизнесе</li>
+          <li>Получил персональный предрасчёт в течение 48 часов</li>
+          <li>Пришёл на защиту расчёта и <b>задал вопрос по допущениям</b> — признак вовлечения, а не вежливости</li>
+          <li>Согласился заполнить чек-лист готовности отдела продаж</li>
+        </ul>
+      </div>
+      <div class="col ok">
+        <h3>Активация клиента — засчитана, если</h3>
+        <ul>
+          <li>Первая квалифицированная заявка пришла <b>в первые 10 дней</b></li>
+          <li>Его менеджер обработал её быстрее чем за 15 минут</li>
+          <li>Клиент <b>сам</b> открыл дашборд минимум дважды за первую неделю</li>
+          <li>Провёл сверку факта с прогнозом на седьмой день</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="metrics">
+      <h3>Метрики этапа</h3>
+      <ul>
+        <li><b>Activation Rate лида</b> = получившие предрасчёт ÷ MQL — цель ≥ 80%</li>
+        <li><b>Time-to-value</b> = от заявки до предрасчёта — ≤ 48 часов</li>
+        <li><b>Speed-to-Lead</b> = медиана до первого касания — ≤ 15 минут</li>
+        <li><b>Activation Rate клиента</b> = выполнены все четыре условия ÷ новые клиенты — ≥ 85%</li>
+        <li><b>Time-to-first-lead</b> = дней до первой квалифицированной заявки — ≤ 10</li>
+        <li><b>Доля самостоятельных заходов в дашборд</b> в первую неделю — ≥ 70%</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">R1</span><div><h2>Retention</h2><p class="ru">Удержание · шесть механик</p></div></div>
+    <p class="lede">Точка отвала в этой нише — не месяц, а <strong>конец сезона</strong>. Клиент не уходит к конкуренту: он ставит на паузу, а пауза длиной в межсезонье почти всегда превращается в потерю. Половина механик ниже существует именно ради того, чтобы пережить межсезонье.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Механика</th><th>Тип</th><th>Что делает</th><th>Периодичность</th></tr></thead>
+        <tbody>
+          <tr><td class="w" data-label="Механика">Сверка факта с прогнозом</td><td data-label="Тип">Коммуникационная</td><td class="lvl" data-label="Что делает">Пятнадцать минут по одному экрану: обещали / получилось / почему разница. Ритуал, который производит доверие. Никогда не заменяется письмом.</td><td class="f" data-label="Период">Еженедельно</td></tr>
+          <tr><td class="w" data-label="Механика">Дашборд с записями звонков</td><td data-label="Тип">Продуктовая</td><td class="lvl" data-label="Что делает">Доступ круглосуточно, цифры рядом с записями разговоров. Снимает навязчивую утреннюю проверку и делает вашу работу проверяемой.</td><td class="f" data-label="Период">Постоянно</td></tr>
+          <tr><td class="w" data-label="Механика">Отчёт для партнёра</td><td data-label="Тип">Продуктовая</td><td class="lvl" data-label="Что делает">Версия отчёта для показа третьему лицу — партнёру, банку, застройщику, управляющей компании. Закрывает социальный слой задачи.</td><td class="f" data-label="Период">Ежемесячно</td></tr>
+          <tr><td class="w" data-label="Механика">Правило раннего предупреждения</td><td data-label="Тип">Коммуникационная</td><td class="lvl" data-label="Что делает">Автоалерт при отклонении факта от прогноза более чем на 20% и звонок в тот же день. «Мне сказали первым» — критерий успеха, который клиенты называют сами.</td><td class="f" data-label="Период">По событию</td></tr>
+          <tr><td class="w" data-label="Механика">Персональный срез индекса</td><td data-label="Тип">Контентная</td><td class="lvl" data-label="Что делает">Как его цифры выглядят на фоне ниши. Уникальная ценность, которую он не получит нигде — и главный аргумент против ухода к дешёвому подрядчику.</td><td class="f" data-label="Период">Ежеквартально</td></tr>
+          <tr><td class="w" data-label="Механика">Межсезонный контракт</td><td data-label="Тип">Продуктовая</td><td class="lvl" data-label="Что делает">Зимой платит меньше, но остаётся: вы готовите следующий сезон и фиксируете цену. Прямое лекарство от сезонной паузы — главной причины потери клиента.</td><td class="f" data-label="Период">Сезонно</td></tr>
+          <tr><td class="w" data-label="Механика">Аудит обработки заявок</td><td data-label="Тип">Продуктовая</td><td class="lvl" data-label="Что делает">Разбор записей звонков его менеджеров с выводами. Превращает вашу главную причину оттока в регулярную ценность и одновременно в платный апселл.</td><td class="f" data-label="Период">Ежеквартально</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="metrics">
+      <h3>Метрики этапа</h3>
+      <ul>
+        <li><b>Renewal Rate</b> — ≥ 85% в сезон, ≥ 60% на переходе в межсезонье</li>
+        <li><b>Отток</b> — ≤ 5% в месяц</li>
+        <li><b>Net Revenue Retention</b> с учётом апселлов — ≥ 110%</li>
+        <li><b>Средний срок жизни клиента</b> в месяцах — база для расчёта LTV</li>
+        <li><b>Доля клиентов на межсезонном контракте</b> — ≥ 50% сезонных ниш</li>
+        <li><b>Доля еженедельных сверок, проведённых по графику</b> — ≥ 90%</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">R2</span><div><h2>Revenue</h2><p class="ru">Монетизация · лестница и триггеры</p></div></div>
+    <p class="lede">Модель — фиксированный абонемент плюс продукты с отдельным чеком. Принципиально: <strong>основной оффер продаётся не как «ведение рекламы в месяц», а как загрузка мощности к дате</strong>. Это меняет предмет договора и выводит вас из сравнения по цене за услугу.</p>
+
+    <div class="ladder">
+      <div class="rung"><div class="lb">Вход</div><div>
+        <h4>Платный предрасчёт ниши — 15–30 тыс. ₽, зачитывается в первый абонемент</h4>
+        <p>Отсеивает нецелевых, монетизирует то, что раньше отдавалось бесплатно, и повышает ценность документа в глазах клиента. Осторожно: платный вход снижает конверсию верха воронки — тестируйте как A/B и оставьте бесплатный вариант для тёплых обращений по рекомендации.</p>
+      </div></div>
+      <div class="rung core"><div class="lb">Основной оффер</div><div>
+        <h4>«Загрузка к дате» — контракт на сезон или период</h4>
+        <p>Фиксированный абонемент с прогнозом объёма и цены договора, названной границей ответственности и еженедельной сверкой. Предмет договора — заполненная мощность к конкретной дате, а не количество настроенных кампаний.</p>
+      </div></div>
+      <div class="rung"><div class="lb">Апселл 1</div><div>
+        <h4>Аудит обработки заявок</h4>
+        <p>Ежеквартальный разбор записей звонков с выводами и планом. Продаётся сам собой, когда заявки идут, а договоров нет — и снимает главный риск для обеих сторон.</p>
+      </div></div>
+      <div class="rung"><div class="lb">Апселл 2</div><div>
+        <h4>Расширение на второе направление или объект</h4>
+        <p>Вторая точка, второй ЖК, новое направление в клинике. Триггер — загрузка первого направления выше 90%.</p>
+      </div></div>
+      <div class="rung"><div class="lb">Апселл 3</div><div>
+        <h4>Предсезонное планирование</h4>
+        <p>Продаётся за два месяца до окончания текущего сезона, когда результат ещё виден. Продавать зимой то же самое кратно труднее.</p>
+      </div></div>
+      <div class="rung"><div class="lb">Кросс-селл</div><div>
+        <h4>Порядок в CRM и коллтрекинге · скрипты для менеджеров · карты и репутация · контент под ЛПР для B2B</h4>
+        <p>Работы, которые не увеличивают трафик, но повышают конверсию уже оплаченного. Продаются по факту обнаруженной проблемы, а не пакетом на входе.</p>
+      </div></div>
+    </div>
+
+    <div class="two">
+      <div class="col">
+        <h3>Внешние триггеры покупки</h3>
+        <ul>
+          <li>Подписан лизинг или кредит на оборудование — платёж уже идёт</li>
+          <li>Календарь пуст на конкретный месяц при живом окне продаж</li>
+          <li>Ушёл сотрудник и увёл клиентскую базу</li>
+          <li>Прошлый подрядчик дал заявки без договоров</li>
+          <li>Изменилась ипотечная ставка или свернули программу</li>
+          <li>Застройщик передал остатки с дедлайном квартала</li>
+          <li>Сдан объект, открыто новое направление, куплена вторая точка</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Внутренние триггеры апселла</h3>
+        <ul>
+          <li><b>Три недели подряд</b> заявки в плане, а договоров нет → аудит обработки заявок</li>
+          <li><b>Загрузка выше 90%</b> две недели подряд → расширение на второе направление</li>
+          <li><b>До конца сезона 8 недель</b> → предсезонный контракт, пока результат на виду</li>
+          <li><b>Клиент попросил отчёт для банка или партнёра</b> → платная версия отчётности</li>
+          <li><b>Скорость ответа его менеджера выше 30 минут</b> → скрипты и обучение</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="metrics">
+      <h3>Метрики этапа</h3>
+      <ul>
+        <li><b>Конверсия предрасчёт → договор</b> — 35–45%, узел всей экономики воронки</li>
+        <li><b>Win rate</b> по квалифицированным сделкам — 30–35%</li>
+        <li><b>Средний чек нового контракта</b> — рост на 15% за год</li>
+        <li><b>Доля выручки от апселлов и кросс-селлов</b> — ≥ 20%</li>
+        <li><b>Доля выручки, приходящейся на межсезонье</b> — ≥ 25%</li>
+        <li><b>Срок окупаемости CAC</b> — ≤ 4 месяцев абонемента</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">R3</span><div><h2>Referral</h2><p class="ru">Рекомендации · три сценария роста</p></div></div>
+    <p class="lede">Что на самом деле мотивирует рекомендовать в этой аудитории: <strong>возможность выглядеть человеком, который знает, к кому обратиться</strong>; наличие конкретного артефакта, которым не стыдно поделиться; и просьба, прозвучавшая в правильный момент. Деньги за рекомендацию здесь работают против вас — они превращают собственника в агента.</p>
+
+    <div class="scen">
+      <div class="sc">
+        <h4>Сценарий 1. Индекс как валюта обмена</h4>
+        <p>Отчёт с цифрами по нише пересылают в отраслевые чаты, потому что он полезен — и потому что отправитель растёт в статусе. Виральность встроена в сам артефакт, а не в промокод: делиться отчётом не стыдно, а делиться рекламой агентства стыдно.</p>
+        <div class="mech"><b>Механика</b>Клиент получает персональный срез своих цифр на фоне ниши → показывает коллегам как аргумент в своём разговоре → на последней странице одна строка: «получить срез по своему бизнесу». Замеряется коэффициент распространения: сколько новых подписок приходит с одного скачавшего.</div>
+      </div>
+      <div class="sc">
+        <h4>Сценарий 2. Отчёт для партнёра как носитель</h4>
+        <p>Клиент показывает отчёт застройщику, банку, управляющей компании, партнёру по бизнесу — то есть ровно тем людям, которые сами являются вашими потенциальными клиентами или каналами. Распространение внутри профессионального круга происходит без единого рекламного касания с вашей стороны.</p>
+        <div class="mech"><b>Механика</b>Подпись «расчёт подготовлен» и один разворот с методикой в конце отчёта. Ничего продающего: документ должен оставаться его документом, иначе он перестанет его показывать.</div>
+      </div>
+      <div class="sc">
+        <h4>Сценарий 3. Клуб непересекающихся клиентов</h4>
+        <p>Клиенты из одной ниши, но разных городов, друг другу не конкуренты — и отчаянно хотят сравнить свои цифры с чужими. Закрытая встреча раз в квартал на девяносто минут, где они делятся показателями, а вы модерируете. Приглашение «плюс один» становится естественным механизмом роста.</p>
+        <div class="mech"><b>Механика</b>Мотив участника — доступ к реальным цифрам коллег, которого нет больше нигде. Ваш выигрыш двойной: клуб удерживает действующих клиентов и приводит новых руками самих участников.</div>
+      </div>
+      <div class="sc">
+        <h4>Сценарий 4. Просьба в момент максимальной эмоции</h4>
+        <p>Не «оставьте отзыв» в конце месяца. Через несколько дней после недели, где факт совпал с прогнозом, — в момент, когда клиент только что убедился, что его не обманули. Просьба конкретная: назвать одного человека из своей отрасли, а не «порекомендовать нас».</p>
+        <div class="mech"><b>Механика</b>Триггер в CRM: неделя без отклонения от прогноза → задача менеджеру на персональную просьбу. Формулировка адресная: «кому из ваших знакомых сейчас нужно закрывать сезон?»</div>
+      </div>
+    </div>
+
+    <div class="metrics">
+      <h3>Метрики этапа</h3>
+      <ul>
+        <li><b>Referral Rate</b> = доля сделок по рекомендации — ≥ 25%</li>
+        <li><b>Число активных рекомендателей</b> — клиентов, давших хотя бы одну рекомендацию за квартал</li>
+        <li><b>Коэффициент распространения индекса</b> = новые подписки с одного скачавшего — ориентир 0,3–0,5</li>
+        <li><b>Доля клиентов, показавших отчёт третьему лицу</b> — спрашивается напрямую на сверке</li>
+        <li><b>CPMQL реферального канала</b> относительно платных — должен быть кратно ниже</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">07</span><div><h2>Схема связей</h2><p class="ru">Как этапы держат друг друга</p></div></div>
+    <div class="schema">
+      <div class="stages">
+        <div class="sg"><div class="l">A</div><h4>Привлечение</h4><p>Шесть каналов вокруг одного артефакта — отраслевого индекса</p></div>
+        <div class="sg"><div class="l">B</div><h4>Активация</h4><p>Персональный предрасчёт до оплаты — первая ценность и главный инструмент продажи одновременно</p></div>
+        <div class="sg"><div class="l">R1</div><h4>Удержание</h4><p>Еженедельная сверка, дашборд, межсезонный контракт</p></div>
+        <div class="sg"><div class="l">R2</div><h4>Монетизация</h4><p>Загрузка к дате плюс апселлы по внутренним триггерам</p></div>
+        <div class="sg"><div class="l">R3</div><h4>Рекомендации</h4><p>Индекс и отчёт для партнёра как носители, клуб как ускоритель</p></div>
+      </div>
+
+      <div class="bridges">
+        <div class="br"><b>A → B</b><span>Один артефакт питает все каналы: индекс приводит человека, предрасчёт превращает его в участника разговора. Если индекса нет, шесть каналов рассыпаются на шесть разных сообщений.</span></div>
+        <div class="br"><b>B → R2</b><span>Предрасчёт одновременно активация и продажа. Конверсия «предрасчёт → договор» — узел, в котором решается экономика всей воронки: она дороже любой оптимизации верха.</span></div>
+        <div class="br"><b>R2 → R1</b><span>Граница ответственности, проданная на входе, определяет удержание. Всё, что не проговорено при продаже, возвращается причиной оттока на третий месяц.</span></div>
+        <div class="br"><b>R1 → R3</b><span>Рекомендация рождается не из удовлетворённости вообще, а из конкретного момента совпадения факта с прогнозом. Сверка производит этот момент еженедельно.</span></div>
+        <div class="br"><b>R3 → A</b><span>Пересылка индекса и рекомендации возвращаются в верх воронки и снижают CPMQL. Это единственный канал, который дешевеет со временем.</span></div>
+      </div>
+
+      <div class="loop">
+        <h3>Петля с накопительным эффектом</h3>
+        <p>Каждый новый клиент пополняет базу → индекс становится точнее → верх воронки работает сильнее → приходит больше клиентов. Это единственный контур в схеме, который со временем усиливается сам, и единственное, что конкурент не скопирует: отчёт повторить можно, накопленные данные — нет. Всё остальное в воронке — операционка, которую нужно поддерживать. Эту петлю нужно защищать в первую очередь.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">08</span><div><h2>Приоритеты внедрения</h2><p class="ru">Три волны и то, что делать не нужно</p></div></div>
+    <p class="lede">Порядок продиктован силой влияния на экономику, а не удобством запуска. Целевые значения по всей воронке — ориентиры и гипотезы: ваш базовый уровень пока не измерен, поэтому <strong>первые недели работают на замер, а не на выполнение плана</strong>.</p>
+
+    <div class="waves">
+      <div class="wv">
+        <span class="w">Недели 1–8</span>
+        <h4>Волна 1. Ядро</h4>
+        <ul>
+          <li>Гигиена CRM и коллтрекинг — без них все метрики недостоверны</li>
+          <li>Шаблон предрасчёта с тремя сценариями</li>
+          <li>Первый выпуск индекса и страница сбора контактов</li>
+          <li>Регламент ответа за 15 минут</li>
+        </ul>
+        <div class="test"><b>Что тестируем</b>Конверсия «предрасчёт → договор» — главный рычаг экономики. Конверсия страницы индекса в подписку — жизнеспособность всего верха воронки.</div>
+      </div>
+      <div class="wv">
+        <span class="w">Недели 9–16</span>
+        <h4>Волна 2. Удержание и чек</h4>
+        <ul>
+          <li>Приложение о границе ответственности и чек-лист продаж</li>
+          <li>Дашборд и еженедельная сверка</li>
+          <li>Аудит обработки заявок как платный продукт</li>
+          <li>Межсезонный тариф</li>
+        </ul>
+        <div class="test"><b>Что тестируем</b>Влияет ли еженедельная сверка на продление. Принимают ли межсезонный тариф — от этого зависит, переживёте ли вы зиму без просадки.</div>
+      </div>
+      <div class="wv">
+        <span class="w">Недели 17–28</span>
+        <h4>Волна 3. Масштаб</h4>
+        <ul>
+          <li>Партнёрская сеть: первые 10–15 договорённостей</li>
+          <li>Доклады на двух отраслевых событиях</li>
+          <li>Клуб клиентов, первая встреча</li>
+          <li>Точечный обход по внешним триггерам</li>
+        </ul>
+        <div class="test"><b>Что тестируем</b>CPMQL партнёрского канала против платного трафика. Окупаемость участия в конференции по числу MQL, а не по контактам.</div>
+      </div>
+    </div>
+
+    <div class="warn">
+      <h3>Чего не делать в первые полгода</h3>
+      <ul>
+        <li><b>Охватные кампании и широкий таргет.</b> Релевантная аудитория в регионе — сотни компаний. Деньги уйдут в показы людям, которые никогда ничего не купят.</li>
+        <li><b>Денежные бонусы за рекомендацию.</b> В этой аудитории они снижают статус рекомендателя и убивают именно тот мотив, который работает.</li>
+        <li><b>Второй канал контента до того, как первый даёт стабильный поток MQL.</b> Команда из 3–10 человек не вытянет два производственных цикла одновременно — и провалит оба.</li>
+        <li><b>Платный предрасчёт по всем обращениям сразу.</b> Сначала A/B на холодном трафике: если конверсия верха падает сильнее, чем растёт качество, вход остаётся бесплатным.</li>
+        <li><b>Привязку метрик к мотивации до окончания замера базового уровня.</b> Мотивация на непроверенных цифрах демотивирует быстрее, чем её отсутствие.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>Воронка AARRR · агентство маркетинговых услуг · сегмент дорогой сделки</footer>
+</div>
