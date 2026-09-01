@@ -1,0 +1,233 @@
+<title>Система KPI агентства</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Unbounded:wght@600&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F0;--surface:#FFFFFF;--surface-2:#E8EBE7;
+    --ink:#15191C;--ink-2:#454E54;--ink-3:#6E787E;
+    --line:#CDD3CE;--line-soft:#DEE2DC;
+    --route:#1F44C8;--route-soft:#E4E8FB;
+    --signal:#B93A28;--signal-soft:#F7E5E1;
+    --band:#E2E6E0;--shadow:0 1px 0 rgba(21,25,28,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0E1215;--surface:#161B1F;--surface-2:#1D2429;
+      --ink:#E7EBE7;--ink-2:#B0B9BC;--ink-3:#828D92;
+      --line:#2C353A;--line-soft:#232B30;
+      --route:#8AA5FF;--route-soft:#1A2340;
+      --signal:#F0836C;--signal-soft:#331B16;
+      --band:#1D2429;--shadow:0 1px 0 rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E1215;--surface:#161B1F;--surface-2:#1D2429;
+    --ink:#E7EBE7;--ink-2:#B0B9BC;--ink-3:#828D92;
+    --line:#2C353A;--line-soft:#232B30;
+    --route:#8AA5FF;--route-soft:#1A2340;
+    --signal:#F0836C;--signal-soft:#331B16;
+    --band:#1D2429;--shadow:0 1px 0 rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);
+    font-family:"Golos Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+
+  header.mast{padding:clamp(40px,7vw,80px) 0 clamp(26px,4vw,40px);border-bottom:2px solid var(--ink)}
+  .eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--route);margin:0 0 clamp(16px,3vw,26px);
+    display:flex;align-items:center;gap:12px}
+  .eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+  h1{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(28px,5vw,54px);line-height:1.05;letter-spacing:-.02em;
+    margin:0 0 20px;text-wrap:balance;max-width:15ch}
+  .deck{font-size:clamp(16px,1.9vw,20px);color:var(--ink-2);max-width:66ch;margin:0}
+
+  section{padding:clamp(42px,6vw,72px) 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  .sec-head{display:flex;gap:16px;align-items:baseline;margin-bottom:clamp(18px,2.6vw,28px)}
+  .sec-num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;font-weight:500;
+    color:var(--route);padding-top:.35em;flex:none}
+  h2{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(21px,2.8vw,30px);line-height:1.2;letter-spacing:-.015em;margin:0;text-wrap:balance}
+  .sub{margin:7px 0 0;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+  h3{font-size:13px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 12px}
+  p{margin:0 0 1em}p:last-child{margin-bottom:0}
+  .lede{font-size:clamp(16px,1.9vw,18px);color:var(--ink-2);max-width:74ch}
+  .lede strong{color:var(--ink);font-weight:600}
+
+  .cascade{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:clamp(14px,2vw,22px);margin-top:clamp(20px,3vw,30px)}
+  .lv{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:clamp(16px,2vw,22px);box-shadow:var(--shadow)}
+  .lv .t{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.11em;
+    text-transform:uppercase;color:var(--route);margin-bottom:9px}
+  .lv h4{margin:0 0 10px;font-size:17px;font-weight:600;line-height:1.25}
+  .lv p{font-size:14.5px;color:var(--ink-2);line-height:1.5}
+  .lv dl{margin:12px 0 0;padding-top:12px;border-top:1px solid var(--line-soft);
+    display:grid;grid-template-columns:auto 1fr;gap:5px 12px;font-size:13.5px}
+  .lv dt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ink-3);padding-top:2px}
+  .lv dd{margin:0;color:var(--ink-2)}
+
+  .note{background:var(--signal-soft);border-left:3px solid var(--signal);
+    padding:clamp(18px,2.4vw,26px);border-radius:0 3px 3px 0;margin-top:clamp(20px,3vw,30px)}
+  .note h3{color:var(--signal)}
+  .note ul{margin:0;padding-left:1.15em;color:var(--ink);display:flex;flex-direction:column;gap:9px;max-width:82ch}
+  .note code{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px}
+
+  .legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .legend div{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--ink-2);
+    background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:7px 11px}
+
+  .fl{display:inline-block;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;
+    letter-spacing:.08em;text-transform:uppercase;border-radius:2px;padding:2px 5px;margin-left:7px;
+    vertical-align:2px;white-space:nowrap}
+  .fl.b{background:var(--route-soft);color:var(--route);border:1px solid var(--route)}
+  .fl.h{background:var(--signal-soft);color:var(--signal);border:1px solid var(--signal)}
+
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface);margin-top:clamp(18px,2.6vw,26px)}
+  table{border-collapse:collapse;width:100%;min-width:1060px;font-size:14px;line-height:1.5}
+  thead th{position:sticky;top:0;z-index:2;background:var(--ink);color:var(--paper);
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;font-size:10.5px;
+    letter-spacing:.11em;text-transform:uppercase;text-align:left;padding:11px 14px;white-space:nowrap}
+  td{padding:14px;border-bottom:1px solid var(--line-soft);vertical-align:top;color:var(--ink-2)}
+  tr:last-child td{border-bottom:0}
+  tr.lvl td{background:var(--band);border-bottom:1px solid var(--line);padding:9px 14px;
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink)}
+  td.kn{width:22%;color:var(--ink)}
+  td.kn b{font-weight:600;font-size:15px;line-height:1.3}
+  td.kn .why{display:block;margin-top:7px;font-size:13px;color:var(--ink-3);line-height:1.45}
+  td code{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;
+    color:var(--ink);line-height:1.55;display:block}
+  td.u{width:7%;white-space:nowrap;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+  td.tg{width:17%;color:var(--ink);font-weight:500}
+  td.fq{width:8%;white-space:nowrap;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--route)}
+
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:clamp(14px,2vw,22px);margin-top:clamp(20px,3vw,30px)}
+  .st{border-top:2px solid var(--ink);padding-top:15px}
+  .st .w{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);display:block;margin-bottom:8px}
+  .st h4{margin:0 0 9px;font-size:16px;font-weight:600;line-height:1.3}
+  .st p{font-size:14.5px;color:var(--ink-2);line-height:1.5}
+
+  .anti{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:clamp(18px,2.6vw,26px)}
+  .an{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--signal);
+    border-radius:0 3px 3px 0;padding:15px 17px}
+  .an b{display:block;font-size:15px;font-weight:600;margin-bottom:7px}
+  .an span{font-size:14px;color:var(--ink-2);line-height:1.5}
+
+  footer{padding:36px 0 56px;color:var(--ink-3);font-size:13px;
+    font-family:"IBM Plex Mono",ui-monospace,monospace}
+  a{color:var(--route)}
+  :focus-visible{outline:2px solid var(--route);outline-offset:2px}
+
+  @media (max-width:900px){
+    .tablewrap{border:0;background:transparent;overflow-x:visible}
+    table{min-width:0;display:block}thead{display:none}tbody{display:block}
+    tbody tr{display:block;background:var(--surface);border:1px solid var(--line);
+      border-radius:3px;margin-bottom:12px;padding:4px 0}
+    td{display:flex;flex-direction:column;gap:6px;border-bottom:0;padding:10px 15px;width:auto!important}
+    td[data-label]::before{content:attr(data-label);font-family:"IBM Plex Mono",ui-monospace,monospace;
+      font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+    tr.lvl{display:block;background:transparent;border:0;margin:20px 0 10px;padding:0}
+    tr.lvl td{display:block;background:transparent;border-top:2px solid var(--ink);padding:9px 0 0}
+  }
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow">Операционный маркетинг · три цели, три уровня</p>
+    <h1>Система KPI агентства</h1>
+    <p class="deck">Лидогенерация, прохождение по воронке и реактивация базы, которая не купила. 38 метрик с формулой, единицей, целевым значением, периодичностью и источником данных — плюс порядок внедрения и список метрик, которые KPI быть не должны.</p>
+  </header>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">00</span><div><h2>Как устроены уровни</h2><p class="sub">И как читать целевые значения</p></div></div>
+    <p class="lede">Уровни не про важность, а про <strong>горизонт управления и владельца</strong>. Метрика без владельца и без частоты пересмотра не работает: её просто перестают смотреть на третьей неделе.</p>
+    <div class="cascade">
+      <div class="lv">
+        <div class="t">Уровень 1</div>
+        <h4>Стратегические</h4>
+        <p>Отвечают на вопрос «зарабатываем ли мы». Меняются медленно, не пересматриваются в течение квартала и служат основанием для решений о бюджете и найме.</p>
+        <dl><dt>Владелец</dt><dd>Собственник</dd><dt>Ритм</dt><dd>Квартал</dd><dt>Действие</dt><dd>Пересмотр стратегии, бюджета, найма</dd></dl>
+      </div>
+      <div class="lv">
+        <div class="t">Уровень 2</div>
+        <h4>Тактические</h4>
+        <p>Отвечают на вопрос «работает ли выбранная механика». Именно здесь принимаются решения о каналах, поводах и офферах.</p>
+        <dl><dt>Владелец</dt><dd>Руководитель проекта</dd><dt>Ритм</dt><dd>Месяц / кампания</dd><dt>Действие</dt><dd>Перераспределение бюджета, смена гипотезы</dd></dl>
+      </div>
+      <div class="lv">
+        <div class="t">Уровень 3</div>
+        <h4>Операционные</h4>
+        <p>Отвечают на вопрос «делаем ли мы работу». Управляются в течение недели и почти целиком состоят из дисциплины, а не аналитики.</p>
+        <dl><dt>Владелец</dt><dd>Исполнитель</dd><dt>Ритм</dt><dd>День / неделя</dd><dt>Действие</dt><dd>Корректировка процесса и нагрузки</dd></dl>
+      </div>
+    </div>
+
+    <div class="legend">
+      <div><span class="fl b">рынок</span> ориентир по отраслевым практикам B2B-услуг</div>
+      <div><span class="fl h">гипотеза</span> требует калибровки после замера базового уровня</div>
+    </div>
+
+    <div class="note">
+      <h3>Прежде чем ставить целевые значения</h3>
+      <ul>
+        <li><b>Ваш базовый уровень неизвестен.</b> Средний чек, LTV и текущие конверсии в интервью не назывались. Поэтому цифры ниже — либо отраслевые ориентиры, либо гипотезы. <b>Первые 4–8 недель работают на замер baseline</b>, и только после этого целевые значения фиксируются в мотивации.</li>
+        <li><b>Половина метрик недостоверна без гигиены CRM.</b> Обязательные поля (источник, ниша, бюджет, причина отказа) и коллтрекинг внедряются <i>до</i> запуска системы, а не параллельно. Иначе вы будете управлять по цифрам, которых не существует.</li>
+        <li><b>Одна метрика — один владелец.</b> Метрика, за которую отвечают двое, не отвечает никто. В таблицах владелец задан уровнем.</li>
+        <li><b>Не более 5–7 метрик в мотивации.</b> Остальные — диагностические: их смотрят, когда основная просела, но не привязывают к деньгам.</li>
+      </ul>
+    </div>
+  </section>
+
+<section>
+<div class="sec-head"><span class="sec-num">01</span><div><h2>Лидогенерация</h2><p class="sub">Собственный входящий поток агентства</p></div></div>
+<p class="lede">Цель не «больше лидов», а предсказуемый поток заявок нужного профиля при контролируемой стоимости и без зависимости от одного канала. Метрики выстроены так, чтобы объём никогда не оценивался в отрыве от качества.</p>
+<div class="tablewrap"><table><thead><tr><th>KPI</th><th>Формула расчёта</th><th>Ед.</th><th>Целевое значение</th><th>Период</th><th>Источник данных</th></tr></thead><tbody><tr class="lvl"><td colspan="6"><b>Стратегические</b></td></tr><tr><td class="kn" data-label="KPI"><b>Доля выручки от входящих обращений</b><span class="fl h" title="Гипотеза: требует калибровки после замера базового уровня">гипотеза</span><span class="why">Главный индикатор того, что вы перестали жить холодными продажами. Именно эта цифра защищает бюджет на контент.</span></td><td data-label="Формула"><code>Выручка по сделкам с источником Inbound ÷ Общая выручка периода × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">60% к концу года (стартовая гипотеза — уточнить после замера базового уровня)</td><td class="fq" data-label="Период">Квартал</td><td data-label="Источник">CRM: поле «источник» на сделке + управленческий учёт</td></tr><tr><td class="kn" data-label="KPI"><b>LTV / CAC</b><span class="fl b" title="Ориентир по отраслевым практикам">рынок</span><span class="why">Определяет, можно ли масштабировать закупку. Ниже 3:1 рост убыточен, выше 6:1 — вы недоинвестируете в маркетинг.</span></td><td data-label="Формула"><code>(Средний чек × Средний срок жизни клиента в мес. × Валовая маржа) ÷ CAC</code></td><td class="u" data-label="Ед.">коэффициент</td><td class="tg" data-label="Цель">≥ 4:1 для сервисного B2B с абонементной моделью</td><td class="fq" data-label="Период">Квартал</td><td data-label="Источник">CRM + управленческий учёт (ФОТ маркетинга и продаж, рекламные расходы)</td></tr><tr><td class="kn" data-label="KPI"><b>Срок окупаемости CAC</b><span class="fl b" title="Ориентир по отраслевым практикам">рынок</span><span class="why">Для агентства на абонементе это вопрос кассового разрыва: сколько месяцев клиент отрабатывает стоимость своего привлечения.</span></td><td data-label="Формула"><code>CAC ÷ (Средний чек в месяц × Валовая маржа)</code></td><td class="u" data-label="Ед.">месяцев</td><td class="tg" data-label="Цель">≤ 4 месяцев абонемента</td><td class="fq" data-label="Период">Квартал</td><td data-label="Источник">CRM + управленческий учёт</td></tr><tr><td class="kn" data-label="KPI"><b>Цитируемость отраслевого индекса</b><span class="fl h" title="Гипотеза: требует калибровки после замера базового уровня">гипотеза</span><span class="why">Бренд-метрика, привязанная к вашему главному активу. Норму цены заявки задаёт тот, на кого ссылаются.</span></td><td data-label="Формула"><code>Число внешних упоминаний, перепечаток и ссылок на ваш бенчмарк за квартал</code></td><td class="u" data-label="Ед.">упоминаний</td><td class="tg" data-label="Цель">≥ 10 за квартал начиная со второго выпуска</td><td class="fq" data-label="Период">Квартал</td><td data-label="Источник">Ручной реестр упоминаний + Яндекс.Вебмастер (входящие ссылки) + мониторинг Telegram</td></tr><tr class="lvl"><td colspan="6"><b>Тактические</b></td></tr><tr><td class="kn" data-label="KPI"><b>Число MQL</b><span class="why">Считается только заявка, прошедшая скоринг по профилю ниши и порогу бюджета. Всё остальное — трафик, а не лид.</span></td><td data-label="Формула"><code>Количество заявок со статусом «квалифицирован» за месяц</code></td><td class="u" data-label="Ед.">шт./мес.</td><td class="tg" data-label="Цель">Рассчитывается обратным счётом от плана продаж: План сделок ÷ (Conv MQL→SQL × Conv SQL→договор)</td><td class="fq" data-label="Период">Месяц</td><td data-label="Источник">CRM: обязательное поле квалификации</td></tr><tr><td class="kn" data-label="KPI"><b>Стоимость MQL (CPMQL)</b><span class="fl b" title="Ориентир по отраслевым практикам">рынок</span><span class="why">Единственная стоимостная метрика верхней воронки, которая имеет смысл. CPC и CPL без квалификации вводят в заблуждение.</span></td><td data-label="Формула"><code>(Рекламный бюджет + ФОТ маркетинга + подряд) ÷ Число MQL</code></td><td class="u" data-label="Ед.">₽</td><td class="tg" data-label="Цель">≤ 25% от среднего чека первого месяца контракта</td><td class="fq" data-label="Период">Месяц</td><td data-label="Источник">Рекламные кабинеты + управленческий учёт + CRM</td></tr><tr><td class="kn" data-label="KPI"><b>Конверсия страницы индекса в подписку</b><span class="fl b" title="Ориентир по отраслевым практикам">рынок</span><span class="why">Прямой замер того, действительно ли ваш бенчмарк ценен рынку. Низкая цифра означает, что отчёт не нужен, а не что мало трафика.</span></td><td data-label="Формула"><code>Подписки на выпуск ÷ Уникальные визиты страницы отчёта × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">25–35% для отраслевого отчёта с реальными цифрами</td><td class="fq" data-label="Период">Месяц</td><td data-label="Источник">Яндекс.Метрика (цель) + сервис рассылок</td></tr><tr><td class="kn" data-label="KPI"><b>Канальная концентрация MQL</b><span class="why">Вы продаёте клиентам диверсификацию — метрика не даёт повторить их же ошибку у себя.</span></td><td data-label="Формула"><code>MQL из крупнейшего канала ÷ Все MQL × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">Ни один канал не даёт &gt; 50% MQL; минимум 3 канала с долей ≥ 15%</td><td class="fq" data-label="Период">Месяц</td><td data-label="Источник">CRM: источник + UTM-разметка</td></tr><tr><td class="kn" data-label="KPI"><b>Доля сделок по рекомендации</b><span class="fl h" title="Гипотеза: требует калибровки после замера базового уровня">гипотеза</span><span class="why">Для нишевого агентства рекомендация — самый дешёвый и самый конверсионный источник. Её нельзя оставлять на самотёк.</span></td><td data-label="Формула"><code>Сделки с источником «рекомендация» ÷ Все новые сделки × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">≥ 25% при системной работе с текущими клиентами</td><td class="fq" data-label="Период">Квартал</td><td data-label="Источник">CRM: обязательный вопрос «откуда узнали» на первом звонке</td></tr><tr class="lvl"><td colspan="6"><b>Операционные</b></td></tr><tr><td class="kn" data-label="KPI"><b>Скорость первого ответа (Speed-to-Lead)</b><span class="fl b" title="Ориентир по отраслевым практикам">рынок</span><span class="why">Метрика, которую вы диагностируете у клиентов и обязаны держать у себя эталонно. После 30 минут вероятность контакта падает кратно.</span></td><td data-label="Формула"><code>Медиана времени от создания заявки до первого исходящего касания</code></td><td class="u" data-label="Ед.">минут</td><td class="tg" data-label="Цель">≤ 15 минут в рабочее время, ≤ 2 часов вне его</td><td class="fq" data-label="Период">Ежедневно</td><td data-label="Источник">CRM + телефония (время создания сделки и первого звонка)</td></tr><tr><td class="kn" data-label="KPI"><b>Выполнение контент-плана</b><span class="why">Контент — производственный процесс, а не вдохновение. Срыв графика на выпуске индекса стоит квартала входящего потока.</span></td><td data-label="Формула"><code>Опубликовано единиц ÷ Запланировано единиц × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">≥ 90%</td><td class="fq" data-label="Период">Неделя</td><td data-label="Источник">Планировщик задач (таск-трекер) + факт публикаций</td></tr><tr><td class="kn" data-label="KPI"><b>Полнота квалификационных данных</b><span class="why">Если поле не заполнено, все метрики выше становятся недостоверными. Это метрика гигиены, без которой система не работает.</span></td><td data-label="Формула"><code>Сделки с заполненными обязательными полями (ниша, бюджет, регион, источник) ÷ Все новые сделки × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">≥ 95%</td><td class="fq" data-label="Период">Неделя</td><td data-label="Источник">CRM: отчёт по обязательным полям</td></tr><tr><td class="kn" data-label="KPI"><b>Доля расхода на нецелевой трафик</b><span class="why">Прямой контроль качества закупки: в нишах с дорогой сделкой автостратегии охотно тратят на широкий спрос.</span></td><td data-label="Формула"><code>Расход по запросам и площадкам, помеченным нецелевыми ÷ Общий расход × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">≤ 10%</td><td class="fq" data-label="Период">Неделя</td><td data-label="Источник">Рекламные кабинеты: отчёт по поисковым запросам и площадкам</td></tr></tbody></table></div>
+</section>
+<section>
+<div class="sec-head"><span class="sec-num">02</span><div><h2>Прохождение по воронке продаж</h2><p class="sub">От квалифицированной заявки до подписанного договора</p></div></div>
+<p class="lede">Ваш выигрышный фактор — расчёт до старта. Воронка построена так, чтобы он был отдельным измеримым этапом: если предрасчёт не доходит до клиента, вы конкурируете на чужом поле.</p>
+<div class="tablewrap"><table><thead><tr><th>KPI</th><th>Формула расчёта</th><th>Ед.</th><th>Целевое значение</th><th>Период</th><th>Источник данных</th></tr></thead><tbody><tr class="lvl"><td colspan="6"><b>Стратегические</b></td></tr><tr><td class="kn" data-label="KPI"><b>Win rate по квалифицированным сделкам</b><span class="fl b" title="Ориентир по отраслевым практикам">рынок</span><span class="why">Интегральная оценка позиционирования и работы продаж. Предрасчёт до старта обязан давать результат выше среднерыночного.</span></td><td data-label="Формула"><code>Выигранные сделки ÷ (Выигранные + Проигранные) × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">30–35% (рынок агентских услуг — около 20%)</td><td class="fq" data-label="Период">Квартал</td><td data-label="Источник">CRM: воронка по закрытым сделкам</td></tr><tr><td class="kn" data-label="KPI"><b>Средний чек нового контракта</b><span class="fl h" title="Гипотеза: требует калибровки после замера базового уровня">гипотеза</span><span class="why">Метрика выхода из ценовой конкуренции. Если чек не растёт, дифференциация существует только на сайте.</span></td><td data-label="Формула"><code>Сумма месячных абонементов по новым договорам ÷ Число новых договоров</code></td><td class="u" data-label="Ед.">₽/мес.</td><td class="tg" data-label="Цель">+15% за год к базовому уровню</td><td class="fq" data-label="Период">Квартал</td><td data-label="Источник">CRM + договоры</td></tr><tr><td class="kn" data-label="KPI"><b>Длина цикла сделки</b><span class="fl h" title="Гипотеза: требует калибровки после замера базового уровня">гипотеза</span><span class="why">В нише с сезонностью каждая лишняя неделя цикла может стоить клиенту пропущенного сезона, а вам — сделки.</span></td><td data-label="Формула"><code>Медиана числа дней от квалификации MQL до подписания договора</code></td><td class="u" data-label="Ед.">дней</td><td class="tg" data-label="Цель">Сокращение на 20% за два квартала от базового уровня</td><td class="fq" data-label="Период">Квартал</td><td data-label="Источник">CRM: даты этапов</td></tr><tr><td class="kn" data-label="KPI"><b>Обеспеченность плана пайплайном</b><span class="fl b" title="Ориентир по отраслевым практикам">рынок</span><span class="why">Ранний сигнал провала квартала. Проверяется до того, как план сорван, а не после.</span></td><td data-label="Формула"><code>Сумма открытых сделок в воронке ÷ План продаж периода</code></td><td class="u" data-label="Ед.">коэффициент</td><td class="tg" data-label="Цель">≥ 3x на начало квартала</td><td class="fq" data-label="Период">Месяц</td><td data-label="Источник">CRM: отчёт по открытым сделкам</td></tr><tr class="lvl"><td colspan="6"><b>Тактические</b></td></tr><tr><td class="kn" data-label="KPI"><b>Конверсия MQL → встреча</b><span class="fl b" title="Ориентир по отраслевым практикам">рынок</span><span class="why">Проверяет качество квалификации и работу первого касания. Падение означает, что скоринг пропускает не тех.</span></td><td data-label="Формула"><code>Состоявшиеся встречи ÷ Число MQL × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">40–50%</td><td class="fq" data-label="Период">Месяц</td><td data-label="Источник">CRM: этап «встреча проведена»</td></tr><tr><td class="kn" data-label="KPI"><b>Доля встреч с высланным предрасчётом</b><span class="why">Ключевая метрика дифференциации. Ваш главный аргумент должен доходить до клиента практически всегда.</span></td><td data-label="Формула"><code>Встречи, после которых отправлен расчётный лист ÷ Все состоявшиеся встречи × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">≥ 80%</td><td class="fq" data-label="Период">Месяц</td><td data-label="Источник">CRM: отметка об отправке документа</td></tr><tr><td class="kn" data-label="KPI"><b>Конверсия предрасчёт → договор</b><span class="fl h" title="Гипотеза: требует калибровки после замера базового уровня">гипотеза</span><span class="why">Самая важная метрика воронки: она измеряет силу вашего единственного невоспроизводимого актива.</span></td><td data-label="Формула"><code>Подписанные договоры ÷ Отправленные предрасчёты × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">35–45%</td><td class="fq" data-label="Период">Месяц</td><td data-label="Источник">CRM: связка документа и статуса сделки</td></tr><tr><td class="kn" data-label="KPI"><b>Доля проигрышей по цене</b><span class="why">Индикатор работы позиционирования. Если цифра не снижается, рынок по-прежнему видит вас взаимозаменяемым.</span></td><td data-label="Формула"><code>Сделки с причиной отказа «цена» ÷ Все проигранные сделки × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">≤ 25% и снижение квартал к кварталу</td><td class="fq" data-label="Период">Месяц</td><td data-label="Источник">CRM: обязательное поле причины отказа</td></tr><tr><td class="kn" data-label="KPI"><b>Соотношение целевых и нецелевых отказов</b><span class="why">Отказ «не наш профиль» — здоровый: значит квалификация работает. Отказ «выбрали другого» — проблема продаж.</span></td><td data-label="Формула"><code>Отказы «не наш профиль» ÷ Отказы «выбрали конкурента»</code></td><td class="u" data-label="Ед.">коэффициент</td><td class="tg" data-label="Цель">Рост доли отказов по профилю на ранних этапах, снижение на поздних</td><td class="fq" data-label="Период">Месяц</td><td data-label="Источник">CRM: справочник причин отказа</td></tr><tr class="lvl"><td colspan="6"><b>Операционные</b></td></tr><tr><td class="kn" data-label="KPI"><b>Время от встречи до предрасчёта</b><span class="why">В сезонной нише скорость подготовки расчёта конкурирует с готовностью клиента решить вопрос сегодня.</span></td><td data-label="Формула"><code>Медиана часов от завершения встречи до отправки расчётного листа</code></td><td class="u" data-label="Ед.">часов</td><td class="tg" data-label="Цель">≤ 48 часов</td><td class="fq" data-label="Период">Ежедневно</td><td data-label="Источник">CRM: время этапа</td></tr><tr><td class="kn" data-label="KPI"><b>Соблюдение регламента касаний</b><span class="why">Большинство сделок в B2B теряется не на возражении, а на молчании после третьего касания.</span></td><td data-label="Формула"><code>Сделки, где выполнены все касания по регламенту ÷ Все активные сделки × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">≥ 90%</td><td class="fq" data-label="Период">Неделя</td><td data-label="Источник">CRM: задачи и активности по сделке</td></tr><tr><td class="kn" data-label="KPI"><b>Сделки без просроченных задач</b><span class="why">Метрика достоверности всей системы: воронка с просроченными задачами показывает фантомный пайплайн.</span></td><td data-label="Формула"><code>Сделки без просроченной задачи ÷ Все открытые сделки × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">≥ 95%</td><td class="fq" data-label="Период">Ежедневно</td><td data-label="Источник">CRM: отчёт по просроченным задачам</td></tr><tr><td class="kn" data-label="KPI"><b>Заполненность причин отказа</b><span class="why">Без структурированной причины проигрыша тактические метрики этого блока невозможно посчитать вообще.</span></td><td data-label="Формула"><code>Закрытые-проигранные с выбранной причиной ÷ Все закрытые-проигранные × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">≥ 95%</td><td class="fq" data-label="Период">Неделя</td><td data-label="Источник">CRM: обязательное поле при переводе в «проиграно»</td></tr></tbody></table></div>
+</section>
+<section>
+<div class="sec-head"><span class="sec-num">03</span><div><h2>Реактивация базы, которая не купила</h2><p class="sub">Проигранные сделки и «вернёмся позже»</p></div></div>
+<p class="lede">Самый недооценённый актив агентства. Эти люди уже знают вас, уже прошли квалификацию и уже назвали причину отказа. Реактивация должна стоить кратно дешевле привлечения — и метрики обязаны это доказывать, а не декларировать.</p>
+<div class="tablewrap"><table><thead><tr><th>KPI</th><th>Формула расчёта</th><th>Ед.</th><th>Целевое значение</th><th>Период</th><th>Источник данных</th></tr></thead><tbody><tr class="lvl"><td colspan="6"><b>Стратегические</b></td></tr><tr><td class="kn" data-label="KPI"><b>Доля выручки из реактивации</b><span class="fl h" title="Гипотеза: требует калибровки после замера базового уровня">гипотеза</span><span class="why">Превращает базу отказов из архива в канал продаж с собственным планом.</span></td><td data-label="Формула"><code>Выручка по сделкам, повторно открытым из архива ÷ Общая выручка периода × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">10–15% годовой выручки</td><td class="fq" data-label="Период">Квартал</td><td data-label="Источник">CRM: признак «реактивация» на сделке</td></tr><tr><td class="kn" data-label="KPI"><b>Стоимость реактивированного клиента к CAC нового</b><span class="fl b" title="Ориентир по отраслевым практикам">рынок</span><span class="why">Экономическое обоснование всего направления. Если коэффициент близок к единице, реактивация не имеет смысла.</span></td><td data-label="Формула"><code>CAC реактивации ÷ CAC нового клиента × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">≤ 40% от CAC нового клиента</td><td class="fq" data-label="Период">Квартал</td><td data-label="Источник">Управленческий учёт + CRM</td></tr><tr><td class="kn" data-label="KPI"><b>Охват базы за год</b><span class="why">Защищает от типичной ошибки: работать только со «свежими» отказами и не трогать архив старше года.</span></td><td data-label="Формула"><code>Записи, получившие хотя бы одно осмысленное касание за год ÷ Вся база отказов × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">≥ 90%</td><td class="fq" data-label="Период">Квартал</td><td data-label="Источник">CRM + сервис рассылок: история коммуникаций</td></tr><tr class="lvl"><td colspan="6"><b>Тактические</b></td></tr><tr><td class="kn" data-label="KPI"><b>Коэффициент реактивации</b><span class="fl b" title="Ориентир по отраслевым практикам">рынок</span><span class="why">Основная метрика кампании: сколько закрытых сделок вернулось в активную работу.</span></td><td data-label="Формула"><code>Сделки, переведённые из «проиграно» в активную стадию ÷ Размер сегмента кампании × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">6–10% за кампанию для B2B с высоким чеком</td><td class="fq" data-label="Период">Кампания / месяц</td><td data-label="Источник">CRM: смена статуса сделки</td></tr><tr><td class="kn" data-label="KPI"><b>Конверсия реактивированных в договор</b><span class="fl h" title="Гипотеза: требует калибровки после замера базового уровня">гипотеза</span><span class="why">Должна быть выше, чем у холодных: контакт уже знает вас и уже прошёл квалификацию.</span></td><td data-label="Формула"><code>Договоры из реактивации ÷ Реактивированные сделки × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">15–20% (выше конверсии холодного MQL)</td><td class="fq" data-label="Период">Квартал</td><td data-label="Источник">CRM</td></tr><tr><td class="kn" data-label="KPI"><b>Отклик на повод, а не на рассылку</b><span class="fl b" title="Ориентир по отраслевым практикам">рынок</span><span class="why">Сравнение поводов между собой важнее абсолютной цифры: так вы находите триггер, который реально возвращает клиента.</span></td><td data-label="Формула"><code>Переходы и ответы по конкретному поводу ÷ Доставленные сообщения по этому поводу × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">8–12%; ранжирование поводов важнее абсолюта</td><td class="fq" data-label="Период">Кампания</td><td data-label="Источник">Сервис рассылок + CRM (ответы и звонки)</td></tr><tr><td class="kn" data-label="KPI"><b>Здоровье базы</b><span class="why">Половина архива к третьему году мертва: люди сменили должность и компанию. Метрика предотвращает работу по пустоте.</span></td><td data-label="Формула"><code>Записи с валидным контактом и подтверждённой ролью ÷ Вся база × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">≥ 80%</td><td class="fq" data-label="Период">Квартал</td><td data-label="Источник">CRM + верификация контактов + сервис рассылок (bounce rate)</td></tr><tr><td class="kn" data-label="KPI"><b>Санитарные метрики рассылки</b><span class="fl b" title="Ориентир по отраслевым практикам">рынок</span><span class="why">Реактивация по старой базе — главный источник репутационных проблем с доставляемостью. Порог отписок важнее открываемости.</span></td><td data-label="Формула"><code>Отписки ÷ Доставленные × 100; жалобы на спам ÷ Доставленные × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">Отписки ≤ 0,5%; жалобы ≤ 0,08%; доставляемость ≥ 95%</td><td class="fq" data-label="Период">Кампания</td><td data-label="Источник">Сервис рассылок</td></tr><tr class="lvl"><td colspan="6"><b>Операционные</b></td></tr><tr><td class="kn" data-label="KPI"><b>Персональные касания в день</b><span class="why">Реактивация в B2B с дорогой сделкой не работает массовой рассылкой: возвращает персональное сообщение с конкретным поводом.</span></td><td data-label="Формула"><code>Число индивидуальных касаний по списку реактивации на менеджера в день</code></td><td class="u" data-label="Ед.">шт./день</td><td class="tg" data-label="Цель">15–20 на менеджера</td><td class="fq" data-label="Период">Ежедневно</td><td data-label="Источник">CRM: активности</td></tr><tr><td class="kn" data-label="KPI"><b>Скорость обработки отклика</b><span class="why">Отклик из архива — это окно в несколько часов: человек вспомнил о задаче, но не начал её решать.</span></td><td data-label="Формула"><code>Медиана времени от отклика до контакта менеджера</code></td><td class="u" data-label="Ед.">часов</td><td class="tg" data-label="Цель">≤ 2 часов в рабочее время</td><td class="fq" data-label="Период">Ежедневно</td><td data-label="Источник">CRM + телефония</td></tr><tr><td class="kn" data-label="KPI"><b>Обогащение причиной прошлого отказа</b><span class="why">Без причины отказа реактивация слепа: вы пишете одно и то же тем, кто ушёл по цене, и тем, кто ушёл к конкуренту.</span></td><td data-label="Формула"><code>Записи базы с заполненной причиной прошлого отказа ÷ Вся база × 100</code></td><td class="u" data-label="Ед.">%</td><td class="tg" data-label="Цель">≥ 90%</td><td class="fq" data-label="Период">Неделя</td><td data-label="Источник">CRM: ретроспективное заполнение поля</td></tr><tr><td class="kn" data-label="KPI"><b>Число протестированных поводов</b><span class="why">Реактивация — это перебор гипотез о поводе, а не одна рассылка. Без тестов направление умирает после первой кампании.</span></td><td data-label="Формула"><code>Количество различных поводов, протестированных за квартал</code></td><td class="u" data-label="Ед.">шт.</td><td class="tg" data-label="Цель">≥ 3 за квартал</td><td class="fq" data-label="Период">Квартал</td><td data-label="Источник">План кампаний + сервис рассылок</td></tr></tbody></table></div>
+</section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><div><h2>Порядок внедрения</h2><p class="sub">Четыре шага, восемь недель</p></div></div>
+    <p class="lede">Систему нельзя включить целиком: без источников данных метрики превращаются в декларацию. Последовательность имеет значение.</p>
+    <div class="steps">
+      <div class="st"><span class="w">Недели 1–2</span><h4>Инфраструктура данных</h4>
+        <p>Обязательные поля в CRM, единый справочник причин отказа, UTM-разметка, коллтрекинг, признак «реактивация» на сделке. Без этого шага остальные три бессмысленны.</p></div>
+      <div class="st"><span class="w">Недели 3–6</span><h4>Замер базового уровня</h4>
+        <p>Метрики считаются, но ни к чему не привязаны. Задача — узнать, где вы находитесь: реальные конверсии, реальный CPMQL, реальная длина цикла.</p></div>
+      <div class="st"><span class="w">Неделя 7</span><h4>Калибровка целей</h4>
+        <p>Отраслевые ориентиры сверяются с фактом. Цель ставится как шаг от базового уровня, а не как красивая круглая цифра.</p></div>
+      <div class="st"><span class="w">Неделя 8 и далее</span><h4>Ритм разборов</h4>
+        <p>Ежедневный операционный контроль (4 метрики), еженедельный разбор тактики, ежемесячный пересмотр гипотез, квартальная стратегическая сессия.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">05</span><div><h2>Что не должно быть KPI</h2><p class="sub">Метрики тщеславия в вашем контексте</p></div></div>
+    <p class="lede">Каждая из этих цифр может расти при падающей выручке. Смотреть их можно, ставить в цель — нет.</p>
+    <div class="anti">
+      <div class="an"><b>Охваты и показы</b><span>Не связаны с обращением. В нише с дорогой сделкой релевантная аудитория измеряется сотнями, а не десятками тысяч.</span></div>
+      <div class="an"><b>Подписчики и лайки</b><span>Растут от развлекательного контента и падают от продающего. Считайте подписки на отраслевой индекс — там есть намерение.</span></div>
+      <div class="an"><b>Число публикаций как цель</b><span>Как операционная метрика дисциплины — да. Как KPI результата — прямой путь к производству контента ради отчёта.</span></div>
+      <div class="an"><b>CTR и цена клика</b><span>Диагностический показатель внутри кампании. В цели превращается в закупку дешёвого нецелевого трафика — ровно то, за что рынок критикует лидоген.</span></div>
+      <div class="an"><b>Общее число заявок</b><span>Без квалификации метрика провоцирует набор мусора. Считайте MQL, а объём необработанных заявок — как признак поломки скоринга.</span></div>
+      <div class="an"><b>Открываемость писем сама по себе</b><span>Тема письма влияет на неё сильнее, чем предложение. В реактивации значимы отклик, отписки и жалобы.</span></div>
+    </div>
+  </section>
+
+  <footer>Система KPI · агентство маркетинговых услуг · лидогенерация, воронка, реактивация</footer>
+</div>
