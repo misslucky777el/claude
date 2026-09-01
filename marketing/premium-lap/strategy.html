@@ -1,0 +1,787 @@
+<title>Стратегия роста Премиум Лап</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#EEF1F0;
+  --surface:#FBFCFC;
+  --surface-2:#E3E9E8;
+  --ink:#101F24;
+  --ink-2:#3D5158;
+  --ink-3:#6E8188;
+  --line:#CDD7D6;
+  --line-soft:#DFE5E4;
+  --brass:#8F6712;
+  --brass-wash:#F2E7CB;
+  --teal:#2E6068;
+  --good:#2C6B4F;
+  --warn:#8A6212;
+  --crit:#9B3A30;
+  --shadow:0 1px 2px rgba(16,31,36,.05),0 10px 28px -20px rgba(16,31,36,.45);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0C1619;
+    --surface:#111E22;
+    --surface-2:#19292E;
+    --ink:#E7EDEB;
+    --ink-2:#AFC0C1;
+    --ink-3:#7C9094;
+    --line:#27393E;
+    --line-soft:#1C2E33;
+    --brass:#D9AC4C;
+    --brass-wash:#2A2318;
+    --teal:#6FB0B4;
+    --good:#63B58C;
+    --warn:#D2A34A;
+    --crit:#D97A6E;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 30px -22px rgba(0,0,0,.9);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0C1619;
+  --surface:#111E22;
+  --surface-2:#19292E;
+  --ink:#E7EDEB;
+  --ink-2:#AFC0C1;
+  --ink-3:#7C9094;
+  --line:#27393E;
+  --line-soft:#1C2E33;
+  --brass:#D9AC4C;
+  --brass-wash:#2A2318;
+  --teal:#6FB0B4;
+  --good:#63B58C;
+  --warn:#D2A34A;
+  --crit:#D97A6E;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 30px -22px rgba(0,0,0,.9);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"IBM Plex Sans","Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:"Bodoni Moda","Times New Roman",Georgia,serif;font-weight:600;text-wrap:balance;line-height:1.14;margin:0}
+p{margin:0}
+a{color:var(--teal);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--brass);outline-offset:3px;border-radius:2px}
+
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);
+}
+
+/* ---------- masthead ---------- */
+.masthead{
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,var(--surface),var(--ground));
+}
+.masthead-in{max-width:1180px;margin:0 auto;padding:56px 28px 34px;display:flex;flex-direction:column;gap:22px}
+.rule-brass{height:3px;width:64px;background:var(--brass)}
+h1{font-size:clamp(40px,6.6vw,68px);letter-spacing:-.015em}
+h1 .quiet{color:var(--ink-3);font-style:italic;font-weight:400}
+.deck{max-width:60ch;color:var(--ink-2);font-size:17.5px}
+.factstrip{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));
+  gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);margin-top:6px;
+}
+.fact{background:var(--surface);padding:13px 15px;display:flex;flex-direction:column;gap:3px}
+.fact dt{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+.fact dd{margin:0;font-size:14.5px;color:var(--ink);font-weight:500}
+
+/* ---------- shell ---------- */
+.shell{max-width:1180px;margin:0 auto;padding:0 28px 96px;display:grid;grid-template-columns:216px minmax(0,1fr);gap:52px;align-items:start}
+@media (max-width:960px){.shell{grid-template-columns:1fr;gap:0}}
+
+nav.toc{position:sticky;top:24px;padding-top:44px;font-size:13.5px}
+@media (max-width:960px){nav.toc{position:static;padding:28px 0 0}}
+nav.toc ol{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:2px;border-left:1px solid var(--line);}
+nav.toc a{display:block;padding:5px 0 5px 13px;margin-left:-1px;border-left:1px solid transparent;color:var(--ink-2);text-decoration:none}
+nav.toc a:hover{color:var(--ink);border-left-color:var(--brass)}
+nav.toc .n{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-3);margin-right:7px}
+
+main{padding-top:44px;min-width:0}
+section{padding:34px 0;border-top:1px solid var(--line-soft)}
+section:first-of-type{border-top:0;padding-top:6px}
+.sec-head{display:flex;gap:16px;align-items:baseline;margin-bottom:18px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--brass);letter-spacing:.1em;padding-top:6px}
+h2{font-size:clamp(25px,3.2vw,33px);letter-spacing:-.01em}
+h3{font-size:20px;margin:26px 0 9px}
+h4{font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:14px;letter-spacing:.02em;margin:20px 0 6px}
+.prose{max-width:68ch;display:flex;flex-direction:column;gap:13px}
+.prose ul,.prose ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:7px}
+.prose li::marker{color:var(--ink-3)}
+strong{font-weight:600;color:var(--ink)}
+em.term{font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:.88em;background:var(--surface-2);padding:1px 5px;border-radius:3px}
+
+/* ---------- components ---------- */
+.note{
+  background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--brass);
+  padding:15px 18px;display:flex;flex-direction:column;gap:8px;font-size:14.5px;color:var(--ink-2);max-width:74ch;
+}
+.note .t{font-weight:600;color:var(--ink);font-size:14px}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:20px 0 4px}
+.kpi{background:var(--surface);border:1px solid var(--line);padding:16px 17px;display:flex;flex-direction:column;gap:5px;box-shadow:var(--shadow)}
+.kpi .v{font-family:"Bodoni Moda",serif;font-size:31px;line-height:1;font-variant-numeric:tabular-nums;color:var(--ink)}
+.kpi .v small{font-size:15px;color:var(--ink-3)}
+.kpi .l{font-size:13px;color:var(--ink-2);line-height:1.4}
+.kpi .src{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase}
+
+.tablewrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);background:var(--surface-2);border-bottom:1px solid var(--line);font-weight:500;white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;font-family:"IBM Plex Mono",monospace;font-size:13px;white-space:nowrap}
+
+.pill{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:100px;white-space:nowrap}
+.pill.p1{color:var(--crit)}
+.pill.p2{color:var(--warn)}
+.pill.p3{color:var(--teal)}
+.pill.ok{color:var(--good)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:14px;margin:18px 0}
+.card{background:var(--surface);border:1px solid var(--line);padding:17px 18px;display:flex;flex-direction:column;gap:8px}
+.card h4{margin:0;font-size:15.5px;font-family:"Bodoni Moda",serif;font-weight:600}
+.card p{font-size:13.8px;color:var(--ink-2)}
+.card .tag{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass)}
+
+.timeline{display:flex;flex-direction:column;gap:0;margin:20px 0;border-left:2px solid var(--line)}
+.stage{padding:0 0 26px 24px;position:relative}
+.stage:last-child{padding-bottom:4px}
+.stage::before{content:"";position:absolute;left:-7px;top:7px;width:12px;height:12px;background:var(--brass);border:2px solid var(--ground);border-radius:50%}
+.stage .when{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass)}
+.stage h4{margin:3px 0 7px;font-family:"Bodoni Moda",serif;font-size:19px;font-weight:600}
+.stage ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:6px;font-size:14.2px;color:var(--ink-2);max-width:66ch}
+
+/* ---------- calculator ---------- */
+.calc{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);margin:22px 0;display:grid;grid-template-columns:1fr 1fr}
+@media (max-width:760px){.calc{grid-template-columns:1fr}}
+.calc-in{padding:20px 22px;display:flex;flex-direction:column;gap:15px;border-right:1px solid var(--line-soft)}
+@media (max-width:760px){.calc-in{border-right:0;border-bottom:1px solid var(--line-soft)}}
+.field{display:flex;flex-direction:column;gap:5px}
+.field .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.field label{font-size:13px;color:var(--ink-2)}
+.field output{font-family:"IBM Plex Mono",monospace;font-size:13px;font-variant-numeric:tabular-nums;color:var(--ink);font-weight:500}
+input[type=range]{width:100%;accent-color:var(--brass);height:20px}
+.calc-out{padding:20px 22px;display:flex;flex-direction:column;gap:12px;background:var(--surface-2)}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:13.5px;color:var(--ink-2);border-bottom:1px dotted var(--line);padding-bottom:9px}
+.row:last-child{border-bottom:0}
+.row b{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:15px;color:var(--ink);font-weight:500}
+.row.big b{font-family:"Bodoni Moda",serif;font-size:25px}
+.row.big .lbl{font-weight:600;color:var(--ink)}
+
+details{border:1px solid var(--line);background:var(--surface);padding:0;margin:12px 0}
+summary{cursor:pointer;padding:12px 16px;font-size:14px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:10px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:"IBM Plex Mono",monospace;color:var(--brass)}
+details[open] summary::after{content:"–"}
+.details-body{padding:0 16px 16px;font-size:14px;color:var(--ink-2);display:flex;flex-direction:column;gap:10px;max-width:70ch}
+.details-body ul,.details-body ol{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:6px}
+
+blockquote{margin:0;padding:12px 16px;background:var(--brass-wash);border:0;font-size:14px;color:var(--ink);max-width:70ch}
+blockquote .who{display:block;margin-top:6px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+
+footer{border-top:1px solid var(--line);background:var(--surface);margin-top:0}
+.footer-in{max-width:1180px;margin:0 auto;padding:30px 28px 54px;display:flex;flex-direction:column;gap:10px;font-size:13px;color:var(--ink-3)}
+.footer-in a{color:var(--ink-2)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <div class="rule-brass"></div>
+    <div class="eyebrow">Маркетинговая стратегия · горизонт 12 месяцев · сентябрь 2026</div>
+    <h1>Премиум&nbsp;Лап <span class="quiet">— как перестать быть лучшим салоном, о котором никто не знает</span></h1>
+    <p class="deck">Зоосалон на Павелецкой набережной, 8Б, внутри ЖК «Резиденции композиторов». Рейтинг 5,0 — и всего три отзыва. Рынок груминга в Москве растёт быстрее, чем появляется предложение. Весь разрыв между этими двумя фактами — и есть план на ближайший год.</p>
+    <dl class="factstrip">
+      <div class="fact"><dt>Организация</dt><dd>ООО «Премиум Лап»</dd></div>
+      <div class="fact"><dt>Категория</dt><dd>Груминг-салон / зоосалон</dd></div>
+      <div class="fact"><dt>Адрес</dt><dd>Павелецкая наб., 8Б</dd></div>
+      <div class="fact"><dt>Метро</dt><dd>Автозаводская · Технопарк</dd></div>
+      <div class="fact"><dt>Контакт</dt><dd>+7 903 286-22-34</dd></div>
+      <div class="fact"><dt>Возраст бизнеса</dt><dd>≈ 1 год (ОГРН 2025)</dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="shell">
+<nav class="toc" aria-label="Содержание">
+  <div class="eyebrow">Содержание</div>
+  <ol>
+    <li><a href="#s1"><span class="n">01</span>Исходные данные</a></li>
+    <li><a href="#s2"><span class="n">02</span>Диагноз</a></li>
+    <li><a href="#s3"><span class="n">03</span>Рынок и спрос</a></li>
+    <li><a href="#s4"><span class="n">04</span>Аудитория</a></li>
+    <li><a href="#s5"><span class="n">05</span>Позиционирование</a></li>
+    <li><a href="#s6"><span class="n">06</span>Продукт и цены</a></li>
+    <li><a href="#s7"><span class="n">07</span>Каналы</a></li>
+    <li><a href="#s8"><span class="n">08</span>Юнит-экономика</a></li>
+    <li><a href="#s9"><span class="n">09</span>План 90 дней</a></li>
+    <li><a href="#s10"><span class="n">10</span>Месяцы 4–12</a></li>
+    <li><a href="#s11"><span class="n">11</span>Бюджет</a></li>
+    <li><a href="#s12"><span class="n">12</span>Метрики и риски</a></li>
+    <li><a href="#s13"><span class="n">13</span>Шаблоны</a></li>
+  </ol>
+</nav>
+
+<main>
+<section id="s1">
+  <div class="sec-head"><div class="sec-num">01</div><h2>Что удалось узнать об организации</h2></div>
+  <div class="prose">
+    <div class="note">
+      <span class="t">Про источники — честно</span>
+      <p>Саму карточку на Яндекс.Картах открыть из рабочей среды не удалось: домен закрыт сетевым прокси. Профиль ниже собран по открытым источникам (агрегаторы, реестр юрлиц, поисковая выдача) и по данным вашей ссылки. Всё, что помечено как <em class="term">оценка</em>, — это модель, а не факт: подставьте свои цифры из кассы и записи, и выводы уточнятся, но их направление не изменится.</p>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Параметр</th><th>Значение</th><th>Что это значит для маркетинга</th></tr></thead>
+        <tbody>
+          <tr><td>Название</td><td>«Премиум Лап» / Premium Lap</td><td>Слово «премиум» в имени — обещание, которое придётся подтверждать сервисом и упаковкой, иначе оно работает против вас</td></tr>
+          <tr><td>Профиль</td><td>Зоосалон, груминг собак и кошек</td><td>Услуга регулярная: цикл повторного визита 4–8 недель. Значит, главный актив — база, а не поток</td></tr>
+          <tr><td>Адрес</td><td>Павелецкая наб., 8Б, Даниловский р-н</td><td>Внутри жилого комплекса, на набережной. Случайного трафика с улицы почти нет — весь спрос приходит из поиска и с карт</td></tr>
+          <tr><td>Окружение</td><td>ЖК «Резиденции композиторов» (AFI Development, бизнес-класс, 652 квартиры, сдан в 2022), рядом «Форивер», «Ривер Парк», «Символ», Даниловская мануфактура</td><td>Плотная концентрация платёжеспособных владельцев питомцев в пешей доступности — это ваш главный и самый дешёвый рынок</td></tr>
+          <tr><td>Юрлицо</td><td>ООО «Премиум Лап», ИНН 9725193860, ОГРН 1257700432440</td><td>Регистрация 2025 года — бизнесу около года. Отсутствие отзывов объясняется возрастом, а не качеством</td></tr>
+          <tr><td>Репутация</td><td>5,0 при ~3 отзывах</td><td>Оценка идеальная, но статистически невесомая: до 10–15 отзывов карточка не воспринимается как «проверенная»</td></tr>
+          <tr><td>Контакт</td><td>Мобильный телефон, публичного сайта и онлайн-записи не найдено</td><td>Самое дорогое узкое место: заявка, пришедшая в 22:40 в воскресенье, просто теряется</td></tr>
+          <tr><td>Ближайший конкурент</td><td>«Барбос» (команда сети «Милорд»), Симоновский Вал, 26к1</td><td>Сетевой игрок с накопленной репутацией в 15 минутах. Конкурировать ценой бессмысленно — только близостью и персональностью</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="s2">
+  <div class="sec-head"><div class="sec-num">02</div><h2>Диагноз: пять узких мест</h2></div>
+  <div class="prose">
+    <p>Проблема «Премиум Лап» — не в спросе и не в качестве. Рейтинг 5,0 говорит, что те, кто дошёл, уходят довольными. Проблема в том, что <strong>до салона доходит слишком мало людей, и почти никто из них не оставляет след</strong>, по которому придёт следующий. Ниже — узкие места по убыванию стоимости.</p>
+  </div>
+
+  <div class="cards">
+    <div class="card"><span class="tag">Узкое место 01 · критично</span><h4>Карточка не продаёт</h4><p>Три отзыва — это ноль социального доказательства. В категории, где человек доверяет чужие уши и лапы незнакомцу, рейтинг без объёма не конвертирует. Плюс, скорее всего, неполные прайс, фото и описание услуг.</p></div>
+    <div class="card"><span class="tag">Узкое место 02 · критично</span><h4>Нет записи без звонка</h4><p>Единственный вход — мобильный номер. Аудитория 25–45 лет предпочитает записываться текстом и вечером. Каждая заявка вне рабочих часов теряется безвозвратно, а вы даже не знаете, сколько их было.</p></div>
+    <div class="card"><span class="tag">Узкое место 03 · высокая</span><h4>Возврат не управляется</h4><p>Груминг возвращается сам собой у 30–40% клиентов и не возвращается у остальных — если им не напомнить. Без записи «на следующий раз» прямо в салоне вы каждый месяц заново покупаете тех, кто уже был.</p></div>
+    <div class="card"><span class="tag">Узкое место 04 · средняя</span><h4>Локация не работает как канал</h4><p>Салон стоит внутри ЖК бизнес-класса на 652 квартиры и в шаге от ещё нескольких. Консьержи, чаты жителей и управляющие компании — это бесплатная дистрибуция, которая сейчас, судя по всему, не задействована.</p></div>
+    <div class="card"><span class="tag">Узкое место 05 · средняя</span><h4>«Премиум» не доказан</h4><p>Название обещает верхний сегмент, но у клиента нет ни одного видимого доказательства: чем косметика лучше, почему мастер дороже, что входит в цену. Без этих доказательств вы конкурируете в прайсе с частником на дому.</p></div>
+  </div>
+
+  <div class="prose">
+    <div class="note">
+      <span class="t">Главный вывод</span>
+      <p>Первые 90 дней бюджет и внимание идут <strong>не в рекламу, а в конверсию</strong>: карточки в геосервисах, онлайн-запись, отзывы, возврат клиента. Реклама на дырявую воронку удваивает расходы и не удваивает выручку. Платный трафик включаем в четвёртый месяц — когда есть куда его приводить.</p>
+    </div>
+  </div>
+</section>
+
+<section id="s3">
+  <div class="sec-head"><div class="sec-num">03</div><h2>Рынок: спрос обгоняет предложение</h2></div>
+  <div class="kpis">
+    <div class="kpi"><div class="v">4 450 <small>₽</small></div><div class="l">Средний чек за визит в груминг-салон в Москве, I квартал 2026</div><div class="src">Рынок</div></div>
+    <div class="kpi"><div class="v">+15–25 <small>%</small></div><div class="l">Рост среднего чека за год — цены тянут вверх аренда, косметика и оборудование</div><div class="src">Год к году</div></div>
+    <div class="kpi"><div class="v">+9–10 <small>%</small></div><div class="l">Рост интереса к услугам груминга при росте предложения всего на 1%</div><div class="src">Дефицит</div></div>
+    <div class="kpi"><div class="v">≈ 1 300</div><div class="l">Визитов в год закрывает один грумерский стол при загрузке 70%</div><div class="src">Оценка</div></div>
+  </div>
+  <div class="prose">
+    <p>Это редкая для сферы услуг конфигурация: спрос растёт вдесятеро быстрее предложения, а средний чек поднимается двузначными темпами. В такой рынок не нужно ломиться демпингом — в нём нужно <strong>быть найденным</strong>.</p>
+
+    <h3>Сколько спроса лежит в пешей доступности</h3>
+    <p>Оценка снизу, по радиусу 1,5 км (Павелецкая набережная, Симоновская набережная, Ленинская Слобода, Даниловская мануфактура):</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Шаг оценки</th><th class="num">Значение</th><th>Комментарий</th></tr></thead>
+        <tbody>
+          <tr><td>Домохозяйств в радиусе 1,5 км</td><td class="num">≈ 15 000</td><td>Плотная новая застройка бизнес-класса</td></tr>
+          <tr><td>Из них с собакой</td><td class="num">≈ 27%</td><td>≈ 4 000 собак</td></tr>
+          <tr><td>Породы, требующие регулярного груминга</td><td class="num">≈ 40%</td><td>Мальтипу, пудели, шпицы, йорки, ши-тцу, бишоны, кокеры — ≈ 1 600 собак</td></tr>
+          <tr><td>Визитов в год на такую собаку</td><td class="num">6–8</td><td>Цикл 6–8 недель</td></tr>
+          <tr><td><strong>Ёмкость пешего рынка</strong></td><td class="num"><strong>≈ 11 000 визитов/год</strong></td><td>Плюс кошки, плюс гигиена без стрижки</td></tr>
+          <tr><td>Что закрывает один стол при загрузке 70%</td><td class="num">≈ 1 300</td><td><strong>≈ 12% пешего спроса</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Вывод прямой: чтобы загрузить салон под завязку, <strong>не нужна вся Москва</strong>. Достаточно стать очевидным выбором для одного из восьми владельцев стригущейся собаки в собственном районе. Это полностью меняет структуру бюджета — деньги идут в гипер-локальные каналы, а не в широкий охват.</p>
+
+    <h3>Конкурентная карта</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Тип игрока</th><th>Их сила</th><th>Их слабость</th><th>Ваш ход</th></tr></thead>
+        <tbody>
+          <tr><td>Сети («Милорд», «Барбос», «У меня лапки», Groom Club)</td><td>Узнаваемость, сотни отзывов, стандарт качества</td><td>Конвейер, мастер каждый раз разный, запись за 1–2 недели</td><td>Именной мастер и «своя» собака, которую помнят</td></tr>
+          <tr><td>Частные грумеры (Профи.ру, соцсети, на дому)</td><td>Цена ниже на 25–40%, выезд</td><td>Нет гарантий, нет оборудования, нет юрлица, риск для собаки</td><td>Показывать безопасность: оборудование, косметика, ветконтроль, ответственность</td></tr>
+          <tr><td>Ветклиники с грумингом</td><td>Доверие врача, седация для сложных случаев</td><td>Груминг — побочная услуга, качество стрижки среднее</td><td>Партнёрство, а не война: они направляют вам стрижку, вы им — медицину</td></tr>
+          <tr><td>Салоны в соседних ЖК</td><td>Такая же близость для своих жителей</td><td>Такая же слабая упаковка и отзывная база</td><td>Выиграть гонку за карточку и отзывы первым — это выигрывается один раз</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="s4">
+  <div class="sec-head"><div class="sec-num">04</div><h2>Аудитория: пять сегментов и что ими движет</h2></div>
+  <div class="prose"><p>Груминг покупают не «владельцы животных». Покупают пять разных людей с разными страхами. Реклама, которая говорит со всеми сразу, не говорит ни с кем.</p></div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Сегмент</th><th>Задача клиента</th><th>Главный страх</th><th>Чем берём</th><th class="num">Приоритет</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Соседка из ЖК</strong><br>Женщина 30–50, мальтипу/шпиц, живёт в 300 метрах</td><td>«Чтобы красиво и чтобы не ехать через полгорода»</td><td>Испортят стрижку, будет стыдно перед подругами</td><td>Близость, портфолио пород, тот же мастер каждый раз</td><td class="num">1</td></tr>
+        <tr><td><strong>Занятой владелец</strong><br>25–40, работает рядом в Ленинской Слободе</td><td>«Записаться в два клика и забрать после работы»</td><td>Не дозвониться, не попасть в окно, потерять вечер</td><td>Онлайн-запись 24/7, вечерние слоты, статус «готово» в мессенджер</td><td class="num">1</td></tr>
+        <tr><td><strong>Тревожный первопроходец</strong><br>Первая собака, первый груминг, щенок 4–8 мес.</td><td>«Чтобы не травмировали и не напугали»</td><td>Стресс животного, силовая фиксация, скрытая агрессия мастера</td><td>Пакет «Первый груминг»: знакомство, укороченная процедура, отчёт</td><td class="num">2</td></tr>
+        <tr><td><strong>Кошатник</strong><br>Персы, мейн-куны, колтуны, «дома не даётся»</td><td>«Снять колтуны без наркоза и без крови»</td><td>Кошку покалечат или откажут в услуге</td><td>Отдельное позиционирование кошачьего груминга — здесь мало кто силён</td><td class="num">2</td></tr>
+        <tr><td><strong>Владелец возрастного питомца</strong><br>Собака 9+ лет, сердце, суставы</td><td>«Аккуратно и без нагрузки»</td><td>Питомцу станет плохо во время процедуры</td><td>Щадящий протокол, короткие сессии, связка с ветклиникой</td><td class="num">3</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="prose">
+    <p>Сегменты 1 и 2 дают <strong>основную загрузку и самый дешёвый охват</strong> — они физически рядом. Сегменты 3–5 дают <strong>премиальный чек и отсутствие конкуренции</strong>: за «первый груминг щенка» и «кошка с колтунами» почти никто в районе не борется, а платят за них больше и возвращаются охотнее.</p>
+  </div>
+</section>
+<section id="s5">
+  <div class="sec-head"><div class="sec-num">05</div><h2>Позиционирование</h2></div>
+  <div class="prose">
+    <p>Сейчас название обещает премиум, а рынок видит безымянный салон с тремя отзывами. Нужно сузить обещание до того, что вы реально можете доказать каждый день, и что сеть в принципе не может повторить.</p>
+
+    <blockquote>
+      Салон груминга у дома на Павелецкой набережной, где вашу собаку знают по имени. Один мастер — ваш, запись в два клика, отчёт после каждой стрижки. Столько же времени и внимания, сколько получил бы ребёнок в хорошей парикмахерской.
+      <span class="who">Позиционирующее утверждение — для внутреннего пользования</span>
+    </blockquote>
+
+    <h3>Три опоры, на которых всё держится</h3>
+    <div class="cards">
+      <div class="card"><span class="tag">Опора 01</span><h4>Свой двор</h4><p>Не «салон в Москве», а «салон вашего квартала». 5 минут пешком с мокрой собакой против 40 минут в машине — это аргумент, который не перебивается скидкой. Вся коммуникация привязана к району, набережной и конкретным ЖК.</p></div>
+      <div class="card"><span class="tag">Опора 02</span><h4>Персональный мастер</h4><p>Сеть даёт стандарт, но обезличивает. Вы даёте обратное: фиксированный мастер за клиентом, карточка питомца с историей стрижек, «в прошлый раз мы оставляли лапы длиннее — повторяем?». Это то, за что не уходят.</p></div>
+      <div class="card"><span class="tag">Опора 03</span><h4>Прозрачность вместо слова «премиум»</h4><p>Премиум доказывается не прилагательными, а деталями: названия косметики, время процедуры, фото до/после в каждом визите, честный прайс по породам без «уточняйте по телефону».</p></div>
+    </div>
+
+    <h3>Как это звучит в текстах</h3>
+    <div class="prose">
+      <ul>
+        <li><strong>Говорим:</strong> спокойно, по-соседски, конкретно. «Мальтипу, 4,2 кг, полный комплекс — 4 900 ₽, 2,5 часа, свободно в четверг в 18:30».</li>
+        <li><strong>Не говорим:</strong> «индивидуальный подход», «широкий спектр услуг», «профессионалы своего дела». Эти фразы стоят на каждом втором сайте и не значат ничего.</li>
+        <li><strong>Всегда показываем животное, а не интерьер.</strong> Решение о салоне принимается по фото чужой собаки, похожей на свою.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="s6">
+  <div class="sec-head"><div class="sec-num">06</div><h2>Продукт и ценовая архитектура</h2></div>
+  <div class="prose">
+    <p>Средний чек по рынку — 4 450 ₽. Цель на 12 месяцев — <strong>5 500–6 500 ₽</strong>, причём не за счёт повышения прайса, а за счёт структуры: пакеты вместо разрозненных услуг, допродажи внутри визита и предоплаченные абонементы.</p>
+
+    <h3>Три уровня вместо прайс-листа на 40 строк</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Пакет</th><th>Что входит</th><th class="num">Ориентир, ₽</th><th>Роль в линейке</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Гигиена</strong></td><td>Мытьё, сушка, когти, уши, гигиеническая стрижка лап и живота</td><td class="num">2 500 – 3 500</td><td>Точка входа. Дешёвый повод прийти впервые и посмотреть на вас</td></tr>
+          <tr><td><strong>Комплекс</strong> <span class="pill ok">Основной</span></td><td>Гигиена + модельная стрижка + укладка + парфюм</td><td class="num">4 500 – 6 500</td><td>70% визитов должны быть здесь. Вокруг него строится вся коммуникация</td></tr>
+          <tr><td><strong>Комплекс+ SPA</strong></td><td>Комплекс + маска по типу шерсти, экспресс-линька или уход за кожей, фотосессия питомца</td><td class="num">7 000 – 9 500</td><td>Якорь: делает «Комплекс» выгодным на вид и снимает ценовой потолок</td></tr>
+          <tr><td><strong>Первый груминг щенка</strong></td><td>Знакомство, укороченная процедура, обучение владельца домашнему уходу, отчёт</td><td class="num">2 900 – 3 900</td><td>Захват клиента на 10+ лет вперёд. Самая недооценённая позиция в отрасли</td></tr>
+          <tr><td><strong>Кошачий груминг</strong></td><td>Мытьё, вычёсывание, снятие колтунов, гигиеническая или модельная стрижка</td><td class="num">4 000 – 7 000</td><td>Ниша с низкой конкуренцией и высокой готовностью платить</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Абонемент: главный инструмент удержания</h3>
+    <div class="prose">
+      <p>Груминг — идеальная услуга для подписки: она возвращается календарно. Абонемент решает сразу три задачи — предоплата на счёте, гарантированная загрузка на месяцы вперёд и психологический замок против ухода к конкуренту.</p>
+      <ul>
+        <li><strong>«Сезон» — 4 комплекса.</strong> Цена 4 визитов минус 10%, срок действия 8 месяцев, можно передать члену семьи. Экономия для клиента ≈ 2 200 ₽, для вас — ≈ 20 000 ₽ предоплаты и четыре гарантированных слота.</li>
+        <li><strong>«Год» — 8 комплексов + 2 гигиены в подарок.</strong> Минус 15%. Продаётся тем, кто пришёл третий раз — тогда конверсия максимальная.</li>
+        <li><strong>Правило продажи:</strong> абонемент предлагается <em class="term">не на первом визите</em>, а на втором или третьем — на первом он читается как впаривание.</li>
+      </ul>
+
+      <h4>Допродажи, которые не раздражают</h4>
+      <ul>
+        <li>Экспресс-линька, маска по типу шерсти, уход за подушечками лап, окрашивание безопасными мелками к празднику — 400–1 200 ₽ каждая.</li>
+        <li>Домашний уход на вынос: шампунь и спрей той же линейки, что использовал мастер. Маржа 40–60%, плюс это работает как напоминание о салоне каждый день.</li>
+        <li><strong>Норма:</strong> одна допродажа на визит, названная как рекомендация мастера под конкретную шерсть, а не как пункт меню.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="s7">
+  <div class="sec-head"><div class="sec-num">07</div><h2>Каналы: куда идут усилия</h2></div>
+  <div class="prose"><p>Порядок здесь — это и есть стратегия. Каналы 1–4 запускаются немедленно и почти не стоят денег. Канал 5 включается только после них.</p></div>
+
+  <div class="cards">
+    <div class="card">
+      <span class="tag">Канал 01 · ~40% усилий</span><h4>Геосервисы: карточка как витрина</h4>
+      <p>Клиент из вашего района набирает «груминг рядом» и выбирает из трёх карточек по фото и отзывам. Это не «онлайн-присутствие», это ваш главный вход.</p>
+      <p><strong>Яндекс Бизнес:</strong> заполнить на 100% — часы, полный прайс по услугам, 60+ фото (работы, а не ресепшн), описание с породами, ссылка на онлайн-запись, посты об акциях. <strong>2ГИС, Zoon, Авито Услуги, Профи.ру</strong> — те же данные, единый прайс, одинаковые фото. <strong>Цель 90 дней:</strong> 40+ отзывов при рейтинге не ниже 4,9.</p>
+    </div>
+    <div class="card">
+      <span class="tag">Канал 02 · ~15%</span><h4>Онлайн-запись 24/7</h4>
+      <p>YCLIENTS или Dikidi + бот в Telegram и WhatsApp. Кнопка записи — во всех карточках, в шапке соцсетей, в QR-коде на двери салона.</p>
+      <p>Это чинит самую дорогую утечку: половина решений о записи принимается вечером и в выходные, когда на мобильный не отвечают. Побочный эффект важнее самой записи — вы наконец начинаете <strong>видеть цифры</strong>: сколько заходов, сколько записей, сколько дошло.</p>
+    </div>
+    <div class="card">
+      <span class="tag">Канал 03 · ~15%</span><h4>Соседский периметр</h4>
+      <p>Радиус 2 км обрабатывается руками, лично, один раз — и работает годами.</p>
+      <p>Ветклиники и зоомагазины (взаимный обмен клиентами, ваши визитки на их стойке), консьержи и УК всех ЖК на набережной, чаты жителей в Telegram, выгульщики и догситтеры, кинологи и площадки, груминг-мастера без места (аренда вашего стола в простой). Каждому партнёру — именной промокод, чтобы считать отдачу.</p>
+    </div>
+    <div class="card">
+      <span class="tag">Канал 04 · ~15%</span><h4>Возврат и рекомендации</h4>
+      <p>Дешевле любой рекламы. Три механики: следующая запись назначается прямо у стойки после визита; напоминание за 3 дня в мессенджер с фото прошлой стрижки; «спящим» через 10 недель — персональное сообщение от мастера.</p>
+      <p><strong>Реферальная программа:</strong> привёл соседа — обоим по 700 ₽ на следующий визит. В плотной застройке эта механика разгоняется сама.</p>
+    </div>
+    <div class="card">
+      <span class="tag">Канал 05 · ~10%</span><h4>Контент: доказательства, а не посты</h4>
+      <p>Telegram-канал салона + VK + короткие вертикальные видео. Единственный формат, который работает в груминге, — <strong>до/после</strong>. Не «полезные советы», а конкретные собаки конкретных пород.</p>
+      <p>Ритм: 3 публикации в неделю. Понедельник — работа недели (до/после, порода, что делали, сколько заняло). Среда — короткое видео процесса или разбор («почему колтуны нельзя вычесать дома»). Пятница — свободные слоты на выходные.</p>
+    </div>
+    <div class="card">
+      <span class="tag">Канал 06 · с 4-го месяца</span><h4>Платный трафик</h4>
+      <p>Включается, когда карточки заполнены, отзывы набраны и запись работает. Иначе вы платите за клики, которые упираются в тупик.</p>
+      <p>Приоритетное размещение в Яндекс Бизнесе (самый дешёвый лид в категории), Директ на гео-радиус 3 км по запросам «груминг рядом», «стрижка собак Автозаводская», ретаргетинг на тех, кто был на странице записи. Тест — 20–30 тыс. ₽/мес., масштабирование только по факту стоимости записи.</p>
+    </div>
+  </div>
+
+  <div class="prose">
+    <details>
+      <summary>Чек-лист карточки в Яндекс Бизнесе — сделать в первую неделю</summary>
+      <div class="details-body">
+        <ol>
+          <li>Подтвердить права на организацию и закрыть все «незаполненные» поля — карточка с полнотой 100% ранжируется выше.</li>
+          <li>Категории: основная «Груминг-салон», дополнительные — «Зоосалон», «Стрижка собак», «Стрижка кошек», «Зоомагазин» (если продаёте косметику).</li>
+          <li>Часы работы — реальные, включая выходные. Расхождение с реальностью даёт негативные отзывы на пустом месте.</li>
+          <li>Прайс: минимум 15 позиций с ценами. Не «от 2000», а вилка по весу/породе. Скрытая цена — причина №1 не позвонить.</li>
+          <li>Фотографии: 60+, из них не менее 40 — работы до/после при дневном свете. Обложка — не вывеска, а лучшая стрижка.</li>
+          <li>Описание: 500–800 знаков с упоминанием набережной, района, метро и 8–10 конкретных пород.</li>
+          <li>Кнопка «Записаться» со ссылкой на онлайн-запись, а не на телефон.</li>
+          <li>Отвечать на каждый отзыв в течение 24 часов — и на хвалебный тоже, по имени питомца.</li>
+          <li>Публиковать пост-новость раз в две недели (акция, новая услуга, свободные окна) — это поднимает карточку в выдаче.</li>
+        </ol>
+      </div>
+    </details>
+    <details>
+      <summary>Как набрать 40 отзывов за 90 дней, не нарушая правил площадок</summary>
+      <div class="details-body">
+        <ul>
+          <li><strong>Момент просьбы решает всё:</strong> просить нужно в секунду, когда владелец увидел готового питомца и ахнул. Не по SMS через день.</li>
+          <li>QR-код на стойке и на карточке-памятке, которую вы отдаёте вместе с собакой. Отдельные коды на Яндекс и 2ГИС, чтобы отзывы не копились в одном месте.</li>
+          <li>Мастер говорит фразу вслух — скрипт в разделе 13. Просьба от мастера, который только что стриг, конвертирует в разы лучше обезличенной рассылки.</li>
+          <li>Никаких «отзыв за скидку» — площадки это отслеживают и режут. Взамен: фото питомца в хорошей обработке в подарок каждому, кто оставил отзыв (это разрешено и стоит вам минуту).</li>
+          <li>Реалистичная математика: 100 визитов в месяц × 15–20% конверсии в отзыв = 15–20 отзывов ежемесячно. За 90 дней цель достигается с запасом.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</section>
+<section id="s8">
+  <div class="sec-head"><div class="sec-num">08</div><h2>Юнит-экономика: сколько можно платить за клиента</h2></div>
+  <div class="prose">
+    <p>Главный вопрос любого локального бизнеса — «сколько мне не жалко потратить на одного нового клиента». В груминге ответ приятный, потому что клиент возвращается 6–8 раз в год.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Показатель</th><th class="num">Модель</th><th>Откуда</th></tr></thead>
+        <tbody>
+          <tr><td>Средний чек (цель)</td><td class="num">5 000 ₽</td><td>Рынок 4 450 ₽ + пакеты и допродажи</td></tr>
+          <tr><td>Комиссия мастера</td><td class="num">−45%</td><td>Отраслевая норма 40–50%</td></tr>
+          <tr><td>Расходники и косметика</td><td class="num">−7%</td><td>Премиальная линейка</td></tr>
+          <tr><td><strong>Маржинальная прибыль с визита</strong></td><td class="num"><strong>≈ 2 400 ₽</strong></td><td>То, что остаётся до аренды и рекламы</td></tr>
+          <tr><td>Визитов от клиента за год</td><td class="num">6–8</td><td>Цикл 6–8 недель</td></tr>
+          <tr><td><strong>LTV за первый год</strong></td><td class="num"><strong>≈ 30 000 ₽ выручки / 14 400 ₽ маржи</strong></td><td>При удержании 2 года — вдвое больше</td></tr>
+          <tr><td><strong>Допустимая стоимость клиента (CAC)</strong></td><td class="num"><strong>до 2 000–2 500 ₽</strong></td><td>Окупается уже на первом визите</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <span class="t">Что это меняет на практике</span>
+      <p>Салон может позволить себе платить <strong>до 2 000 ₽ за нового клиента</strong> и всё равно выходить в плюс с первого визита. Это значит, что и щедрая реферальная программа (700+700 ₽), и приоритетное размещение в Яндексе, и скидка 30% на первый визит — экономически безопасны. Опасно другое: <strong>привести клиента и не вернуть его</strong>. При одном визите вместо шести вся экономика рушится, поэтому удержание в этом плане важнее привлечения.</p>
+    </div>
+
+    <h3>Прикидка загрузки и точки безубыточности</h3>
+    <p>Подвигайте ползунки под свои реальные цифры — модель пересчитается.</p>
+  </div>
+
+  <div class="calc">
+    <div class="calc-in">
+      <div class="field"><div class="top"><label for="i-mast">Грумерских мест (мастеров в смене)</label><output id="o-mast">1</output></div><input type="range" id="i-mast" min="1" max="3" step="1" value="1"></div>
+      <div class="field"><div class="top"><label for="i-vis">Визитов на мастера в день</label><output id="o-vis">4</output></div><input type="range" id="i-vis" min="2" max="6" step="0.5" value="4"></div>
+      <div class="field"><div class="top"><label for="i-days">Рабочих дней в месяц</label><output id="o-days">26</output></div><input type="range" id="i-days" min="20" max="30" step="1" value="26"></div>
+      <div class="field"><div class="top"><label for="i-check">Средний чек, ₽</label><output id="o-check">5 000</output></div><input type="range" id="i-check" min="3000" max="9000" step="100" value="5000"></div>
+      <div class="field"><div class="top"><label for="i-comm">Комиссия мастера, %</label><output id="o-comm">45</output></div><input type="range" id="i-comm" min="30" max="55" step="1" value="45"></div>
+      <div class="field"><div class="top"><label for="i-fix">Постоянные расходы (аренда, админ, ПО), ₽/мес</label><output id="o-fix">250 000</output></div><input type="range" id="i-fix" min="120000" max="600000" step="10000" value="250000"></div>
+      <div class="field"><div class="top"><label for="i-mkt">Маркетинговый бюджет, ₽/мес</label><output id="o-mkt">40 000</output></div><input type="range" id="i-mkt" min="0" max="200000" step="5000" value="40000"></div>
+    </div>
+    <div class="calc-out">
+      <div class="row"><span class="lbl">Визитов в месяц</span><b id="r-visits">104</b></div>
+      <div class="row"><span class="lbl">Выручка</span><b id="r-rev">520 000 ₽</b></div>
+      <div class="row"><span class="lbl">Маржинальная прибыль с визита</span><b id="r-cm">2 400 ₽</b></div>
+      <div class="row"><span class="lbl">Валовая маржа за месяц</span><b id="r-gross">249 600 ₽</b></div>
+      <div class="row big"><span class="lbl">Операционная прибыль</span><b id="r-profit">−40 400 ₽</b></div>
+      <div class="row"><span class="lbl">Точка безубыточности</span><b id="r-be">121 визит/мес</b></div>
+      <div class="row"><span class="lbl">Нужная загрузка</span><b id="r-load">116%</b></div>
+    </div>
+  </div>
+  <div class="prose">
+    <p style="font-size:13.5px;color:var(--ink-3)">Расходники приняты за 7% от чека. Модель считает только салонную экономику: налоги, амортизацию оборудования и зарплату администратора учитывайте в постоянных расходах.</p>
+  </div>
+</section>
+
+<section id="s9">
+  <div class="sec-head"><div class="sec-num">09</div><h2>План на 90 дней</h2></div>
+  <div class="prose"><p>Три спринта. Первый — про то, чтобы вас можно было найти и записаться. Второй — про доказательства. Третий — про возврат и первые деньги в рекламу.</p></div>
+
+  <div class="timeline">
+    <div class="stage">
+      <div class="when">Дни 1–30 · Фундамент</div>
+      <h4>Починить вход</h4>
+      <ul>
+        <li>Подключить онлайн-запись (YCLIENTS или Dikidi) и завести бота в Telegram/WhatsApp. Кнопка записи — во всех карточках.</li>
+        <li>Довести карточку Яндекс Бизнеса до 100% по чек-листу из раздела 07. Затем 2ГИС, Zoon, Авито Услуги, Профи.ру — теми же данными.</li>
+        <li>Отснять фотобанк: 60+ кадров до/после при дневном свете, 10 коротких видео процесса. Это единовременная работа на полдня, которая кормит все каналы весь год.</li>
+        <li>Переписать прайс в три пакета (Гигиена / Комплекс / Комплекс+ SPA) и опубликовать везде с реальными цифрами.</li>
+        <li>Запустить сбор отзывов: QR на стойке, карточка-памятка, скрипт для мастера. Цель месяца — <strong>15 отзывов</strong>.</li>
+        <li>Завести таблицу учёта: источник клиента, чек, дата следующего визита. Без неё все дальнейшие решения будут вслепую.</li>
+      </ul>
+    </div>
+    <div class="stage">
+      <div class="when">Дни 31–60 · Доказательства и периметр</div>
+      <h4>Занять свой район</h4>
+      <ul>
+        <li>Обойти ногами радиус 2 км: ветклиники, зоомагазины, консьержи и УК всех ЖК на набережной. Каждому — визитки, промокод и договорённость о взаимных рекомендациях.</li>
+        <li>Войти в чаты жителей «Резиденций композиторов», «Форивер», «Ривер Парк»: не рекламой, а предложением для соседей — фиксированная скидка 20% по адресу.</li>
+        <li>Запустить Telegram-канал и VK, 3 публикации в неделю по ритму из раздела 07.</li>
+        <li>Ввести пакет «Первый груминг щенка» и кошачий груминг отдельными позициями в прайсе и карточках — это ниши без конкуренции в районе.</li>
+        <li>Запустить реферальную программу 700+700 ₽ и абонемент «Сезон».</li>
+        <li>Цель месяца: <strong>ещё 15 отзывов, 25% новых клиентов из партнёрских каналов</strong>.</li>
+      </ul>
+    </div>
+    <div class="stage">
+      <div class="when">Дни 61–90 · Возврат и первый платный трафик</div>
+      <h4>Замкнуть цикл</h4>
+      <ul>
+        <li>Ввести правило: следующая запись назначается у стойки до ухода клиента. Целевой показатель — 50% визитов заканчиваются новой записью.</li>
+        <li>Настроить автонапоминания за 3 дня и реактивацию «спящих» на 10-й неделе.</li>
+        <li>Включить приоритетное размещение в Яндекс Бизнесе и тестовый Директ на гео-радиус 3 км. Бюджет теста 20–30 тыс. ₽.</li>
+        <li>Посчитать первую честную воронку: показы карточки → переходы → записи → дошли → вернулись. Отключить то, что не окупается.</li>
+        <li>Цель квартала: <strong>40+ отзывов, рейтинг ≥4,9, загрузка 65–70%, средний чек +15%</strong>.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="s10">
+  <div class="sec-head"><div class="sec-num">10</div><h2>Месяцы 4–12: от загрузки к масштабу</h2></div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Период</th><th>Фокус</th><th>Ключевые действия</th><th>Целевой результат</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Месяцы 4–6</strong></td><td>Масштабирование того, что сработало</td><td>Увеличить бюджет в окупившихся каналах; ввести абонемент «Год»; собрать 3–4 партнёрства, которые реально дают клиентов, и отсечь остальные; запустить продажу домашнего ухода</td><td>Загрузка 75–80%, средний чек 5 500 ₽, 60+ отзывов</td></tr>
+        <tr><td><strong>Месяцы 7–9</strong></td><td>Второй мастер и вечерние окна</td><td>Нанять и загрузить второй стол; открыть ранние и поздние слоты под сегмент «занятой владелец»; сезонный пик — экспресс-линька весной и осенью, «новогодние» стрижки в декабре</td><td>Выручка ×1,6 к первому кварталу, доля повторных визитов 60%</td></tr>
+        <tr><td><strong>Месяцы 10–12</strong></td><td>Бренд района и удержание</td><td>Собственный лендинг с записью (снимает зависимость от площадок); коллаборации с локальными брендами и зоомагазинами; «день открытых лап» во дворе ЖК; программа лояльности на базе абонементов</td><td>50%+ новых клиентов приходят по рекомендации, доля предоплаты 25% выручки</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="s11">
+  <div class="sec-head"><div class="sec-num">11</div><h2>Бюджет: три сценария</h2></div>
+  <div class="prose"><p>Здоровая норма для локального салона — <strong>5–8% выручки</strong> на маркетинг, в первые полгода допустимо 10–12%, потому что вы одновременно строите инфраструктуру, а не только покупаете трафик.</p></div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Статья</th><th class="num">Минимум<br>25 тыс. ₽/мес</th><th class="num">Рабочий<br>60 тыс. ₽/мес</th><th class="num">Агрессивный<br>120 тыс. ₽/мес</th></tr></thead>
+      <tbody>
+        <tr><td>Онлайн-запись и CRM (YCLIENTS/Dikidi)</td><td class="num">3 000</td><td class="num">5 000</td><td class="num">8 000</td></tr>
+        <tr><td>Приоритетное размещение в Яндекс Бизнесе</td><td class="num">8 000</td><td class="num">15 000</td><td class="num">25 000</td></tr>
+        <tr><td>Яндекс Директ, гео-радиус + ретаргетинг</td><td class="num">—</td><td class="num">15 000</td><td class="num">40 000</td></tr>
+        <tr><td>Продвижение в 2ГИС / Zoon / Авито</td><td class="num">—</td><td class="num">6 000</td><td class="num">12 000</td></tr>
+        <tr><td>Контент: съёмка, монтаж, ведение каналов</td><td class="num">5 000</td><td class="num">12 000</td><td class="num">25 000</td></tr>
+        <tr><td>Полиграфия, QR-памятки, партнёрские материалы</td><td class="num">3 000</td><td class="num">4 000</td><td class="num">5 000</td></tr>
+        <tr><td>Реферальные и партнёрские выплаты</td><td class="num">6 000</td><td class="num">3 000</td><td class="num">5 000</td></tr>
+        <tr><td>Итого</td><td class="num"><strong>25 000</strong></td><td class="num"><strong>60 000</strong></td><td class="num"><strong>120 000</strong></td></tr>
+        <tr><td>Ожидаемо новых клиентов в месяц <span class="pill p3">оценка</span></td><td class="num">12–18</td><td class="num">30–40</td><td class="num">60–80</td></tr>
+        <tr><td>Прирост выручки к 6-му месяцу <span class="pill p3">оценка</span></td><td class="num">+25–35%</td><td class="num">+60–80%</td><td class="num">+100–140%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="prose">
+    <div class="note">
+      <span class="t">Рекомендация</span>
+      <p>Начинать с <strong>рабочего сценария</strong> — 60 тыс. ₽/мес. Минимальный не даёт скорости на растущем рынке (окно, пока конкуренты не заняли выдачу, не бесконечно), агрессивный бессмысленен, пока один стол физически не может принять больше 120–130 визитов в месяц: вы будете платить за клиентов, которым некуда записаться. Агрессивный сценарий включается одновременно с наймом второго мастера.</p>
+    </div>
+  </div>
+</section>
+<section id="s12">
+  <div class="sec-head"><div class="sec-num">12</div><h2>Метрики и риски</h2></div>
+  <div class="prose">
+    <h3>Что смотреть каждую неделю</h3>
+    <p>Семь цифр. Больше не нужно — иначе их перестанут считать на второй месяц.</p>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Метрика</th><th>Как считать</th><th class="num">Старт</th><th class="num">Через 90 дней</th><th class="num">Через 12 мес.</th></tr></thead>
+      <tbody>
+        <tr><td>Отзывов на Яндекс.Картах</td><td>Счётчик карточки</td><td class="num">3</td><td class="num">40+</td><td class="num">150+</td></tr>
+        <tr><td>Рейтинг</td><td>Карточка</td><td class="num">5,0</td><td class="num">≥4,9</td><td class="num">≥4,9</td></tr>
+        <tr><td>Загрузка стола</td><td>Занятые слоты ÷ доступные</td><td class="num">?</td><td class="num">65–70%</td><td class="num">80–85%</td></tr>
+        <tr><td>Средний чек</td><td>Выручка ÷ визиты</td><td class="num">?</td><td class="num">+15%</td><td class="num">5 500–6 500 ₽</td></tr>
+        <tr><td>Доля повторных визитов</td><td>Визиты не-новых ÷ все визиты</td><td class="num">?</td><td class="num">45%</td><td class="num">60–65%</td></tr>
+        <tr><td>Записались на следующий визит до ухода</td><td>Ручная отметка в CRM</td><td class="num">0%</td><td class="num">50%</td><td class="num">65%</td></tr>
+        <tr><td>Стоимость нового клиента (CAC)</td><td>Бюджет ÷ новые клиенты</td><td class="num">?</td><td class="num">≤2 000 ₽</td><td class="num">≤1 500 ₽</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="prose">
+    <p>Знак вопроса в колонке «старт» — не пробел в документе, а точная характеристика ситуации: пока нет CRM, эти цифры неизвестны. Первое, что даёт онлайн-запись, — не удобство клиенту, а <strong>видимость для вас</strong>.</p>
+
+    <h3>Риски</h3>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Риск</th><th class="num">Вероятность</th><th>Как снимаем</th></tr></thead>
+      <tbody>
+        <tr><td>Первый негативный отзыв обрушивает рейтинг 5,0 при малой базе</td><td class="num"><span class="pill p1">высокая</span></td><td>Набрать объём отзывов быстро — при 40 отзывах одна четвёрка не двигает средний. Отвечать на негатив в течение дня, спокойно и с решением</td></tr>
+        <tr><td>Мастер уходит и уводит клиентов</td><td class="num"><span class="pill p2">средняя</span></td><td>Клиент должен быть привязан к салону, а не только к мастеру: карточка питомца, абонемент, бренд-коммуникация от салона, а не от личного аккаунта мастера</td></tr>
+        <tr><td>Загрузка упирается в потолок одного стола раньше, чем окупится реклама</td><td class="num"><span class="pill p2">средняя</span></td><td>Не разгонять платный трафик выше 120 визитов/мес.; расширять слоты (раннее утро, поздний вечер) до найма второго мастера</td></tr>
+        <tr><td>Сезонность: провал в январе и в отпускной период</td><td class="num"><span class="pill p2">средняя</span></td><td>Абонементы гасят провалы предоплатой; в низкий сезон — акции на гигиену и уход за кожей, а не скидки на комплекс</td></tr>
+        <tr><td>Сеть открывает точку в соседнем ЖК</td><td class="num"><span class="pill p3">низкая</span></td><td>Занять выдачу и отзывную базу первыми — это преимущество, которое потом дорого перебивать. Именной мастер и знание питомца сеть скопировать не может</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="s13">
+  <div class="sec-head"><div class="sec-num">13</div><h2>Готовые формулировки</h2></div>
+  <div class="prose">
+    <details open>
+      <summary>Скрипт мастера: просьба об отзыве</summary>
+      <div class="details-body">
+        <p>Произносится в момент передачи питомца владельцу, когда тот уже увидел результат:</p>
+        <blockquote>«Мы открылись недавно, и нас пока сложно найти на картах. Если Барни вам сегодня нравится — оставьте, пожалуйста, пару строк на Яндексе, вот QR прямо здесь. Это правда очень помогает. А я вам за это пришлю его фото — сегодня отлично получился.»</blockquote>
+        <p>Работает потому, что это просьба конкретного человека, который только что сделал работу, а не безличная рассылка. Конверсия такой просьбы — 15–25% против 2–3% у SMS.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Сообщение о следующем визите (за 3 дня)</summary>
+      <div class="details-body">
+        <blockquote>«Здравствуйте! Барни записан к Анне в четверг в 18:30, комплекс. Прикладываю фото прошлой стрижки — делаем так же или оставляем лапы длиннее? Если планы поменялись, просто напишите, перенесём.»</blockquote>
+        <p>Фото прошлой стрижки — ключевая деталь: оно доказывает, что питомца помнят, и снимает главный страх «в этот раз подстригут иначе».</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Реактивация «спящего» клиента (10 недель без визита)</summary>
+      <div class="details-body">
+        <blockquote>«Добрый день! Это Анна из «Премиум Лап» на Павелецкой набережной. Барни был у нас в июле — по срокам шерсть уже должна была отрасти. На этой неделе есть свободное окно в среду вечером, держу его за вами до завтра. Написать?»</blockquote>
+        <p>Конкретный слот с дедлайном работает в разы лучше открытого «приходите». Отправляется от имени мастера, не от салона.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Сообщение в чат жителей ЖК</summary>
+      <div class="details-body">
+        <blockquote>«Соседи, добрый день. Мы — груминг-салон «Премиум Лап», работаем в корпусе на набережной, 8Б. Для жителей комплекса делаем −20% на первый визит по адресу, без промокодов и условий. Стрижём собак и кошек, есть отдельная программа для щенков — первое знакомство с грумингом без стресса. Записаться можно текстом, отвечаем до 22:00. Ниже — несколько наших работ.»</blockquote>
+        <p>Дальше — 4–5 фото до/после. Никаких прайсов простынёй и восклицательных знаков: в соседском чате продаёт нормальная человеческая интонация.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>12 тем контента на квартал</summary>
+      <div class="details-body">
+        <ol>
+          <li>Мальтипу до и после: три часа работы в 30 секундах видео</li>
+          <li>Почему колтуны нельзя вычесать дома — и что происходит с кожей под ними</li>
+          <li>Первый груминг щенка: как проходит знакомство и почему мы не стрижём его целиком в первый раз</li>
+          <li>Стрижка кошки без наркоза: что реально возможно, а что нет</li>
+          <li>Сколько на самом деле длится «полный комплекс» и из чего складывается цена</li>
+          <li>Шпиц: почему его нельзя брить и что бывает с шерстью после</li>
+          <li>Как мыть собаку дома между визитами — и чем не надо</li>
+          <li>Экспресс-линька перед сезоном: кому нужна, кому бесполезна</li>
+          <li>Возрастная собака в груминге: щадящий протокол короткими сессиями</li>
+          <li>Что мы находим на коже, чего владелец не видит — и когда отправляем к ветеринару</li>
+          <li>Один день салона от первого клиента до последнего</li>
+          <li>Свободные окна на выходные (еженедельно, пятница)</li>
+        </ol>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><div class="sec-num">→</div><h2>Что сделать на этой неделе</h2></div>
+  <div class="prose">
+    <ol>
+      <li><strong>Подключить онлайн-запись</strong> и повесить кнопку во все карточки. Один день работы, самый большой эффект на рубль в этом документе.</li>
+      <li><strong>Дозаполнить Яндекс Бизнес до 100%</strong> по чек-листу: прайс, 60 фото, описание, часы, кнопка записи.</li>
+      <li><strong>Распечатать QR-памятку</strong> и начать просить отзывы у стойки со скриптом. Цель — 15 отзывов за месяц.</li>
+      <li><strong>Переписать прайс в три пакета</strong> и опубликовать с реальными цифрами вместо «уточняйте».</li>
+      <li><strong>Обойти пять ближайших точек</strong> — две ветклиники, зоомагазин, консьержей двух соседних ЖК.</li>
+    </ol>
+    <p>Ни один из пяти пунктов не требует рекламного бюджета. Реклама начинается на четвёртом месяце — когда есть куда приводить людей.</p>
+  </div>
+</section>
+</main>
+</div>
+
+<footer>
+  <div class="footer-in">
+    <div class="eyebrow">Источники и оговорки</div>
+    <p>Карточка организации на Яндекс.Картах из рабочей среды недоступна (домен закрыт сетевым прокси), профиль восстановлен по открытым источникам: агрегаторы Zoon и 2ГИС, реестровые данные ООО «Премиум Лап» (ИНН 9725193860), публикации о ценах на груминг в Москве за I квартал 2026 года, данные о ЖК «Резиденции композиторов» (AFI Development).</p>
+    <p>Все финансовые расчёты — модель на отраслевых нормах, а не отчётность компании. Перед принятием решений подставьте фактические данные по загрузке, чеку и постоянным расходам.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var ids = ["mast","vis","days","check","comm","fix","mkt"];
+  var el = {};
+  ids.forEach(function(k){ el[k] = document.getElementById("i-"+k); el["o"+k] = document.getElementById("o-"+k); });
+  var out = {
+    visits: document.getElementById("r-visits"),
+    rev: document.getElementById("r-rev"),
+    cm: document.getElementById("r-cm"),
+    gross: document.getElementById("r-gross"),
+    profit: document.getElementById("r-profit"),
+    be: document.getElementById("r-be"),
+    load: document.getElementById("r-load")
+  };
+  function fmt(n){ return Math.round(n).toLocaleString("ru-RU").replace(/ /g," "); }
+  function plural(n){ var a=Math.abs(n)%100, b=n%10; if(a>10&&a<20) return "визитов"; if(b>1&&b<5) return "визита"; if(b===1) return "визит"; return "визитов"; }
+  function calc(){
+    var mast = +el.mast.value, vis = +el.vis.value, days = +el.days.value;
+    var check = +el.check.value, comm = +el.comm.value, fix = +el.fix.value, mkt = +el.mkt.value;
+    el.omast.textContent = mast;
+    el.ovis.textContent = vis.toString().replace(".",",");
+    el.odays.textContent = days;
+    el.ocheck.textContent = fmt(check);
+    el.ocomm.textContent = comm;
+    el.ofix.textContent = fmt(fix);
+    el.omkt.textContent = fmt(mkt);
+
+    var visits = mast * vis * days;
+    var rev = visits * check;
+    var cm = check * (1 - comm/100 - 0.07);
+    var gross = visits * cm;
+    var profit = gross - fix - mkt;
+    var be = (fix + mkt) / cm;
+    var load = be / visits * 100;
+
+    out.visits.textContent = fmt(visits);
+    out.rev.textContent = fmt(rev) + " ₽";
+    out.cm.textContent = fmt(cm) + " ₽";
+    out.gross.textContent = fmt(gross) + " ₽";
+    out.profit.textContent = (profit < 0 ? "−" : "") + fmt(Math.abs(profit)) + " ₽";
+    out.profit.style.color = profit < 0 ? "var(--crit)" : "var(--good)";
+    out.be.textContent = fmt(be) + " " + plural(Math.round(be));
+    out.load.textContent = Math.round(load) + "%";
+    out.load.style.color = load > 100 ? "var(--crit)" : (load > 80 ? "var(--warn)" : "var(--good)");
+  }
+  ids.forEach(function(k){ el[k].addEventListener("input", calc); });
+  calc();
+})();
+</script>
