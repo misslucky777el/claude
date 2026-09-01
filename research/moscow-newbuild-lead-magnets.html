@@ -1,0 +1,246 @@
+<title>Обмен на контакт</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600&family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --paper:#F1F0EC; --surface:#FBFAF7; --surface-2:#E8E7E1;
+    --ink:#16181A; --ink-2:#565A56; --ink-3:#7E827D;
+    --rule:#D6D5CC; --rule-soft:#E2E1D9;
+    --accent:#0F4C45; --accent-soft:#DCE7E3;
+    --signal:#9C3B2A; --signal-soft:#F0E0DA;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#101312; --surface:#171B1A; --surface-2:#1F2423;
+      --ink:#E9EBE7; --ink-2:#A3A9A4; --ink-3:#7C837E;
+      --rule:#2C3231; --rule-soft:#242A29;
+      --accent:#4FB3A2; --accent-soft:#17302C;
+      --signal:#D9705A; --signal-soft:#33201C;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#101312; --surface:#171B1A; --surface-2:#1F2423;
+    --ink:#E9EBE7; --ink-2:#A3A9A4; --ink-3:#7C837E;
+    --rule:#2C3231; --rule-soft:#242A29;
+    --accent:#4FB3A2; --accent-soft:#17302C;
+    --signal:#D9705A; --signal-soft:#33201C;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:"Golos Text","Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px 96px}
+  .eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  .masthead{padding:64px 0 40px;border-bottom:2px solid var(--ink);display:flex;flex-direction:column;gap:22px}
+  h1{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;font-size:clamp(31px,4.7vw,56px);line-height:1.03;letter-spacing:-.02em;margin:0;text-wrap:balance}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lede{font-size:clamp(17px,1.5vw,19px);color:var(--ink-2);max-width:66ch;margin:0}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 28px;padding-top:4px}
+  .meta div{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;color:var(--ink-3)}
+  .meta b{color:var(--ink-2);font-weight:600}
+  section{padding-top:52px}
+  h2{font-weight:700;font-size:clamp(21px,2.4vw,27px);letter-spacing:-.015em;margin:0 0 6px;text-wrap:balance}
+  .sec-head{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
+  .sec-head p{margin:0;color:var(--ink-2);max-width:80ch}
+  .note{border-left:3px solid var(--accent);background:var(--accent-soft);padding:18px 22px;border-radius:0 3px 3px 0;display:flex;flex-direction:column;gap:9px;margin-top:20px}
+  .note p{margin:0;font-size:14.5px;color:var(--ink-2);max-width:84ch}
+  .note strong{color:var(--ink)}
+  .warn{border-left:3px solid var(--signal);background:var(--signal-soft);padding:18px 22px;border-radius:0 3px 3px 0;display:flex;flex-direction:column;gap:9px;margin-top:20px}
+  .warn p{margin:0;font-size:14.5px;color:var(--ink-2);max-width:84ch}
+  .warn strong{color:var(--ink)}
+  .lm{margin-top:20px;border:1px solid var(--rule);border-radius:3px;background:var(--surface);overflow:hidden}
+  .lm-head{padding:20px 22px;background:var(--surface-2);border-bottom:1px solid var(--rule);display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 14px}
+  .lm-num{font-family:"Unbounded",sans-serif;font-weight:600;font-size:17px;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums}
+  .lm-name{margin:0;font-size:19px;font-weight:700;letter-spacing:-.015em;line-height:1.15}
+  .lm-fmt{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:4px 8px;border-radius:2px;white-space:nowrap}
+  .lm-stage{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-left:auto;white-space:nowrap}
+  .lm-row{display:grid;grid-template-columns:158px 1fr;gap:16px;padding:14px 22px;border-bottom:1px solid var(--rule-soft);font-size:14.5px}
+  .lm-row:last-child{border-bottom:none}
+  .lm-k{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding-top:3px}
+  .lm-v{color:var(--ink-2)}
+  .lm-v strong{color:var(--ink)}
+  .lm-v.next{color:var(--ink);border-left:2px solid var(--signal);padding-left:12px}
+  .lm-v .stat{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--accent);font-weight:600}
+  @media (max-width:640px){.lm-row{grid-template-columns:1fr;gap:4px}.lm-stage{margin-left:0}}
+  .scroller{overflow-x:auto;border:1px solid var(--rule);border-radius:3px;background:var(--surface);margin-top:20px}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:900px}
+  thead th{background:var(--surface-2);text-align:left;padding:12px 14px;font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);border-bottom:1px solid var(--rule);font-weight:600}
+  tbody td{padding:13px 14px;vertical-align:top;border-bottom:1px solid var(--rule-soft);color:var(--ink-2)}
+  tbody th{text-align:left;padding:13px 14px;vertical-align:top;border-bottom:1px solid var(--rule-soft);color:var(--ink);font-weight:600;font-size:13.5px}
+  tbody tr:last-child td,tbody tr:last-child th{border-bottom:none}
+  tbody tr:hover td{background:var(--surface-2)}
+  footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--rule);color:var(--ink-3);font-size:13px;max-width:82ch}
+  footer p{margin:0 0 8px}
+  a{color:var(--accent)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  @media (max-width:640px){.wrap{padding:0 16px 64px}.masthead{padding:40px 0 28px}}
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="eyebrow">Лид-магниты · агентство по новостройкам · Москва</div>
+    <h1>Обмен <em>на контакт</em></h1>
+    <p class="lede">Десять форматов, каждый вырастает из метода, а не приделан к нему сбоку. Общий принцип отбора: лид-магнит должен делать за человека работу, которую он всё равно будет делать сам, — и по ходу показывать, сколько её на самом деле. Тогда следующий шаг возникает сам, без уговоров.</p>
+    <div class="meta">
+      <div><b>Идей:</b> 10</div>
+      <div><b>Форматов:</b> 10 разных</div>
+      <div><b>Запускать сразу:</b> 2</div>
+      <div><b>Дата:</b> август 2026</div>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">00 · Принцип отбора</div>
+      <h2>Почему в списке нет «подборки лучших ЖК»</h2>
+      <p>Классический лид-магнит риелтора — каталог объектов в обмен на телефон. Он не работает по трём причинам, и понимание этих причин объясняет весь список ниже.</p>
+    </div>
+    <div class="warn">
+      <p><strong>Первая: подборка не создаёт долга.</strong> Человек получает список, который мог собрать сам за вечер, и не чувствует, что ему что-то дали. Обмен контакта на общедоступное воспринимается как обман.</p>
+      <p><strong>Вторая: подборка не показывает объём работы.</strong> Хороший лид-магнит в этой нише должен по ходу использования обнаруживать, сколько всего нужно проверить, — тогда мысль «пусть это сделает он» возникает без единого призыва.</p>
+      <p><strong>Третья: подборка не сегментирует.</strong> Контакт без понимания задачи почти бесполезен при мощности в 22 интервью в месяц. Половина форматов ниже устроена так, что человек в момент скачивания сам сообщает район, бюджет и срок.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">Идеи</div>
+      <h2>Десять лид-магнитов</h2>
+    </div>
+
+    <div class="lm">
+      <div class="lm-head"><span class="lm-num">01</span><h3 class="lm-name">Двадцать пунктов и двенадцать вопросов</h3><span class="lm-fmt">Шпаргалка · печатная</span><span class="lm-stage">Холодный трафик</span></div>
+      <div class="lm-row"><span class="lm-k">Суть и ценность</span><span class="lm-v">Мой рабочий протокол выезда без сокращений: что смотреть во дворе, в подъезде и вокруг дома, в какое время суток, и двенадцать вопросов, которые ставят менеджера застройщика в тупик. Формат — две страницы, которые складываются и помещаются в карман, с полем для заметок.</span></div>
+      <div class="lm-row"><span class="lm-k">Задача</span><span class="lm-v">Прийти в отдел продаж подготовленным и не забыть половину важного, стоя перед макетом.</span></div>
+      <div class="lm-row"><span class="lm-k">Следующий шаг</span><span class="lm-v next">Человек едет с распечаткой, отмечает пункты — и обнаруживает, что на один объект уходит полдня, а объектов пять. Возврат: «съездите вместо меня». Прямой призыв не нужен, он появляется в переписке сам.</span></div>
+      <div class="lm-row"><span class="lm-k">Экономика</span><span class="lm-v"><span class="stat">Конверсия страницы в контакт 20–30%.</span> Производство: 1 день плюс вёрстка. Обновляется раз в квартал — законный повод написать всей базе.</span></div>
+    </div>
+
+    <div class="lm">
+      <div class="lm-head"><span class="lm-num">02</span><h3 class="lm-name">Что останется на жизнь</h3><span class="lm-fmt">Калькулятор · интерактив</span><span class="lm-stage">Холодный трафик</span></div>
+      <div class="lm-row"><span class="lm-k">Суть и ценность</span><span class="lm-v">Калькулятор считает не платёж — их тысячи, — а остаток на жизнь после платежа, коммуналки и содержания. Три переключателя: один из двоих теряет доход, декрет, расходы выросли на 20%. Результат показывается не суммой, а фразой: «на жизнь остаётся 96 тысяч; при декрете — 41».</span></div>
+      <div class="lm-row"><span class="lm-k">Задача</span><span class="lm-v">Понять, потянет ли семья эту покупку не в момент подписания, а в плохой год.</span></div>
+      <div class="lm-row"><span class="lm-k">Следующий шаг</span><span class="lm-v next">На экране результата — кнопка «прислать расчёт по моей ситуации»: доходы, состав семьи, район. Это уже не лид-магнит, а вход в интервью.</span></div>
+      <div class="lm-row"><span class="lm-k">Экономика</span><span class="lm-v"><span class="stat">Конверсия 20–35%, целевые запросы дешёвые.</span> Производство: 3–5 дней разработки. Главный актив — сам расчёт становится темой десятков постов.</span></div>
+    </div>
+
+    <div class="lm">
+      <div class="lm-head"><span class="lm-num">03</span><h3 class="lm-name">Какой дом вам противопоказан</h3><span class="lm-fmt">Квиз · обратная логика</span><span class="lm-stage">Холодный трафик</span></div>
+      <div class="lm-row"><span class="lm-k">Суть и ценность</span><span class="lm-v">Восемь вопросов о жизни, а не о бюджете: во сколько возвращаетесь домой, работаете ли из дома, когда ребёнку в школу, есть ли машина. На выходе — не «идеальный ЖК», а три типа домов, которые вам не подойдут, с объяснением признаков, по которым их узнать в объявлении.</span></div>
+      <div class="lm-row"><span class="lm-k">Задача</span><span class="lm-v">Сократить поле поиска, отсекая заведомо неподходящее, вместо того чтобы бесконечно добавлять варианты.</span></div>
+      <div class="lm-row"><span class="lm-k">Следующий шаг</span><span class="lm-v next">Результат заканчивается предложением получить персональный стоп-лист по конкретным ЖК, которые человек уже рассматривает, — их он называет в форме.</span></div>
+      <div class="lm-row"><span class="lm-k">Экономика</span><span class="lm-v"><span class="stat">Конверсия квизов выше среднего: 25–40%.</span> Собирает восемь параметров сегментации до первого контакта — самый информативный формат в списке.</span></div>
+    </div>
+
+    <div class="lm">
+      <div class="lm-head"><span class="lm-num">04</span><h3 class="lm-name">Дневник одного выбора</h3><span class="lm-fmt">Мини-курс · 5 писем</span><span class="lm-stage">Тёплый трафик</span></div>
+      <div class="lm-row"><span class="lm-k">Суть и ценность</span><span class="lm-v">Пять писем по одному в три дня: реальная история семьи от первого запроса до подписания. В каждом письме — что происходило, какие цифры считали, какое сомнение возникло и чем закончилось. С фрагментами настоящего отчёта и списком отклонённых вариантов.</span></div>
+      <div class="lm-row"><span class="lm-k">Задача</span><span class="lm-v">Прожить весь путь заранее и понять, из чего он состоит, — до того, как начать свой.</span></div>
+      <div class="lm-row"><span class="lm-k">Следующий шаг</span><span class="lm-v next">В пятом письме — не призыв, а вопрос: «на каком из этих пяти шагов вы сейчас?». Ответ на него и есть заявка; отвечают 10–15% дочитавших.</span></div>
+      <div class="lm-row"><span class="lm-k">Экономика</span><span class="lm-v"><span class="stat">Дочитывают до пятого письма 30–40%.</span> Производство: 2 дня на серию. Работает годами без обновления, прогревает лучше любой рассылки с новостями.</span></div>
+    </div>
+
+    <div class="lm">
+      <div class="lm-head"><span class="lm-num">05</span><h3 class="lm-name">Что построят рядом: карта вашего района</h3><span class="lm-fmt">Разбор градпланов · PDF</span><span class="lm-stage">Холодный · сегментирующий</span></div>
+      <div class="lm-row"><span class="lm-k">Суть и ценность</span><span class="lm-v">Человек выбирает свой район из списка и получает разбор: что разрешено построить на соседних участках, где заявлены новые корпуса, куда пойдёт трафик, какие проекты уже прошли слушания. Информация публичная, но собрать её самому — четыре часа в трёх системах.</span></div>
+      <div class="lm-row"><span class="lm-k">Задача</span><span class="lm-v">Узнать, что будет с видом из окон и с двором через три года, до сделки, а не после.</span></div>
+      <div class="lm-row"><span class="lm-k">Следующий шаг</span><span class="lm-v next">Внутри разбора — фраза: «если вы смотрите конкретный дом в этом районе, пришлите — проверю участки вокруг него точечно». Переход в диалог по своей ситуации.</span></div>
+      <div class="lm-row"><span class="lm-k">Экономика</span><span class="lm-v"><span class="stat">Конверсия 25–35%, лид сразу с географией.</span> Производство: 4–6 часов на район, начинать с трёх ваших основных. Требует обновления раз в полгода.</span></div>
+    </div>
+
+    <div class="lm">
+      <div class="lm-head"><span class="lm-num">06</span><h3 class="lm-name">Таблица для двоих</h3><span class="lm-fmt">Шаблон · для пары</span><span class="lm-stage">Тёплый трафик</span></div>
+      <div class="lm-row"><span class="lm-k">Суть и ценность</span><span class="lm-v">Шаблон сравнения вариантов в двух колонках: аргументы для того, кто считает деньги, и для того, кто будет здесь жить. Каждый заполняет свою половину отдельно, потом сравнивают. Внизу — поле «на чём мы не сходимся» и правило: спорный пункт проверяется фактом, а не спором.</span></div>
+      <div class="lm-row"><span class="lm-k">Задача</span><span class="lm-v">Выйти из многомесячного спора внутри пары, не назначая виноватого.</span></div>
+      <div class="lm-row"><span class="lm-k">Следующий шаг</span><span class="lm-v next">«Принесите заполненную таблицу на интервью — начнём с ваших расхождений». Уникальный переход: приглашение становится продолжением работы, которую пара уже проделала.</span></div>
+      <div class="lm-row"><span class="lm-k">Экономика</span><span class="lm-v"><span class="stat">Конверсия ниже, 12–20%, но качество лида высшее.</span> Скачивают те, кто дошёл до реального выбора. Побочный эффект: на интервью приходят оба ЛПР.</span></div>
+    </div>
+
+    <div class="lm">
+      <div class="lm-head"><span class="lm-num">07</span><h3 class="lm-name">Как я смотрю двор в 19:10</h3><span class="lm-fmt">Видеоурок · 12 минут</span><span class="lm-stage">Холодный · доказательный</span></div>
+      <div class="lm-row"><span class="lm-k">Суть и ценность</span><span class="lm-v">Съёмка реального выезда с закадровым комментарием: куда смотрю первым делом, зачем считаю машины, что спрашиваю у жителя, почему возвращаюсь в тот же двор в выходной. Зритель получает воспроизводимый метод, а не рассказ о профессионализме.</span></div>
+      <div class="lm-row"><span class="lm-k">Задача</span><span class="lm-v">Научиться смотреть объект самому и понимать, что вообще подлежит проверке.</span></div>
+      <div class="lm-row"><span class="lm-k">Следующий шаг</span><span class="lm-v next">Парадокс работает на вас: чем понятнее метод, тем очевиднее его трудоёмкость. В конце — предложение поехать вместе на объект, который зритель уже выбрал.</span></div>
+      <div class="lm-row"><span class="lm-k">Экономика</span><span class="lm-v"><span class="stat">Досматривают 35–45%, из них оставляют контакт 15–25%.</span> Производство: один выезд плюс два дня монтажа. Материал живёт годами и работает как визитная карточка.</span></div>
+    </div>
+
+    <div class="lm">
+      <div class="lm-head"><span class="lm-num">08</span><h3 class="lm-name">Разбор вашего ЖК за 48 часов</h3><span class="lm-fmt">Мини-аудит · персональный</span><span class="lm-stage">Горячий трафик</span></div>
+      <div class="lm-row"><span class="lm-k">Суть и ценность</span><span class="lm-v">Человек присылает название жилого комплекса и получает одну страницу: три наблюдения по окружению, что разрешено построить рядом, история сроков застройщика и один вопрос, который стоит задать в отделе продаж. Ограничение реальное — три разбора в неделю, больше физически не помещается.</span></div>
+      <div class="lm-row"><span class="lm-k">Задача</span><span class="lm-v">Получить независимую проверку конкретного варианта прямо сейчас, до поездки в офис продаж.</span></div>
+      <div class="lm-row"><span class="lm-k">Следующий шаг</span><span class="lm-v next">Страница заканчивается строкой: «это то, что видно из кабинета за два часа. Что видно на месте — другой разговор». Переход в полный разбор с выездом.</span></div>
+      <div class="lm-row"><span class="lm-k">Экономика</span><span class="lm-v"><span class="stat">Конверсия в интервью 40–60% — лучшая в списке.</span> Но это уже работа: 1,5–2 часа на разбор. Держать строго в лимите трёх в неделю, иначе съест мощность.</span></div>
+    </div>
+
+    <div class="lm">
+      <div class="lm-head"><span class="lm-num">09</span><h3 class="lm-name">Одиннадцать отказов</h3><span class="lm-fmt">PDF-сборник кейсов</span><span class="lm-stage">Тёплый · доверие</span></div>
+      <div class="lm-row"><span class="lm-k">Суть и ценность</span><span class="lm-v">Обезличенные истории, где я отговорил людей покупать, с полной арифметикой: доход, платёж, остаток, что перевесило. Одиннадцать разных причин — от нехватки подушки до сроков, не совпадающих со школой. Ни одно агентство не публикует свои несостоявшиеся сделки.</span></div>
+      <div class="lm-row"><span class="lm-k">Задача</span><span class="lm-v">Понять, в каких ситуациях покупка сейчас — ошибка, и проверить, нет ли себя в этом списке.</span></div>
+      <div class="lm-row"><span class="lm-k">Следующий шаг</span><span class="lm-v next">«Узнали свою ситуацию в одном из одиннадцати? Напишите — посчитаем вашу». Обращаются и те, кто узнал себя, и те, кто хочет убедиться, что их случай не отсюда.</span></div>
+      <div class="lm-row"><span class="lm-k">Экономика</span><span class="lm-v"><span class="stat">Конверсия 15–25%, но пересылается вдвое чаще прочих.</span> Производство накопительное: сборник собирается из кейсов по мере работы, полная версия — к пятому месяцу.</span></div>
+    </div>
+
+    <div class="lm">
+      <div class="lm-head"><span class="lm-num">10</span><h3 class="lm-name">Три дома в прямом эфире</h3><span class="lm-fmt">Живой эфир · ежемесячно</span><span class="lm-stage">Тёплый · конверсионный</span></div>
+      <div class="lm-row"><span class="lm-k">Суть и ценность</span><span class="lm-v">Раз в месяц: подписчики присылают ЖК заранее, в эфире разбираются три случайно выбранных — вживую, с картами, градпланами и фотографиями с выездов. Без сценария и без права выбрать «удобные» объекты: выпадает то, что выпало.</span></div>
+      <div class="lm-row"><span class="lm-k">Задача</span><span class="lm-v">Увидеть, как работает разбор, на чужом примере — и, если повезёт, получить свой бесплатно.</span></div>
+      <div class="lm-row"><span class="lm-k">Следующий шаг</span><span class="lm-v next">Тем, чей объект не попал в эфир, отправляется письмо: «ваш ЖК не выпал, но я посмотрел карту — вот одно наблюдение». Это касание конвертируется лучше самого эфира.</span></div>
+      <div class="lm-row"><span class="lm-k">Экономика</span><span class="lm-v"><span class="stat">Регистрируется 30–50% увидевших анонс, доходит 30–40%.</span> Производство: 3–4 часа подготовки. Запись становится отдельным лид-магнитом на месяцы вперёд.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">Система</div>
+      <h2>Как это выстраивается в воронку</h2>
+      <p>Запускать десять форматов сразу нельзя: при одном исполнителе половина будет сделана плохо, а измерить эффект каждого станет невозможно. Порядок и логика связок ниже.</p>
+    </div>
+    <div class="scroller" tabindex="0">
+      <table>
+        <thead><tr><th>Этап</th><th>Что запускаем</th><th>Почему именно это</th><th>Срок</th></tr></thead>
+        <tbody>
+          <tr>
+            <th>Первым</th>
+            <td>№1 Шпаргалка + №8 Разбор за 48 часов</td>
+            <td>Один холодный формат для трафика с поиска и один горячий для тех, кто уже выбирает. Оба делаются за неделю и не требуют разработки. Пара покрывает оба конца воронки.</td>
+            <td>Недели 1–2</td>
+          </tr>
+          <tr>
+            <th>Вторым</th>
+            <td>№2 Калькулятор</td>
+            <td>Требует разработки, но становится опорой всей контентной линии про деньги и работает в паре с рекламой по запросам «ипотека или аренда».</td>
+            <td>Недели 3–6</td>
+          </tr>
+          <tr>
+            <th>Третьим</th>
+            <td>№4 Мини-курс + №5 Карта района</td>
+            <td>Курс включается для тех, кто скачал шпаргалку, но не написал: он догревает базу без вашего участия. Карта запускается под три района, где вы реально работаете.</td>
+            <td>Месяц 2</td>
+          </tr>
+          <tr>
+            <th>По накоплению</th>
+            <td>№9 Сборник отказов + №7 Видеоурок</td>
+            <td>Оба требуют накопленного материала: кейсов отказов и снятых выездов. К пятому месяцу материала хватает, раньше собирать нечего.</td>
+            <td>Месяцы 4–5</td>
+          </tr>
+          <tr>
+            <th>Когда есть аудитория</th>
+            <td>№10 Эфир + №3 Квиз + №6 Таблица</td>
+            <td>Эфиру нужны хотя бы 300 подписчиков, иначе аудитория не соберётся. Квиз и таблица — точечные форматы под конкретные кампании, а не постоянные.</td>
+            <td>Месяцы 5–6</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <p><strong>Лестница касаний.</strong> Скачал шпаргалку → через 3 дня первое письмо мини-курса → через 10 дней предложение мини-аудита конкретного ЖК → интервью. Каждый следующий шаг требует чуть больше вовлечения и даёт чуть больше персонального: это и есть механика прогрева без давления.</p>
+      <p><strong>Что общего у всех десяти.</strong> Ни один не обещает выгоду, скидку или «подбор квартиры мечты». Все обещают проверку, расчёт или разбор — то есть ровно то, что вы делаете за деньги застройщика. Лид-магнит, обещающий не то, чем вы занимаетесь, приводит людей, которых придётся разочаровать на первом же созвоне.</p>
+      <p><strong>Измерять по одному числу.</strong> Не по скачиваниям, а по доле контактов, дошедших до интервью. Формат с тысячей скачиваний и двумя интервью хуже формата с сорока скачиваниями и восемью — и первый съедает время на обработку впустую.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Ориентиры конверсии — типовые диапазоны для узкой ниши с прогретым трафиком, а не гарантия. Разброс между форматами и источниками трафика достигает трёх раз, поэтому после первых ста скачиваний заменяйте эти числа своими.</p>
+    <p>Любой формат, собирающий персональные данные, требует политики обработки, явного согласия и корректной формы — это касается всех десяти, включая калькулятор и квиз.</p>
+    <p>Кейсы в сборнике отказов публикуются только обезличенно и с изменёнными деталями; перед публикацией истории с узнаваемыми обстоятельствами лучше получить согласие клиента, даже если формально оно не требуется.</p>
+  </footer>
+</div>
