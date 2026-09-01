@@ -1,0 +1,421 @@
+<title>Jobs to Be Done: дорогая сделка</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Unbounded:wght@600&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F0;--surface:#FFFFFF;--surface-2:#E8EBE7;
+    --ink:#15191C;--ink-2:#454E54;--ink-3:#6E787E;
+    --line:#CDD3CE;--line-soft:#DEE2DC;
+    --route:#1F44C8;--route-soft:#E4E8FB;
+    --signal:#B93A28;--signal-soft:#F7E5E1;
+    --band:#E2E6E0;--shadow:0 1px 0 rgba(21,25,28,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0E1215;--surface:#161B1F;--surface-2:#1D2429;
+      --ink:#E7EBE7;--ink-2:#B0B9BC;--ink-3:#828D92;
+      --line:#2C353A;--line-soft:#232B30;
+      --route:#8AA5FF;--route-soft:#1A2340;
+      --signal:#F0836C;--signal-soft:#331B16;
+      --band:#1D2429;--shadow:0 1px 0 rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E1215;--surface:#161B1F;--surface-2:#1D2429;
+    --ink:#E7EBE7;--ink-2:#B0B9BC;--ink-3:#828D92;
+    --line:#2C353A;--line-soft:#232B30;
+    --route:#8AA5FF;--route-soft:#1A2340;
+    --signal:#F0836C;--signal-soft:#331B16;
+    --band:#1D2429;--shadow:0 1px 0 rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);
+    font-family:"Golos Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+
+  header.mast{padding:clamp(40px,7vw,80px) 0 clamp(26px,4vw,40px);border-bottom:2px solid var(--ink)}
+  .eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--route);margin:0 0 clamp(16px,3vw,26px);
+    display:flex;align-items:center;gap:12px}
+  .eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+  h1{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(27px,4.8vw,52px);line-height:1.06;letter-spacing:-.02em;
+    margin:0 0 20px;text-wrap:balance;max-width:17ch}
+  .deck{font-size:clamp(16px,1.9vw,20px);color:var(--ink-2);max-width:66ch;margin:0}
+  .who{display:flex;flex-wrap:wrap;gap:8px;margin-top:clamp(22px,3.4vw,32px)}
+  .who span{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;letter-spacing:.04em;
+    border:1px solid var(--line);border-radius:2px;padding:6px 10px;color:var(--ink-2);background:var(--surface)}
+
+  section{padding:clamp(42px,6vw,72px) 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  .sec-head{display:flex;gap:16px;align-items:baseline;margin-bottom:clamp(18px,2.6vw,28px)}
+  .sec-num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;font-weight:500;
+    color:var(--route);padding-top:.35em;flex:none}
+  h2{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(21px,2.8vw,30px);line-height:1.2;letter-spacing:-.015em;margin:0;text-wrap:balance}
+  h3{font-size:13px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+  p{margin:0 0 1em}p:last-child{margin-bottom:0}
+  .lede{font-size:clamp(16px,1.9vw,18.5px);color:var(--ink-2);max-width:74ch}
+  .lede strong{color:var(--ink);font-weight:600}
+  a{color:var(--route)}
+  :focus-visible{outline:2px solid var(--route);outline-offset:2px}
+
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface);margin-top:clamp(18px,2.6vw,26px)}
+  table{border-collapse:collapse;width:100%;min-width:900px;font-size:14.5px;line-height:1.5}
+  thead th{background:var(--ink);color:var(--paper);font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-weight:500;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;text-align:left;padding:11px 15px}
+  td{padding:15px;border-bottom:1px solid var(--line-soft);vertical-align:top;color:var(--ink-2)}
+  tr:last-child td{border-bottom:0}
+  td.p{width:17%;color:var(--ink);font-weight:600}
+  td.p em{display:block;font-style:normal;font-weight:400;font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);margin-top:5px}
+  td.trg{color:var(--ink)}
+  td.trg::before{content:"";display:block;width:20px;height:3px;background:var(--signal);border-radius:2px;margin-bottom:8px}
+  td.win{white-space:nowrap;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;color:var(--route)}
+
+  .layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(14px,2.2vw,24px);margin-top:clamp(20px,3vw,30px)}
+  .ly{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:clamp(18px,2.2vw,24px);box-shadow:var(--shadow)}
+  .ly .t{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.11em;
+    text-transform:uppercase;color:var(--route);margin-bottom:9px}
+  .ly h4{margin:0 0 12px;font-size:17px;font-weight:600;line-height:1.3}
+  .ly ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;font-size:14.5px;color:var(--ink-2)}
+  .ly li{padding-left:17px;position:relative;line-height:1.5}
+  .ly li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1.5px;background:var(--route)}
+
+  .jobs{display:flex;flex-direction:column;gap:12px;margin-top:clamp(20px,3vw,30px)}
+  .job{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+    display:grid;grid-template-columns:46px 1fr;box-shadow:var(--shadow)}
+  .job .n{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--route);
+    padding:18px 0 0 16px;font-variant-numeric:tabular-nums}
+  .job .b{padding:16px 20px 18px 0}
+  .job .stmt{font-size:clamp(16px,1.95vw,18.5px);line-height:1.45;margin:0 0 10px;color:var(--ink)}
+  .job .stmt i{font-style:normal;color:var(--route);font-weight:600}
+  .job .stmt u{text-decoration:none;color:var(--signal);font-weight:600}
+  .job .meta{margin:0;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+
+  .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:clamp(16px,2.4vw,28px);margin-top:clamp(20px,3vw,30px)}
+  .col ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+  .col li{padding-left:18px;position:relative;font-size:15px;color:var(--ink-2);line-height:1.5}
+  .col li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1.5px;background:var(--route)}
+  .col.neg li::before{background:var(--signal)}
+  .col li b{color:var(--ink);font-weight:600}
+
+  .forces{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:clamp(20px,3vw,30px)}
+  .f{border:1px solid var(--line);border-radius:3px;padding:clamp(16px,2vw,22px);background:var(--surface)}
+  .f.go{border-color:var(--route);background:var(--route-soft)}
+  .f.stop{border-color:var(--signal);background:var(--signal-soft)}
+  .f .t{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;margin-bottom:10px;color:var(--ink-3)}
+  .f.go .t{color:var(--route)}.f.stop .t{color:var(--signal)}
+  .f h4{margin:0 0 11px;font-size:16px;font-weight:600}
+  .f ul{margin:0;padding-left:1.1em;font-size:14.5px;color:var(--ink-2);display:flex;flex-direction:column;gap:7px}
+  .f.go ul,.f.stop ul{color:var(--ink)}
+
+  .ins{display:flex;flex-direction:column;gap:14px;margin-top:clamp(20px,3vw,30px)}
+  .in{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--route);
+    border-radius:0 3px 3px 0;padding:clamp(17px,2.1vw,22px)}
+  .in h4{margin:0 0 10px;font-size:clamp(16.5px,2vw,19px);font-weight:600;line-height:1.3;text-wrap:balance}
+  .in p{font-size:15px;color:var(--ink-2);line-height:1.55;max-width:84ch}
+  .in .grow{margin-top:12px;padding-top:12px;border-top:1px solid var(--line-soft);
+    font-size:14.5px;color:var(--ink)}
+  .in .grow b{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);display:block;margin-bottom:6px;font-weight:500}
+  .in.key{border-left-color:var(--signal);background:var(--signal-soft)}
+  .in.key h4{color:var(--signal)}
+  .in.key p{color:var(--ink)}
+
+  footer{padding:36px 0 56px;color:var(--ink-3);font-size:13px;font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+  @media (max-width:760px){
+    .forces{grid-template-columns:1fr}
+    .job{grid-template-columns:1fr}.job .n{padding:16px 20px 0}.job .b{padding:8px 20px 18px}
+    .tablewrap{border:0;background:transparent;overflow-x:visible}
+    table{min-width:0;display:block}thead{display:none}tbody{display:block}
+    tbody tr{display:block;background:var(--surface);border:1px solid var(--line);border-radius:3px;margin-bottom:12px;padding:4px 0}
+    td{display:flex;flex-direction:column;gap:6px;border-bottom:0;padding:10px 15px;width:auto!important}
+    td[data-label]::before{content:attr(data-label);font-family:"IBM Plex Mono",ui-monospace,monospace;
+      font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
+    td.trg::before{content:attr(data-label);display:block;width:auto;height:auto;background:none;
+      color:var(--signal);font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;text-transform:uppercase}
+  }
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow">Jobs to Be Done · продуктовое исследование</p>
+    <h1>На какую работу нанимают маркетинг</h1>
+    <p class="deck">Клиенты с дорогой сделкой не покупают продвижение. Они нанимают его на конкретную работу с датой и суммой — и увольняют, когда работа не сделана, даже если все метрики в отчёте зелёные.</p>
+    <div class="who">
+      <span>Прораб в сезоне · строительство</span>
+      <span>Доктор с бизнес-планом · клиники</span>
+      <span>Календарь на год вперёд · события</span>
+      <span>Риелтор против ставки · недвижимость</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Контекст и триггер найма</h2></div>
+    <p class="lede">Общий паттерн по всем четырём: <strong>наём запускает не постепенное осознание, а событие с датой и суммой</strong>. Никто не приходит «потому что задумался о маркетинге». Приходят потому, что подписан лизинг, ушёл человек, свернули программу или календарь пуст на конкретный месяц. У окна найма есть начало и конец.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Кто</th><th>Событие-триггер</th><th>Состояние до найма</th><th>Что пробует раньше</th><th>Окно найма</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="p" data-label="Кто">Прораб в сезоне<em>Строительство</em></td>
+            <td class="trg" data-label="Триггер">В феврале расписаны только три недели замеров вперёд. Или: прошлый подрядчик дал 40 заявок и ноль договоров. Или: освободилась бригада, а объекта под неё нет.</td>
+            <td data-label="Состояние">«Сезон уже начался в головах у заказчиков, а у меня тишина. Через месяц будет поздно».</td>
+            <td data-label="Альтернативы">Купить лиды на агрегаторе · сам крутит объявления на Авито · попросил знакомого директолога · ждёт сарафана · снижает смету</td>
+            <td class="win" data-label="Окно">Декабрь — март</td>
+          </tr>
+          <tr>
+            <td class="p" data-label="Кто">Доктор с бизнес-планом<em>Клиники</em></td>
+            <td class="trg" data-label="Триггер">Подписан лизинг на установку, первый платёж уже прошёл. Или: ушёл врач и увёл своих пациентов. Или: открыли направление, а кресло стоит пустое.</td>
+            <td data-label="Состояние">«Оборудование куплено, платёж идёт ежемесячно, загрузки нет. Я обещал банку срок».</td>
+            <td data-label="Альтернативы">Агрегаторы врачей с комиссией · акции и скидки на первичный приём · просьба к текущим пациентам рекомендовать · наём маркетолога · реклама у местного блогера</td>
+            <td class="win" data-label="Окно">1–2 месяца после платежа</td>
+          </tr>
+          <tr>
+            <td class="p" data-label="Кто">Календарь на год вперёд<em>События</em></td>
+            <td class="trg" data-label="Триггер">Октябрь, а на май забронировано три даты из восемнадцати. Или: соседняя площадка уронила цену пакета.</td>
+            <td data-label="Состояние">«Окно продаж закрывается сейчас, а увижу я это только весной, когда сделать уже ничего нельзя».</td>
+            <td data-label="Альтернативы">Свадебные каталоги и агрегаторы · выставки · бартер с фотографами и декораторами · реклама у профильных блогеров · снижение цены пакета</td>
+            <td class="win" data-label="Окно">Сентябрь — январь</td>
+          </tr>
+          <tr>
+            <td class="p" data-label="Кто">Риелтор против ставки<em>Недвижимость</em></td>
+            <td class="trg" data-label="Триггер">Свернули льготную программу, заявки упали вдвое. Или: застройщик передал остатки с дедлайном квартала. Или: за месяц ушли три агента.</td>
+            <td data-label="Состояние">«Агенты сидят без сделок и начинают смотреть на сторону. Ещё месяц — и уйдут сильные».</td>
+            <td data-label="Альтернативы">Покупка лидов на классифайдах · обучение агентов · демпинг комиссии · переключение на вторичку и аренду</td>
+            <td class="win" data-label="Окно">2–6 недель после события</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Три слоя работы</h2></div>
+    <p class="lede">Функциональный слой объясняет, зачем нанимают. Эмоциональный и социальный объясняют, <strong>почему увольняют</strong> — и почему контракт можно выполнить, провалив работу.</p>
+    <div class="layers">
+      <div class="ly">
+        <div class="t">Слой 1</div>
+        <h4>Функциональная работа</h4>
+        <ul>
+          <li>Закрыть разрыв между мощностью и спросом <b>к конкретной дате</b> — не «получить заявки вообще»</li>
+          <li>Получить обращения нужного профиля: с бюджетом и готовностью, а не «узнать цену»</li>
+          <li>Узнать заранее, сколько это будет стоить, чтобы спланировать деньги и людей</li>
+          <li>Снять с себя ежедневную операционку рекламы</li>
+          <li>Получить внешнюю оценку того, как его люди обрабатывают заявки</li>
+        </ul>
+      </div>
+      <div class="ly">
+        <div class="t">Слой 2</div>
+        <h4>Эмоциональная работа</h4>
+        <ul>
+          <li>Перестать просыпаться с мыслью «а если в мае будет пусто»</li>
+          <li>Вернуть чувство контроля после прошлого провала — перестать быть тем, кого развели</li>
+          <li>Не чувствовать себя некомпетентным в чужой области, где его легко обмануть</li>
+          <li>Уехать на объект или в отпуск, зная, что поток идёт без его участия</li>
+          <li>Перестать быть маркетологом собственной компании и вернуться к своему делу</li>
+        </ul>
+      </div>
+      <div class="ly">
+        <div class="t">Слой 3</div>
+        <h4>Социальная работа</h4>
+        <ul>
+          <li>Перед партнёром, женой-финансистом или главврачом — выглядеть человеком, который принимает обоснованные решения, а не тратит наугад</li>
+          <li>Перед своими людьми — бригадирами, агентами, врачами — быть тем, кто обеспечивает работой. Иначе они уходят</li>
+          <li>Перед рынком — выглядеть компанией, а не бригадой: «нас видно, значит мы серьёзные»</li>
+          <li>Перед партнёром-застройщиком или управляющей компанией — исполнителем, который отчитывается цифрами, а не обещаниями</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Восемь формулировок работы</h2></div>
+    <p class="lede">В классическом формате: <i>когда</i> — ситуация, <span style="color:var(--route);font-weight:600">я хочу</span> — мотивация, <span style="color:var(--signal);font-weight:600">чтобы</span> — ожидаемый результат.</p>
+    <div class="jobs">
+      <div class="job"><div class="n">01</div><div class="b">
+        <p class="stmt">Когда в феврале мои бригады расписаны только на три недели вперёд, а сезон стартует через месяц, <i>я хочу заранее знать, сколько будет стоить один договор и сколько их я получу</i>, <u>чтобы не входить в сезон вслепую и не сокращать людей в июне</u>.</p>
+        <p class="meta">Прораб в сезоне · функциональная + эмоциональная</p>
+      </div></div>
+      <div class="job"><div class="n">02</div><div class="b">
+        <p class="stmt">Когда я уже отдал 400 тысяч подрядчику и получил заявки без единой сделки, <i>я хочу, чтобы кто-то назвал мне цифры до того, как я снова заплачу</i>, <u>чтобы не объяснять партнёру ещё один потраченный бюджет</u>.</p>
+        <p class="meta">Все четыре · эмоциональная + социальная</p>
+      </div></div>
+      <div class="job"><div class="n">03</div><div class="b">
+        <p class="stmt">Когда я подписал лизинг на оборудование и платёж уже идёт, <i>я хочу загрузить новое направление конкретным числом пациентов в месяц</i>, <u>чтобы окупить установку в срок, который я назвал банку и себе</u>.</p>
+        <p class="meta">Доктор с бизнес-планом · функциональная</p>
+      </div></div>
+      <div class="job"><div class="n">04</div><div class="b">
+        <p class="stmt">Когда мои люди не перезванивают по заявкам, а вижу я это только в конце месяца, <i>я хочу, чтобы кто-то со стороны показал мне записи звонков и цифры</i>, <u>чтобы разговор с сотрудником шёл про факты, а не про моё раздражение</u>.</p>
+        <p class="meta">Доктор и риелтор · функциональная + социальная</p>
+      </div></div>
+      <div class="job"><div class="n">05</div><div class="b">
+        <p class="stmt">Когда до старта сезона шесть месяцев, а забронированы три даты из восемнадцати, <i>я хочу начать продавать сейчас, пока конкуренты молчат</i>, <u>чтобы к маю у меня был заполненный календарь, а не паника</u>.</p>
+        <p class="meta">Календарь на год вперёд · функциональная + эмоциональная</p>
+      </div></div>
+      <div class="job"><div class="n">06</div><div class="b">
+        <p class="stmt">Когда льготная программа свернулась и заявок стало вдвое меньше, <i>я хочу дать агентам поток, который они смогут закрывать при нынешней ставке</i>, <u>чтобы сильные не ушли к конкуренту вместе с базой</u>.</p>
+        <p class="meta">Риелтор против ставки · функциональная + социальная</p>
+      </div></div>
+      <div class="job"><div class="n">07</div><div class="b">
+        <p class="stmt">Когда я семь лет сам веду рекламу своей компании по ночам после смены, <i>я хочу передать это тем, кто делает это каждый день</i>, <u>чтобы вернуться к работе, ради которой я вообще открывал бизнес</u>.</p>
+        <p class="meta">Все четыре · эмоциональная</p>
+      </div></div>
+      <div class="job"><div class="n">08</div><div class="b">
+        <p class="stmt">Когда я захожу в новый для себя регион или новое направление, <i>я хочу опереться на чужие накопленные цифры вместо проверки гипотез своими деньгами</i>, <u>чтобы ошибка стоила мне отчёта, а не сезона</u>.</p>
+        <p class="meta">Прораб и доктор · функциональная</p>
+      </div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Критерии успеха</h2></div>
+    <p class="lede">Объективные критерии определяют, продлят ли контракт. Субъективные определяют, порекомендуют ли вас — и по ним же увольняют при формально выполненном плане.</p>
+    <div class="two">
+      <div class="col">
+        <h3>Что клиент считает сам</h3>
+        <ul>
+          <li><b>Загрузка мощности к дате:</b> процент занятых слотов, кресел, дат, бригад — на конкретный месяц, а не в среднем</li>
+          <li><b>Число подписанных договоров и броней,</b> а не заявок. Заявка для него — не результат, а обещание результата</li>
+          <li><b>Стоимость договора,</b> посчитанная от всех вложений, включая его собственное время</li>
+          <li><b>Доля дошедших:</b> до замера, до кресла, до показа, до просмотра площадки</li>
+          <li><b>Срок окупаемости конкретной покупки</b> — оборудования, аренды, объекта</li>
+          <li><b>Отсутствие простоя:</b> ни одна бригада, ни один агент не сидят без работы</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Что он чувствует</h3>
+        <ul>
+          <li><b>«Я знаю, что будет через месяц».</b> Предсказуемость ценится выше объёма — она позволяет планировать людей и деньги</li>
+          <li><b>«Я перестал по утрам проверять, сколько заявок».</b> Прекращение навязчивой проверки — самый надёжный признак выполненной работы</li>
+          <li><b>«Мне не стыдно показать этот отчёт партнёру»</b> — или банку, или застройщику</li>
+          <li><b>«Мне ничего не приходится переводить»:</b> с ним говорят про замеры и кресла, а не про охваты</li>
+          <li><b>«Когда что-то пошло не так, мне сказали первым»,</b> а не после того, как он сам заметил</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ins" style="margin-top:clamp(20px,3vw,30px)">
+      <div class="in key">
+        <h4>Момент, в который наступает доверие</h4>
+        <p>Не тот, где заявок пришло много, — тот, где их пришло <b>ровно столько, сколько назвали до старта</b>. Перевыполнение без предварительного прогноза доверия не создаёт вообще: клиент не может отличить вашу работу от удачного сезона. Точность обещания в этой нише ценнее величины результата.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">05</span><h2>Барьеры, страхи и силы решения</h2></div>
+    <p class="lede">Решение о найме — это баланс четырёх сил. Продажа выигрывается не усилением притяжения, а <strong>снятием тревоги</strong>: в этой нише она почти всегда сильнее цены.</p>
+    <div class="forces">
+      <div class="f go">
+        <div class="t">Толкает от текущего</div>
+        <h4>Push</h4>
+        <ul>
+          <li>Пустой календарь на конкретный месяц</li>
+          <li>Платёж по лизингу или кредиту, который идёт независимо от выручки</li>
+          <li>Люди начинают уходить из-за отсутствия работы</li>
+          <li>Провал прошлого подрядчика — деньги потрачены, результата нет</li>
+        </ul>
+      </div>
+      <div class="f go">
+        <div class="t">Притягивает к новому</div>
+        <h4>Pull</h4>
+        <ul>
+          <li>Расчёт экономики до того, как платить</li>
+          <li>Цифры по его нише, региону и месяцу, которых у него нет</li>
+          <li>Кейс соседа по отрасли, которому он звонил и проверил</li>
+          <li>Обещание вернуть себе вечера и выходные</li>
+        </ul>
+      </div>
+      <div class="f stop">
+        <div class="t">Тревога перед новым</div>
+        <h4>Anxiety</h4>
+        <ul>
+          <li>«Опять сольют бюджет, а я снова окажусь виноват перед партнёром»</li>
+          <li>«Я не смогу проверить их работу — у меня нет для этого знаний»</li>
+          <li>«Они не поймут мою специфику: у них кейсы про доставку еды»</li>
+          <li>«А если заявки будут, а продавать их некому — деньги сгорят по моей же вине»</li>
+          <li>«Привяжут к абонементу и будут тянуть, даже когда результата нет»</li>
+        </ul>
+      </div>
+      <div class="f stop">
+        <div class="t">Инерция текущего</div>
+        <h4>Habit</h4>
+        <ul>
+          <li>«Сарафан пока кормит, в прошлом году как-то вырулили»</li>
+          <li>«Сам покручу объявления, это же несложно»</li>
+          <li>«Сейчас не сезон — вернёмся к этому весной». Самая частая и самая фатальная форма отказа</li>
+          <li>Нежелание признать, что семь лет он вёл собственный маркетинг плохо</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">06</span><h2>Кого нанимают вместо вас</h2></div>
+    <p class="lede">В логике JTBD конкурент — не другое агентство, а <strong>любой способ выполнить ту же работу</strong>. Ниже — по убыванию частоты выбора, а не по размеру бизнеса.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Способ</th><th>Какую работу закрывает</th><th>Когда выигрывает у вас</th></tr></thead>
+        <tbody>
+          <tr><td class="p" data-label="Способ">Снизить цену</td><td data-label="Работа">Загрузить мощность немедленно и бесплатно</td><td data-label="Когда выигрывает">Почти всегда пробуется первым: не требует денег, времени и признания собственной некомпетентности. Ваш настоящий конкурент в первом раунде — это скидка, а не агентство</td></tr>
+          <tr><td class="p" data-label="Способ">Купить готовые заявки</td><td data-label="Работа">Получить обращения прямо сейчас, без обязательств</td><td data-label="Когда выигрывает">Когда работа звучит как «нужны заявки к пятнице», а не «нужна предсказуемость». Механика понятна за минуту, риск формально на подрядчике</td></tr>
+          <tr><td class="p" data-label="Способ">Нанять маркетолога в штат</td><td data-label="Работа">Получить контроль и «своего человека»</td><td data-label="Когда выигрывает">После неудачного опыта с подрядчиками: тревога «меня снова обманут» лечится наймом, а не выбором другого агентства</td></tr>
+          <tr><td class="p" data-label="Способ">Крутить рекламу самому</td><td data-label="Работа">Сохранить деньги и контроль</td><td data-label="Когда выигрывает">Когда бюджет мал, а автостратегии создают иллюзию простоты. Проблему клиент обнаружит через два-три месяца — и придёт к вам уже с негативным опытом</td></tr>
+          <tr><td class="p" data-label="Способ">Пойти учиться или взять наставника</td><td data-label="Работа">Понять, что вообще происходит, и перестать зависеть</td><td data-label="Когда выигрывает">Когда работа на самом деле про потерю контроля, а не про заявки. После обучения он часто возвращается к подрядчику — но с завышенными ожиданиями</td></tr>
+          <tr><td class="p" data-label="Способ">Ничего не делать, ждать сезона</td><td data-label="Работа">Не рисковать и не тратить</td><td data-label="Когда выигрывает">Когда тревога перевешивает push. Худший для вас исход: он не проигран конкуренту, он просто не виден в воронке — и вернётся через год, если вернётся</td></tr>
+          <tr><td class="p" data-label="Способ">Другое нишевое агентство</td><td data-label="Работа">Та же работа, то же обещание</td><td data-label="Когда выигрывает">Когда оказалось в поле зрения в неделю триггера. При равных обещаниях побеждает не лучший, а первый, кто попался на глаза в нужный момент</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">07</span><h2>Инсайты и точки роста</h2></div>
+    <div class="ins">
+      <div class="in key">
+        <h4>Контракт можно выполнить и провалить работу</h4>
+        <p>Клиент нанимал «спокойствие за сезон» и «возможность не оправдываться перед партнёром». Получил отчёт по заявкам. Формально план выполнен, KPI зелёные — и он уходит, не в силах объяснить почему. Это и есть ваша причина оттока, доведённая до конца: расхождение не в цифрах, а в слое работы. Функциональный слой закрыт, эмоциональный и социальный — нет.</p>
+        <div class="grow"><b>Точка роста</b>Отчёт должен закрывать все три слоя: цифра (функция), сравнение с прогнозом (спокойствие), формат, пригодный для показа партнёру или банку (социальный слой).</div>
+      </div>
+      <div class="in">
+        <h4>У работы есть срок годности</h4>
+        <p>В сезонных нишах работа «загрузить сезон» умирает в конкретную дату. После неё клиент не «думает» и не «выбирает» — он выпадает из найма на целый год. Отложенное решение здесь не отсрочка, а потеря.</p>
+        <div class="grow"><b>Точка роста</b>Воронка агентства должна быть привязана к календарю найма клиента, а не к вашему кварталу: активность в декабре — марте для стройки, в сентябре — январе для событий, в первые недели после изменения ставки для недвижимости.</div>
+      </div>
+      <div class="in">
+        <h4>Настоящий конкурент первого раунда — скидка</h4>
+        <p>Прежде чем нанять кого-то, собственник почти всегда пробует снизить цену: это мгновенно, ничего не стоит и не требует признавать, что он не справился. Ваше предложение сравнивается не с другим агентством, а с этим действием.</p>
+        <div class="grow"><b>Точка роста</b>Считать в предрасчёте не только стоимость договора, но и цену скидки: сколько маржи он теряет, снижая смету на 10%, и во сколько ему обойдётся тот же объём загрузки через рекламу.</div>
+      </div>
+      <div class="in">
+        <h4>Половина работы лежит за границей вашей ответственности</h4>
+        <p>Работы № 04 и № 06 — про отдел продаж клиента, а не про трафик. Вы это видите в записях звонков, но не продаёте. При этом именно здесь у вас есть данные, которых нет ни у кого другого.</p>
+        <div class="grow"><b>Точка роста</b>Аудит обработки заявок как отдельная услуга с отдельным чеком: закрывает существующую работу, даёт вход без обязательств по трафику и одновременно лечит вашу главную причину оттока.</div>
+      </div>
+      <div class="in">
+        <h4>Вас нанимают как внешний авторитет для разговора со своими людьми</h4>
+        <p>Врач не может отчитать администратора без фактов, руководитель агентства — агентов, а франчайзи — управляющую компанию. Отчёт нужен не самому клиенту: он нужен его разговору с третьим лицом. Это меняет требования к формату.</p>
+        <div class="grow"><b>Точка роста</b>Отдельная страница отчёта, спроектированная для показа сотруднику или партнёру: записи звонков рядом с цифрами, без внутренней терминологии и без оценок в ваш адрес.</div>
+      </div>
+      <div class="in">
+        <h4>Нанимают, чтобы уволить себя</h4>
+        <p>Работа № 07 не про заявки вообще. Собственник хочет перестать быть маркетологом собственной компании и вернуться к тому, ради чего открывал бизнес. Для персон в строительстве и событиях этот мотив нередко сильнее любых цифр.</p>
+        <div class="grow"><b>Точка роста</b>В коммуникации продавать освобождение от роли, а не прирост показателей: «вы больше не ведёте это сами» работает там, где «+30% заявок» не работает.</div>
+      </div>
+      <div class="in">
+        <h4>Тревога дороже денег</h4>
+        <p>Отложенное решение почти никогда не про цену. Оно про невозможность проверить подрядчика: у клиента нет знаний, чтобы отличить работу от имитации, и он выбирает не рисковать. Скидка эту тревогу не снимает — она её усиливает.</p>
+        <div class="grow"><b>Точка роста</b>Продавать инструменты проверки: прогноз до старта, доступ к дашборду с первого дня, записи звонков, названная граница ответственности. Проверяемость конвертирует лучше, чем скидка.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>Jobs to Be Done · маркетинговые услуги для бизнеса с дорогой сделкой</footer>
+</div>
