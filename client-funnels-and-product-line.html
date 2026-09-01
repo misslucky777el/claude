@@ -1,0 +1,356 @@
+<title>Воронки как продукт агентства</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Unbounded:wght@600&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F0;--surface:#FFFFFF;--surface-2:#E8EBE7;
+    --ink:#15191C;--ink-2:#454E54;--ink-3:#6E787E;
+    --line:#CDD3CE;--line-soft:#DEE2DC;
+    --route:#1F44C8;--route-soft:#E4E8FB;
+    --signal:#B93A28;--signal-soft:#F7E5E1;
+    --band:#E2E6E0;--shadow:0 1px 0 rgba(21,25,28,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0E1215;--surface:#161B1F;--surface-2:#1D2429;
+      --ink:#E7EBE7;--ink-2:#B0B9BC;--ink-3:#828D92;
+      --line:#2C353A;--line-soft:#232B30;
+      --route:#8AA5FF;--route-soft:#1A2340;
+      --signal:#F0836C;--signal-soft:#331B16;
+      --band:#1D2429;--shadow:0 1px 0 rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E1215;--surface:#161B1F;--surface-2:#1D2429;
+    --ink:#E7EBE7;--ink-2:#B0B9BC;--ink-3:#828D92;
+    --line:#2C353A;--line-soft:#232B30;
+    --route:#8AA5FF;--route-soft:#1A2340;
+    --signal:#F0836C;--signal-soft:#331B16;
+    --band:#1D2429;--shadow:0 1px 0 rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);
+    font-family:"Golos Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+
+  header.mast{padding:clamp(40px,7vw,80px) 0 clamp(26px,4vw,40px);border-bottom:2px solid var(--ink)}
+  .eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--route);margin:0 0 clamp(16px,3vw,26px);
+    display:flex;align-items:center;gap:12px}
+  .eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+  h1{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(27px,4.8vw,52px);line-height:1.05;letter-spacing:-.02em;
+    margin:0 0 20px;text-wrap:balance;max-width:16ch}
+  .deck{font-size:clamp(16px,1.9vw,20px);color:var(--ink-2);max-width:68ch;margin:0}
+
+  section{padding:clamp(40px,5.6vw,68px) 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  .sec-head{display:flex;gap:16px;align-items:baseline;margin-bottom:clamp(16px,2.4vw,26px)}
+  .sec-num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;font-weight:500;
+    color:var(--route);padding-top:.4em;flex:none;letter-spacing:.08em}
+  h2{font-family:"Unbounded","Golos Text",sans-serif;font-weight:600;
+    font-size:clamp(21px,2.8vw,30px);line-height:1.2;letter-spacing:-.015em;margin:0;text-wrap:balance}
+  .ru{margin:7px 0 0;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+    letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+  h3{font-size:12.5px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 13px}
+  p{margin:0 0 1em}p:last-child{margin-bottom:0}
+  .lede{font-size:clamp(15.5px,1.85vw,18px);color:var(--ink-2);max-width:76ch}
+  .lede strong{color:var(--ink);font-weight:600}
+  a{color:var(--route)}
+  :focus-visible{outline:2px solid var(--route);outline-offset:2px}
+
+  .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(14px,2.2vw,26px);margin-top:clamp(18px,2.6vw,26px)}
+  .pane{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+    padding:clamp(17px,2.1vw,23px);box-shadow:var(--shadow)}
+  ol.stages,ol.nums{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:8px}
+  ol.stages li,ol.nums li{font-size:14.5px;color:var(--ink-2);line-height:1.5}
+  ol.stages li{color:var(--ink)}
+  ul.dots{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+  ul.dots li{padding-left:17px;position:relative;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+  ul.dots li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1.5px;background:var(--route)}
+  .mech{margin-top:15px;padding-top:13px;border-top:1px solid var(--line-soft);font-size:14.5px;color:var(--ink);line-height:1.55}
+  .mech b{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);display:block;margin-bottom:6px;font-weight:500}
+
+  .tw{overflow-x:auto}
+  table{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.5}
+  td{padding:10px 0;border-bottom:1px solid var(--line-soft);vertical-align:top;color:var(--ink-2)}
+  tr:last-child td{border-bottom:0}
+  td.tg,td.hh{text-align:right;white-space:nowrap;color:var(--ink);font-weight:500;
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;font-variant-numeric:tabular-nums;padding-left:14px}
+  td.pr{white-space:nowrap;color:var(--route);font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:12px;width:110px;padding-right:14px}
+  tr.tot td{border-top:2px solid var(--ink);border-bottom:0;color:var(--ink);font-weight:600;padding-top:12px}
+  tr.tot td.hh{color:var(--route)}
+  .cap{margin-top:12px;font-size:13.5px;color:var(--ink-3)}
+
+  .sum{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface);margin-top:clamp(18px,2.6vw,26px)}
+  .sum table{min-width:720px}
+  .sum thead th{background:var(--ink);color:var(--paper);font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-weight:500;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;text-align:left;padding:11px 15px}
+  .sum td{padding:14px 15px}
+  .sum td.w{color:var(--ink);width:28%}
+  .sum td.w b{display:block;font-weight:600;font-size:15.5px;margin-bottom:4px}
+  .sum td.w em{font-style:normal;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+    letter-spacing:.06em;text-transform:uppercase;color:var(--route)}
+  .sum td.n{text-align:right;white-space:nowrap;font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:13px;color:var(--ink);font-variant-numeric:tabular-nums}
+  .sum tr.tot td{background:var(--route-soft)}
+
+  .common{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-top:clamp(18px,2.6vw,26px)}
+  .cm{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:15px 17px}
+  .cm b{display:block;font-size:15px;font-weight:600;margin-bottom:7px}
+  .cm span{font-size:14px;color:var(--ink-2);line-height:1.5}
+
+  .warn{background:var(--signal-soft);border-left:3px solid var(--signal);
+    padding:clamp(18px,2.4vw,26px);border-radius:0 3px 3px 0;margin-top:clamp(18px,2.6vw,26px)}
+  .warn h3{color:var(--signal)}
+  .warn p,.warn ul{color:var(--ink);max-width:86ch}
+  .warn ul{margin:0;padding-left:1.15em;display:flex;flex-direction:column;gap:10px}
+
+  .ladder{display:flex;flex-direction:column;gap:13px;margin-top:clamp(18px,2.6vw,26px)}
+  .rg{background:var(--surface);border:1px solid var(--line);border-radius:3px;box-shadow:var(--shadow);
+    display:grid;grid-template-columns:150px 1fr;overflow:hidden}
+  .rg .lv{padding:18px 0 0 18px}
+  .rg .lv .t{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);margin-bottom:7px}
+  .rg .lv .pz{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;color:var(--ink);
+    font-variant-numeric:tabular-nums;line-height:1.4}
+  .rg .bd{padding:17px 20px 18px 0}
+  .rg h4{margin:0 0 9px;font-size:clamp(17px,2vw,20px);font-weight:600;line-height:1.25}
+  .rg p{margin:0 0 11px;font-size:14.5px;color:var(--ink-2);line-height:1.55;max-width:84ch}
+  .rg ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+  .rg li{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.05em;
+    border:1px solid var(--line);border-radius:2px;padding:4px 8px;color:var(--ink-3)}
+  .rg .job{margin-top:11px;padding-top:11px;border-top:1px solid var(--line-soft);font-size:14px;color:var(--ink)}
+  .rg .job b{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--route);display:block;margin-bottom:5px;font-weight:500}
+  .rg.core{border-left:3px solid var(--route);background:var(--route-soft)}
+  .rg.core h4{color:var(--route)}
+
+  footer{padding:36px 0 56px;color:var(--ink-3);font-size:13px;font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+  @media (max-width:640px){
+    .rg{grid-template-columns:1fr}.rg .lv{padding:16px 20px 0}.rg .bd{padding:10px 20px 18px}
+    .sum{border:0;background:transparent;overflow-x:visible}
+    .sum table{min-width:0;display:block}.sum thead{display:none}.sum tbody{display:block}
+    .sum tbody tr{display:block;background:var(--surface);border:1px solid var(--line);border-radius:3px;margin-bottom:12px;padding:4px 0}
+    .sum td{display:flex;justify-content:space-between;gap:12px;border-bottom:0;padding:9px 15px;width:auto!important;text-align:left!important}
+    .sum td[data-label]::before{content:attr(data-label);font-family:"IBM Plex Mono",ui-monospace,monospace;
+      font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);flex:none}
+    td.pr{width:auto}
+  }
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow">Продукт агентства · воронки для клиента</p>
+    <h1>Воронки как продукт</h1>
+    <p class="deck">Четыре собираемые воронки под сегменты вашей ниши: что агентство запрашивает на входе, что сдаёт на выходе, по каким показателям это меряется, сколько часов стоит сборка и что нужно делать каждую неделю, чтобы воронка не остановилась. И продуктовая линейка, выведенная из этих цифр.</p>
+  </header>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">00</span><div><h2>Рамка</h2><p class="ru">Что здесь считается продуктом</p></div></div>
+    <p class="lede">Продукт агентства — не «ведение рекламы», а <strong>собранная и работающая воронка под конкретный тип бизнеса</strong>: от первого касания до единицы результата, которую клиент считает деньгами. Воронки описаны под четыре сегмента вашей ниши; карта на пятнадцать сегментов остаётся в силе, если решите расширяться, но каждая новая ниша — это новая сборка и новые 100+ часов.</p>
+    <div class="sum">
+      <table>
+        <thead><tr><th>Сегмент и воронка</th><th>Единица результата</th><th>Сборка</th><th>Ведение</th></tr></thead>
+        <tbody><tr><td class="w" data-label="Сегмент"><b>Строительство домов</b><em>Сезонный набор договоров</em></td><td data-label="Единица результата">Цена договора</td><td class="n" data-label="Сборка">134 ч</td><td class="n" data-label="Ведение">32 ч/мес</td></tr><tr><td class="w" data-label="Сегмент"><b>Клиники и стоматологии</b><em>Загрузка дорогого направления</em></td><td data-label="Единица результата">Цена дошедшего пациента</td><td class="n" data-label="Сборка">134 ч</td><td class="n" data-label="Ведение">38 ч/мес</td></tr><tr><td class="w" data-label="Сегмент"><b>События и площадки</b><em>Календарь броней</em></td><td data-label="Единица результата">Глубина бронирования к 1 марта</td><td class="n" data-label="Сборка">118 ч</td><td class="n" data-label="Ведение">35 ч/мес</td></tr><tr><td class="w" data-label="Сегмент"><b>Недвижимость</b><em>Распродажа объекта</em></td><td data-label="Единица результата">Показ → бронь</td><td class="n" data-label="Сборка">126 ч</td><td class="n" data-label="Ведение">39 ч/мес</td></tr><tr class="tot"><td class="w" data-label="Сегмент">Все четыре</td><td data-label="Единица результата">—</td><td class="n" data-label="Сборка">512 ч</td><td class="n" data-label="Ведение">144 ч/мес</td></tr></tbody>
+      </table>
+    </div>
+    <h3 style="margin-top:clamp(24px,3.4vw,36px)">Что одинаково во всех четырёх</h3>
+    <div class="common">
+      <div class="cm"><b>Предрасчёт до старта</b><span>Три сценария по объёму и цене единицы результата. Считается до подписания и становится базой для еженедельной сверки.</span></div>
+      <div class="cm"><b>Граница ответственности</b><span>Приложение к договору: что делает агентство, что обязан делать клиент, что считается квалифицированным обращением.</span></div>
+      <div class="cm"><b>Коллтрекинг и записи</b><span>Без записи разговоров невозможно ни считать доходимость, ни доказать, где именно теряются деньги.</span></div>
+      <div class="cm"><b>Дашборд на 4–6 цифр</b><span>Доступ круглосуточно. Не отчёт раз в месяц, а инструмент, который снимает у собственника привычку проверять всё вручную.</span></div>
+      <div class="cm"><b>Обучение принимающего заявки</b><span>Тридцать минут с тем человеком, который реально берёт трубку, — не с собственником.</span></div>
+      <div class="cm"><b>Правило раннего предупреждения</b><span>Отклонение факта от прогноза больше чем на 20% — звонок клиенту в тот же день, до того как он заметит сам.</span></div>
+    </div>
+  </section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">01</span><div><h2>Сезонный набор договоров</h2><p class="ru">Строительство домов · «Прораб в сезоне»</p></div></div>
+  <p class="lede">Дорогая сделка, короткое окно продаж и ключевой шаг — выезд на участок. Воронка строится не вокруг заявки, а вокруг записи на замер: именно там сделка становится реальной.</p>
+  <div class="two">
+    <div class="pane"><h3>Логика воронки</h3><ol class="stages"><li>Трафик: поиск, РСЯ, Авито, агрегаторы</li><li>Квиз-калькулятор сметы: параметры дома → вилка цены в обмен на контакт</li><li>Квалификация звонком: бюджет, участок, срок, кто решает</li><li>Запись на выезд и замер</li><li>Смета и коммерческое предложение</li><li>Договор и предоплата</li></ol>
+      <div class="mech"><b>Ключевая механика</b>Калькулятор отдаёт вилку цены сразу — это отсеивает тех, кто не готов к порядку сумм, и снимает главную причину пустых заявок «просто узнать цену».</div></div>
+    <div class="pane"><h3>Функционал</h3><ul class="dots"><li>Расчёт вилки цены по 6 параметрам объекта</li><li>Автоотсев по бюджету ниже порога</li><li>Мгновенное уведомление менеджеру в мессенджер</li><li>Напоминание о выезде за сутки и за 2 часа</li><li>Возврат недозвонов в работу через 3 дня</li><li>Сезонное переключение офферов</li></ul></div>
+  </div>
+  <div class="two">
+    <div class="pane"><h3>Входное ТЗ — что даёт клиент до старта</h3><ol class="nums"><li>Сметные нормативы: цена за м² по типам домов, что входит и что не входит</li><li>География выезда: радиус, ограничения, надбавки за удалённость</li><li>Мощность: число бригад, сколько объектов ведёте одновременно, свободные слоты по месяцам</li><li>Портфолио: 10+ объектов с фото, сроками и обезличенными сметами</li><li>Три клиента, готовых дать рекомендацию по телефону</li><li>Кто принимает заявки: имя, телефон, график, кто подменяет в выходные</li><li>CRM или письменное согласие её завести до старта</li><li>Доступ к домену, хостингу, рекламным кабинетам; реквизиты юрлица</li><li>Стоп-лист: что вы не строите и на какие запросы не хотите тратить бюджет</li><li>Минимальный рекламный бюджет и срок кампании</li></ol></div>
+    <div class="pane"><h3>Выходной результат — что сдаётся</h3><ul class="dots"><li>Квиз-калькулятор сметы и посадочная под него</li><li>Настроенные кампании в четырёх каналах с креативами</li><li>Коллтрекинг с записью разговоров</li><li>Воронка в CRM: 7 этапов, обязательные поля, причины отказа</li><li>Скрипт квалификации из 10 вопросов и скрипт назначения выезда</li><li>Регламент: ответ за 15 минут, выезд в течение 3 рабочих дней</li><li>Дашборд на 6 показателей с доступом 24/7</li><li>Прогноз на сезон в трёх сценариях</li></ul></div>
+  </div>
+  <div class="two">
+    <div class="pane"><h3>KPI воронки</h3><div class="tw"><table><tbody><tr><td data-label="Показатель">Цена квалифицированной заявки</td><td class="tg" data-label="Цель">3 500 – 7 000 ₽</td></tr><tr><td data-label="Показатель">Доля квалифицированных от всех обращений</td><td class="tg" data-label="Цель">≥ 45%</td></tr><tr><td data-label="Показатель">Квалифицированная заявка → выезд на замер</td><td class="tg" data-label="Цель">35 – 50%</td></tr><tr><td data-label="Показатель">Выезд → подписанный договор</td><td class="tg" data-label="Цель">20 – 30%</td></tr><tr><td data-label="Показатель">Цена договора</td><td class="tg" data-label="Цель">60 000 – 150 000 ₽</td></tr><tr><td data-label="Показатель">Скорость первого ответа</td><td class="tg" data-label="Цель">≤ 15 минут</td></tr><tr><td data-label="Показатель">Доходимость до выезда без отмены</td><td class="tg" data-label="Цель">≥ 70%</td></tr><tr><td data-label="Показатель">Загрузка бригад на 3 месяца вперёд к 1 мая</td><td class="tg" data-label="Цель">≥ 80%</td></tr></tbody></table></div></div>
+    <div class="pane"><h3>Часы на сборку</h3><div class="tw"><table><tbody><tr><td data-label="Работа">Аналитика ниши, региона и прогноз</td><td class="hh" data-label="Часы">10</td></tr><tr><td data-label="Работа">Квиз-калькулятор: логика и вёрстка</td><td class="hh" data-label="Часы">24</td></tr><tr><td data-label="Работа">Посадочная страница</td><td class="hh" data-label="Часы">20</td></tr><tr><td data-label="Работа">Настройка рекламы в 4 каналах</td><td class="hh" data-label="Часы">22</td></tr><tr><td data-label="Работа">Коллтрекинг, аналитика, дашборд</td><td class="hh" data-label="Часы">14</td></tr><tr><td data-label="Работа">Воронка и поля в CRM</td><td class="hh" data-label="Часы">10</td></tr><tr><td data-label="Работа">Скрипты и обучение менеджера</td><td class="hh" data-label="Часы">12</td></tr><tr><td data-label="Работа">Тексты и креативы</td><td class="hh" data-label="Часы">14</td></tr><tr><td data-label="Работа">Тестирование и запуск</td><td class="hh" data-label="Часы">8</td></tr>
+      <tr class="tot"><td data-label="Итого">Итого на сборку</td><td class="hh" data-label="Часы">134 ч</td></tr></tbody></table></div>
+      <p class="cap">Ориентировочно 8–10 рабочих дней силами двух-трёх человек.</p></div>
+  </div>
+  <h3 style="margin-top:clamp(22px,3vw,32px)">Ведение: что делается, чтобы воронка работала</h3>
+  <div class="tw"><table><tbody><tr><td class="pr" data-label="Ритм">Еженедельно</td><td data-label="Действия">Оптимизация кампаний, прослушка 10 звонков, сверка факта с прогнозом</td><td class="hh" data-label="Объём">5 ч / нед</td></tr><tr><td class="pr" data-label="Ритм">Ежемесячно</td><td data-label="Действия">Новые креативы, отчёт, обновление цен в калькуляторе</td><td class="hh" data-label="Объём">9 ч / мес</td></tr><tr><td class="pr" data-label="Ритм">Раз в полгода</td><td data-label="Действия">Пересборка предложения к старту сезона</td><td class="hh" data-label="Объём">12 ч</td></tr>
+    <tr class="tot"><td class="pr" data-label="Ритм">Итого</td><td data-label="Действия">Совокупная нагрузка на ведение</td><td class="hh" data-label="Объём">≈ 32 ч / мес</td></tr></tbody></table></div>
+</section>
+<section>
+  <div class="sec-head"><span class="sec-num">02</span><div><h2>Загрузка дорогого направления</h2><p class="ru">Клиники и стоматологии · «Доктор с бизнес-планом»</p></div></div>
+  <p class="lede">Здесь заявка почти ничего не значит: деньги теряются между записью и креслом. Воронка строится вокруг доходимости, а не вокруг объёма обращений, и целиком проходит юридическую проверку.</p>
+  <div class="two">
+    <div class="pane"><h3>Логика воронки</h3><ol class="stages"><li>Трафик: поиск, РСЯ, карты, агрегаторы врачей</li><li>Посадочная под конкретное направление, прошедшая юрпроверку</li><li>Запись: форма, телефон или мессенджер</li><li>Подтверждение за 24 часа и напоминание за 2 часа</li><li>Первичная консультация</li><li>План лечения и оплата</li></ol>
+      <div class="mech"><b>Ключевая механика</b>Отдельный контур подтверждения записи. Он не увеличивает число обращений, но поднимает доходимость до кресла — а это дешевле, чем покупать вдвое больше заявок.</div></div>
+    <div class="pane"><h3>Функционал</h3><ul class="dots"><li>Цепочка подтверждения записи в мессенджере</li><li>Автоматическая отработка неявок: звонок в тот же день</li><li>Раздельный учёт направлений и врачей</li><li>Библиотека согласованных формулировок для быстрой замены креативов</li><li>Контроль занятости слотов: реклама снижается при полной загрузке</li><li>Сбор отзывов после визита</li></ul></div>
+  </div>
+  <div class="two">
+    <div class="pane"><h3>Входное ТЗ — что даёт клиент до старта</h3><ol class="nums"><li>Лицензия и перечень услуг, которые можно рекламировать</li><li>Прайс по направлению и средний чек комплексного плана лечения</li><li>Мощность: число кресел, свободные слоты по врачам и дням недели</li><li>Врачи: имена, регалии, фото, сертификаты — нужны и для доверия, и для модерации</li><li>Контакт юриста и регламент согласования текстов и дисклеймеров</li><li>Доступ к МИС или CRM, согласие на интеграцию</li><li>Администраторы: сколько, график, кто отвечает в мессенджерах</li><li>Текущие агрегаторы: комиссии и доля записей оттуда</li><li>Согласие на запись звонков и обработку персональных данных пациентов</li><li>Фотографии клиники и оборудования, снятые не раньше этого года</li></ol></div>
+    <div class="pane"><h3>Выходной результат — что сдаётся</h3><ul class="dots"><li>Посадочная под направление с юридическим заключением</li><li>Кампании в поиске, РСЯ и картах с креативами, прошедшими модерацию</li><li>Обновлённые карточки в картах и на агрегаторах</li><li>Виджет записи с подтверждением и цепочкой напоминаний</li><li>Скрипт администратора и чек-лист отработки несостоявшихся записей</li><li>Коллтрекинг с записью разговоров</li><li>Дашборд: заявка → запись → визит → план лечения → оплата</li><li>Регламент юрсогласования новых материалов</li></ul></div>
+  </div>
+  <div class="two">
+    <div class="pane"><h3>KPI воронки</h3><div class="tw"><table><tbody><tr><td data-label="Показатель">Цена записи</td><td class="tg" data-label="Цель">1 500 – 4 000 ₽</td></tr><tr><td data-label="Показатель">Доходимость запись → визит</td><td class="tg" data-label="Цель">≥ 65% при базовых 40 – 50%</td></tr><tr><td data-label="Показатель">Визит → принятый план лечения</td><td class="tg" data-label="Цель">30 – 45%</td></tr><tr><td data-label="Показатель">Цена дошедшего пациента по направлению</td><td class="tg" data-label="Цель">4 000 – 12 000 ₽</td></tr><tr><td data-label="Показатель">Средний чек первичного плана</td><td class="tg" data-label="Цель">рост к базовому уровню</td></tr><tr><td data-label="Показатель">Креативы, прошедшие модерацию с первого раза</td><td class="tg" data-label="Цель">≥ 80%</td></tr><tr><td data-label="Показатель">Доля записей вне агрегаторов</td><td class="tg" data-label="Цель">рост квартал к кварталу</td></tr><tr><td data-label="Показатель">Окупаемость оборудования</td><td class="tg" data-label="Цель">план против факта, помесячно</td></tr></tbody></table></div></div>
+    <div class="pane"><h3>Часы на сборку</h3><div class="tw"><table><tbody><tr><td data-label="Работа">Аналитика, прогноз, юридический бриф</td><td class="hh" data-label="Часы">12</td></tr><tr><td data-label="Работа">Посадочная под направление</td><td class="hh" data-label="Часы">22</td></tr><tr><td data-label="Работа">Юрсогласование и правки</td><td class="hh" data-label="Часы">8</td></tr><tr><td data-label="Работа">Реклама: поиск, РСЯ, карты</td><td class="hh" data-label="Часы">24</td></tr><tr><td data-label="Работа">Карты и агрегаторы</td><td class="hh" data-label="Часы">10</td></tr><tr><td data-label="Работа">Виджет записи, напоминания, интеграция</td><td class="hh" data-label="Часы">18</td></tr><tr><td data-label="Работа">Коллтрекинг, аналитика, дашборд</td><td class="hh" data-label="Часы">14</td></tr><tr><td data-label="Работа">Скрипты администраторов и обучение</td><td class="hh" data-label="Часы">14</td></tr><tr><td data-label="Работа">Креативы под модерацию с запасом вариантов</td><td class="hh" data-label="Часы">12</td></tr>
+      <tr class="tot"><td data-label="Итого">Итого на сборку</td><td class="hh" data-label="Часы">134 ч</td></tr></tbody></table></div>
+      <p class="cap">Ориентировочно 8–10 рабочих дней силами двух-трёх человек.</p></div>
+  </div>
+  <h3 style="margin-top:clamp(22px,3vw,32px)">Ведение: что делается, чтобы воронка работала</h3>
+  <div class="tw"><table><tbody><tr><td class="pr" data-label="Ритм">Еженедельно</td><td data-label="Действия">Оптимизация кампаний, прослушка администраторов, сверка</td><td class="hh" data-label="Объём">5,5 ч / нед</td></tr><tr><td class="pr" data-label="Ритм">Ежемесячно</td><td data-label="Действия">Креативы под модерацию, работа с отзывами, отчёт</td><td class="hh" data-label="Объём">12 ч / мес</td></tr><tr><td class="pr" data-label="Ритм">Ежеквартально</td><td data-label="Действия">Аудит доходимости от записи до кресла</td><td class="hh" data-label="Объём">8 ч</td></tr>
+    <tr class="tot"><td class="pr" data-label="Ритм">Итого</td><td data-label="Действия">Совокупная нагрузка на ведение</td><td class="hh" data-label="Объём">≈ 38 ч / мес</td></tr></tbody></table></div>
+</section>
+<section>
+  <div class="sec-head"><span class="sec-num">03</span><div><h2>Календарь броней</h2><p class="ru">События и площадки · «Календарь на год вперёд»</p></div></div>
+  <p class="lede">Продаётся не услуга, а конкретная дата — и продаётся за полгода до неё. Воронка построена на дефиците: свободных дат видно всё меньше, и это единственный честный способ создать срочность.</p>
+  <div class="two">
+    <div class="pane"><h3>Логика воронки</h3><ol class="stages"><li>Визуальный трафик и поиск по датам и локации</li><li>Страница площадки с живым календарём занятости</li><li>Запрос конкретной даты</li><li>Показ площадки вживую</li><li>Бронь и предоплата</li></ol>
+      <div class="mech"><b>Ключевая механика</b>Публичный календарь занятости. Он делает работу за менеджера: человек видит, что его дата уходит, и торопится сам — без единого слова о скидке или дедлайне.</div></div>
+    <div class="pane"><h3>Функционал</h3><ul class="dots"><li>Синхронизация календаря с реальной занятостью</li><li>Автоответ с ближайшими свободными датами при занятой</li><li>Отдельная логика для будних и «неудобных» дат</li><li>Напоминание о показе и возврат тех, кто не дошёл</li><li>Дежурный контур выходного дня</li><li>Пересборка визуального контента к новому сезону</li></ul></div>
+  </div>
+  <div class="two">
+    <div class="pane"><h3>Входное ТЗ — что даёт клиент до старта</h3><ol class="nums"><li>Календарь занятости на 18 месяцев вперёд и имя того, кто его ведёт</li><li>Пакеты и цены, минимальный чек по дням недели и по сезонам</li><li>Правила брони: размер предоплаты, сроки, условия отмены</li><li>Фото и видео площадки со свежих мероприятий, с письменными разрешениями на публикацию</li><li>Подрядчики-партнёры: декораторы, фотографы, кейтеринг — для взаимного трафика</li><li>Мощность: сколько показов в неделю физически может провести администратор</li><li>Кто отвечает на заявки в выходные — это пик обращений</li><li>Отзывы пар и кейсы мероприятий с разрешением на использование</li><li>Сезонные ограничения: веранда, отопление, парковка</li></ol></div>
+    <div class="pane"><h3>Выходной результат — что сдаётся</h3><ul class="dots"><li>Страница площадки с живым календарём свободных дат</li><li>Кампании: визуальные площадки, поиск, агрегаторы площадок</li><li>Форма запроса даты с автоответом о занятости</li><li>Сценарий показа: подтверждение, напоминание, возврат через 3 дня</li><li>Скрипт удержания даты на 5 дней</li><li>Дашборд: запрос даты → показ → бронь → предоплата</li><li>Контент-план на 12 недель под визуальные площадки</li></ul></div>
+  </div>
+  <div class="two">
+    <div class="pane"><h3>KPI воронки</h3><div class="tw"><table><tbody><tr><td data-label="Показатель">Цена запроса даты</td><td class="tg" data-label="Цель">800 – 2 500 ₽</td></tr><tr><td data-label="Показатель">Запрос даты → показ площадки</td><td class="tg" data-label="Цель">30 – 45%</td></tr><tr><td data-label="Показатель">Показ → бронь с предоплатой</td><td class="tg" data-label="Цель">25 – 40%</td></tr><tr><td data-label="Показатель">Цена брони</td><td class="tg" data-label="Цель">8 000 – 25 000 ₽</td></tr><tr><td data-label="Показатель">Глубина бронирования к 1 марта</td><td class="tg" data-label="Цель">≥ 70% дат сезона</td></tr><tr><td data-label="Показатель">Доля будних дат в бронях</td><td class="tg" data-label="Цель">рост</td></tr><tr><td data-label="Показатель">Скорость ответа в выходные</td><td class="tg" data-label="Цель">≤ 30 минут</td></tr><tr><td data-label="Показатель">Средний чек мероприятия</td><td class="tg" data-label="Цель">рост за счёт пакетов</td></tr></tbody></table></div></div>
+    <div class="pane"><h3>Часы на сборку</h3><div class="tw"><table><tbody><tr><td data-label="Работа">Аналитика сезона и календаря</td><td class="hh" data-label="Часы">8</td></tr><tr><td data-label="Работа">Страница с календарём и интеграция занятости</td><td class="hh" data-label="Часы">26</td></tr><tr><td data-label="Работа">Визуальный контент: отбор, обработка, съёмочный бриф</td><td class="hh" data-label="Часы">16</td></tr><tr><td data-label="Работа">Настройка рекламы в 3 каналах</td><td class="hh" data-label="Часы">20</td></tr><tr><td data-label="Работа">Формы, автоответы, напоминания</td><td class="hh" data-label="Часы">14</td></tr><tr><td data-label="Работа">Аналитика и дашборд</td><td class="hh" data-label="Часы">12</td></tr><tr><td data-label="Работа">Скрипты показа и возврата</td><td class="hh" data-label="Часы">10</td></tr><tr><td data-label="Работа">Контент-план на 12 недель</td><td class="hh" data-label="Часы">12</td></tr>
+      <tr class="tot"><td data-label="Итого">Итого на сборку</td><td class="hh" data-label="Часы">118 ч</td></tr></tbody></table></div>
+      <p class="cap">Ориентировочно 7–9 рабочих дней силами двух-трёх человек.</p></div>
+  </div>
+  <h3 style="margin-top:clamp(22px,3vw,32px)">Ведение: что делается, чтобы воронка работала</h3>
+  <div class="tw"><table><tbody><tr><td class="pr" data-label="Ритм">Еженедельно</td><td data-label="Действия">Оптимизация кампаний, визуальный контент, сверка</td><td class="hh" data-label="Объём">6 ч / нед</td></tr><tr><td class="pr" data-label="Ритм">Ежемесячно</td><td data-label="Действия">Обновление календаря и креативов, отчёт</td><td class="hh" data-label="Объём">6,5 ч / мес</td></tr><tr><td class="pr" data-label="Ритм">Раз в полгода</td><td data-label="Действия">Пересъёмка и переупаковка к сезону</td><td class="hh" data-label="Объём">16 ч</td></tr>
+    <tr class="tot"><td class="pr" data-label="Ритм">Итого</td><td data-label="Действия">Совокупная нагрузка на ведение</td><td class="hh" data-label="Объём">≈ 35 ч / мес</td></tr></tbody></table></div>
+</section>
+<section>
+  <div class="sec-head"><span class="sec-num">04</span><div><h2>Распродажа объекта</h2><p class="ru">Недвижимость · «Риелтор против ставки»</p></div></div>
+  <p class="lede">Заявка живёт пятнадцать минут, а спрос зависит от ставки, которая может измениться в любой четверг. Воронка строится вокруг скорости передачи лида агенту и вокруг платежа, а не цены объекта.</p>
+  <div class="two">
+    <div class="pane"><h3>Логика воронки</h3><ol class="stages"><li>Трафик под конкретный объект: поиск, РСЯ, классифайды, ретаргет</li><li>Посадочная с калькулятором ежемесячного платежа</li><li>Мгновенное распределение лида дежурному агенту</li><li>Звонок в течение 15 минут</li><li>Показ объекта</li><li>Бронь</li></ol>
+      <div class="mech"><b>Ключевая механика</b>Роутинг с эскалацией: если агент не взял лид за отведённое время, заявка автоматически уходит следующему. Это единственный способ удержать скорость, когда агенты сидят на проценте.</div></div>
+    <div class="pane"><h3>Функционал</h3><ul class="dots"><li>Расчёт платежа по действующим программам</li><li>Автораспределение лидов по дежурству и эскалация при просрочке</li><li>Персональная статистика по каждому агенту</li><li>Быстрая замена ставок и условий во всех материалах разом</li><li>Возврат недозвонов и отказов «подумаю» через заданный интервал</li><li>Выгрузка отчёта для застройщика в один клик</li></ul></div>
+  </div>
+  <div class="two">
+    <div class="pane"><h3>Входное ТЗ — что даёт клиент до старта</h3><ol class="nums"><li>Объекты: остатки, планировки, цены, сроки сдачи</li><li>Актуальные ипотечные программы и ставки, список банков-партнёров</li><li>Агенты: список, график дежурств, правило распределения лидов</li><li>CRM и согласованный SLA: через сколько минут заявка уходит следующему</li><li>Согласие застройщика на использование материалов и на формат отчётности</li><li>Комиссия и определение того, что считается сделкой: бронь или договор</li><li>Юридические требования к рекламе объекта: проектная декларация, эскроу</li><li>Доступ к классифайдам и текущие расходы на них</li><li>Стоп-лист объектов, которые продвигать не нужно</li></ol></div>
+    <div class="pane"><h3>Выходной результат — что сдаётся</h3><ul class="dots"><li>Посадочная под конкретный объект с калькулятором платежа</li><li>Кампании в четырёх каналах с креативами под текущую ставку</li><li>Роутинг лидов с эскалацией по таймеру</li><li>Скрипт первого звонка под действующие программы и отработка «дорого»</li><li>Дашборд: заявка → дозвон → показ → бронь, в разрезе агентов</li><li>Шаблон еженедельного отчёта для застройщика</li><li>Регламент SLA на 15 минут с эскалацией</li></ul></div>
+  </div>
+  <div class="two">
+    <div class="pane"><h3>KPI воронки</h3><div class="tw"><table><tbody><tr><td data-label="Показатель">Цена заявки</td><td class="tg" data-label="Цель">1 500 – 5 000 ₽</td></tr><tr><td data-label="Показатель">Дозвон до контакта</td><td class="tg" data-label="Цель">≥ 75%</td></tr><tr><td data-label="Показатель">Скорость первого ответа</td><td class="tg" data-label="Цель">≤ 15 минут, просрочек ≤ 10%</td></tr><tr><td data-label="Показатель">Заявка → показ объекта</td><td class="tg" data-label="Цель">15 – 25%</td></tr><tr><td data-label="Показатель">Показ → бронь</td><td class="tg" data-label="Цель">20 – 35%</td></tr><tr><td data-label="Показатель">Цена брони</td><td class="tg" data-label="Цель">25 000 – 80 000 ₽</td></tr><tr><td data-label="Показатель">Лиды, не взятые агентом в срок</td><td class="tg" data-label="Цель">≤ 10%</td></tr><tr><td data-label="Показатель">Срок реализации остатков</td><td class="tg" data-label="Цель">план против факта</td></tr></tbody></table></div></div>
+    <div class="pane"><h3>Часы на сборку</h3><div class="tw"><table><tbody><tr><td data-label="Работа">Аналитика объекта и рынка ставок</td><td class="hh" data-label="Часы">10</td></tr><tr><td data-label="Работа">Посадочная и калькулятор платежа</td><td class="hh" data-label="Часы">24</td></tr><tr><td data-label="Работа">Настройка рекламы в 4 каналах</td><td class="hh" data-label="Часы">26</td></tr><tr><td data-label="Работа">Роутинг, интеграция с CRM, эскалация</td><td class="hh" data-label="Часы">18</td></tr><tr><td data-label="Работа">Коллтрекинг и дашборд по агентам</td><td class="hh" data-label="Часы">16</td></tr><tr><td data-label="Работа">Скрипты и обучение агентов</td><td class="hh" data-label="Часы">14</td></tr><tr><td data-label="Работа">Шаблон отчёта для застройщика</td><td class="hh" data-label="Часы">6</td></tr><tr><td data-label="Работа">Креативы</td><td class="hh" data-label="Часы">12</td></tr>
+      <tr class="tot"><td data-label="Итого">Итого на сборку</td><td class="hh" data-label="Часы">126 ч</td></tr></tbody></table></div>
+      <p class="cap">Ориентировочно 7–10 рабочих дней силами двух-трёх человек.</p></div>
+  </div>
+  <h3 style="margin-top:clamp(22px,3vw,32px)">Ведение: что делается, чтобы воронка работала</h3>
+  <div class="tw"><table><tbody><tr><td class="pr" data-label="Ритм">Еженедельно</td><td data-label="Действия">Оптимизация кампаний, прослушка агентов, отчёт застройщику</td><td class="hh" data-label="Объём">6,5 ч / нед</td></tr><tr><td class="pr" data-label="Ритм">Ежемесячно</td><td data-label="Действия">Обновление под текущую ставку, новые креативы</td><td class="hh" data-label="Объём">8 ч / мес</td></tr><tr><td class="pr" data-label="Ритм">По событию</td><td data-label="Действия">Экстренная пересборка при изменении ставки или программы</td><td class="hh" data-label="Объём">8 ч</td></tr>
+    <tr class="tot"><td class="pr" data-label="Ритм">Итого</td><td data-label="Действия">Совокупная нагрузка на ведение</td><td class="hh" data-label="Объём">≈ 39 ч / мес</td></tr></tbody></table></div>
+</section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">05</span><div><h2>Экономика сборки</h2><p class="ru">Что значат эти часы для команды</p></div></div>
+    <p class="lede">Первая сборка в новом сегменте всегда самая дорогая. Вторая и последующие в том же сегменте занимают <strong>примерно вдвое меньше</strong>: калькулятор, скрипты, структура дашборда, библиотека согласованных формулировок и рекламные структуры переиспользуются. Именно в этом экономический смысл продуктизации — не в красивом описании, а в том, что третий клиент в нише стоит вам 60–70 часов вместо 130.</p>
+    <div class="common">
+      <div class="cm"><b>Первая сборка в нише</b><span>118–134 часа. Это исследование, а не производство: половина времени уходит на то, чтобы понять, как в этой отрасли устроен путь до денег.</span></div>
+      <div class="cm"><b>Вторая и далее</b><span>60–75 часов. Переиспользуются механики и шаблоны, уникальными остаются данные клиента, креативы и настройка под его мощность.</span></div>
+      <div class="cm"><b>Ведение</b><span>В среднем 36 часов в месяц на воронку. Эта цифра не снижается от шаблонизации — она про внимание, а не про сборку.</span></div>
+      <div class="cm"><b>Один специалист</b><span>При 150 полезных часах в месяц ведёт 4 воронки. Не 8 и не 12.</span></div>
+    </div>
+
+    <div class="warn">
+      <h3>Уточнение к плану найма из стратегии</h3>
+      <p>В документе о годовой стратегии я оценил ёмкость аккаунт-менеджера в 8–12 клиентов, считая только еженедельные сверки. Полная нагрузка на ведение воронки — <b>36 часов в месяц</b>, а значит реальная ёмкость специалиста <b>четыре воронки</b>. Это меняет выводы:</p>
+      <ul>
+        <li><b>Тридцать одновременных клиентов требуют семи-восьми специалистов ведения</b>, а не удвоения команды. Для агентства из 3–10 человек это другой бизнес, а не рост текущего.</li>
+        <li><b>Рекомендация из стратегии становится обязательной, а не желательной:</b> портфель из трёх абонементов и двух входных продуктов в месяц вместо пяти одинаковых абонементов.</li>
+        <li><b>Альтернатива — поднять чек и брать меньше клиентов.</b> Четыре воронки на специалисте при абонементе 150–200 тыс. ₽ дают выручку, при которой команда из шести человек обслуживает 20 клиентов и зарабатывает больше, чем из двенадцати на тридцати.</li>
+        <li><b>Третий путь — резать состав.</b> Часть функционала (роутинг с эскалацией, интеграция с МИС, живой календарь) можно выносить в дополнительный продукт, оставляя в базовой воронке трафик, посадочную и аналитику. Это снижает и сборку, и ведение примерно на треть.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">06</span><div><h2>Продуктовая линейка</h2><p class="ru">Пять уровней, выведенных из воронок</p></div></div>
+    <p class="lede">Линейка собрана так, чтобы каждый следующий уровень был естественным продолжением предыдущего, а не отдельной продажей. Цены — <strong>ориентиры для калибровки</strong>: они опираются на рыночные данные и на трудоёмкость выше, но ваш фактический чек и ставку часа я не знаю.</p>
+
+    <div class="ladder">
+
+      <div class="rg">
+        <div class="lv"><div class="t">Лид-магнит</div><div class="pz">0 ₽<br>2 ч на выпуск среза</div></div>
+        <div class="bd">
+          <h4>Отраслевой срез индекса и чек-лист «10 вопросов подрядчику»</h4>
+          <p>Цифры по его нише, региону и месяцу — то, чего нет ни в одном открытом источнике. Чек-лист внутри даёт власть в переговорах и потому пересылается коллегам. Выдаётся ботом в обмен на контакт, нишу и регион: два последних поля обогащают вашу базу.</p>
+          <ul><li>PDF 10–15 страниц</li><li>выдача через бота</li><li>обновление раз в квартал</li></ul>
+          <div class="job"><b>Задача уровня</b>Получить контакт и показать, что вы считаете, а не обещаете. Ничего не продаёт напрямую.</div>
+        </div>
+      </div>
+
+      <div class="rg">
+        <div class="lv"><div class="t">Трипвайер</div><div class="pz">20 000 – 40 000 ₽<br>12–16 ч · 5 дней</div></div>
+        <div class="bd">
+          <h4>Предрасчёт сезона с аудитом обработки заявок</h4>
+          <p>Три сценария по объёму и цене единицы результата для его бизнеса, прогноз цены договора и разбор двадцати записей его собственных звонков. Клиент впервые видит цифру про себя — и заодно узнаёт, сколько теряет между заявкой и договором. Стоимость засчитывается в сборку воронки.</p>
+          <ul><li>расчётный лист</li><li>разбор 20 звонков</li><li>чек-лист готовности продаж</li><li>защита на встрече 30 мин</li></ul>
+          <div class="job"><b>Задача уровня</b>Снять главный барьер — невозможность проверить подрядчика — и отсеять тех, у кого некому обрабатывать заявки.</div>
+        </div>
+      </div>
+
+      <div class="rg core">
+        <div class="lv"><div class="t">Основной продукт</div><div class="pz">Сборка 300 000 – 450 000 ₽<br>Ведение 110 000 – 180 000 ₽/мес<br>Минимум 4 месяца</div></div>
+        <div class="bd">
+          <h4>Воронка под сегмент: сборка и ведение</h4>
+          <p>Всё, что описано выше по вашему сегменту: механика, посадочные, реклама, аналитика, скрипты, дашборд и еженедельная сверка. Предмет договора — загрузка мощности к дате, а не количество настроенных кампаний. Сборка может быть выделена отдельным платежом или распределена по первым трём месяцам абонемента: первый вариант защищает вас от кассового разрыва, второй заметно облегчает вход клиенту.</p>
+          <ul><li>118–134 ч сборки</li><li>32–39 ч/мес ведения</li><li>приложение о границе ответственности</li><li>SLA на ответ</li></ul>
+          <div class="job"><b>Задача уровня</b>Дать предсказуемый поток и стать той системой, которую дорого и страшно менять.</div>
+        </div>
+      </div>
+
+      <div class="rg">
+        <div class="lv"><div class="t">Дополнительные</div><div class="pz">25 000 – 180 000 ₽<br>по факту потребности</div></div>
+        <div class="bd">
+          <h4>Четыре допродажи, каждая по внутреннему триггеру</h4>
+          <p><b>Аудит обработки заявок</b> — 16 ч, 50–70 тыс. ₽ за квартал. Триггер: три недели подряд заявки в плане, а договоров нет. <b>Вторая воронка</b> — направление, объект или точка, 60–75 ч, 120–180 тыс. ₽. Триггер: загрузка первой выше 90% две недели. <b>Реактивация базы отказов</b> — 24 ч, 70–90 тыс. ₽. Триггер: наличие более 300 закрытых сделок в CRM. <b>Отчёт для третьего лица</b> — банка, застройщика, управляющей компании, 8 ч, 25–35 тыс. ₽/мес. Триггер: клиент попросил показать результаты кому-то ещё.</p>
+          <ul><li>продаются по событию</li><li>не пакетом на входе</li><li>не требуют новой сборки</li></ul>
+          <div class="job"><b>Задача уровня</b>Поднять выручку с клиента без пропорционального роста нагрузки на ведение.</div>
+        </div>
+      </div>
+
+      <div class="rg">
+        <div class="lv"><div class="t">Премиальный</div><div class="pz">350 000 – 600 000 ₽/мес<br>минимум 6 месяцев</div></div>
+        <div class="bd">
+          <h4>Загрузка мощности под ключ</h4>
+          <p>Две-четыре воронки одновременно — несколько направлений клиники, объектов застройщика или площадок. Выделенный аналитик, еженедельная сверка лично с собственником, персональный квартальный срез индекса с сопоставлением его цифр с рынком, SLA на ответ четыре часа и место в закрытом клубе клиентов из других городов. Для сегмента с оборотом от 100 млн ₽ в год и несколькими точками роста одновременно.</p>
+          <ul><li>2–4 воронки</li><li>выделенный аналитик</li><li>персональный срез индекса</li><li>клуб клиентов</li></ul>
+          <div class="job"><b>Задача уровня</b>Сделать так, чтобы один клиент занимал специалиста целиком и приносил столько же, сколько четверо. Это единственный способ выйти из потолка по количеству клиентов.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="warn">
+      <h3>Что нужно уточнить, прежде чем ставить цены</h3>
+      <ul>
+        <li><b>Ваша ставка часа.</b> При 2 000 ₽/ч себестоимость сборки — 240–270 тыс. ₽, при 3 500 ₽/ч — 410–470 тыс. ₽. От этого напрямую зависит, продаётся ли сборка отдельно или растворяется в абонементе.</li>
+        <li><b>Реальная ёмкость ваших людей.</b> Сто пятьдесят полезных часов в месяц — оценка сверху для специалиста без совещаний и продаж. Померьте фактическую загрузку за месяц, прежде чем считать, сколько клиентов вы потянете.</li>
+        <li><b>Готовность клиентов платить за сборку отдельно.</b> Разовый платёж в 300–450 тыс. ₽ проходит у клиники и застройщика и почти никогда — у бригады из двадцати человек. Возможно, для строительного сегмента понадобится урезанная версия воронки.</li>
+        <li><b>Диапазоны KPI по каждому сегменту.</b> Приведённые вилки — рыночные ориентиры. После первых двух-трёх воронок в нише замените их своими фактическими значениями: это и станет тем самым индексом, на котором держится всё позиционирование.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>Воронки как продукт агентства · 4 сегмента · продуктовая линейка из 5 уровней</footer>
+</div>
